@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class CourseView : MonoBehaviour
 {
-    GameObject arrow, ship;
+    public GameObject ship;
     Rigidbody shipRB;
     public Vector3 velocity;
     // Start is called before the first frame update
     void Start()
     {
-        ship = GameObject.Find("Player");
         shipRB = ship.GetComponent<Rigidbody>();   
     }
 

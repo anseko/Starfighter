@@ -8,7 +8,7 @@ public class DataOutput : MonoBehaviour
 {
     // Start is called before the first frame update
     Text pointsText;
-    public float rotSpeed;
+    private float rotSpeed;
     private float roundSpeed;
     void Start()
     {
@@ -22,6 +22,6 @@ public class DataOutput : MonoBehaviour
     {
         roundSpeed = (float)Math.Round(GameObject.Find("Player").GetComponent<playerScript>().shipSpeed, 2); // скорость полета
         rotSpeed = (float)Math.Round(GameObject.Find("Player").GetComponent<playerScript>().shipRotation * Mathf.Rad2Deg, 2); //скорость врещения в градусах
-        pointsText.text = "Speed: " + roundSpeed.ToString() + "\n" + "Rotation: " + rotSpeed.ToString(); // вывод в UI
+        pointsText.text = "Скорость: " + roundSpeed.ToString() + "\n" + "Вращение: " + rotSpeed.ToString();// вывод в UI
     }
 }
