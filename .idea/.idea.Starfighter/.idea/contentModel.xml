@@ -143,12 +143,6 @@
             <e p="CoreEventStorage.cs" t="Include" />
             <e p="Enums.cs" t="Include" />
             <e p="Events.cs" t="Include" />
-            <e p="EventSystem" t="Include">
-              <e p="DangerZoneEditEvent.cs" t="Include" />
-              <e p="Events.cs" t="Include" />
-              <e p="GameEvent.cs" t="Include" />
-              <e p="GameEventListener.cs" t="Include" />
-            </e>
             <e p="Importer.cs" t="Include" />
             <e p="InputManager" t="Include">
               <e p="InputManager.cs" t="Include" />
@@ -225,18 +219,6 @@
             <e p="SpaceShipConfig.cs" t="Include" />
             <e p="SpaceUnitConfig.cs" t="Include" />
           </e>
-          <e p="Sounds" t="Include">
-            <e p="BackgroundMusic" t="Include">
-              <e p="ReadMe.txt" t="Include" />
-            </e>
-          </e>
-          <e p="UnitBehavior" t="Include">
-            <e p="Asteroid.cs" t="Include" />
-            <e p="DangerZone.cs" t="Include" />
-            <e p="SpaceBase.cs" t="Include" />
-            <e p="SpaceShip.cs" t="Include" />
-            <e p="SpaceUnit.cs" t="Include" />
-          </e>
           <e p="Utils" t="Include">
             <e p="Dispatcher.cs" t="Include" />
             <e p="InstantiateHelper.cs" t="Include" />
@@ -245,6 +227,11 @@
         <e p="Shaders" t="Include">
           <e p="MenuShader.shader" t="Include" />
           <e p="NaviStarfieldShader.shader" t="Include" />
+        </e>
+        <e p="Sounds" t="Include">
+          <e p="BackgroundMusic" t="Include">
+            <e p="ReadMe.txt" t="Include" />
+          </e>
         </e>
         <e p="Sprites" t="Include">
           <e p="Background" t="Include">

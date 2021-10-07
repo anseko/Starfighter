@@ -66,7 +66,6 @@ namespace Net
                     Constants.ServerSendingPort, Constants.ServerReceivingPort);
                 Debug.Log($"start waiting connection packs from anyone: {Constants.ServerReceivingPort}");
                 _multicastUdpClient.BeginReceivingPackage();
-                
             }
             catch (Exception ex)
             {
@@ -107,12 +106,6 @@ namespace Net
                 .Where(obj => obj.CompareTag(Constants.DynamicTag));
             foreach (var go in allGameObjects)
             {
-                if (go.CompareTag(Constants.WayPointTag))
-                {
-                    worldObjects.Add(new WayPoint(go.name, go.transform));
-                    yield return null;
-                }
-
                 var ps = go.GetComponent<PlayerScript>();
                 
                 if (ps)
@@ -126,6 +119,7 @@ namespace Net
                         new SpaceShipDto(ps.shipConfig),
                         ps.GetState()));
                     yield return null;
+                    continue;
                 }
 
                 worldObjects.Add(new WorldObject(go.name, go.transform));

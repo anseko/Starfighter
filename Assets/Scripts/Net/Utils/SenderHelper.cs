@@ -25,11 +25,11 @@ namespace Net.Utils
 
             switch (type)
             {
+                case EventType.GrappleEvent:
                 case EventType.DockEvent:
                     ClientHandlerManager.instance.AddToPendingList(pack);
                     break;
                 case EventType.MoveEvent:
-                case EventType.GrappleEvent:
                 case EventType.FireEvent:
                 case EventType.HitEvent:
                 case EventType.InitEvent:
