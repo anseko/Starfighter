@@ -44,7 +44,7 @@ namespace Net.Core
 
                 _udpSocket = new StarfighterUdpClient(address, sendingPort, listeningPort);
 
-                WorldInit();
+                
                 
                 StartListenClient();
             }
@@ -203,13 +203,7 @@ namespace Net.Core
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        private async void WorldInit()
-        {
-            var asteroids = GameObject.FindGameObjectsWithTag(Constants.AsteroidTag);
-            Debug.unityLogger.Log(await _udpSocket.SendEventPackage(asteroids.Length, EventType.InitEvent));
-            MainServerLoop.instance.LaunchCoroutine(WorldInitCoroutine(asteroids.ToList(), 100));
-        }
+        
 
         private IEnumerator WorldInitCoroutine(List<GameObject> asteroids, int rangeSize = 10)
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45052743, g: 0.50051963, b: 0.57510996, a: 1}
+  m_IndirectSpecularColor: {r: 0.1832484, g: 0.22889234, b: 0.30638856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -761,6 +761,7 @@ GameObject:
   - component: {fileID: 2086786623}
   - component: {fileID: 2086786622}
   - component: {fileID: 2086786624}
+  - component: {fileID: 2086786621}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -768,6 +769,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2086786621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086786620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!20 &2086786622
 Camera:
   m_ObjectHideFlags: 0
@@ -838,6 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  _isFollowMode: 0
 --- !u!1 &2088699826
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,9 +883,12 @@ GameObject:
   - component: {fileID: 2088699828}
   - component: {fileID: 2088699827}
   - component: {fileID: 2088699830}
-  - component: {fileID: 2088699829}
   - component: {fileID: 2088699831}
+  - component: {fileID: 2088699829}
   - component: {fileID: 2088699832}
+  - component: {fileID: 2088699834}
+  - component: {fileID: 2088699833}
+  - component: {fileID: 2088699835}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -873,6 +910,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 812116848}
   clientCounter: {fileID: 987783307}
+  accountObjects:
+  - {fileID: 11400000, guid: 1e00b4b1bfc4af54499628773c95d73a, type: 2}
+  - {fileID: 11400000, guid: fa591dcf102eb8b43934989f4aca7b26, type: 2}
+  - {fileID: 11400000, guid: f3103a3992c74bc40a468a3b53c19f45, type: 2}
+  - {fileID: 11400000, guid: 74296eb421f3c49459859c1fe52a1d00, type: 2}
 --- !u!4 &2088699828
 Transform:
   m_ObjectHideFlags: 0
@@ -908,14 +950,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2088699826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e1239e6cd82954bbb40acbbc570e48, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c2e53dd016b4ead817aa17b3633dc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountObjects:
-  - {fileID: 11400000, guid: 1e00b4b1bfc4af54499628773c95d73a, type: 2}
-  - {fileID: 11400000, guid: fa591dcf102eb8b43934989f4aca7b26, type: 2}
-  - {fileID: 11400000, guid: f3103a3992c74bc40a468a3b53c19f45, type: 2}
-  - {fileID: 11400000, guid: 74296eb421f3c49459859c1fe52a1d00, type: 2}
 --- !u!114 &2088699831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,3 +983,96 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05fb9e707d9caa14db8adc00133a6d94, type: 2}
   - {fileID: 11400000, guid: b37de5f8b3f5bdc4fafe3d983dba861b, type: 2}
   keyConfig: {fileID: 11400000, guid: fca14635af08fe442a8970f56fa16013, type: 2}
+--- !u!114 &2088699833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088699826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84c2d8dfe509a34fb59e2b81f8e1319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MessageBufferSize: 5120
+  MaxConnections: 100
+  MaxSentMessageQueueSize: 128
+  ConnectAddress: 127.0.0.1
+  ConnectPort: 7777
+  ServerListenPort: 7777
+  ServerWebsocketListenPort: 8887
+  SupportWebsocket: 0
+  Channels: []
+  UseMLAPIRelay: 0
+  MLAPIRelayAddress: 184.72.104.138
+  MLAPIRelayPort: 8888
+  MessageSendMode: 0
+--- !u!114 &2088699834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088699826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DontDestroy: 1
+  RunInBackground: 1
+  LogLevel: 1
+  NetworkConfig:
+    ProtocolVersion: 0
+    NetworkTransport: {fileID: 2088699833}
+    RegisteredScenes:
+    - MainMenu
+    - ServerScene
+    AllowRuntimeSceneChanges: 0
+    NetworkPrefabs: []
+    PlayerPrefabHash:
+      id: 0
+    CreatePlayerPrefab: 1
+    ReceiveTickrate: 64
+    NetworkTickIntervalSec: 0.05
+    MaxReceiveEventsPerTickRate: 500
+    EventTickrate: 64
+    ClientConnectionBufferTimeout: 5
+    ConnectionApproval: 1
+    ConnectionData: 
+    EnableTimeResync: 0
+    TimeResyncInterval: 30
+    EnableNetworkVariable: 1
+    EnsureNetworkVariableLengthSafety: 0
+    EnableSceneManagement: 1
+    ForceSamePrefabs: 1
+    UsePrefabSync: 0
+    RecycleNetworkIds: 1
+    NetworkIdRecycleDelay: 120
+    RpcHashSize: 0
+    LoadSceneTimeOut: 120
+    EnableMessageBuffering: 1
+    MessageBufferTimeout: 20
+    EnableNetworkLogs: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
+--- !u!114 &2088699835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088699826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 6129205555006778716
+  PrefabHashGenerator: Server
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 1

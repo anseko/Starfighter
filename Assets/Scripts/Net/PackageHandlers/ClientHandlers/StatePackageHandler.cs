@@ -13,20 +13,6 @@ namespace Net.PackageHandlers.ClientHandlers
             var statePack = pack as StatePackage;
             try
             {
-                // var data = new NativeArray<WorldJobData>(statePack?.data.worldState.Select(x=>new WorldJobData(x)).ToArray(), Allocator.TempJob);
-                // var job = new StatePackageJob()
-                // {
-                //     StateData = data
-                // };
-                // var handle = job.Schedule(data.Length, 4);
-                // handle.Complete();
-                // data.Dispose();
-                MainClientLoop.instance.StatePackages.Push(statePack);
-                // Dispatcher.Instance.Invoke(() =>
-                // {
-                //     
-                //     
-                // });
             }
             catch (Exception ex)
             {

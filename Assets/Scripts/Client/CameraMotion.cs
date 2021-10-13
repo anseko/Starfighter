@@ -8,7 +8,8 @@ namespace Client
         private Camera _camera;
         private Vector3 _offset;
         private Vector3 _translationPoint;
-        private bool _isFollowMode = true;
+        [SerializeField]
+        private bool _isFollowMode;
         
         // Start is called before the first frame update
         private void Start()

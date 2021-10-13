@@ -138,7 +138,7 @@
             <e p="ClassExtensions" t="Include">
               <e p="DtoExtensions.cs" t="Include" />
             </e>
-            <e p="ClientConnectionHelper.cs" t="Include" />
+            <e p="ConnectionHelper.cs" t="Include" />
             <e p="Constants.cs" t="Include" />
             <e p="CoreEventStorage.cs" t="Include" />
             <e p="Enums.cs" t="Include" />

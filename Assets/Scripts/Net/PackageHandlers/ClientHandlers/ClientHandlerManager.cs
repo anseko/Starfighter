@@ -24,7 +24,7 @@ namespace Net.PackageHandlers.ClientHandlers
             AcceptHandler = new AcceptPackageHandler();
             DeclineHandler = new DeclinePackageHandler();
             EventHandler = new EventPackageHandler();
-            StateHandler = new StatePackageHandler();
+
             _responsePendingList = new List<AbstractPackage>();
         }
 

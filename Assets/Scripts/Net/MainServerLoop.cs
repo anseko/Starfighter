@@ -3,17 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Client;
 using Core;
 using Core.InputManager;
 using Core.Models;
+using MLAPI;
+using MLAPI.Configuration;
+using MLAPI.Messaging;
+using MLAPI.SceneManagement;
+using MLAPI.Spawning;
+using MLAPI.Transports.UNET;
 using Net.Core;
 using Net.PackageData;
 using Net.PackageHandlers.ServerHandlers;
 using Net.Packages;
 using Net.Utils;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,74 +31,75 @@ using Utils;
 
 namespace Net
 {
-    [RequireComponent(typeof(ClientManager))]
     [RequireComponent(typeof(HandlerManager))]
     [RequireComponent(typeof(ServerInitializeHelper))]
     [RequireComponent(typeof(InputManager))]
-    public class MainServerLoop : Singleton<MainServerLoop>
+    public class MainServerLoop : NetworkBehaviour
     {
         public Image indicator;
         public TextMeshProUGUI clientCounter;
-        
-        private StarfighterUdpClient _multicastUdpClient;
-        private bool _isUpdating;
-        
-        private new void Awake()
+        [SerializeField] private List<ClientAccountObject> accountObjects;
+
+
+        private void Awake()
         {
-            base.Awake();
             NetEventStorage.GetInstance().worldInit.AddListener(BeginReceiving);
             // QualitySettings.vSyncCount = 0;
             // Application.targetFrameRate = 120;
         }
 
-        private void ConfigInit()
+        private void OnDisconnectCallback(ulong clientId)
         {
-            StartCoroutine(ServerInitializeHelper.instance.InitServer());
+            if (NetworkManager.Singleton.ConnectedClients.ContainsKey(clientId))
+            {
+                Debug.unityLogger.Log($"Disconnection: {clientId}");
+                //TODO: OtherDisconnectionStuff
+            }
+            else
+            {
+                Debug.unityLogger.Log("Server : There is no such client to Disconnect!");
+            }
         }
 
-        private void ConfigSave()
+        private void OnConnectCallback(ulong clientId)
         {
-            ServerInitializeHelper.instance.SaveServer();
+            Debug.Log($"Connection accepted: {clientId}");
+            var account = accountObjects.First(x => x.clientId == clientId);
+            FindObjectOfType<ConnectionHelper>().SelectSceneClientRpc(clientId, account.type);
+            //Передача владения объектом корабля
+            // var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            // go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
+            //TODO: OtherConnectionStuff
+        }
+
+        private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
+        {
+            var connectionString = Encoding.ASCII.GetString(connectionData);
+            Debug.unityLogger.Log($"Connection approve: {connectionString}");
+            var account = accountObjects.FirstOrDefault(acc => (acc.login + acc.password).GetHashCode() == connectionString.GetHashCode());
+            account.clientId = clientId;
+            //If approve is true, the connection gets added. If it's false. The client gets disconnected
+            callback(false, null, account != null, null, null);
         }
         
         private void Start()
         {
-            ConfigInit();
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
+            StartCoroutine(ServerInitializeHelper.instance.InitServer());
         }
 
         public void BeginReceiving(int _)
         {
-            try
-            {
-                _multicastUdpClient = new StarfighterUdpClient(IPAddress.Parse(Constants.MulticastAddress),
-                    Constants.ServerSendingPort, Constants.ServerReceivingPort);
-                Debug.Log($"start waiting connection packs from anyone: {Constants.ServerReceivingPort}");
-                _multicastUdpClient.BeginReceivingPackage();
-            }
-            catch (Exception ex)
-            {
-                Debug.unityLogger.LogException(ex);
-            }
+            NetworkManager.Singleton.StartServer();
         }
         
         private void Update()
         {
-            try
-            {
-                StartCoroutine(CollectWorldObjects());
-                clientCounter.text = ClientManager.instance.ConnectedClients.Count.ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.unityLogger.LogException(ex);
-            }
+            
         }
 
-        public void LaunchCoroutine(IEnumerator coroutine)
-        {
-            StartCoroutine(coroutine);
-        }
-        
         private void FixedUpdate()
         {
             Dispatcher.Instance.InvokePending();
@@ -98,9 +107,6 @@ namespace Net
 
         private IEnumerator CollectWorldObjects()
         {
-            if(_isUpdating) yield break;
-            
-            _isUpdating = true;
             var worldObjects = new List<WorldObject>();
             var allGameObjects = SceneManager.GetActiveScene().GetRootGameObjects()
                 .Where(obj => obj.CompareTag(Constants.DynamicTag));
@@ -135,22 +141,18 @@ namespace Net
             {
                 Task.Run(() => client.SendPackage(statePackage)); 
             }
-            
-            _isUpdating = false;
         }
         
         private void OnDestroy()
         {
-            ClientManager.instance.Dispose();
+            NetworkManager.Singleton.StopServer();
             HandlerManager.instance.Dispose();
         }
 
         private void OnApplicationQuit()
         {
-            ConfigSave();
-            ClientManager.instance.Dispose();
-            HandlerManager.instance.Dispose();
-            _multicastUdpClient.Dispose();
+            ServerInitializeHelper.instance.SaveServer();
+            OnDestroy();
         }
     }
 
