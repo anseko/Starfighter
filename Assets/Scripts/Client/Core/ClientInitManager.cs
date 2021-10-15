@@ -2,21 +2,15 @@
 using Core;
 using UnityEngine;
 using Client.UI;
+using MLAPI;
+using MLAPI.Messaging;
+using UnityEngine.SceneManagement;
 
 namespace Client.Core
 {
-    public class ClientInitManager: Singleton<ClientInitManager>
+    public class ClientInitManager: MonoBehaviour
     {
-        protected new void Awake()
-        {
-            base.Awake();
-            
-            ClientEventStorage.GetInstance().InitNavigator.AddListener(InitNavigator);
-            ClientEventStorage.GetInstance().InitPilot.AddListener(InitPilot);
-        }
-
-
-        private static void InitPilot(PlayerScript ps)
+        public static void InitPilot(PlayerScript ps)
         {
             ps.movementAdapter = MovementAdapter.PlayerControl;
             ps.gameObject.GetComponent<Collider>().enabled = false;
@@ -39,8 +33,8 @@ namespace Client.Core
             Resources.FindObjectsOfTypeAll<GPSView>().First().Init(ps);
             FindObjectOfType<MenuButton>().PauseMenuUI = Resources.FindObjectsOfTypeAll<PauseMenu>().First().gameObject;
         }
-
-        private static void InitNavigator(PlayerScript ps)
+        
+        public static void InitNavigator(PlayerScript ps)
         {
             ps.movementAdapter = MovementAdapter.RemoteNetworkControl;
             ps.gameObject.GetComponent<Collider>().enabled = false;

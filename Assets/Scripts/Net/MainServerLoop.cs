@@ -26,20 +26,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-// using UnityEngine.UIElements;
 using Utils;
 
 namespace Net
 {
     [RequireComponent(typeof(HandlerManager))]
     [RequireComponent(typeof(ServerInitializeHelper))]
-    [RequireComponent(typeof(InputManager))]
-    public class MainServerLoop : NetworkBehaviour
+    public class MainServerLoop : MonoBehaviour
     {
         public Image indicator;
         public TextMeshProUGUI clientCounter;
         [SerializeField] private List<ClientAccountObject> accountObjects;
-
+        [SerializeField] private ConnectionHelper _connector;
 
         private void Awake()
         {
@@ -48,6 +46,14 @@ namespace Net
             // Application.targetFrameRate = 120;
         }
 
+        private void Start()
+        {
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
+            StartCoroutine(ServerInitializeHelper.instance.InitServer());
+        }
+        
         private void OnDisconnectCallback(ulong clientId)
         {
             if (NetworkManager.Singleton.ConnectedClients.ContainsKey(clientId))
@@ -65,10 +71,19 @@ namespace Net
         {
             Debug.Log($"Connection accepted: {clientId}");
             var account = accountObjects.First(x => x.clientId == clientId);
-            FindObjectOfType<ConnectionHelper>().SelectSceneClientRpc(clientId, account.type);
+            
+            var clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new[]{clientId}
+                }
+            };
+            
+            _connector.SelectSceneClientRpc(account.type, clientRpcParams);
             //Передача владения объектом корабля
-            // var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
-            // go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
+            var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
             //TODO: OtherConnectionStuff
         }
 
@@ -81,23 +96,15 @@ namespace Net
             //If approve is true, the connection gets added. If it's false. The client gets disconnected
             callback(false, null, account != null, null, null);
         }
-        
-        private void Start()
-        {
-            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-            NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
-            StartCoroutine(ServerInitializeHelper.instance.InitServer());
-        }
 
-        public void BeginReceiving(int _)
+        private void BeginReceiving(int _)
         {
             NetworkManager.Singleton.StartServer();
         }
         
         private void Update()
         {
-            
+            clientCounter.text = NetworkManager.Singleton.ConnectedClients.Count.ToString();
         }
 
         private void FixedUpdate()
@@ -105,53 +112,15 @@ namespace Net
             Dispatcher.Instance.InvokePending();
         }
 
-        private IEnumerator CollectWorldObjects()
-        {
-            var worldObjects = new List<WorldObject>();
-            var allGameObjects = SceneManager.GetActiveScene().GetRootGameObjects()
-                .Where(obj => obj.CompareTag(Constants.DynamicTag));
-            foreach (var go in allGameObjects)
-            {
-                var ps = go.GetComponent<PlayerScript>();
-                
-                if (ps)
-                {
-                    var rb = go.GetComponent<Rigidbody>();
-                    ps.shipConfig.shipState = ps.GetState();
-                    worldObjects.Add(new SpaceShip(go.name,
-                        go.transform,
-                        rb.velocity,
-                        rb.angularVelocity,
-                        new SpaceShipDto(ps.shipConfig),
-                        ps.GetState()));
-                    yield return null;
-                    continue;
-                }
-
-                worldObjects.Add(new WorldObject(go.name, go.transform));
-                yield return null;
-            }
-
-            var statePackage = new StatePackage(new StateData()
-            {
-                worldState = worldObjects.ToArray()
-            });
-            
-            foreach (var client in ClientManager.instance.ConnectedClients) 
-            {
-                Task.Run(() => client.SendPackage(statePackage)); 
-            }
-        }
-        
         private void OnDestroy()
         {
-            NetworkManager.Singleton.StopServer();
             HandlerManager.instance.Dispose();
         }
 
         private void OnApplicationQuit()
         {
             ServerInitializeHelper.instance.SaveServer();
+            NetworkManager.Singleton.StopServer();
             OnDestroy();
         }
     }

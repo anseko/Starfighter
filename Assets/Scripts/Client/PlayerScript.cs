@@ -3,6 +3,7 @@ using Client.Core;
 using Client.Movement;
 using Client.UI;
 using Core;
+using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -23,10 +24,7 @@ namespace Client
         public MovementAdapter movementAdapter;
         public UnitStateMachine unitStateMachine;
         public IMovementAdapter ShipsBrain;
-        [NonSerialized]
-        public SpaceShipConfig shipConfig;
         public UnitScript lastThingToDock;
-        
         public bool readyToDock = false;
         public bool localUsage = false;
         
@@ -40,14 +38,12 @@ namespace Client
             if (localUsage)
             {
                 unitStateMachine = new UnitStateMachine(gameObject);
-                shipConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
+                unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
                 ClientEventStorage.GetInstance().InitPilot.Invoke(this);
             }
             
-            unitConfig = shipConfig;
-
             dockingTrigger.Init(this);
-            Debug.unityLogger.Log($"PS {shipConfig.shipState}");
+            Debug.unityLogger.Log($"PS {(unitConfig as SpaceShipConfig).shipState}");
 
             _front = gameObject.transform.Find("Front");
             _back = gameObject.transform.Find("Back");

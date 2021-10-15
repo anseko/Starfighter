@@ -10,43 +10,20 @@ namespace Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {
-        private void Start()
-        {
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnected;
-            NetworkManager.Singleton.OnClientConnectedCallback += OnConnected;
-        }
-
-        private void OnConnected(ulong obj)
-        {
-            
-        }
-
-        private void OnDisconnected(ulong obj)
-        {
-            // SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-        }
-
-        public void TryToConnect(string serverAddress, string login, string password)
-        {
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.ASCII.GetBytes(login + password);
-            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = serverAddress;
-            NetworkManager.Singleton.StartClient();
-        }
-
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        public void SelectSceneClientRpc(ulong clientId, UserType type)
+        public void SelectSceneClientRpc(UserType type, ClientRpcParams clientRpcParams = default)
         {
-            Debug.unityLogger.Log($"I'm {clientId} select scene, {type}");
+            Debug.unityLogger.Log($"I pick scene type: {type}");
             
-            if (NetworkManager.Singleton.LocalClientId != clientId) return;
+            // if (NetworkManager.Singleton.LocalClientId != clientId) return;
 
             switch (type)
             {
                 case UserType.Pilot:
-                    SceneManager.LoadScene("Scenes/pilot_UI", LoadSceneMode.Single);
+                    SceneManager.LoadScene("Scenes/pilot_UI", LoadSceneMode.Additive);
                     break;
                 case UserType.Navigator:
-                    SceneManager.LoadScene("Scenes/navi_UI", LoadSceneMode.Single);
+                    SceneManager.LoadScene("Scenes/navi_UI", LoadSceneMode.Additive);
                     break;
                 case UserType.Admin:
                 case UserType.Spectator:
@@ -55,7 +32,6 @@ namespace Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            
         }
     }
 }

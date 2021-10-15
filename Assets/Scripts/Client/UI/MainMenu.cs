@@ -1,28 +1,24 @@
 ﻿using System;
-using Client.Core;
-using Core;
+using System.Text;
+using MLAPI;
+using MLAPI.Transports.UNET;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Client.UI
 {
-    [RequireComponent(typeof(ConnectionHelper))]
     public class MainMenu : MonoBehaviour
     {
         public InputField loginField;
         public InputField passwordField;
         public InputField serverField;
 
-        private ConnectionHelper _connectionHelper;
-
-        private void Awake()
-        {
-            _connectionHelper = FindObjectOfType<ConnectionHelper>();
-        }
 
         public void PlayGame()
         {
-            _connectionHelper.TryToConnect(serverAddress:serverField.text, login:loginField.text, password:passwordField.text);
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
+            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = serverField.text;
+            NetworkManager.Singleton.StartClient();
         }
 
         public void QuitGame()

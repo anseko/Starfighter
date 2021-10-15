@@ -3,6 +3,7 @@ using Client;
 using Client.Core;
 using Core;
 using Core.ClassExtensions;
+using MLAPI;
 using Net.PackageData;
 using ScriptableObjects;
 using UnityEngine;
@@ -23,18 +24,17 @@ namespace Utils
             
             var shipPrefab = Resources.Load(Constants.PathToPrefabs + ship.prefabName);
 
-            var shipsInstance = Object.Instantiate(shipPrefab, position: ship.position,
+            var shipInstance = Object.Instantiate(shipPrefab, position: ship.position,
                                 rotation: ship.rotation) as GameObject;
              
-            shipsInstance.name = ship.prefabName + Constants.Separator + ship.shipId;
-            shipsInstance.tag = Constants.DynamicTag;
+            shipInstance.name = ship.prefabName + Constants.Separator + ship.shipId;
+            shipInstance.tag = Constants.DynamicTag;
             
-            var playerScript = shipsInstance.GetComponent<PlayerScript>() ?? shipsInstance.AddComponent<PlayerScript>();
+            var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
             playerScript.movementAdapter = MovementAdapter.RemoteNetworkControl;
-            playerScript.shipConfig = ship;
-            playerScript.shipConfig.shipState = ship.shipState;
+            playerScript.unitConfig = ship;
             playerScript.unitStateMachine = new UnitStateMachine(playerScript.gameObject, ship.shipState);
-            shipsInstance.SetActive(true);
+            shipInstance.SetActive(true);
             return playerScript;
         }
 
@@ -51,8 +51,7 @@ namespace Utils
             if (instance.GetComponent<PlayerScript>() != null && worldObject is SpaceShip ship)
             {
                 var ps = instance.GetComponent<PlayerScript>();
-                ps.shipConfig = ship.dto.ToConfig();
-                ps.shipConfig.shipState = ship.shipState;
+                ps.unitConfig = ship.dto.ToConfig();
                 ps.unitStateMachine = new UnitStateMachine(ps.gameObject, ship.shipState);
             }
             instance.SetActive(true);
