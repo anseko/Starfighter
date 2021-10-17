@@ -37,11 +37,11 @@ namespace Client
         {
             if (localUsage)
             {
-                unitStateMachine = new UnitStateMachine(gameObject);
                 unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
                 ClientEventStorage.GetInstance().InitPilot.Invoke(this);
             }
             
+            unitStateMachine = new UnitStateMachine(gameObject, (unitConfig as SpaceShipConfig).shipState);
             dockingTrigger.Init(this);
             Debug.unityLogger.Log($"PS {(unitConfig as SpaceShipConfig).shipState}");
 

@@ -26,7 +26,7 @@ namespace Net
     
     [RequireComponent(typeof(ClientInitManager))]
     [RequireComponent(typeof(InputManager))]
-    public class MainClientLoop : NetworkBehaviour
+    public class MainClientLoop : MonoBehaviour
     {
         public ClientAccountObject accountObject;
         private PlayerScript _playerScript = null;

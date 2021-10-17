@@ -10,8 +10,17 @@ namespace Client.Core
 {
     public class ClientInitManager: MonoBehaviour
     {
-        public static void InitPilot(PlayerScript ps)
+        [SerializeField] private Canvas _pilotUi;
+        [SerializeField] private Canvas _navigatorUi;
+        [SerializeField] private Canvas _adminUi;
+        [SerializeField] private Canvas _spectatorUi;
+        [SerializeField] private Canvas _moderatorUi;
+        [SerializeField] private Canvas _mainMenuUi;
+        
+        public void InitPilot(PlayerScript ps)
         {
+            _mainMenuUi.gameObject.SetActive(false);
+            _pilotUi.gameObject.SetActive(true);
             ps.movementAdapter = MovementAdapter.PlayerControl;
             ps.gameObject.GetComponent<Collider>().enabled = false;
             ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
@@ -31,11 +40,13 @@ namespace Client.Core
             // FindObjectOfType<DockingTrigger>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             Resources.FindObjectsOfTypeAll<GPSView>().First().Init(ps);
-            FindObjectOfType<MenuButton>().PauseMenuUI = Resources.FindObjectsOfTypeAll<PauseMenu>().First().gameObject;
+            FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
         }
         
-        public static void InitNavigator(PlayerScript ps)
+        public void InitNavigator(PlayerScript ps)
         {
+            _mainMenuUi.gameObject.SetActive(false);
+            _navigatorUi.gameObject.SetActive(true);
             ps.movementAdapter = MovementAdapter.RemoteNetworkControl;
             ps.gameObject.GetComponent<Collider>().enabled = false;
             ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
@@ -51,7 +62,7 @@ namespace Client.Core
             
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<RotationScript>()?.Init(ps);
-            FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>().gameObject;
+            FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
         }
     }
 }

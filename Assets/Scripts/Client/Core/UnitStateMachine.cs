@@ -19,12 +19,11 @@ namespace Client.Core
         
         public void OnEnter(GameObject unit)
         {
-            
+            _playerScript = unit.GetComponent<PlayerScript>();
         }
 
         public void Update(GameObject unit)
         {
-            _playerScript = unit.GetComponent<PlayerScript>();
             _playerScript.UpdateMovement();
             _playerScript.AnimateMovement();
         }

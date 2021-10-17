@@ -220,11 +220,9 @@ MonoBehaviour:
     - Prefab: {fileID: 5458636848271729485, guid: 2416573157383c1479f3c16fe6f667df,
         type: 3}
       PlayerPrefab: 0
-    - Prefab: {fileID: 872456030}
-      PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
-    CreatePlayerPrefab: 1
+    CreatePlayerPrefab: 0
     ReceiveTickrate: 64
     NetworkTickIntervalSec: 0.05
     MaxReceiveEventsPerTickRate: 500
@@ -237,7 +235,7 @@ MonoBehaviour:
     EnableNetworkVariable: 1
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 0
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     UsePrefabSync: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
@@ -339,19 +337,13 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812116846}
   m_CullTransparentMesh: 0
---- !u!1 &872456030 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5583377962922656225, guid: ffc94cef545e13e43a9f9e8a9dab0acb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1710958051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &872456032 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5583377962922656254, guid: ffc94cef545e13e43a9f9e8a9dab0acb,
     type: 3}
   m_PrefabInstance: {fileID: 1710958051}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872456030}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c2e53dd016b4ead817aa17b3633dc1a, type: 3}

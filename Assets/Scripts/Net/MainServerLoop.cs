@@ -56,15 +56,9 @@ namespace Net
         
         private void OnDisconnectCallback(ulong clientId)
         {
-            if (NetworkManager.Singleton.ConnectedClients.ContainsKey(clientId))
-            {
-                Debug.unityLogger.Log($"Disconnection: {clientId}");
-                //TODO: OtherDisconnectionStuff
-            }
-            else
-            {
-                Debug.unityLogger.Log("Server : There is no such client to Disconnect!");
-            }
+            var account = accountObjects.First(x => x.clientId == clientId);
+            account.clientId = null;
+            Debug.unityLogger.Log($"Disconnection: {clientId}");
         }
 
         private void OnConnectCallback(ulong clientId)

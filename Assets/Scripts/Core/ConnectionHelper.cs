@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
+using Client;
+using Client.Core;
+using Client.UI;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.Transports.UNET;
@@ -14,19 +18,21 @@ namespace Core
         public void SelectSceneClientRpc(UserType type, ClientRpcParams clientRpcParams = default)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
-            
+            FindObjectOfType<MainMenu>().gameObject.SetActive(false);
             // if (NetworkManager.Singleton.LocalClientId != clientId) return;
-
+            var ps = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.IsOwner)?.GetComponent<PlayerScript>();
             switch (type)
             {
+                case UserType.Admin:
+                    break;
                 case UserType.Pilot:
-                    SceneManager.LoadScene("Scenes/pilot_UI", LoadSceneMode.Additive);
+                    GetComponent<ClientInitManager>().InitPilot(ps);
                     break;
                 case UserType.Navigator:
-                    SceneManager.LoadScene("Scenes/navi_UI", LoadSceneMode.Additive);
+                    GetComponent<ClientInitManager>().InitNavigator(ps);
                     break;
-                case UserType.Admin:
                 case UserType.Spectator:
+                    break;
                 case UserType.Moderator:
                     break;
                 default:
