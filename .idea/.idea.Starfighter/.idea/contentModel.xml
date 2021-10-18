@@ -103,11 +103,6 @@
             <e p="DockCheckZone.cs" t="Include" />
             <e p="Follow.cs" t="Include" />
             <e p="GPSView.cs" t="Include" />
-            <e p="Movement" t="Include">
-              <e p="IMovementAdapter.cs" t="Include" />
-              <e p="playerControl.cs" t="Include" />
-              <e p="RemoteNetworkControl.cs" t="Include" />
-            </e>
             <e p="NaviPointController.cs" t="Include" />
             <e p="playerScript.cs" t="Include" />
             <e p="RotationScript.cs" t="Include" />
@@ -148,7 +143,6 @@
               <e p="InputManager.cs" t="Include" />
               <e p="SmartAxis.cs" t="Include" />
             </e>
-            <e p="Jobs.cs" t="Include" />
             <e p="Models" t="Include">
               <e p="SpaceShipDto.cs" t="Include" />
               <e p="SpaceUnitDto.cs" t="Include" />
@@ -160,7 +154,6 @@
             </e>
             <e p="Core" t="Include">
               <e p="Client.cs" t="Include" />
-              <e p="ClientManager.cs" t="Include" />
               <e p="NetEventStorage.cs" t="Include" />
               <e p="StarfighterUdpClient.cs" t="Include" />
             </e>
@@ -209,7 +202,6 @@
             <e p="Utils" t="Include">
               <e p="EventTypes.cs" t="Include" />
               <e p="PackageTypes.cs" t="Include" />
-              <e p="SenderHelper.cs" t="Include" />
               <e p="SerializationSurrogates.cs" t="Include" />
               <e p="ServerInitializeHelper.cs" t="Include" />
             </e>

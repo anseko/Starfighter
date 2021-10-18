@@ -58,12 +58,13 @@ namespace Net
                     TargetClientIds = new[]{clientId}
                 }
             };
-            
-            _connector.SelectSceneClientRpc(account.type, clientRpcParams);
+            var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            var netId = go.GetComponent<NetworkObject>().NetworkObjectId;
+            _connector.SelectSceneClientRpc(account.type, netId, clientRpcParams);
             //TODO: OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;
-            var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            
             go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
             
         }

@@ -32,7 +32,7 @@ namespace Client.Core
             // FindObjectOfType<DockingTrigger>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             Resources.FindObjectsOfTypeAll<GPSView>().First().Init(ps);
-            FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
+            //FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
         }
         
         public void InitNavigator(PlayerScript ps)
@@ -53,7 +53,7 @@ namespace Client.Core
             
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<RotationScript>()?.Init(ps);
-            FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
+            //FindObjectOfType<MenuButton>().PauseMenuUI = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
         }
     }
 }

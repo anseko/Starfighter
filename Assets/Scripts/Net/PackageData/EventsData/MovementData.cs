@@ -1,5 +1,4 @@
 ﻿using System;
-using MLAPI.NetworkVariable;
 using MLAPI.Serialization;
 
 namespace Net.PackageData.EventsData

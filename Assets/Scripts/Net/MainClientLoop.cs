@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using Client;
+﻿using Client;
 using Client.Core;
-using Core;
 using Core.InputManager;
 using MLAPI;
-using Net.PackageData;
-using Net.PackageData.EventsData;
 using Net.PackageHandlers.ClientHandlers;
 using ScriptableObjects;
 using UnityEngine;

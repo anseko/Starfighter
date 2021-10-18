@@ -25,7 +25,7 @@ namespace Client
         void Update()
         {
             var shipPosition = ship.transform.position;
-            var delta = (_target.transform.position - _lastPosition).normalized;
+            var delta = ship.GetComponent<Rigidbody>().velocity.normalized;
             transform.LookAt(shipPosition + delta + Vector3.up * 70);
             var cursorPosition = shipPosition + Vector3.up * 70;
             transform.position = cursorPosition;

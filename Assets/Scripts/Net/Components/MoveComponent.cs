@@ -1,16 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Client.Movement;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using Net.PackageData.EventsData;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Net.Components
 {
+    public struct EngineState
+    {
+        public bool Thrust;
+        public bool TopRight;
+        public bool TopLeft;
+        public bool BotLeft;
+        public bool BotRight;
+    }
+    
     [RequireComponent(typeof(ConstantForce))]
     [RequireComponent(typeof(Rigidbody))]
     public class MoveComponent: NetworkBehaviour
@@ -39,7 +44,6 @@ namespace Net.Components
 
         private void ValueChanged(MovementData previousvalue, MovementData newvalue)
         {
-            Debug.unityLogger.Log("Movement value changed");
             if(IsOwner) AnimateMovementServerRpc();
         }
 
@@ -71,7 +75,6 @@ namespace Net.Components
         [ServerRpc]
         private void AnimateMovementServerRpc()
         {
-            Debug.unityLogger.Log($"Gonna animate movement of {gameObject.name}");
             #region Reset movement animation
             
             _trustSystems.ForEach(x=>x.Stop());
