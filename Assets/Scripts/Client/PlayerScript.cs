@@ -1,38 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using Client.Core;
 using Client.Movement;
 using Client.UI;
 using Core;
+using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace Client
 {
-    //enum for filling field in unityEditor
-    public enum MovementAdapter
-    {
-        PlayerControl,
-        RemoteNetworkControl
-    }
-    
-    
     public class PlayerScript : UnitScript
     {
         public DockingTrigger dockingTrigger;
         public Vector3 shipSpeed, shipRotation;
-        public MovementAdapter movementAdapter;
         public UnitStateMachine unitStateMachine;
-        public IMovementAdapter ShipsBrain;
         public UnitScript lastThingToDock;
         public bool readyToDock = false;
         public bool localUsage = false;
         
         private Transform _front, _back, _left, _right;
-        private Rigidbody _ship, _engine;
+        private Rigidbody _ship;
         private ParticleSystem _tlm, _trm, _blm, _brm, _te;
         private ConstantForce _thrustForce;
-
+        
+        
         private void Start()
         {
             if (localUsage)
@@ -69,18 +62,15 @@ namespace Client
             _blm.Stop();
             
             #endregion
-            
-            switch (movementAdapter)
-            {
-                case MovementAdapter.PlayerControl: //use on clients for ship under user control
-                    ShipsBrain = new PlayerControl(GetState());
-                    break;
-                case MovementAdapter.RemoteNetworkControl: //use on server 
-                    ShipsBrain = new RemoteNetworkControl();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+
+            // if (IsOwner && IsClient)
+            // {
+            //     ShipsBrain = new PlayerControl(GetState());
+            // }
+            // else
+            // {
+            //     ShipsBrain = new RemoteNetworkControl();
+            // }
         }
         
         public UnitState GetState()
@@ -93,54 +83,99 @@ namespace Client
             unitStateMachine.Update();
         }
         
-        public void UpdateMovement()
-        {
-            // расчет вектора тяги
-            var thrustForceVector = _front.transform.position - _back.transform.position; //вектор фронтальной тяги
-            var maneurForceVector = _right.transform.position - _left.transform.position; //вектор боковой тяги
-            _thrustForce.force = 
-                (thrustForceVector.normalized) * (ShipsBrain.GetThrustSpeed() + ShipsBrain.GetStraightManeurSpeed()) +
-                (maneurForceVector.normalized) * ShipsBrain.GetSideManeurSpeed();
-            _thrustForce.torque = new Vector3(0, ShipsBrain.GetShipAngle(), 0);
-        }
- 
-        public void AnimateMovement()
-        {
-            #region Reset movement animation
-            
-            _te.Stop();
-            _tlm.Stop();
-            _trm.Stop();
-            _brm.Stop();
-            _blm.Stop();
-            
-            #endregion
-            
-            var engines = ShipsBrain.getMovement();
-            if (engines.Thrust)
-            {
-                _te.Play(true);
-            }
-
-            if (engines.TopRight)
-            {
-                _trm.Play(true);
-            }
-
-            if (engines.TopLeft)
-            {
-                _tlm.Play(true);
-            }
-
-            if (engines.BotLeft)
-            {
-                _blm.Play(true);
-            }
-
-            if (engines.BotRight)
-            {
-                _brm.Play(true);
-            }
-        }
+        // public void UpdateMovement()
+        // {
+        //     if (!IsOwner) return; 
+        //     // расчет вектора тяги
+        //     var thrustForceVector = _front.transform.position - _back.transform.position; //вектор фронтальной тяги
+        //     var maneurForceVector = _right.transform.position - _left.transform.position; //вектор боковой тяги
+        //     _thrustForce.force = 
+        //         (thrustForceVector.normalized) * (ShipsBrain.GetThrustSpeed() + ShipsBrain.GetStraightManeurSpeed()) +
+        //         (maneurForceVector.normalized) * ShipsBrain.GetSideManeurSpeed();
+        //     _thrustForce.torque = new Vector3(0, ShipsBrain.GetShipAngle(), 0);
+        // }
+        //
+        // [ServerRpc]
+        // public void AnimateMovementServerRpc()
+        // {
+        //     Debug.unityLogger.Log($"Gonna animate movement of {gameObject.name}");
+        //     #region Reset movement animation
+        //     
+        //     _te.Stop();
+        //     _tlm.Stop();
+        //     _trm.Stop();
+        //     _brm.Stop();
+        //     _blm.Stop();
+        //     
+        //     #endregion
+        //     
+        //     var engines = ShipsBrain.getMovement();
+        //     if (engines.Thrust)
+        //     {
+        //         _te.Play(true);
+        //     }
+        //
+        //     if (engines.TopRight)
+        //     {
+        //         _trm.Play(true);
+        //     }
+        //
+        //     if (engines.TopLeft)
+        //     {
+        //         _tlm.Play(true);
+        //     }
+        //
+        //     if (engines.BotLeft)
+        //     {
+        //         _blm.Play(true);
+        //     }
+        //
+        //     if (engines.BotRight)
+        //     {
+        //         _brm.Play(true);
+        //     }
+        //     
+        //     AnimateMovementClientRpc();
+        // }
+        //
+        // [ClientRpc]
+        // public void AnimateMovementClientRpc()
+        // {
+        //     #region Reset movement animation
+        //     
+        //     _te.Stop();
+        //     _tlm.Stop();
+        //     _trm.Stop();
+        //     _brm.Stop();
+        //     _blm.Stop();
+        //     
+        //     #endregion
+        //     
+        //     var engines = ShipsBrain.getMovement();
+        //     if (engines.Thrust)
+        //     {
+        //         _te.Play(true);
+        //     }
+        //
+        //     if (engines.TopRight)
+        //     {
+        //         _trm.Play(true);
+        //     }
+        //
+        //     if (engines.TopLeft)
+        //     {
+        //         _tlm.Play(true);
+        //     }
+        //
+        //     if (engines.BotLeft)
+        //     {
+        //         _blm.Play(true);
+        //     }
+        //
+        //     if (engines.BotRight)
+        //     {
+        //         _brm.Play(true);
+        //     }
+        // }
     }
 }

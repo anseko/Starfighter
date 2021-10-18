@@ -1,7 +1,5 @@
-using System;
 using MLAPI;
 using ScriptableObjects;
-using UnityEngine;
 
 namespace Client
 {

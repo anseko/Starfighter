@@ -30,12 +30,7 @@ namespace Net.PackageHandlers.ClientHandlers
                     }
                     case EventType.MoveEvent:
                     {
-                        var (name, data) = ((string, MovementEventData)) eventPack.data.data;
-                        Dispatcher.Instance.Invoke(() =>
-                        {
-                            GameObject.Find(name).GetComponent<PlayerScript>().ShipsBrain
-                                .UpdateMovementActionData(data);
-                        });
+                        var (name, data) = ((string, MovementData)) eventPack.data.data;
                         break;
                     }
                     case EventType.DockEvent:

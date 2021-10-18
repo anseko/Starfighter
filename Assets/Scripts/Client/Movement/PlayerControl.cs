@@ -1,14 +1,16 @@
 ﻿using Core;
 using Core.InputManager;
+using MLAPI;
+using MLAPI.NetworkVariable;
 using Net.PackageData.EventsData;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace Client.Movement
 {   
-    public class PlayerControl: IMovementAdapter
+    public class PlayerControl: NetworkBehaviour, IMovementAdapter
     {
-        private MovementEventData _lastMovement;
+        private NetworkVariable<MovementData> _lastMovement;
         private KeyConfig _keyConfig;
         
         public PlayerControl(UnitState state)
@@ -70,9 +72,5 @@ namespace Client.Movement
 
         public bool GetGrappleAction() => Input.GetKeyDown(_keyConfig.grapple);
         
-        public void UpdateMovementActionData(MovementEventData data)
-        {
-            _lastMovement = data;
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Core;
+using Net.Components;
 using UnityEngine;
 
 namespace Client.Core
@@ -20,17 +21,17 @@ namespace Client.Core
         public void OnEnter(GameObject unit)
         {
             _playerScript = unit.GetComponent<PlayerScript>();
+            _playerScript.GetComponent<MoveComponent>().enabled = true;
         }
 
         public void Update(GameObject unit)
         {
-            _playerScript.UpdateMovement();
-            _playerScript.AnimateMovement();
+
         }
 
         public void OnExit(GameObject unit)
         {
-
+            _playerScript.GetComponent<MoveComponent>().enabled = false;
         }
     }
     

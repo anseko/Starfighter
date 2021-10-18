@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 6037931687343611561}
   - component: {fileID: -5698622205738835075}
   - component: {fileID: -2928860733959291561}
+  - component: {fileID: 8062465039035580151}
   m_Layer: 0
   m_Name: StarSparrow5
   m_TagString: Dynamic
@@ -504,7 +505,6 @@ MonoBehaviour:
   dockingTrigger: {fileID: 2947148052201005590}
   shipSpeed: {x: 0, y: 0, z: 0}
   shipRotation: {x: 0, y: 0, z: 0}
-  movementAdapter: 0
   lastThingToDock: {fileID: 0}
   readyToDock: 0
   localUsage: 0
@@ -573,6 +573,32 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8062465039035580151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970447681998018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b0b62280944a42ab5ab4a96fb7d24a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _front: {fileID: 5255257724289741282}
+  _back: {fileID: 8904399110374377547}
+  _right: {fileID: 18850300427956739}
+  _left: {fileID: 88139834216429202}
+  _frontLeftSystems:
+  - {fileID: 5873557324914337614}
+  _frontRightSystems:
+  - {fileID: 6425135040907546623}
+  _backLeftSystems:
+  - {fileID: 5041925883310400921}
+  _backRightSystems:
+  - {fileID: 415808259217169590}
+  _trustSystems:
+  - {fileID: 5107602309111865161}
 --- !u!1 &18850300427956739
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +1003,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4503466714745330137}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &415808259217169590 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4303955208693663087, guid: 5b2bae8b52394a844baf0a1ef8911604,
+    type: 3}
+  m_PrefabInstance: {fileID: 4503466714745330137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4649033752714443941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1142,6 +1174,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5462775689314258692}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &5041925883310400921 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1024332981057563293, guid: 79d4de2234cf6794a8a913a1065492de,
+    type: 3}
+  m_PrefabInstance: {fileID: 5462775689314258692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7504567499274434830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1269,6 +1307,12 @@ PrefabInstance:
 --- !u!4 &881856190148908372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7212919326607649882, guid: a551090ac59a9d943a07430f46e928ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 7504567499274434830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5107602309111865161 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3369903479175931463, guid: a551090ac59a9d943a07430f46e928ce,
     type: 3}
   m_PrefabInstance: {fileID: 7504567499274434830}
   m_PrefabAsset: {fileID: 0}
@@ -1469,6 +1513,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7876911453936505942}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &6425135040907546623 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3781549778503130025, guid: 110b9ec4cbad35b45b9ac34537314e2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7876911453936505942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8157310963697219316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1561,6 +1611,12 @@ PrefabInstance:
 --- !u!4 &5873557323357684416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2357500668424713268, guid: cbcbba29825e4ad449c00b7104031a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 8157310963697219316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5873557324914337614 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2357500669696135610, guid: cbcbba29825e4ad449c00b7104031a37,
     type: 3}
   m_PrefabInstance: {fileID: 8157310963697219316}
   m_PrefabAsset: {fileID: 0}

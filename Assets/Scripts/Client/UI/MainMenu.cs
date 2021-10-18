@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using MLAPI;
 using MLAPI.Transports.UNET;
 using UnityEngine;

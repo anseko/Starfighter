@@ -9,7 +9,6 @@ namespace Client.Movement
         float GetSideManeurSpeed();
         float GetStraightManeurSpeed();
         float GetShipAngle();
-        void UpdateMovementActionData(MovementEventData data);
         bool GetFireAction();
         bool GetDockAction();
         bool GetGrappleAction();

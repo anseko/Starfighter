@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using Client;
 using Client.Core;
 using Client.UI;
 using MLAPI;
 using MLAPI.Messaging;
-using MLAPI.Transports.UNET;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Core
 {

@@ -155,6 +155,9 @@
             </e>
           </e>
           <e p="Net" t="Include">
+            <e p="Components" t="Include">
+              <e p="MoveComponent.cs" t="Include" />
+            </e>
             <e p="Core" t="Include">
               <e p="Client.cs" t="Include" />
               <e p="ClientManager.cs" t="Include" />
@@ -173,7 +176,7 @@
               <e p="DisconnectData.cs" t="Include" />
               <e p="EventData.cs" t="Include" />
               <e p="EventsData" t="Include">
-                <e p="MovementEventData.cs" t="Include" />
+                <e p="MovementData.cs" t="Include" />
               </e>
               <e p="StateData.cs" t="Include" />
             </e>

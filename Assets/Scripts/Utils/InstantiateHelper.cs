@@ -3,7 +3,6 @@ using Client;
 using Client.Core;
 using Core;
 using Core.ClassExtensions;
-using MLAPI;
 using Net.PackageData;
 using ScriptableObjects;
 using UnityEngine;
@@ -31,9 +30,7 @@ namespace Utils
             shipInstance.tag = Constants.DynamicTag;
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
-            playerScript.movementAdapter = MovementAdapter.RemoteNetworkControl;
             playerScript.unitConfig = ship;
-            playerScript.unitStateMachine = new UnitStateMachine(playerScript.gameObject, ship.shipState);
             shipInstance.SetActive(true);
             return playerScript;
         }
@@ -52,7 +49,6 @@ namespace Utils
             {
                 var ps = instance.GetComponent<PlayerScript>();
                 ps.unitConfig = ship.dto.ToConfig();
-                ps.unitStateMachine = new UnitStateMachine(ps.gameObject, ship.shipState);
             }
             instance.SetActive(true);
             return instance;

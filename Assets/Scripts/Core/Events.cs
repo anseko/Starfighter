@@ -25,7 +25,7 @@ namespace Core
     
     public class IpAddressEvent : UnityEvent<IPAddress> { }
     public class ClientEvent: UnityEvent<Net.Core.Client> { }
-    public class PlayerMovementEvent: UnityEvent<IPAddress, MovementEventData> { }
+    public class PlayerMovementEvent: UnityEvent<IPAddress, MovementData> { }
     public class WayPointEvent : UnityEvent<IPAddress, WayPoint> { }
     public class StarfighterUdpClientEvent : UnityEvent<StarfighterUdpClient> { }
     

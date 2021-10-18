@@ -1,10 +1,6 @@
 ﻿using System.Linq;
-using Core;
 using UnityEngine;
 using Client.UI;
-using MLAPI;
-using MLAPI.Messaging;
-using UnityEngine.SceneManagement;
 
 namespace Client.Core
 {
@@ -21,10 +17,6 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _pilotUi.gameObject.SetActive(true);
-            ps.movementAdapter = MovementAdapter.PlayerControl;
-            ps.gameObject.GetComponent<Collider>().enabled = false;
-            ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
-            ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>() ?? cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 25;
@@ -47,7 +39,6 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
-            ps.movementAdapter = MovementAdapter.RemoteNetworkControl;
             ps.gameObject.GetComponent<Collider>().enabled = false;
             ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;

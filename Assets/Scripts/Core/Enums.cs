@@ -3,11 +3,12 @@
 
     public enum UserType
     {   
-        Admin,
-        Pilot,
+        //Расположены в порядке возрастания прав (использование этого смотри в MainServerLoop.OnConnectCallback)
         Navigator,
         Spectator,
-        Moderator //игротех
+        Pilot,
+        Moderator, //игротех
+        Admin
     }
 
     public enum UnitType

@@ -1,30 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Client;
 using Core;
-using Core.InputManager;
-using Core.Models;
 using MLAPI;
-using MLAPI.Configuration;
 using MLAPI.Messaging;
-using MLAPI.SceneManagement;
-using MLAPI.Spawning;
-using MLAPI.Transports.UNET;
 using Net.Core;
-using Net.PackageData;
 using Net.PackageHandlers.ServerHandlers;
-using Net.Packages;
 using Net.Utils;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
@@ -75,10 +60,12 @@ namespace Net
             };
             
             _connector.SelectSceneClientRpc(account.type, clientRpcParams);
+            //TODO: OtherConnectionStuff
             //Передача владения объектом корабля
+            if (account.type < UserType.Pilot) return;
             var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
             go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
-            //TODO: OtherConnectionStuff
+            
         }
 
         private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)

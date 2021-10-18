@@ -67,10 +67,9 @@ namespace Net.Core
             _udpSocket.BeginReceivingPackage();
         }
 
-        private void UpdateMovement(IPAddress address, MovementEventData data)
+        private void UpdateMovement(IPAddress address, MovementData data)
         {
             if (!Equals(GetIpAddress(), address) || _playerScript.GetState() != UnitState.InFlight) return;
-            _playerScript.ShipsBrain.UpdateMovementActionData(data);
             ClientManager.instance.SendToAll(new EventPackage(new EventData()
             {
                 data = (_myGameObjectName, data),

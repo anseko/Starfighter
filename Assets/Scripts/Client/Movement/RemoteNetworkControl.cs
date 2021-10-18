@@ -1,14 +1,17 @@
-﻿using Net.PackageData.EventsData;
+﻿using MLAPI;
+using MLAPI.NetworkVariable;
+using MLAPI.NetworkVariable.Collections;
+using Net.PackageData.EventsData;
 
 namespace Client.Movement
 {   
-    public class RemoteNetworkControl: IMovementAdapter
+    public class RemoteNetworkControl: NetworkBehaviour, IMovementAdapter
     {
-        private MovementEventData _lastMovement;
+        private NetworkVariable<MovementData> _lastMovement; 
 
         public RemoteNetworkControl()
         {
-            _lastMovement = new MovementEventData()
+            _lastMovement.Value = new MovementData()
             {
                 rotationValue = 0f,
                 thrustValue = 0f,
@@ -59,22 +62,22 @@ namespace Client.Movement
 
         public float GetThrustSpeed()
         { 
-            return _lastMovement.thrustValue;
+            return _lastMovement.Value.thrustValue;
         }
 
         public float GetSideManeurSpeed()
         { 
-            return _lastMovement.sideManeurValue;
+            return _lastMovement.Value.sideManeurValue;
         }
 
         public float GetStraightManeurSpeed()
         { 
-            return _lastMovement.straightManeurValue;
+            return _lastMovement.Value.straightManeurValue;
         }
 
         public float GetShipAngle()
         { 
-            return _lastMovement.rotationValue;
+            return _lastMovement.Value.rotationValue;
         }
 
         public bool GetAnyAction() => false;
@@ -84,10 +87,5 @@ namespace Client.Movement
         public bool GetDockAction() => false;
         
         public bool GetGrappleAction() => false;
-        
-        public void UpdateMovementActionData(MovementEventData data)
-        {
-            _lastMovement = data;
-        }
     }
 }

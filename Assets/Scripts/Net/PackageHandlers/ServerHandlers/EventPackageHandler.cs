@@ -21,7 +21,7 @@ namespace Net.PackageHandlers.ServerHandlers
                 switch (eventPack.data.eventType)
                 {
                     case EventType.MoveEvent:
-                        var movement = (MovementEventData) eventPack.data.data;
+                        var movement = (MovementData) eventPack.data.data;
                         NetEventStorage.GetInstance().serverMovedPlayer.Invoke(pack.ipAddress, movement);
                         break;
                     case EventType.DockEvent:
