@@ -10,11 +10,7 @@ namespace Net.Core
         public StatePackageEvent updateWorldState = new StatePackageEvent();
         public PackageEvent newPackageRecieved = new PackageEvent();
         public PlayerMovementEvent serverMovedPlayer = new PlayerMovementEvent();
-        public DisconnectPackageEvent disconnectClient = new DisconnectPackageEvent();
-        public ConnectPackageEvent connectClient = new ConnectPackageEvent();
-        public ConnectPackageEvent connectToServer = new ConnectPackageEvent();
         public IntEvent worldInit = new IntEvent();
-        public ClientEvent worldInitDone = new ClientEvent();
         public WayPointEvent wayPointSetted = new WayPointEvent();
         public PackageEvent dockEvent = new PackageEvent();
         public PackageEvent acceptPackageRecieved = new PackageEvent();
@@ -31,10 +27,7 @@ namespace Net.Core
             updateWorldState.RemoveAllListeners();
             newPackageRecieved.RemoveAllListeners();
             serverMovedPlayer.RemoveAllListeners();
-            disconnectClient.RemoveAllListeners();
-            connectClient.RemoveAllListeners();
             worldInit.RemoveAllListeners();
-            worldInitDone.RemoveAllListeners();
             wayPointSetted.RemoveAllListeners();
             acceptPackageRecieved.RemoveAllListeners();
             declinePackageRecieved.RemoveAllListeners();

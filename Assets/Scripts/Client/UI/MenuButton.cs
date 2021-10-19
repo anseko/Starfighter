@@ -15,6 +15,5 @@ namespace Client.UI
         {
             PauseMenuUI.SetActive(true);
         }
-
     }
 }

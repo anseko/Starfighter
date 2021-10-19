@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5465039702198356021}
   - component: {fileID: 859088548955082953}
   - component: {fileID: -1687567581272135916}
+  - component: {fileID: -7273777809071105546}
   m_Layer: 0
   m_Name: StartShip
   m_TagString: Dynamic
@@ -64,6 +65,24 @@ MonoBehaviour:
   PrefabHashGenerator: StartShip
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!114 &-7273777809071105546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458636848271729485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac9b63d14ed4ad28650957f7bf0573e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unit: {fileID: 0}
+  isDockable: 1
+  lastThingToDock: {fileID: 0}
+  readyToDock:
+    m_InternalValue: 0
+  _dockingMarkers: []
 --- !u!1 &5458817365223293069
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,11 +37,12 @@ namespace Client
 
             _point.transform.position = _position;
 
-            ClientEventStorage.GetInstance().SetPointEvent.Invoke(new EventData()
-            {
-                data = new WayPoint(_point.name, _point.transform),
-                eventType = EventType.WayPointEvent
-            });
+            //TODO:
+            // ClientEventStorage.GetInstance().SetPointEvent.Invoke(new EventData()
+            // {
+            //     data = new WayPoint(_point.name, _point.transform),
+            //     eventType = EventType.WayPointEvent
+            // });
         }
     
     }

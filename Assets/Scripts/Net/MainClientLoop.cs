@@ -2,30 +2,22 @@
 using Client.Core;
 using Core.InputManager;
 using MLAPI;
-using Net.PackageHandlers.ClientHandlers;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace Net
 {
-    
     [RequireComponent(typeof(ClientInitManager))]
     [RequireComponent(typeof(InputManager))]
     public class MainClientLoop : MonoBehaviour
     {
-        public ClientAccountObject accountObject;
-        private PlayerScript _playerScript = null;
-        
         private new void Awake()
         {
-            // CoreEventStorage.GetInstance().axisValueChanged.AddListener(SendMove);
-            // CoreEventStorage.GetInstance().actionKeyPressed.AddListener(SendAction);
-            // ClientEventStorage.GetInstance().SetPointEvent.AddListener(SetPoint);
             // QualitySettings.vSyncCount = 0;
             // Application.targetFrameRate = 120;
         }
 
-        public void Disconnect()
+        private void Disconnect()
         {
             Debug.unityLogger.Log("Disconnection");
             NetworkManager.Singleton.StopClient();
@@ -33,7 +25,6 @@ namespace Net
 
         private void OnDestroy()
         {
-            ClientHandlerManager.instance.Dispose();
             InputManager.instance.Dispose();
         }
 

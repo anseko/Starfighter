@@ -99,7 +99,6 @@
               <e p="UnitStateMachine.cs" t="Include" />
             </e>
             <e p="CourseView.cs" t="Include" />
-            <e p="DestroyBoundary.cs" t="Include" />
             <e p="DockCheckZone.cs" t="Include" />
             <e p="Follow.cs" t="Include" />
             <e p="GPSView.cs" t="Include" />
@@ -150,53 +149,22 @@
           </e>
           <e p="Net" t="Include">
             <e p="Components" t="Include">
+              <e p="DockComponent.cs" t="Include" />
               <e p="MoveComponent.cs" t="Include" />
             </e>
             <e p="Core" t="Include">
               <e p="Client.cs" t="Include" />
+              <e p="MovementData.cs" t="Include" />
               <e p="NetEventStorage.cs" t="Include" />
               <e p="StarfighterUdpClient.cs" t="Include" />
-            </e>
-            <e p="Interfaces" t="Include">
-              <e p="IPackageHandler.cs" t="Include" />
             </e>
             <e p="MainClientLoop.cs" t="Include" />
             <e p="MainServerLoop.cs" t="Include" />
             <e p="PackageData" t="Include">
-              <e p="AcceptData.cs" t="Include" />
-              <e p="ConnectData.cs" t="Include" />
-              <e p="DeclineData.cs" t="Include" />
-              <e p="DisconnectData.cs" t="Include" />
-              <e p="EventData.cs" t="Include" />
-              <e p="EventsData" t="Include">
-                <e p="MovementData.cs" t="Include" />
-              </e>
               <e p="StateData.cs" t="Include" />
-            </e>
-            <e p="PackageHandlers" t="Include">
-              <e p="AbstractHandlerManager.cs" t="Include" />
-              <e p="ClientHandlers" t="Include">
-                <e p="AcceptPackageHandler.cs" t="Include" />
-                <e p="ClientHandlerManager.cs" t="Include" />
-                <e p="DeclinePackageHandler.cs" t="Include" />
-                <e p="EventPackageHandler.cs" t="Include" />
-                <e p="StatePackageHandler.cs" t="Include" />
-              </e>
-              <e p="ServerHandlers" t="Include">
-                <e p="ConnectPackageHandler.cs" t="Include" />
-                <e p="DisconnectPackageHandler.cs" t="Include" />
-                <e p="EventPackageHandler.cs" t="Include" />
-                <e p="HandlerManager.cs" t="Include" />
-                <e p="StatePackageHandler.cs" t="Include" />
-              </e>
             </e>
             <e p="Packages" t="Include">
               <e p="AbstractPackage.cs" t="Include" />
-              <e p="AcceptPackage.cs" t="Include" />
-              <e p="ConnectPackage.cs" t="Include" />
-              <e p="DeclinePackage.cs" t="Include" />
-              <e p="DisconnectPackage.cs" t="Include" />
-              <e p="EventPackage.cs" t="Include" />
               <e p="StatePackage.cs" t="Include" />
             </e>
             <e p="Utils" t="Include">
@@ -215,7 +183,6 @@
             <e p="SpaceUnitConfig.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
-            <e p="Dispatcher.cs" t="Include" />
             <e p="InstantiateHelper.cs" t="Include" />
           </e>
         </e>

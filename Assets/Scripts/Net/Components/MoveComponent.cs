@@ -45,6 +45,12 @@ namespace Net.Components
             _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
             _lastMovement.OnValueChanged += ValueChanged;
             _thrustForce = GetComponent<ConstantForce>();
+            
+            _frontLeftSystems.ForEach(x=>x.Stop());
+            _frontRightSystems.ForEach(x=>x.Stop());
+            _backLeftSystems.ForEach(x=>x.Stop());
+            _backRightSystems.ForEach(x=>x.Stop());
+            _trustSystems.ForEach(x=>x.Stop());
         }
 
         private void ValueChanged(MovementData previousvalue, MovementData newvalue)
@@ -78,7 +84,6 @@ namespace Net.Components
             
             if (Mathf.Abs(_rigidbody.angularVelocity.magnitude * Mathf.Rad2Deg) >= _unit.unitConfig.maxAngleSpeed)
             {
-                Debug.unityLogger.Log("angular stop");
                 var angularVelocity = _rigidbody.angularVelocity;
                 _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.unitConfig.maxAngleSpeed) * Mathf.Deg2Rad));
             }

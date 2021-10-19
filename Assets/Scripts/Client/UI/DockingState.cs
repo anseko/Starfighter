@@ -28,8 +28,6 @@ namespace Client.UI
         
         public void SwitchState()
         {
-            // if (key != InputManager.instance.keyConfig.dock) return;
-            
             _dockStateUI = !_dockStateUI;
             
             if (_dockStateUI)

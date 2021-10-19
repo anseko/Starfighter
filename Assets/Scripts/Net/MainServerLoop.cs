@@ -5,7 +5,6 @@ using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using Net.Core;
-using Net.PackageHandlers.ServerHandlers;
 using Net.Utils;
 using ScriptableObjects;
 using TMPro;
@@ -15,7 +14,6 @@ using Utils;
 
 namespace Net
 {
-    [RequireComponent(typeof(HandlerManager))]
     [RequireComponent(typeof(ServerInitializeHelper))]
     public class MainServerLoop : MonoBehaviour
     {
@@ -91,19 +89,13 @@ namespace Net
 
         private void FixedUpdate()
         {
-            Dispatcher.Instance.InvokePending();
-        }
 
-        private void OnDestroy()
-        {
-            HandlerManager.instance.Dispose();
         }
-
+        
         private void OnApplicationQuit()
         {
             ServerInitializeHelper.instance.SaveServer();
             NetworkManager.Singleton.StopServer();
-            OnDestroy();
         }
     }
 

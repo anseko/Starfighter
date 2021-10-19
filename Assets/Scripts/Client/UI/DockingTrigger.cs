@@ -1,38 +1,38 @@
 ﻿using Client.Core;
 using Core;
+using Net.Components;
 using UnityEngine;
 
 namespace Client.UI
 {
-    public class DockingTrigger : BasePlayerUIElement
+    public class DockingTrigger: MonoBehaviour
     {
         private DockingState _state;
-
+        private DockComponent _dockComponent;
+        public bool dockAvailable;
+        
         private void Awake()
         {
-            gameObject.SetActive(false);
         }
 
-        public override void Init(PlayerScript playerScript)
+        public void Init(DockComponent dockComponent)
         {
-            base.Init(playerScript);
+            _dockComponent = dockComponent;
             _state = FindObjectOfType<DockingState>();
-            Debug.unityLogger.Log($"{PlayerScript.gameObject.name}: Dock trigger INIT {_state}");
-            gameObject.SetActive(true);
+            Debug.unityLogger.Log($"{dockComponent.gameObject.name}: Dock trigger INIT {_state}");
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            // Debug.unityLogger.Log($"{PlayerScript.gameObject.name}: Dock trigger enter {other.gameObject.name}");
             if (!other.gameObject.CompareTag(Constants.DockTag) || !gameObject.CompareTag(Constants.DockTag)) return;
-            var otherUnit = other.gameObject.GetComponentInParent<UnitScript>();
+            var otherUnit = other.gameObject.GetComponentInParent<DockComponent>();
             if (otherUnit is null) return;
-            var isReadyToDock = _state?.GetState() ?? true;
-            if (otherUnit.unitConfig.isDockable && PlayerScript.unitConfig.isDockable && isReadyToDock)
+            //NOTE: Можно наверно избавиться от isDockable
+            if (_state?.GetState() ?? true)
             {
-                PlayerScript.lastThingToDock = otherUnit;
-                PlayerScript.readyToDock = true;
-                if (PlayerScript.GetState() != UnitState.IsDocked)
+                _dockComponent.lastThingToDock = otherUnit.GetComponent<UnitScript>();
+                dockAvailable = true;
+                if (_dockComponent.GetState() != UnitState.IsDocked)
                 {
                     ClientEventStorage.GetInstance().DockingAvailable.Invoke();
                 }
@@ -41,8 +41,7 @@ namespace Client.UI
 
         private void OnTriggerExit(Collider other)
         {
-            // Debug.unityLogger.Log($"{PlayerScript.gameObject.name}: Dock trigger exit");
-            PlayerScript.readyToDock = false;
+            dockAvailable = false;
             ClientEventStorage.GetInstance().DockableUnitsInRange.Invoke();
         }
         

@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: -4496328545595590230}
   - component: {fileID: 1025900477015599493}
   - component: {fileID: -6352981743897141286}
+  - component: {fileID: 8265967983881449056}
   m_Layer: 0
   m_Name: Lighthouse
   m_TagString: Dynamic
@@ -242,6 +243,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8265967983881449056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060975571203102823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac9b63d14ed4ad28650957f7bf0573e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unit: {fileID: 0}
+  isDockable: 1
+  lastThingToDock: {fileID: 0}
+  readyToDock:
+    m_InternalValue: 0
+  _dockingMarkers: []
 --- !u!1001 &1254364345309496737
 PrefabInstance:
   m_ObjectHideFlags: 0

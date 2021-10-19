@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: -5698622205738835075}
   - component: {fileID: -2928860733959291561}
   - component: {fileID: 8062465039035580151}
+  - component: {fileID: 9059484002749068705}
   m_Layer: 0
   m_Name: StarSparrow5
   m_TagString: Dynamic
@@ -502,12 +503,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitConfig: {fileID: 11400000, guid: b1118064244030d44b0a6a53eadc7396, type: 2}
-  dockingTrigger: {fileID: 2947148052201005590}
+  keyConfig: {fileID: 11400000, guid: fca14635af08fe442a8970f56fa16013, type: 2}
   shipSpeed: {x: 0, y: 0, z: 0}
   shipRotation: {x: 0, y: 0, z: 0}
-  lastThingToDock: {fileID: 0}
-  readyToDock: 0
   localUsage: 0
+  rigidbody: {fileID: 7867220245665274464}
 --- !u!114 &-5698622205738835075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,6 +599,25 @@ MonoBehaviour:
   - {fileID: 415808259217169590}
   _trustSystems:
   - {fileID: 5107602309111865161}
+--- !u!114 &9059484002749068705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970447681998018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac9b63d14ed4ad28650957f7bf0573e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unit: {fileID: 6037931687343611561}
+  isDockable: 1
+  lastThingToDock: {fileID: 0}
+  readyToDock:
+    m_InternalValue: 0
+  _dockingMarkers:
+  - {fileID: 2947148052201005590}
 --- !u!1 &18850300427956739
 GameObject:
   m_ObjectHideFlags: 0
