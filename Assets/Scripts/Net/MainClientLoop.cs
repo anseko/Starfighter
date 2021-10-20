@@ -1,8 +1,6 @@
-﻿using Client;
-using Client.Core;
+﻿using Client.Core;
 using Core.InputManager;
 using MLAPI;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net

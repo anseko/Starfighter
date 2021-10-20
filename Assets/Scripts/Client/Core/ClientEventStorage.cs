@@ -11,6 +11,7 @@ namespace Client.Core
         public CoreEvent DockableUnitsInRange = new CoreEvent(); //yellow
         public CoreEvent IsDocked = new CoreEvent(); //blue
         public CoreEvent NoOneToDock = new CoreEvent(); //clear
+        public CoreEvent DockIndicatorStateRequest = new CoreEvent();
 
         public static ClientEventStorage GetInstance()
         {
@@ -23,6 +24,7 @@ namespace Client.Core
             DockableUnitsInRange.RemoveAllListeners();
             IsDocked.RemoveAllListeners();
             NoOneToDock.RemoveAllListeners();
+            DockIndicatorStateRequest.RemoveAllListeners();
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Client
     {
         public SpaceUnitConfig unitConfig;
 
-        public UnitState GetState() => UnitState.InFlight;
+        public virtual UnitState GetState() => UnitState.InFlight;
     }
 }

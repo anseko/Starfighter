@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1206618491851150706}
   - component: {fileID: 6356348674901338474}
   - component: {fileID: 8573054716394821038}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: DockCheckZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsInZone: 0
   _playerScript: {fileID: 0}
 --- !u!135 &6356348674901338474
 SphereCollider:

@@ -12,11 +12,10 @@ namespace Core
     public class ConnectionHelper: NetworkBehaviour
     {
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        public void SelectSceneClientRpc(UserType type, ulong networkId, ClientRpcParams clientRpcParams = default)
+        public void SelectSceneClientRpc(UserType type, ulong networkId, UnitState state, ClientRpcParams clientRpcParams = default)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
             FindObjectOfType<MainMenu>().gameObject.SetActive(false);
-            // if (NetworkManager.Singleton.LocalClientId != clientId) return;
             var ps = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.IsOwner || x.NetworkObjectId == networkId)?.GetComponent<PlayerScript>();
             switch (type)
             {
@@ -35,6 +34,7 @@ namespace Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+            if(ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
         }
     }
 }

@@ -10,11 +10,8 @@ namespace Client.UI
         private DockingState _state;
         private DockComponent _dockComponent;
         public bool dockAvailable;
-        
-        private void Awake()
-        {
-        }
 
+        
         public void Init(DockComponent dockComponent)
         {
             _dockComponent = dockComponent;
@@ -27,13 +24,13 @@ namespace Client.UI
             if (!other.gameObject.CompareTag(Constants.DockTag) || !gameObject.CompareTag(Constants.DockTag)) return;
             var otherUnit = other.gameObject.GetComponentInParent<DockComponent>();
             if (otherUnit is null) return;
-            //NOTE: Можно наверно избавиться от isDockable
             if (_state?.GetState() ?? true)
             {
                 _dockComponent.lastThingToDock = otherUnit.GetComponent<UnitScript>();
                 dockAvailable = true;
                 if (_dockComponent.GetState() != UnitState.IsDocked)
                 {
+                    Debug.unityLogger.Log("DockTrigger found something");
                     ClientEventStorage.GetInstance().DockingAvailable.Invoke();
                 }
             }

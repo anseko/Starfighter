@@ -1,4 +1,5 @@
-﻿using Client.Core;
+﻿using System;
+using Client.Core;
 using Core;
 using ScriptableObjects;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace Client
             rigidbody = GetComponent<Rigidbody>();
         }
         
-        public UnitState GetState()
+        public override UnitState GetState()
         {
             return unitStateMachine.currentState.State;
         }

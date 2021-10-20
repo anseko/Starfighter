@@ -108,7 +108,6 @@ namespace Net.Utils
         
         public IEnumerator InitServer()
         {
-            
             InitShips();
             InitUnits();
             
@@ -122,7 +121,6 @@ namespace Net.Utils
                 {
                     Debug.unityLogger.LogException(ex);
                 }
-                //TODO: Init fields from config;
                 yield return null;
             }
 
@@ -138,7 +136,6 @@ namespace Net.Utils
                 }
                 yield return null;
             }
-            
             
             yield return StartCoroutine(
                 Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));

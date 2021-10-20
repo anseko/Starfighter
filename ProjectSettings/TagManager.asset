@@ -21,8 +21,8 @@ TagManager:
   - 
   - PostProcessing
   - NavigationMarks
-  - DockingMark
-  - 
+  - DockMark
+  - DockZone
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5465039702198356021}
   - component: {fileID: 6421239289667938405}
   - component: {fileID: -8845916403516198259}
-  - component: {fileID: -4093719838541145619}
+  - component: {fileID: 633979006067857553}
   m_Layer: 0
   m_Name: EndShip
   m_TagString: Dynamic
@@ -65,7 +65,7 @@ MonoBehaviour:
   PrefabHashGenerator: EndShip
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &-4093719838541145619
+--- !u!114 &633979006067857553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers: []
+  _dockCheckZone: {fileID: 0}
 --- !u!1 &5458817365223293069
 GameObject:
   m_ObjectHideFlags: 0

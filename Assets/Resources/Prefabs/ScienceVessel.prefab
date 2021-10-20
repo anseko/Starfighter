@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6247934805558484700}
   - component: {fileID: 2561140807261167277}
   - component: {fileID: 2629831759114806377}
-  - component: {fileID: 2198009397803249687}
+  - component: {fileID: -8060894224577305379}
   m_Layer: 0
   m_Name: ScienceVessel
   m_TagString: Dynamic
@@ -322,7 +322,7 @@ MonoBehaviour:
   PrefabHashGenerator: ScienceVessel
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &2198009397803249687
+--- !u!114 &-8060894224577305379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,6 +340,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers: []
+  _dockCheckZone: {fileID: 0}
 --- !u!1 &6220796076773320842
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client;
+using Client.Core;
 using Client.UI;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components
@@ -20,14 +22,19 @@ namespace Net.Components
         public NetworkVariableBool readyToDock;
         [SerializeField]
         private List<DockingTrigger> _dockingMarkers;
+        [SerializeField]
+        private DockCheckZone _dockCheckZone;
 
+        
         private void Awake()
         {
             readyToDock = new NetworkVariableBool(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly}, false);
+            ClientEventStorage.GetInstance().DockIndicatorStateRequest.AddListener(IndicatorUpdate);
         }
 
         private void Start()
         {
+            // _dockCheckZone = GetComponentInChildren<DockCheckZone>();
             if (_dockingMarkers != null)
             {
                 _dockingMarkers.ForEach(x => x.Init(this));
@@ -50,6 +57,31 @@ namespace Net.Components
             }
         }
 
+        private void IndicatorUpdate()
+        {
+            if (!IsOwner) return;
+            
+            if (GetState() == UnitState.IsDocked)
+            {
+                ClientEventStorage.GetInstance().IsDocked.Invoke();
+                return;
+            }
+
+            if (readyToDock.Value)
+            {
+                ClientEventStorage.GetInstance().DockingAvailable.Invoke();
+                return;
+            }
+
+            if (_dockCheckZone.IsAnyInZone())
+            {
+                ClientEventStorage.GetInstance().DockableUnitsInRange.Invoke();
+                return;
+            }
+            
+            ClientEventStorage.GetInstance().NoOneToDock.Invoke();
+        }
+        
         public UnitState GetState()
         {
             return _unit?.GetState() ?? UnitState.InFlight;
@@ -76,6 +108,20 @@ namespace Net.Components
                     }
                 };
 
+                switch (_unit.GetState())
+                {
+                    case UnitState.InFlight:
+                        _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                        break;
+                    case UnitState.IsDocked:
+                        _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+                        break;
+                    case UnitState.IsDead:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
                 SwitchDockStateClientRpc(clientRpcParams);
             }
         }

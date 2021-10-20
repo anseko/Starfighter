@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 587859025726522501}
   - component: {fileID: 2450321010809378420}
   - component: {fileID: 9003948101772855290}
-  - component: {fileID: 7716974495945076779}
+  - component: {fileID: -8282039748990938463}
   m_Layer: 0
   m_Name: Jacht
   m_TagString: Dynamic
@@ -221,7 +221,7 @@ MonoBehaviour:
   PrefabHashGenerator: Jacht
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &7716974495945076779
+--- !u!114 &-8282039748990938463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,6 +239,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers: []
+  _dockCheckZone: {fileID: 0}
 --- !u!1001 &1598419712474097378
 PrefabInstance:
   m_ObjectHideFlags: 0

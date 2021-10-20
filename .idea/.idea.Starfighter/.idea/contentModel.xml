@@ -104,7 +104,6 @@
             <e p="GPSView.cs" t="Include" />
             <e p="NaviPointController.cs" t="Include" />
             <e p="playerScript.cs" t="Include" />
-            <e p="RotationScript.cs" t="Include" />
             <e p="Scaler.cs" t="Include" />
             <e p="SplashScreen.cs" t="Include" />
             <e p="Starfield.cs" t="Include" />
@@ -116,7 +115,6 @@
               <e p="DockingIndicator.cs" t="Include" />
               <e p="DockingState.cs" t="Include" />
               <e p="DockingTrigger.cs" t="Include" />
-              <e p="LockindDocking.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
               <e p="MenuButton.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
@@ -153,10 +151,8 @@
               <e p="MoveComponent.cs" t="Include" />
             </e>
             <e p="Core" t="Include">
-              <e p="Client.cs" t="Include" />
               <e p="MovementData.cs" t="Include" />
               <e p="NetEventStorage.cs" t="Include" />
-              <e p="StarfighterUdpClient.cs" t="Include" />
             </e>
             <e p="MainClientLoop.cs" t="Include" />
             <e p="MainServerLoop.cs" t="Include" />

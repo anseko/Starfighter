@@ -1,9 +1,6 @@
 ﻿using System;
-using Client.Core;
 using Core;
-using Net.PackageData;
 using UnityEngine;
-using EventType = Net.Utils.EventType;
 
 namespace Client
 {

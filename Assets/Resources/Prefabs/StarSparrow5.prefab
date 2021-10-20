@@ -618,6 +618,7 @@ MonoBehaviour:
     m_InternalValue: 0
   _dockingMarkers:
   - {fileID: 2947148052201005590}
+  _dockCheckZone: {fileID: 414937710781985005}
 --- !u!1 &18850300427956739
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +928,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1548361438624900511}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &414937710781985005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1206618491851150706, guid: 491a77f13b0733d48bddf71218b8b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1548361438624900511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4503466714745330137
 PrefabInstance:
   m_ObjectHideFlags: 0

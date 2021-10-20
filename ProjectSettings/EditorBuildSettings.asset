@@ -11,10 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ServerScene.unity
     guid: 138ff64b9950265448568f39952a75c9
-  - enabled: 0
-    path: Assets/Scenes/navi_UI_deprecated.unity
-    guid: afab6df920d31ba4b9ce74f12065dd6f
-  - enabled: 0
-    path: Assets/Scenes/pilot_UI_deprecated.unity
-    guid: 45f0b34584abe804cba3ceafa6609c98
   m_configObjects: {}

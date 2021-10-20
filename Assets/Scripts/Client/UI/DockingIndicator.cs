@@ -9,19 +9,22 @@ namespace Client.UI
         private readonly Color _space = new Color(24 / 255f, 184 / 255f, 1, 1);
         private Image _img;
         
+        
         private void Awake()
         {
+            Debug.unityLogger.Log("Dock indicator awake");
             ClientEventStorage.GetInstance().DockingAvailable.AddListener(IntoGreen);
             ClientEventStorage.GetInstance().DockableUnitsInRange.AddListener(IntoYellow);
             ClientEventStorage.GetInstance().IsDocked.AddListener(IntoBlue);
             ClientEventStorage.GetInstance().NoOneToDock.AddListener(IntoClear);
-        }
-
-        private void Start()
-        {
             _img = GetComponent<Image>();
         }
 
+        private void OnEnable()
+        {
+            ClientEventStorage.GetInstance().DockIndicatorStateRequest.Invoke();
+        }
+        
         private void IntoBlue()
         {
             _img.color = _space;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Client;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
@@ -10,7 +11,6 @@ using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace Net
 {
@@ -56,9 +56,10 @@ namespace Net
                     TargetClientIds = new[]{clientId}
                 }
             };
+            
             var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
             var netId = go.GetComponent<NetworkObject>().NetworkObjectId;
-            _connector.SelectSceneClientRpc(account.type, netId, clientRpcParams);
+            _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //TODO: OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;
