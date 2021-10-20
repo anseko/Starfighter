@@ -47,6 +47,8 @@ namespace Net.Components
 
         private void Update()
         {
+            if (!IsOwner) return;
+            
             readyToDock.Value = _dockingMarkers.Any(x => x.dockAvailable);
             
             if(_unit is null) return;
@@ -98,32 +100,28 @@ namespace Net.Components
             //BUG: Корабль без пилота тоже во владении сервера
             otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock.Value;
 
-            if (otherIsReady)
-            {
-                var clientRpcParams = new ClientRpcParams()
-                {
-                    Send = new ClientRpcSendParams()
-                    {
-                        TargetClientIds = new[] {otherObj.OwnerClientId, myObj.OwnerClientId}
-                    }
-                };
+            if (!otherIsReady) return;
 
-                switch (_unit.GetState())
-                {
-                    case UnitState.InFlight:
-                        _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                        break;
-                    case UnitState.IsDocked:
-                        _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                        break;
-                    case UnitState.IsDead:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-                
-                SwitchDockStateClientRpc(clientRpcParams);
+            var otherUnit = otherObj.GetComponent<PlayerScript>();
+  
+            switch (_unit.GetState())
+            {
+                case UnitState.InFlight:
+                    _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    break;
+                case UnitState.IsDocked:
+                    _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    break;
+                case UnitState.IsDead:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+                
+            SwitchDockStateClientRpc();
+            otherObj.GetComponent<DockComponent>().SwitchDockStateClientRpc();
         }
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
