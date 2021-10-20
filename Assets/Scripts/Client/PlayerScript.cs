@@ -3,6 +3,7 @@ using Client.Core;
 using Client.Movement;
 using Client.UI;
 using Core;
+using DefaultNamespace;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -46,6 +47,9 @@ namespace Client
             
             unitConfig = shipConfig;
 
+            // Init collision behavior
+            GetComponent<CollisionScript>().Init(this);
+            
             dockingTrigger.Init(this);
             Debug.unityLogger.Log($"PS {shipConfig.shipState}");
 
@@ -106,6 +110,11 @@ namespace Client
                 (thrustForceVector.normalized) * (ShipsBrain.GetThrustSpeed() + ShipsBrain.GetStraightManeurSpeed()) +
                 (maneurForceVector.normalized) * ShipsBrain.GetSideManeurSpeed();
             _thrustForce.torque = new Vector3(0, ShipsBrain.GetShipAngle(), 0);
+            
+            if (localUsage)
+            {
+                shipSpeed = _ship.velocity;
+            }
         }
  
         public void AnimateMovement()
