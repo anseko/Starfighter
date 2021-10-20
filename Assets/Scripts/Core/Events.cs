@@ -1,7 +1,6 @@
 ﻿using System.Net;
-using Client;
+using Net.Core;
 using Net.PackageData;
-using Net.PackageData.EventsData;
 using Net.Packages;
 using UnityEngine;
 using UnityEngine.Events;

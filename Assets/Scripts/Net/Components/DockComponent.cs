@@ -8,7 +8,6 @@ using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components

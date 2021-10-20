@@ -3,7 +3,7 @@ using Client;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
-using Net.PackageData.EventsData;
+using Net.Core;
 using UnityEngine;
 
 namespace Net.Components

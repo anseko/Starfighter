@@ -1,7 +1,7 @@
 ﻿using System;
 using MLAPI.Serialization;
 
-namespace Net.PackageData.EventsData
+namespace Net.Core
 {
     [Serializable]
     public struct MovementData: INetworkSerializable
