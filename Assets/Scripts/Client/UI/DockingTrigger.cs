@@ -30,7 +30,6 @@ namespace Client.UI
                 dockAvailable = true;
                 if (_dockComponent.GetState() != UnitState.IsDocked)
                 {
-                    Debug.unityLogger.Log("DockTrigger found something");
                     ClientEventStorage.GetInstance().DockingAvailable.Invoke();
                 }
             }

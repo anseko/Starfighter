@@ -12,7 +12,6 @@ namespace Client.UI
         
         private void Awake()
         {
-            Debug.unityLogger.Log("Dock indicator awake");
             ClientEventStorage.GetInstance().DockingAvailable.AddListener(IntoGreen);
             ClientEventStorage.GetInstance().DockableUnitsInRange.AddListener(IntoYellow);
             ClientEventStorage.GetInstance().IsDocked.AddListener(IntoBlue);

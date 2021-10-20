@@ -16,7 +16,6 @@ namespace Client
         
         private void Awake()
         {
-            Debug.unityLogger.Log("Dock zone awake");
             _objectsInDockZone = new List<GameObject>();
         }
 
@@ -24,12 +23,10 @@ namespace Client
         
         private void OnTriggerEnter(Collider other)
         {
-            Debug.unityLogger.Log("Dock zone triggers some");
             //This check is enough while physics collisions between Docking layer object only accounts
             if (other.gameObject.GetComponentInParent<UnitScript>() != _playerScript  &&
                 !_playerScript.GetComponent<DockComponent>().readyToDock.Value)
             {
-                Debug.unityLogger.Log($"{gameObject.transform.root.name} DockZone add object {other.gameObject.transform.root.name}");
                 ClientEventStorage.GetInstance().DockableUnitsInRange.Invoke();
                 _objectsInDockZone.Add(other.gameObject);
             }
