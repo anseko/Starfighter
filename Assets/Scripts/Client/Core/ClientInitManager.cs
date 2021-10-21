@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using UnityEngine;
 using Client.UI;
+using Core;
+using Net.Components;
 
 namespace Client.Core
 {
@@ -22,6 +24,7 @@ namespace Client.Core
             cam.orthographicSize = 25;
             followComp.Player = ps.gameObject;
             followComp.enabled = true;
+            ps.GetComponent<WayPointComponent>()?.Init(false);
             FindObjectOfType<DataOutput>()?.Init(ps);
             FindObjectOfType<RotationWheelScript>()?.Init(ps);
             FindObjectOfType<RotationPanelScript>()?.Init(ps);
@@ -47,6 +50,7 @@ namespace Client.Core
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
+            ps.GetComponent<WayPointComponent>()?.Init(true);
             
             FindObjectOfType<CourseView>()?.Init(ps);
         }

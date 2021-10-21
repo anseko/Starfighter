@@ -53562,6 +53562,7 @@ GameObject:
   - component: {fileID: 2734152212456101977}
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
+  - component: {fileID: 8462600789644280509}
   m_Layer: 0
   m_Name: Player
   m_TagString: Dynamic
@@ -53717,19 +53718,19 @@ MonoBehaviour:
   InterpolatePosition: 1
   SnapDistance: 10
   InterpolateServer: 1
-  MinMeters: 0.05
-  MinDegrees: 0.5
+  MinMeters: 0.01
+  MinDegrees: 0.01
   ExtrapolatePosition: 0
   MaxSendsToExtrapolate: 5
   Channel: 
-  EnableRange: 0
+  EnableRange: 1
   EnableNonProvokedResendChecks: 0
   DistanceSendrate:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 20
+      time: 0.12162018
+      value: 60.04656
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -53737,8 +53738,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 500
-      value: 20
+      time: 1997.9812
+      value: 19.988781
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -53794,6 +53795,20 @@ MonoBehaviour:
   _dockingMarkers:
   - {fileID: 4241530806740680994}
   _dockCheckZone: {fileID: 4074226066348235289}
+--- !u!114 &8462600789644280509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38dbd6ef213847ff90f94a1f2789acbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointPrefab: {fileID: 8796398754777050499, guid: e038f844105cee24f9e6262803b6d298,
+    type: 3}
 --- !u!1 &5598131494464985476
 GameObject:
   m_ObjectHideFlags: 0
@@ -71756,6 +71771,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8169859024692428582, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
+--- !u!4 &2749485143029702466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897021984982847339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4074226066348235289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1206618491851150706, guid: 491a77f13b0733d48bddf71218b8b47c,
@@ -71768,12 +71789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2749485143029702466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2897021984982847339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8753316625881549109
 PrefabInstance:
   m_ObjectHideFlags: 0
