@@ -95,6 +95,8 @@
             <e p="Core" t="Include">
               <e p="ClientEventStorage.cs" t="Include" />
               <e p="ClientInitManager.cs" t="Include" />
+              <e p="playerScript.cs" t="Include" />
+              <e p="UnitScript.cs" t="Include" />
               <e p="UnitStateMachine.cs" t="Include" />
             </e>
             <e p="CourseView.cs" t="Include" />
@@ -102,7 +104,6 @@
             <e p="Follow.cs" t="Include" />
             <e p="GPSView.cs" t="Include" />
             <e p="ParallaxScript.cs" t="Include" />
-            <e p="playerScript.cs" t="Include" />
             <e p="Postman.cs" t="Include" />
             <e p="Scaler.cs" t="Include" />
             <e p="SplashScreen.cs" t="Include" />
@@ -122,15 +123,9 @@
               <e p="RotationWheelScript.cs" t="Include" />
               <e p="SpeedPanelScript.cs" t="Include" />
             </e>
-            <e p="UnitScript.cs" t="Include" />
             <e p="Zoom.cs" t="Include" />
           </e>
           <e p="Core" t="Include">
-            <e p="AbstractSingleton.cs" t="Include" />
-            <e p="ClassExtensions" t="Include">
-              <e p="DtoExtensions.cs" t="Include" />
-            </e>
-            <e p="ConnectionHelper.cs" t="Include" />
             <e p="Constants.cs" t="Include" />
             <e p="CoreEventStorage.cs" t="Include" />
             <e p="Enums.cs" t="Include" />
@@ -152,35 +147,22 @@
               <e p="WayPointComponent.cs" t="Include" />
             </e>
             <e p="Core" t="Include">
+              <e p="ConnectionHelper.cs" t="Include" />
+              <e p="InstantiateHelper.cs" t="Include" />
               <e p="MovementData.cs" t="Include" />
               <e p="NetEventStorage.cs" t="Include" />
+              <e p="ServerInitializeHelper.cs" t="Include" />
+              <e p="StateData.cs" t="Include" />
             </e>
             <e p="MainClientLoop.cs" t="Include" />
             <e p="MainServerLoop.cs" t="Include" />
-            <e p="PackageData" t="Include">
-              <e p="StateData.cs" t="Include" />
-            </e>
-            <e p="Packages" t="Include">
-              <e p="AbstractPackage.cs" t="Include" />
-              <e p="StatePackage.cs" t="Include" />
-            </e>
-            <e p="Utils" t="Include">
-              <e p="EventTypes.cs" t="Include" />
-              <e p="PackageTypes.cs" t="Include" />
-              <e p="SerializationSurrogates.cs" t="Include" />
-              <e p="ServerInitializeHelper.cs" t="Include" />
-            </e>
           </e>
           <e p="ScriptableObjects" t="Include">
             <e p="ClientAccountObject.cs" t="Include" />
             <e p="DangerZoneConfig.cs" t="Include" />
             <e p="KeyConfig.cs" t="Include" />
-            <e p="RouteConfig.cs" t="Include" />
             <e p="SpaceShipConfig.cs" t="Include" />
             <e p="SpaceUnitConfig.cs" t="Include" />
-          </e>
-          <e p="Utils" t="Include">
-            <e p="InstantiateHelper.cs" t="Include" />
           </e>
         </e>
         <e p="Shaders" t="Include">

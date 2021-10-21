@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.InputManager
 {
-    public class InputManager: Singleton<InputManager>, IDisposable
+    public class InputManager: MonoBehaviour, IDisposable
     {
         public SmartAxis[] axes;
         public KeyConfig keyConfig;

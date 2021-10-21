@@ -3,11 +3,12 @@ using System.Linq;
 using Client;
 using Client.Core;
 using Client.UI;
+using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
 
-namespace Core
+namespace Net.Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {

@@ -2,7 +2,7 @@ using Core;
 using MLAPI;
 using ScriptableObjects;
 
-namespace Client
+namespace Client.Core
 {
     public class UnitScript : NetworkBehaviour
     {

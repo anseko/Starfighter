@@ -5,16 +5,15 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Client;
+using Client.Core;
 using Core;
 using Core.Models;
-using Net.Core;
 using ScriptableObjects;
 using UnityEngine;
-using Utils;
 
-namespace Net.Utils
+namespace Net.Core
 {
-    public class ServerInitializeHelper: Singleton<ServerInitializeHelper>
+    public class ServerInitializeHelper: MonoBehaviour
     {
         [Serializable]
         public class SpaceShipsWrapper
@@ -33,11 +32,6 @@ namespace Net.Utils
         private BinaryFormatter _binaryFormatter;
         private SpaceShipConfig[] _shipConfigs;
         private SpaceUnitConfig[] _unitConfigs;
-        
-        private new void Awake()
-        {
-            base.Awake();
-        }
 
         private void InitShips()
         {

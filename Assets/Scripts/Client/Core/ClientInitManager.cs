@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
 using Client.UI;
-using Core;
 using Net.Components;
 
 namespace Client.Core

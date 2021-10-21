@@ -11,14 +11,6 @@
         Admin
     }
 
-    public enum UnitType
-    {
-        Ship,
-        Asteroid,
-        WayPoint,
-        WorldObject
-    }
-    
     public enum UnitState
     {
         InFlight,
@@ -26,17 +18,4 @@
         IsDead,
     }
 
-    public enum GameState
-    {
-        InMenu,
-        InGame,
-        OnExit //?
-    }
-
-    public enum InterpolationType
-    {
-        NoInterpolation,
-        Linear,
-        Square
-    }
 }

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Text;
 using Client;
+using Client.Core;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using Net.Core;
-using Net.Utils;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace Net
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
-            StartCoroutine(ServerInitializeHelper.instance.InitServer());
+            StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
         }
         
         private void OnDisconnectCallback(ulong clientId)
@@ -95,7 +95,7 @@ namespace Net
         
         private void OnApplicationQuit()
         {
-            ServerInitializeHelper.instance.SaveServer();
+            GetComponent<ServerInitializeHelper>().SaveServer();
             NetworkManager.Singleton.StopServer();
         }
     }

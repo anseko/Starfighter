@@ -3,7 +3,7 @@ using Core;
 using Core.Models;
 using UnityEngine;
 
-namespace Net.PackageData
+namespace Net.Core
 {
     [Serializable]
     public class StateData

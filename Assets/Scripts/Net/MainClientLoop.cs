@@ -15,21 +15,10 @@ namespace Net
             // Application.targetFrameRate = 120;
         }
 
-        private void Disconnect()
-        {
-            Debug.unityLogger.Log("Disconnection");
-            NetworkManager.Singleton.StopClient();
-        }
-
-        private void OnDestroy()
-        {
-            InputManager.instance.Dispose();
-        }
-
         private void OnApplicationQuit()
         {
-            Disconnect();
-            OnDestroy();
+            NetworkManager.Singleton.StopClient();
+            GetComponent<InputManager>().Dispose();
         }
     }
 }

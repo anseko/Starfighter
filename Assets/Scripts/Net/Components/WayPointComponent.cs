@@ -1,7 +1,6 @@
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
 using UnityEngine;
 
 namespace Net.Components
@@ -27,8 +26,6 @@ namespace Net.Components
             {
                 var navigatorClientId = NetworkManager.Singleton.LocalClientId;
                 var pilotClientId = GetComponent<NetworkObject>().OwnerClientId;
-                Debug.unityLogger.Log($"Ids: {navigatorClientId}, {pilotClientId}");
-                Debug.unityLogger.Log($"Camera: {_camera.gameObject.name}");
                 MovePointServerRpc(_camera.ScreenToWorldPoint(Input.mousePosition), navigatorClientId, pilotClientId);
             }
         }

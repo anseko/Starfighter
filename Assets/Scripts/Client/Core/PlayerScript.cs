@@ -1,9 +1,8 @@
-﻿using Client.Core;
-using Core;
+﻿using Core;
 using ScriptableObjects;
 using UnityEngine;
 
-namespace Client
+namespace Client.Core
 {
     public class PlayerScript : UnitScript
     {
