@@ -7,9 +7,8 @@ namespace Client
     { 
         public GameObject ship; 
         private GameObject _target;
-        private Vector3 _lastPosition;
 
-        
+
         public void Init(PlayerScript playerScript, GameObject target = null)
         {
             Debug.unityLogger.Log($"CourseView: {gameObject.name} , {playerScript.gameObject.name}");
@@ -24,10 +23,11 @@ namespace Client
         }
         
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            transform.position = ship.transform.position;
-            transform.LookAt(_target.transform);
+            var shipPosition = ship.transform.position;
+            transform.position = shipPosition + Vector3.up * 70;
+            transform.LookAt(_target.transform.position + Vector3.up * 70);
         }
     }
 }

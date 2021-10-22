@@ -5,32 +5,20 @@ namespace Client
 {
     public class CourseView : MonoBehaviour
     {
-        public GameObject ship;
-        private GameObject _target;
-        private Vector3 _lastPosition;
-
+        public PlayerScript ship;
         
-        public void Init(PlayerScript playerScript, GameObject target = null)
+        
+        public void Init(PlayerScript playerScript)
         {
-            ship = playerScript.gameObject;
-            if (target is null)
-                _target = ship;
+            ship = playerScript;
+            ship.shipSpeed.OnValueChanged += CourseChange;
         }
 
-        public void SetTarget(GameObject target)
-        {
-            _target = target;
-        }
-        
-        // Update is called once per frame
-        void Update()
+        private void CourseChange(Vector3 previousvalue, Vector3 newvalue)
         {
             var shipPosition = ship.transform.position;
-            var delta = ship.GetComponent<Rigidbody>().velocity.normalized;
-            transform.LookAt(shipPosition + delta + Vector3.up * 70);
-            var cursorPosition = shipPosition + Vector3.up * 70;
-            transform.position = cursorPosition;
-            _lastPosition = _target.transform.position;
+            transform.position = shipPosition + Vector3.up * 70;
+            transform.LookAt(shipPosition + newvalue.normalized + Vector3.up * 70);
         }
     }
 }

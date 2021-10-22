@@ -16,7 +16,7 @@ namespace Client.UI
         // Update is called once per frame
         void Update()
         {
-            transform.Rotate(0,0, - PlayerScript.shipRotation.normalized.y * PlayerScript.shipRotation.magnitude * Mathf.Rad2Deg / _rotationModifier * Time.deltaTime);
+            transform.Rotate(0,0, - PlayerScript.shipRotation.Value.normalized.y * PlayerScript.shipRotation.Value.magnitude * Mathf.Rad2Deg / _rotationModifier * Time.deltaTime);
         }
     }
 }

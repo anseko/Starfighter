@@ -26,8 +26,9 @@ namespace Client.Core
 
         public void Update(GameObject unit)
         {
-            _playerScript.shipSpeed = _playerScript.rigidbody.velocity;
-            _playerScript.shipRotation = _playerScript.rigidbody.angularVelocity;
+            if (!_playerScript.IsOwner) return;
+            _playerScript.shipSpeed.Value = _playerScript.rigidbody.velocity;
+            _playerScript.shipRotation.Value = _playerScript.rigidbody.angularVelocity;
         }
 
         public void OnExit(GameObject unit)

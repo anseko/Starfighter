@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using System;
+using Core;
+using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -7,11 +9,17 @@ namespace Client.Core
     public class PlayerScript : UnitScript
     {
         public KeyConfig keyConfig;
-        public Vector3 shipSpeed, shipRotation;
+        public NetworkVariableVector3 shipSpeed, shipRotation;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody rigidbody;
-        
+
+        private void Awake()
+        {
+            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
+            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
+        }
+
         private void Start()
         {
             if (localUsage)
@@ -23,8 +31,7 @@ namespace Client.Core
             unitStateMachine = new UnitStateMachine(gameObject, (unitConfig as SpaceShipConfig).shipState);
             Debug.unityLogger.Log($"PS {(unitConfig as SpaceShipConfig).shipState}");
 
-            shipSpeed = Vector3.zero;
-            shipRotation = Vector3.zero;
+            
             rigidbody = GetComponent<Rigidbody>();
         }
         

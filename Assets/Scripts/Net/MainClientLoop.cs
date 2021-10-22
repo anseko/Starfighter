@@ -9,7 +9,7 @@ namespace Net
     [RequireComponent(typeof(InputManager))]
     public class MainClientLoop : MonoBehaviour
     {
-        private new void Awake()
+        private void Awake()
         {
             // QualitySettings.vSyncCount = 0;
             // Application.targetFrameRate = 120;

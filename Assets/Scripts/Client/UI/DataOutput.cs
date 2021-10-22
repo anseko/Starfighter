@@ -25,8 +25,8 @@ namespace Client.UI
         // Update is called once per frame
         private void Update()
         {
-            _roundSpeed = (float)Math.Round(PlayerScript.shipSpeed.magnitude, 2); // скорость полета
-            _rotSpeed = (float)Math.Round(PlayerScript.shipRotation.magnitude * Mathf.Rad2Deg, 2); //скорость врещения в градусах
+            _roundSpeed = (float)Math.Round(PlayerScript.shipSpeed.Value.magnitude, 2); // скорость полета
+            _rotSpeed = (float)Math.Round(PlayerScript.shipRotation.Value.magnitude * Mathf.Rad2Deg, 2); //скорость врещения в градусах
             _pointsText.text = "Скорость: " + _roundSpeed.ToString() + "\n" + "Вращение: " + _rotSpeed.ToString();// вывод в UI
         }
     }

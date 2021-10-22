@@ -1,3 +1,4 @@
+using Client;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
@@ -54,6 +55,12 @@ namespace Net.Components
             {
                 _point = Instantiate(_pointPrefab, position, _pointPrefab.transform.rotation);
                 _point.tag = Constants.WayPointTag;
+                var gpsView = FindObjectOfType<GPSView>(true);
+                if (gpsView != null || !gpsView.enabled)
+                {
+                    gpsView.SetTarget(_point);
+                    gpsView.enabled = true;
+                }
             }
 
             _point.transform.position = position;

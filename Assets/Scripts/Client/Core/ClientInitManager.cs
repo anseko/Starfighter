@@ -50,7 +50,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(true);
-            
+            cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<CourseView>()?.Init(ps);
         }
     }
