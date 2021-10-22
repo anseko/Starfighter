@@ -31,7 +31,7 @@ namespace Client.Core
             FindObjectOfType<CoordinatesUI>()?.Init(ps);
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
-            Resources.FindObjectsOfTypeAll<GPSView>().First().Init(ps);
+            FindObjectOfType<GPSView>(true)?.Init(ps);
         }
         
         public void InitNavigator(PlayerScript ps)

@@ -56,10 +56,11 @@ namespace Net.Components
                 _point = Instantiate(_pointPrefab, position, _pointPrefab.transform.rotation);
                 _point.tag = Constants.WayPointTag;
                 var gpsView = FindObjectOfType<GPSView>(true);
-                if (gpsView != null || !gpsView.enabled)
+                if (gpsView != null && !gpsView.isActiveAndEnabled)
                 {
+                    Debug.unityLogger.Log($"{gpsView.name}");
                     gpsView.SetTarget(_point);
-                    gpsView.enabled = true;
+                    gpsView.gameObject.SetActive(true);
                 }
             }
 

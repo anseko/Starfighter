@@ -4569,30 +4569,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 442743352}
     m_Modifications:
-    - target: {fileID: 145702374243212280, guid: 29d473a86a0613344b4f9bff5867b473,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8.3
-      objectReference: {fileID: 0}
     - target: {fileID: 5366166700393996772, guid: 29d473a86a0613344b4f9bff5867b473,
         type: 3}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5366166700393996772, guid: 29d473a86a0613344b4f9bff5867b473,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5366166700393996772, guid: 29d473a86a0613344b4f9bff5867b473,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5366166700393996772, guid: 29d473a86a0613344b4f9bff5867b473,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5366166700393996772, guid: 29d473a86a0613344b4f9bff5867b473,
         type: 3}
@@ -4648,11 +4628,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WayPointer
-      objectReference: {fileID: 0}
-    - target: {fileID: 7510857472494586814, guid: 29d473a86a0613344b4f9bff5867b473,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29d473a86a0613344b4f9bff5867b473, type: 3}
