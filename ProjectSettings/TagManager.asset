@@ -14,11 +14,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Asteroids
   - Water
   - UI
-  - 
-  - 
+  - Ships
+  - Units
   - PostProcessing
   - NavigationMarks
   - DockMark

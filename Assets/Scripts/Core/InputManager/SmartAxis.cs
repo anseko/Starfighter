@@ -23,7 +23,7 @@ namespace Core.InputManager
             if (Math.Abs(value - _previousValue) >= delta || (_previousValue != 0 && value == 0))
             {
                 _previousValue = value;
-                CoreEventStorage.GetInstance().axisValueChanged.Invoke(axisName, value);
+                CoreEventStorage.GetInstance().AxisValueChanged.Invoke(axisName, value);
             }
         }
     }

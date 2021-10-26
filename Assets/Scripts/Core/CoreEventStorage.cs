@@ -6,12 +6,12 @@ namespace Core
     {
         private static CoreEventStorage _instance;
 
-        public AxisValueEvent axisValueChanged = new AxisValueEvent();
-        public KeyCodeEvent actionKeyPressed = new KeyCodeEvent(); 
+        public readonly AxisValueEvent AxisValueChanged = new AxisValueEvent();
+        public readonly KeyCodeEvent ActionKeyPressed = new KeyCodeEvent(); 
         
         public static CoreEventStorage GetInstance()
         {
-            return _instance ?? (_instance = new CoreEventStorage());
+            return _instance ??= new CoreEventStorage();
         }
         
         public void Dispose()

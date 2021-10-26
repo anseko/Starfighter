@@ -24,7 +24,7 @@ namespace Net
 
         private void Awake()
         {
-            NetEventStorage.GetInstance().worldInit.AddListener(BeginReceiving);
+            NetEventStorage.GetInstance().WorldInit.AddListener(BeginReceiving);
             // QualitySettings.vSyncCount = 0;
             // Application.targetFrameRate = 120;
         }

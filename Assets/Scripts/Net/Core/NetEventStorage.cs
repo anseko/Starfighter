@@ -6,17 +6,17 @@ namespace Net.Core
     public class NetEventStorage: IDisposable
     {
         private static NetEventStorage _instance;
-        public IntEvent worldInit = new IntEvent();
+        public readonly IntEvent WorldInit = new IntEvent();
 
 
         public static NetEventStorage GetInstance()
         {
-            return _instance ?? (_instance = new NetEventStorage());
+            return _instance ??= new NetEventStorage();
         }
 
         public void Dispose()
         {
-            worldInit.RemoveAllListeners();
+            WorldInit.RemoveAllListeners();
         }
     }
 }

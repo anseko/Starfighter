@@ -134,7 +134,7 @@ namespace Net.Core
             yield return StartCoroutine(
                 Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             gameObject.GetComponent<MainServerLoop>().indicator.color = Color.green;
-            NetEventStorage.GetInstance().worldInit.Invoke(0);
+            NetEventStorage.GetInstance().WorldInit.Invoke(0);
         }
 
         public void SaveServer()

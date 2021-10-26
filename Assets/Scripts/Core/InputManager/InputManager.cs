@@ -28,7 +28,7 @@ namespace Core.InputManager
             {
                 Enum.TryParse(x.GetValue(keyConfig).ToString(), out KeyCode value);
                 if (!Input.GetKeyDown(value)) return;
-                CoreEventStorage.GetInstance().actionKeyPressed.Invoke(value);
+                CoreEventStorage.GetInstance().ActionKeyPressed.Invoke(value);
             });
         }
 

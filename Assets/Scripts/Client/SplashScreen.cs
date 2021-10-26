@@ -8,14 +8,13 @@ namespace Client
     
 public class SplashScreen : MonoBehaviour
 {
-    public IntEvent worldInit = new IntEvent();
     [SerializeField]private int _maxNumAsteroids;
     private float _currentNumAsteroids;
     private float _loadRatio;
     [SerializeField] private GameObject _screen;
     private void Awake()
     {
-        NetEventStorage.GetInstance().worldInit.AddListener(LoadScene);
+        NetEventStorage.GetInstance().WorldInit.AddListener(LoadScene);
         _loadRatio = Mathf.RoundToInt(_currentNumAsteroids / _maxNumAsteroids * 100);
     }
 

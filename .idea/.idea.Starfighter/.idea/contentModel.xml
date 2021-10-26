@@ -7,7 +7,6 @@
       <e p="Assets" t="Include">
         <e p="External assets" t="Include">
           <e p="Backgrounds" t="Include">
-            <e p="Background Tip.txt" t="Include" />
             <e p="Fantasy Purple 2048" t="Include">
               <e p="Note.txt" t="Include" />
             </e>
@@ -46,17 +45,6 @@
               <e p="Spawn System" t="Include">
                 <e p="CFX_SpawnSystem.cs" t="Include" />
               </e>
-            </e>
-          </e>
-          <e p="Particle Systems Starter Project" t="Include">
-            <e p="Assets" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="Bomb.cs" t="Include" />
-                <e p="BombEmitter.cs" t="Include" />
-              </e>
-            </e>
-            <e p="ProjectSettings" t="Include">
-              <e p="ProjectVersion.txt" t="Include" />
             </e>
           </e>
           <e p="StarSparrow" t="Include">

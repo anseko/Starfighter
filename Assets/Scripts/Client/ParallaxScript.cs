@@ -29,15 +29,10 @@ namespace Client
             _offset.x = transform.position.x / 10f / ParallaxRate;
             _offset.y = transform.position.z / 10f / ParallaxRate;
             _mat.mainTextureOffset = _offset;
-            OnResize();
         }
 
-        private void OnResize()
+        public void OnResize()
         {
-            _mr = GetComponent<MeshRenderer>();
-            _mat = _mr.material;
-            _offset = _mat.mainTextureOffset;
-            
             var cameraHeight = camera.orthographicSize * 2;
             var cameraSize = new Vector2(camera.aspect * cameraHeight, cameraHeight);
             var scale = transform.localScale;
