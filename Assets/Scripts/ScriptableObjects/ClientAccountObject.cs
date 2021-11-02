@@ -10,6 +10,5 @@ namespace ScriptableObjects
         public string password;
         public UserType type;
         public SpaceShipConfig ship;
-
     }
 }

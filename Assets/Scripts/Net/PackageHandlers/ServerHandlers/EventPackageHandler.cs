@@ -43,6 +43,10 @@ namespace Net.PackageHandlers.ServerHandlers
                         var wayPoint = (WayPoint) eventPack.data.data;
                         NetEventStorage.GetInstance().wayPointSetted.Invoke(pack.ipAddress, wayPoint);
                         break;
+                    case EventType.GrappleEvent:
+                        var grapple = eventPack.data.data;
+                        //TODO: Запустить grappler с заданым Guid. 
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

@@ -71,36 +71,38 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
-    - _Brightness: 0.00388
+    - _Brightness: 0.0032
     - _BumpScale: 1
-    - _Coefficient: 0.501
+    - _Coefficient: 0.465
     - _Cutoff: 0.5
-    - _Darkness: 0.22
+    - _Darkness: 0.378
     - _DetailNormalMapScale: 1
     - _DirectionX: -0.45
     - _DirectionY: -0.28
-    - _DistFading: 0.398
+    - _DistFading: 0.464
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Iterations: 11
+    - _Iterations: 6.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Saturation: 0.82
+    - _Saturation: 1.05
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.03
+    - _Speed: 0.036
     - _SrcBlend: 1
-    - _StepSize: 0.092
-    - _Tile: 1.12
+    - _StepSize: 0.18
+    - _Tile: 1.45
     - _UVSec: 0
-    - _VolumeSteps: 11.3
+    - _VolumeSteps: 8.9
     - _ZWrite: 1
-    - _Zoom: 8.49
+    - _Zoom: 8.04
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []

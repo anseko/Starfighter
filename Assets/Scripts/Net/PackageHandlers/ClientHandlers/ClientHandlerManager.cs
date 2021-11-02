@@ -109,10 +109,31 @@ namespace Net.PackageHandlers.ClientHandlers
             _responsePendingList.Remove(package);
         }
         
-        public void DeclineEvent(AbstractPackage acceptPackage)
+        public void DeclineEvent(AbstractPackage declinePackage)
         {
-            var id = (acceptPackage as AcceptPackage).data.eventId;
+            Debug.unityLogger.Log($"Decline handling {declinePackage.id}");
+            var id = (declinePackage as DeclinePackage).data.eventId;
             var package = _responsePendingList.FirstOrDefault(x => (x as EventPackage).data.eventId == id) as EventPackage;
+            
+            switch (package.data.eventType)
+            {
+                case EventType.GrappleEvent:
+                {
+                    //TODO: remove GO of grapple.
+                }
+                    break;
+                case EventType.MoveEvent:
+                case EventType.DockEvent:
+                case EventType.FireEvent:
+                case EventType.HitEvent:
+                case EventType.InitEvent:
+                case EventType.WayPointEvent:
+                case EventType.OtherEvent:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             _responsePendingList.Remove(package);
         }
     }

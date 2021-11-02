@@ -15,11 +15,12 @@ namespace Net.PackageData
     [Serializable]
     public class WorldObject
     {
-        public WorldObject(string _name, Transform _transform)
+        public WorldObject(string name, Transform transform, bool toDestroy = false)
         {
-            name = _name;
-            position = _transform.position;
-            rotation = _transform.rotation;
+            this.name = name;
+            position = transform.position;
+            rotation = transform.rotation;
+            this.toDestroy = toDestroy;
         }
         
         [SerializeField]
@@ -28,19 +29,21 @@ namespace Net.PackageData
         public Vector3 position;
         [SerializeField]
         public Quaternion rotation;
+        [SerializeField]
+        public bool toDestroy;
     }
 
     [Serializable]
     public class Asteroid : WorldObject
     {
-        public Asteroid(string _name, Transform _transform) : base(_name, _transform)
+        public Asteroid(string name, Transform transform, bool toDestroy = false) : base(name, transform, toDestroy)
         {}
     }
     
     [Serializable]
     public class WayPoint : WorldObject
     {
-        public WayPoint(string _name, Transform _transform) : base(_name, _transform)
+        public WayPoint(string name, Transform transform, bool toDestroy = false) : base(name, transform, toDestroy)
         {}
     }
 
@@ -56,13 +59,13 @@ namespace Net.PackageData
         [SerializeField]
         public UnitState shipState;
 
-        public SpaceShip(string _name, Transform _transform, Vector3 _velocity, Vector3 _angularVelocity, SpaceShipDto _config, UnitState _shipState = UnitState.InFlight) : base(_name,
-            _transform)
+        public SpaceShip(string name, Transform transform, Vector3 velocity, Vector3 angularVelocity, SpaceShipDto config, UnitState shipState = UnitState.InFlight, bool toDestroy = false) : base(name,
+            transform, toDestroy)
         {
-            velocity = _velocity;
-            angularVelocity = _angularVelocity;
-            dto = _config;
-            shipState = _shipState;
+            this.velocity = velocity;
+            this.angularVelocity = angularVelocity;
+            dto = config;
+            this.shipState = shipState;
         }
     }
 

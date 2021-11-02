@@ -97,6 +97,7 @@ namespace Net
 
                 if (_playerScript.ShipsBrain.GetGrappleAction())
                 {
+                    //TODO: Добавить нужной информации в пакет
                     var result = await udpClient.SendEventPackage(_playerScript.gameObject.name, EventType.GrappleEvent);
                 }
             }
@@ -152,6 +153,17 @@ namespace Net
             
             foreach (var worldObject in statePack.data.worldState)
             {
+                //TODO: перепроверить, могу ли я использовать поиск по имени, вместо сбора всех объектов по тегу и поиска по тегу. Вопрос касается WayPoint
+                if (worldObject.toDestroy)
+                {
+                    var go = GameObject.Find(worldObject.name);
+                    if (go != null)
+                    {
+                        Destroy(go);
+                    }
+                    continue;
+                }
+                
                 if (worldObject is Asteroid)
                 {
                     var go = InstantiateHelper.InstantiateObject(worldObject);
@@ -162,14 +174,14 @@ namespace Net
                 
                 if (worldObject is WayPoint)
                 {
-                    var gameObject = GameObject.FindGameObjectsWithTag(Constants.WayPointTag)
+                    var wayPointGo = GameObject.FindGameObjectsWithTag(Constants.WayPointTag)
                         .FirstOrDefault(go => go.name == worldObject.name);
                         
-                    if (gameObject != null)
+                    if (wayPointGo != null)
                     {
                         //Сервер однозначно определяет положение ВСЕХ объектов
-                        gameObject.transform.position = worldObject.position;
-                        gameObject.transform.rotation = worldObject.rotation;
+                        wayPointGo.transform.position = worldObject.position;
+                        wayPointGo.transform.rotation = worldObject.rotation;
                     }
                     else
                     {
@@ -185,20 +197,18 @@ namespace Net
                 
                 if (worldObject is SpaceShip)
                 {
-                    var gameObject = GameObject.FindGameObjectsWithTag(Constants.DynamicTag)
+                    var spaceShipGo = GameObject.FindGameObjectsWithTag(Constants.DynamicTag)
                         .FirstOrDefault(go => go.name == worldObject.name);
                 
-                    if (gameObject != null)
+                    if (spaceShipGo != null)
                     {
                         //Сервер однозначно определяет положение ВСЕХ объектов
-                        gameObject.transform.position = worldObject.position;
-                        gameObject.transform.rotation = worldObject.rotation;
-                        gameObject.GetComponent<PlayerScript>().shipRotation =
+                        spaceShipGo.transform.position = worldObject.position;
+                        spaceShipGo.transform.rotation = worldObject.rotation;
+                        spaceShipGo.GetComponent<PlayerScript>().shipRotation =
                             (worldObject as SpaceShip).angularVelocity;
-                        gameObject.GetComponent<PlayerScript>().shipSpeed =
+                        spaceShipGo.GetComponent<PlayerScript>().shipSpeed =
                             (worldObject as SpaceShip).velocity;
-                        // gameObject.GetComponent<PlayerScript>().shipConfig =
-                        //     (worldObject as SpaceShip).dto.ToConfig();
                     }
                     else
                     {
@@ -215,14 +225,14 @@ namespace Net
                 
                 //default: WorldObject
                 {
-                    var gameObject = GameObject.FindGameObjectsWithTag(Constants.DynamicTag)
+                    var worldObjectGo = GameObject.FindGameObjectsWithTag(Constants.DynamicTag)
                         .FirstOrDefault(go => go.name == worldObject.name);
                 
-                    if (gameObject != null)
+                    if (worldObjectGo != null)
                     {
                         //Сервер однозначно определяет положение ВСЕХ объектов
-                        gameObject.transform.position = worldObject.position;
-                        gameObject.transform.rotation = worldObject.rotation;
+                        worldObjectGo.transform.position = worldObject.position;
+                        worldObjectGo.transform.rotation = worldObject.rotation;
                     }
                     else
                     {

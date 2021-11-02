@@ -4,12 +4,13 @@ namespace Client.UI
 {
     public class RotationWheelScript : BasePlayerUIElement
     {
-        [SerializeField] private int _rotationModifier;
+        [SerializeField] 
+        private int _rotationModifier;
     
     
         void Start()
         {
-            _rotationModifier = 5;
+            _rotationModifier = 1;
         }
 
         // Update is called once per frame
