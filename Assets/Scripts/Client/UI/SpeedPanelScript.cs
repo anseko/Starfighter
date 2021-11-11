@@ -12,7 +12,7 @@ namespace Client.UI
 
         void Update()
         {
-            _image.fillAmount = PlayerScript.shipSpeed.magnitude / _changeRate;
+            _image.fillAmount = PlayerScript.shipSpeed.Value.magnitude / _changeRate;
         }
     }
 }
