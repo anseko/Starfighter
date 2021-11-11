@@ -107,11 +107,11 @@ namespace Net.Components
             {
                 case UnitState.InFlight:
                     _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                    otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    if(otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
                     break;
                 case UnitState.IsDocked:
                     _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                    otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    if(otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
                     break;
                 case UnitState.IsDead:
                     break;

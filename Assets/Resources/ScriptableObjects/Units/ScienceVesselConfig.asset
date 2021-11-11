@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHp: 1000
   currentHp: 1000
   isDockable: 1
+  isMovable: 0
   position: {x: -1323.5848, y: -3.812292, z: -1755.9633}
-  rotation: {x: 90, y: 0.5781149, z: -0.5781149, w: 0.40716478}
+  rotation: {x: 0.70710677, y: -1.2862733e-12, z: 1.2862733e-12, w: 0.70710677}
   prefabName: ScienceVessel
