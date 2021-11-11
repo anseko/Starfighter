@@ -66,7 +66,7 @@ namespace Net.Components
         
         private void UpdateMovement()
         {
-            if (!IsOwner || IsServer) return; 
+            if (!IsOwner || (IsServer && !IsHost)) return; 
             _lastMovement.Value = new MovementData()
             {
                 rotationValue = Input.GetAxis("Rotation") * 4.5f,

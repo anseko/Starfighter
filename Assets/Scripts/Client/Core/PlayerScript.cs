@@ -1,5 +1,4 @@
-﻿using System;
-using Core;
+﻿using Core;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
@@ -25,7 +24,8 @@ namespace Client.Core
             if (localUsage)
             {
                 unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
-                GetComponent<ClientInitManager>().InitPilot(this);
+                // GetComponent<ClientInitManager>().InitPilot(this);
+                MLAPI.NetworkManager.Singleton.StartHost();
             }
             
             unitStateMachine = new UnitStateMachine(gameObject, (unitConfig as SpaceShipConfig).shipState);

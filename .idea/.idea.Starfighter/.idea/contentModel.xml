@@ -131,6 +131,7 @@
           <e p="Net" t="Include">
             <e p="Components" t="Include">
               <e p="DockComponent.cs" t="Include" />
+              <e p="GrappleComponent.cs" t="Include" />
               <e p="MoveComponent.cs" t="Include" />
               <e p="WayPointComponent.cs" t="Include" />
             </e>
