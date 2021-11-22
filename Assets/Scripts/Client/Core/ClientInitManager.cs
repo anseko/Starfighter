@@ -38,6 +38,9 @@ namespace Client.Core
             FindObjectOfType<DockingState>()?.Init(ps);
             Resources.FindObjectsOfTypeAll<GPSView>().First().Init(ps);
             FindObjectOfType<MenuButton>().PauseMenuUI = Resources.FindObjectsOfTypeAll<PauseMenu>().First().gameObject;
+            
+            // Init collision behavior
+            ps.gameObject.GetComponent<CollisionHpReductionScript>().Init(ps);
         }
 
         private static void InitNavigator(PlayerScript ps)

@@ -1,11 +1,10 @@
 using System;
-using Client;
 using Core;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Client
 {
-    public class CollisionScript : MonoBehaviour
+    public class CollisionHpReductionScript : MonoBehaviour
     {
         private PlayerScript _playerScript;
 
@@ -27,12 +26,12 @@ namespace DefaultNamespace
             {
                 _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
                 Debug.unityLogger.Log(
-                    String.Format("Ship is dead, current speed ${0}, result hp ${1}, current hp ${2}", speed, resultHp, _playerScript.shipConfig.currentHp)
+                    String.Format($"Ship is dead, current speed {speed}, result hp {resultHp}, current hp {_playerScript.shipConfig.currentHp}")
                     );
             }
 
             Debug.unityLogger.Log(
-                String.Format("Collision speed ${0}, result hp ${1}, current hp ${2}", speed, resultHp, _playerScript.shipConfig.currentHp)
+                String.Format($"Collision speed {speed}, result hp {resultHp}, current hp {_playerScript.shipConfig.currentHp}", speed, resultHp, _playerScript.shipConfig.currentHp)
                 );
         }
     }

@@ -3,7 +3,6 @@ using Client.Core;
 using Client.Movement;
 using Client.UI;
 using Core;
-using DefaultNamespace;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -46,9 +45,6 @@ namespace Client
             }
             
             unitConfig = shipConfig;
-
-            // Init collision behavior
-            GetComponent<CollisionScript>().Init(this);
             
             dockingTrigger.Init(this);
             Debug.unityLogger.Log($"PS {shipConfig.shipState}");

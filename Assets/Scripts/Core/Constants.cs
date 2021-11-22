@@ -29,8 +29,7 @@
         public const int ZoomStep = 1000;
         //Настройки навигатора
 
-        //Максимально возможное количество урона при столкновении кораблей друг с другом (в процентах)
-        public const int MaxPossibleDamage = 98;
+        public const int MaxPossibleDamageHp = 98;
        
     }
 }
