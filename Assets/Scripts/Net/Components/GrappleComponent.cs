@@ -1,9 +1,9 @@
-using System;
 using Client.Core;
+using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 namespace Net.Components
 {
@@ -22,33 +22,34 @@ namespace Net.Components
             if (!IsOwner) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
-                Debug.unityLogger.Log($"KEY PRESSED: {gameObject.name}");
                 if (_grappler == null)
                 {
-                    var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
-                    _grappler = grapplerGo.GetComponent<Grappler>();
-                    _grappler.Init(_unit, 20);
+                    InitGrappleServerRpc(NetworkManager.Singleton.LocalClientId);
                 }
                 else
                 {
-                    Destroy(_grappler.gameObject);
+                    _grappler.DestroyOnServer(NetworkManager.LocalClientId, _grappler.grappledObject?.GetComponent<NetworkObject>().NetworkObjectId ?? default);
                 }
             }
         }
 
         [ServerRpc]
-        public void ApplyGrappleServerRpc(ulong networkObjectId)
+        public void InitGrappleServerRpc(ulong clientId)
         {
-            ApplyGrappleClientRpc(networkObjectId);
+            var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
+            grapplerGo.GetComponent<NetworkObject>().SpawnWithOwnership(clientId, destroyWithScene: true);
+            _grappler = grapplerGo.GetComponent<Grappler>();
+            _grappler?.Init(_unit, 20);
+
+            InitGrappleClientRpc(_grappler.NetworkObjectId);
         }
 
-        [ClientRpc]
-        private void ApplyGrappleClientRpc(ulong networkObjectId)
+        [ClientRpc(Delivery = RpcDelivery.Unreliable)]
+        private void InitGrappleClientRpc(ulong objectId)
         {
-            if (NetworkObjectId == networkObjectId && IsOwner)
-            {
-                
-            }
+            //BUG
+            _grappler = GetNetworkObject(objectId).GetComponent<Grappler>();
+            _grappler?.Init(_unit, 20);
         }
     }
 }

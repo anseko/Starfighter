@@ -60,8 +60,6 @@
             </e>
           </e>
         </e>
-        <e p="Grappler.cs" t="Include" />
-        <e p="JointBreakNotation.cs" t="Include" />
         <e p="Prefabs" t="Include">
           <e p="Luminaris Starship" t="Include">
             <e p="Documentation" t="Include">
@@ -118,6 +116,7 @@
             <e p="CoreEventStorage.cs" t="Include" />
             <e p="Enums.cs" t="Include" />
             <e p="Events.cs" t="Include" />
+            <e p="Grappler.cs" t="Include" />
             <e p="Importer.cs" t="Include" />
             <e p="InputManager" t="Include">
               <e p="InputManager.cs" t="Include" />
@@ -143,7 +142,6 @@
               <e p="ServerInitializeHelper.cs" t="Include" />
               <e p="StateData.cs" t="Include" />
             </e>
-            <e p="MainClientLoop.cs" t="Include" />
             <e p="MainServerLoop.cs" t="Include" />
           </e>
           <e p="ScriptableObjects" t="Include">

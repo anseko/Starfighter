@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Client;
 using Client.Core;
 using Core;
 using MLAPI;
@@ -25,8 +24,6 @@ namespace Net
         private void Awake()
         {
             NetEventStorage.GetInstance().WorldInit.AddListener(BeginReceiving);
-            // QualitySettings.vSyncCount = 0;
-            // Application.targetFrameRate = 120;
         }
 
         private void Start()
@@ -42,12 +39,25 @@ namespace Net
             var account = accountObjects.First(x => x.clientId == clientId);
             account.clientId = null;
             Debug.unityLogger.Log($"Disconnection: {clientId}");
+            foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.OwnerClientId == clientId))
+            {
+                grappler.DestroyOnServer(clientId); //передаст владение серверу
+            }
         }
 
         private void OnConnectCallback(ulong clientId)
         {
             Debug.Log($"Connection accepted: {clientId}");
             var account = accountObjects.First(x => x.clientId == clientId);
+            var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            var netId = go.GetComponent<NetworkObject>().NetworkObjectId;
+            if (account.type == UserType.Pilot && go.GetComponent<PlayerScript>().isGrappled.Value)
+            {
+                foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObjectId.Value == netId))
+                {
+                    grappler.DestroyOnServer(clientId, netId); //передаст владение серверу
+                }
+            }
             
             var clientRpcParams = new ClientRpcParams
             {
@@ -57,15 +67,12 @@ namespace Net
                 }
             };
             
-            var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
-            var netId = go.GetComponent<NetworkObject>().NetworkObjectId;
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //TODO: OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;
             
             go.GetComponent<NetworkObject>().ChangeOwnership(clientId);
-            
         }
 
         private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)

@@ -48199,7 +48199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3943010942076829996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -7.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5600687441863459500}
@@ -53033,7 +53033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595560188102639162}
   - component: {fileID: 5574904152914071494}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53078,7 +53078,7 @@ GameObject:
   - component: {fileID: 5595250520417477094}
   - component: {fileID: 5606545540322712042}
   - component: {fileID: 5612736864157855080}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53160,7 +53160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600389808417689130}
   - component: {fileID: 5575189544241818328}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53204,7 +53204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595694696047155844}
   - component: {fileID: 5574580976503475634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53248,7 +53248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600782862660540806}
   - component: {fileID: 5571414789474069694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53293,7 +53293,7 @@ GameObject:
   - component: {fileID: 5595681234730543042}
   - component: {fileID: 5602647305518319566}
   - component: {fileID: 5612126839190870684}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53309,7 +53309,7 @@ Transform:
   m_GameObject: {fileID: 5598071561361225212}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.1509038, y: 0.39796355, z: -0.18834686}
-  m_LocalScale: {x: -0.79172, y: 0.79172, z: 0.79172}
+  m_LocalScale: {x: 0.7, y: 0.79172, z: 0.79172}
   m_Children:
   - {fileID: 5595262639930259310}
   m_Father: {fileID: 5600687441863459500}
@@ -53376,7 +53376,7 @@ GameObject:
   - component: {fileID: 5600515016826444702}
   - component: {fileID: 5603472188839142258}
   - component: {fileID: 5613123608589845860}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53459,7 +53459,7 @@ GameObject:
   - component: {fileID: 5600507617192719488}
   - component: {fileID: 5603504671636711106}
   - component: {fileID: 5612788794653240696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53541,7 +53541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595262639930259310}
   - component: {fileID: 5571274280593163872}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53593,7 +53593,8 @@ GameObject:
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
   - component: {fileID: 8462600789644280509}
-  m_Layer: 0
+  - component: {fileID: 4570277334352140934}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -53843,6 +53844,22 @@ MonoBehaviour:
   _pointPrefab: {fileID: 8796398754777050499, guid: e038f844105cee24f9e6262803b6d298,
     type: 3}
   _isSetter: 0
+--- !u!114 &4570277334352140934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22e84099bfb481e8099c9ae3013e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grapplerPrefab: {fileID: 5752616692047359496, guid: 23c349fdde5e2174db35d9385a268bac,
+    type: 3}
+  _unit: {fileID: 4683736729940911175}
+  _launcher: {fileID: 3036660466555335935}
 --- !u!1 &5598131494464985476
 GameObject:
   m_ObjectHideFlags: 0
@@ -53854,7 +53871,7 @@ GameObject:
   - component: {fileID: 5595311202439072196}
   - component: {fileID: 5602835686653993936}
   - component: {fileID: 5612645711046819450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53938,7 +53955,7 @@ GameObject:
   - component: {fileID: 5600554257791712334}
   - component: {fileID: 5606611722039242612}
   - component: {fileID: 5612177363746662452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54020,7 +54037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600517159457089276}
   - component: {fileID: 5575185767706544032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54065,7 +54082,7 @@ GameObject:
   - component: {fileID: 5595231672939920816}
   - component: {fileID: 5602552315607669004}
   - component: {fileID: 5612975412001473726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54079,14 +54096,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598160576723558686}
-  m_LocalRotation: {x: 0.0011699904, y: -0.9682485, z: 0.21434925, w: -0.12863873}
+  m_LocalRotation: {x: -0.9682399, y: 0.004049202, z: -0.12979546, w: -0.21365438}
   m_LocalPosition: {x: 1.811, y: -0.265, z: -4.421}
-  m_LocalScale: {x: -1.06, y: 1.06, z: 1.06}
+  m_LocalScale: {x: 1, y: 1.06, z: 1.06}
   m_Children:
   - {fileID: 5600389808417689130}
   m_Father: {fileID: 5600687441863459500}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 24.506, y: -195.922, z: -3.6180003}
+  m_LocalEulerAnglesHint: {x: 24.506, y: -195.922, z: 177}
 --- !u!33 &5602552315607669004
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -54147,7 +54164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595621469492504624}
   - component: {fileID: 5571311297174539804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54192,7 +54209,7 @@ GameObject:
   - component: {fileID: 5600233052586789144}
   - component: {fileID: 5602642795520050204}
   - component: {fileID: 5613026957402464090}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Plasma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54274,7 +54291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600691949450058998}
   - component: {fileID: 5575352166229171472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54318,7 +54335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600365451407067344}
   - component: {fileID: 5571418397620653842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54538,7 +54555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595319448050998838}
   - component: {fileID: 5571443922466111670}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54583,7 +54600,7 @@ GameObject:
   - component: {fileID: 5600231824929215834}
   - component: {fileID: 5606698579991444036}
   - component: {fileID: 5613150251874259252}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Engine (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54666,7 +54683,7 @@ GameObject:
   - component: {fileID: 5595235507452308156}
   - component: {fileID: 5602494333730760084}
   - component: {fileID: 5612329443679518722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54748,7 +54765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595610220676398242}
   - component: {fileID: 5574963575355657792}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54793,7 +54810,7 @@ GameObject:
   - component: {fileID: 5595682828881795428}
   - component: {fileID: 5603449669445944618}
   - component: {fileID: 5612800481698668248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54809,7 +54826,7 @@ Transform:
   m_GameObject: {fileID: 5598636731982657818}
   m_LocalRotation: {x: 0.07408279, y: 0.056851204, z: -0.8472264, w: -0.52296}
   m_LocalPosition: {x: -4.7494516, y: -0.058310926, z: -1.6832962}
-  m_LocalScale: {x: -0.62113994, y: 0.62114, z: 0.62114}
+  m_LocalScale: {x: 0.6, y: 0.62114, z: 0.62114}
   m_Children:
   - {fileID: 5600296572035841230}
   m_Father: {fileID: 5600687441863459500}
@@ -54875,7 +54892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600296572035841230}
   - component: {fileID: 5575034049790678454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54920,7 +54937,7 @@ GameObject:
   - component: {fileID: 5595636413928247340}
   - component: {fileID: 5602661321290292604}
   - component: {fileID: 5612321107443499922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55002,7 +55019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595436195416373488}
   - component: {fileID: 5574911660085167998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55046,7 +55063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595399198115600178}
   - component: {fileID: 5575127425068334780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55091,7 +55108,7 @@ GameObject:
   - component: {fileID: 5600616549882653692}
   - component: {fileID: 5602839002034823902}
   - component: {fileID: 5613465164803976074}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55105,14 +55122,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598725170339538016}
-  m_LocalRotation: {x: -0.27059558, y: -0.2705954, z: 0.65328217, w: 0.65328294}
+  m_LocalRotation: {x: 0.6532815, y: -0.6532815, z: 0.27059805, w: -0.27059802}
   m_LocalPosition: {x: 2.33, y: 0.098, z: -2.485}
-  m_LocalScale: {x: 1.4056841, y: 1.4056841, z: -1.405684}
+  m_LocalScale: {x: 1.4056841, y: 1.4056841, z: 1.5}
   m_Children:
   - {fileID: 5595303540587401244}
   m_Father: {fileID: 5600687441863459500}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 90.00001}
+  m_LocalEulerAnglesHint: {x: 180, y: -45.000004, z: 90.00001}
 --- !u!33 &5602839002034823902
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -55173,7 +55190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600301962171069014}
   - component: {fileID: 5575093817779909876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55218,7 +55235,7 @@ GameObject:
   - component: {fileID: 5595232177027203470}
   - component: {fileID: 5603403163201643170}
   - component: {fileID: 5613074777451471636}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55234,7 +55251,7 @@ Transform:
   m_GameObject: {fileID: 5598733710640438860}
   m_LocalRotation: {x: 0.38619402, y: 0.8807087, z: 0.20570193, w: 0.18136482}
   m_LocalPosition: {x: 1.06, y: 0.142, z: -4.426}
-  m_LocalScale: {x: -0.3434889, y: 0.34348893, z: 0.34348893}
+  m_LocalScale: {x: 0, y: 0.34348893, z: 0.34348893}
   m_Children:
   - {fileID: 5600301962171069014}
   m_Father: {fileID: 5600687441863459500}
@@ -55301,7 +55318,7 @@ GameObject:
   - component: {fileID: 5595242524968933796}
   - component: {fileID: 5606489568785456252}
   - component: {fileID: 5612782759400151658}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55317,7 +55334,7 @@ Transform:
   m_GameObject: {fileID: 5598747400820354952}
   m_LocalRotation: {x: 0.21643972, y: 0, z: 0, w: 0.976296}
   m_LocalPosition: {x: -1.1546118, y: -0.58, z: 1.552002}
-  m_LocalScale: {x: -0.79172, y: 0.79172, z: 0.79172}
+  m_LocalScale: {x: 0.7, y: 0.79172, z: 0.79172}
   m_Children:
   - {fileID: 5595347776167671472}
   m_Father: {fileID: 5600687441863459500}
@@ -55383,7 +55400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600727227824999680}
   - component: {fileID: 5571335501458909372}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55427,7 +55444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600273893501853088}
   - component: {fileID: 5570959258207975558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55472,7 +55489,7 @@ GameObject:
   - component: {fileID: 5600738873708925916}
   - component: {fileID: 5606650850224240678}
   - component: {fileID: 5612049323492600246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55555,7 +55572,7 @@ GameObject:
   - component: {fileID: 5600396662610419542}
   - component: {fileID: 5602765658285827430}
   - component: {fileID: 5612145677624584434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55571,7 +55588,7 @@ Transform:
   m_GameObject: {fileID: 5598820591196413124}
   m_LocalRotation: {x: 0.27059555, y: -0.27059537, z: 0.6532822, w: -0.65328294}
   m_LocalPosition: {x: -2.33, y: 0.098, z: -2.4850006}
-  m_LocalScale: {x: -1.40568, y: 1.40568, z: -1.40568}
+  m_LocalScale: {x: 1.4, y: 1.40568, z: 1.4}
   m_Children:
   - {fileID: 5595192446018263482}
   m_Father: {fileID: 5600687441863459500}
@@ -55638,7 +55655,7 @@ GameObject:
   - component: {fileID: 5600582729688964994}
   - component: {fileID: 5602513349905313854}
   - component: {fileID: 5613165443995855402}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55654,7 +55671,7 @@ Transform:
   m_GameObject: {fileID: 5598823986629326176}
   m_LocalRotation: {x: 0.2391482, y: 0.8561924, z: 0.43904424, w: 0.13031866}
   m_LocalPosition: {x: 1.013, y: 1.048, z: -3.531}
-  m_LocalScale: {x: -0.2399205, y: 0.23992053, z: 0.23992053}
+  m_LocalScale: {x: 0, y: 0.23992053, z: 0.23992053}
   m_Children:
   - {fileID: 5595560188102639162}
   m_Father: {fileID: 5600687441863459500}
@@ -55721,7 +55738,7 @@ GameObject:
   - component: {fileID: 5600388029473247812}
   - component: {fileID: 5603528081594712496}
   - component: {fileID: 5612184388527459790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55804,7 +55821,7 @@ GameObject:
   - component: {fileID: 5595667108850189474}
   - component: {fileID: 5602687293981973994}
   - component: {fileID: 5612257524725663622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55886,7 +55903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595577453701984258}
   - component: {fileID: 5571512822770718106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55931,7 +55948,7 @@ GameObject:
   - component: {fileID: 5595417449259709120}
   - component: {fileID: 5602622868187266138}
   - component: {fileID: 5612579421531260128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Wing_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55947,7 +55964,7 @@ Transform:
   m_GameObject: {fileID: 5598876196461758178}
   m_LocalRotation: {x: -0.000000015454303, y: 0.000000015454322, z: -0.7071073, w: -0.7071063}
   m_LocalPosition: {x: -2.0087633, y: 0.16812958, z: 1.8642502}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5600273893501853088}
   - {fileID: 5600311608181801700}
@@ -56014,7 +56031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595303540587401244}
   - component: {fileID: 5575295801676584754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56058,7 +56075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595347776167671472}
   - component: {fileID: 5571500358183504594}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56103,7 +56120,7 @@ GameObject:
   - component: {fileID: 5595251058777425134}
   - component: {fileID: 5602843350156499210}
   - component: {fileID: 5612300804387300058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56185,7 +56202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595407820833866740}
   - component: {fileID: 5574493795545782844}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56229,7 +56246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595517595269606560}
   - component: {fileID: 5575078648944475464}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56274,7 +56291,7 @@ GameObject:
   - component: {fileID: 5600591879509265466}
   - component: {fileID: 5606661039573940088}
   - component: {fileID: 5612887453470886744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56358,7 +56375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595569725609234128}
   - component: {fileID: 5571349824802811186}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56403,7 +56420,7 @@ GameObject:
   - component: {fileID: 5595232122810071158}
   - component: {fileID: 5602585976352458446}
   - component: {fileID: 5612101049383115362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56485,7 +56502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595343114481629352}
   - component: {fileID: 5571379007677184212}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56529,7 +56546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595192446018263482}
   - component: {fileID: 5575228533463027414}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56906,7 +56923,7 @@ GameObject:
   - component: {fileID: 5595390362110677196}
   - component: {fileID: 5606472011530670838}
   - component: {fileID: 5612940637335735508}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StarSparrow_Weapon (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56922,7 +56939,7 @@ Transform:
   m_GameObject: {fileID: 5599402753901352840}
   m_LocalRotation: {x: -0.35270557, y: 0.89338607, z: 0.18464267, w: -0.20824793}
   m_LocalPosition: {x: -1.052, y: 0.144, z: -4.4179993}
-  m_LocalScale: {x: -0.34349006, y: 0.34349003, z: 0.34349012}
+  m_LocalScale: {x: 0.3, y: 0.34349003, z: 0.34349012}
   m_Children:
   - {fileID: 5595343114481629352}
   m_Father: {fileID: 5600687441863459500}
@@ -56988,7 +57005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595213582773358900}
   - component: {fileID: 5571483765175284072}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57032,7 +57049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600724894762281572}
   - component: {fileID: 5575344809706815180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57076,7 +57093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595691242374553408}
   - component: {fileID: 5575401317594918054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57120,7 +57137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600311608181801700}
   - component: {fileID: 5574495616965376108}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71805,12 +71822,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8169859024692428582, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
---- !u!4 &2749485143029702466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2897021984982847339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4074226066348235289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1206618491851150706, guid: 491a77f13b0733d48bddf71218b8b47c,
@@ -71823,6 +71834,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2749485143029702466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897021984982847339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8753316625881549109
 PrefabInstance:
   m_ObjectHideFlags: 0
