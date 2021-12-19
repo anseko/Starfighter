@@ -32,6 +32,9 @@ namespace Client.Core
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
+            
+            // Init collision behavior
+            ps.gameObject.GetComponent<CollisionHpReductionScript>().Init(ps);
         }
         
         public void InitNavigator(PlayerScript ps)

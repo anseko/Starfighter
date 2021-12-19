@@ -21,6 +21,8 @@
         //Настройки камеры
         public const int ZoomStep = 1000;
         //Настройки навигатора
+
+        public const int MaxPossibleDamageHp = 98;
        
     }
 }
