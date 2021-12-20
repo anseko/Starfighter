@@ -53594,6 +53594,7 @@ GameObject:
   - component: {fileID: 1596104504079781642}
   - component: {fileID: 8462600789644280509}
   - component: {fileID: 4570277334352140934}
+  - component: {fileID: -2304237055800942833}
   m_Layer: 6
   m_Name: Player
   m_TagString: Dynamic
@@ -53711,6 +53712,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitConfig: {fileID: 11400000, guid: 1617cde83ec5f4e41a6b391f58c2e2b3, type: 2}
+  isGrappled:
+    m_InternalValue: 0
   keyConfig: {fileID: 11400000, guid: fca14635af08fe442a8970f56fa16013, type: 2}
   shipSpeed:
     m_InternalValue: {x: 0, y: 0, z: 0}
@@ -53860,6 +53863,21 @@ MonoBehaviour:
     type: 3}
   _unit: {fileID: 4683736729940911175}
   _launcher: {fileID: 3036660466555335935}
+--- !u!114 &-2304237055800942833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fed586dca747039ae23d003f0573e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerScript: {fileID: 4683736729940911175}
+  stressDelta:
+    m_InternalValue: 0
 --- !u!1 &5598131494464985476
 GameObject:
   m_ObjectHideFlags: 0

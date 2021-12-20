@@ -11,6 +11,13 @@ namespace Client.Core
     public class UnitScript : NetworkBehaviour
     {
         public SpaceUnitConfig unitConfig;
+
+        public NetworkVariable<float> currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
+        {
+            ReadPermission = NetworkVariablePermission.Everyone,
+            WritePermission = NetworkVariablePermission.ServerOnly
+        });
+        
         public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
         {
             ReadPermission = NetworkVariablePermission.Everyone,

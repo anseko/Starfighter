@@ -1195,6 +1195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 396738532}
   - component: {fileID: 396738533}
+  - component: {fileID: 396738534}
   m_Layer: 5
   m_Name: stressSlider
   m_TagString: Untagged
@@ -1271,11 +1272,24 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &396738534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396738531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b480e540e9a487e932d5f0b14d80d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
 --- !u!1 &401861397
 GameObject:
   m_ObjectHideFlags: 0
@@ -6508,6 +6522,9 @@ MonoBehaviour:
     - Prefab: {fileID: 1842989693}
       PlayerPrefab: 0
     - Prefab: {fileID: 5752616692047359496, guid: 23c349fdde5e2174db35d9385a268bac,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 7820650207195793590, guid: ab41bb24afd94dd48958bb17b7e44f5b,
         type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:

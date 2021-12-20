@@ -9,6 +9,7 @@ namespace Client.Core
     {
         public KeyConfig keyConfig;
         public NetworkVariableVector3 shipSpeed, shipRotation;
+        public NetworkVariable<float> currentStress;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody rigidbody;
@@ -17,6 +18,20 @@ namespace Client.Core
         {
             shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
             shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
+            currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
+
+            NetworkManager.OnServerStarted += () =>
+            {
+                if (IsServer)
+                {
+                    currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
+                    currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
+                }
+            };
         }
 
         private void Start()
@@ -28,10 +43,9 @@ namespace Client.Core
                 MLAPI.NetworkManager.Singleton.StartHost();
             }
             
-            unitStateMachine = new UnitStateMachine(gameObject, (unitConfig as SpaceShipConfig).shipState);
-            Debug.unityLogger.Log($"PS {(unitConfig as SpaceShipConfig).shipState}");
+            unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
+            Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
 
-            
             rigidbody = GetComponent<Rigidbody>();
         }
         

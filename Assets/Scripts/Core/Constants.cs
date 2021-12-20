@@ -8,6 +8,7 @@
         public const string PathToAccounts = "ScriptableObjects/Accounts/";
         public const string PathToShipsObjects = "ScriptableObjects/Ships/";
         public const string PathToUnitsObjects = "ScriptableObjects/Units/";
+        public const string PathToDangerZones = "ScriptableObjects/DangerZones/";
         public const string PathToAsteroids = "./asteroids.json";
         public const string PathToShips = "./ships.dat";
         public const string PathToUnits = "./units.dat";

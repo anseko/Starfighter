@@ -46,5 +46,15 @@ namespace Net.Core
             instance.SetActive(true);
             return instance;
         }
+
+        public static void InstantiateDangerZone(DangerZoneConfig dangerZone)
+        {
+            var goToInstantiate = Resources.Load(Constants.PathToPrefabs + "DangerZone") as GameObject;
+            var instance = Object.Instantiate(goToInstantiate, dangerZone.Center, Quaternion.Euler(90, 0, 0));
+            instance.GetComponent<DangerZone>().zoneColor.Value = dangerZone.Color;
+            instance.GetComponent<DangerZone>().zoneDamage.Value = dangerZone.Damage;
+            instance.GetComponent<DangerZone>().zoneRadius.Value = dangerZone.Radius;
+            instance.SetActive(true);
+        }
     }
 }

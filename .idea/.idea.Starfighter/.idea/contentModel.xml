@@ -108,6 +108,7 @@
               <e p="RotationPanelScript.cs" t="Include" />
               <e p="RotationWheelScript.cs" t="Include" />
               <e p="SpeedPanelScript.cs" t="Include" />
+              <e p="Stressbar.cs" t="Include" />
             </e>
             <e p="Zoom.cs" t="Include" />
           </e>
@@ -123,15 +124,20 @@
               <e p="SmartAxis.cs" t="Include" />
             </e>
             <e p="Models" t="Include">
+              <e p="DangerZoneDto.cs" t="Include" />
               <e p="SpaceShipDto.cs" t="Include" />
               <e p="SpaceUnitDto.cs" t="Include" />
             </e>
+          </e>
+          <e p="Editor" t="Include">
+            <e p="DangerZoneEdit.cs" t="Include" />
           </e>
           <e p="Net" t="Include">
             <e p="Components" t="Include">
               <e p="DockComponent.cs" t="Include" />
               <e p="GrappleComponent.cs" t="Include" />
               <e p="MoveComponent.cs" t="Include" />
+              <e p="StressComponent.cs" t="Include" />
               <e p="WayPointComponent.cs" t="Include" />
             </e>
             <e p="Core" t="Include">
@@ -142,6 +148,7 @@
               <e p="ServerInitializeHelper.cs" t="Include" />
               <e p="StateData.cs" t="Include" />
             </e>
+            <e p="DangerZone.cs" t="Include" />
             <e p="MainServerLoop.cs" t="Include" />
           </e>
           <e p="ScriptableObjects" t="Include">

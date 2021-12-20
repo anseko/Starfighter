@@ -45,6 +45,8 @@ namespace Client.Core
         {
             //запретить перемещения, подписаться на триггер столкновения для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            if(unit.TryGetComponent<GrappleComponent>(out var grappler))
+                grappler.enabled = false;
             ClientEventStorage.GetInstance().IsDocked.Invoke();
             //TODO: поменять UI?
         }
@@ -58,6 +60,8 @@ namespace Client.Core
         {
             //разрешить перемещения, отписаться от триггера столкновений для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+            if(unit.TryGetComponent<GrappleComponent>(out var grappler))
+                grappler.enabled = true;
             ClientEventStorage.GetInstance().DockingAvailable.Invoke();
             //TODO: поменять UI?
         }

@@ -21,7 +21,7 @@ MonoBehaviour:
   position: {x: -673, y: 1.0000094, z: -657.9999}
   rotation: {x: 0.00000015087382, y: 0.000000028331506, z: -4.5474724e-13, w: 1}
   prefabName: Player
-  maxStress: 0
+  maxStress: 100
   currentStress: 0
   shipId: ship001
   shipState: 0
