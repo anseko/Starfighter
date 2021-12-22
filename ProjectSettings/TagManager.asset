@@ -10,6 +10,7 @@ TagManager:
   - WayPoint
   - CoursePoint
   - Dock
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - DockMark
   - DockZone
   - DangerZone
-  - 
+  - Grid
   - 
   - 
   - 
