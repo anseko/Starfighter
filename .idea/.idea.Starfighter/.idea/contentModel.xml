@@ -89,6 +89,7 @@
             <e p="DockCheckZone.cs" t="Include" />
             <e p="Follow.cs" t="Include" />
             <e p="GPSView.cs" t="Include" />
+            <e p="meshscript.cs" t="Include" />
             <e p="ParallaxScript.cs" t="Include" />
             <e p="Postman.cs" t="Include" />
             <e p="Scaler.cs" t="Include" />

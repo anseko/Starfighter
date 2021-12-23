@@ -18,7 +18,7 @@ namespace Net.Core
                 return shipGO.GetComponent<PlayerScript>();
             }
             
-            var shipPrefab = Resources.Load(Constants.PathToPrefabs + ship.prefabName);
+            var shipPrefab = Resources.Load(Constants.PathToShipsPrefabs + ship.prefabName);
 
             var shipInstance = Object.Instantiate(shipPrefab, position: ship.position,
                                 rotation: ship.rotation) as GameObject;

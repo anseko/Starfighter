@@ -40,15 +40,16 @@ namespace Net.Components
             grapplerGo.GetComponent<NetworkObject>().SpawnWithOwnership(clientId, destroyWithScene: true);
             _grappler = grapplerGo.GetComponent<Grappler>();
             _grappler?.Init(_unit, 20);
-
+            Debug.unityLogger.Log($"ServerSide:{_grappler?.name}");
             InitGrappleClientRpc(_grappler.NetworkObjectId);
         }
 
-        [ClientRpc(Delivery = RpcDelivery.Unreliable)]
+        [ClientRpc(Delivery = RpcDelivery.Reliable)]
         private void InitGrappleClientRpc(ulong objectId)
         {
             //BUG
-            _grappler = GetNetworkObject(objectId).GetComponent<Grappler>();
+            _grappler = GetNetworkObject(objectId)?.GetComponent<Grappler>();
+            Debug.unityLogger.Log(_grappler?.name);
             _grappler?.Init(_unit, 20);
         }
     }
