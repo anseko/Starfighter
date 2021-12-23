@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3204a753c829944a31cb0489dc8759, type: 3}
+  m_Name: SpaceShipConfig 9
+  m_EditorClassIdentifier: 
+  maxAngleSpeed: 100
+  maxSpeed: 50
+  maxHp: 100
+  currentHp: 100
+  isDockable: 1
+  isMovable: 0
+  position: {x: -673, y: 1.0000094, z: -657.9999}
+  rotation: {x: 0.00000015087382, y: 0.000000028331506, z: -4.5474724e-13, w: 1}
+  prefabName: Player9
+  maxStress: 100
+  currentStress: 0
+  shipId: ship009
+  shipState: 0
