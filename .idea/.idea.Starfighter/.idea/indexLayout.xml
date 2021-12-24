@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ContentModelUserStore">
+  <component name="UserContentModel">
     <attachedFolders>
       <Path>../../Users/kozhevnikov.a/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@3.3.5</Path>
     </attachedFolders>
@@ -50,10 +50,5 @@
       <Path>UserSettings</Path>
       <Path>obj</Path>
     </explicitExcludes>
-  </component>
-  <component name="UserContentModel">
-    <attachedFolders />
-    <explicitIncludes />
-    <explicitExcludes />
   </component>
 </project>

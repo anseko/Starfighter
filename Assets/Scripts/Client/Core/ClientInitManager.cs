@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using Client.UI;
+using Client.Util;
 using Net.Components;
 
 namespace Client.Core
@@ -34,7 +34,7 @@ namespace Client.Core
             FindObjectOfType<GPSView>(true)?.Init(ps);
             
             // Init collision behavior
-            ps.gameObject.GetComponent<CollisionHpReductionScript>().Init(ps);
+            ps.gameObject.GetComponent<CollisionHpReductionScript>().Init(ps, new ShipDamageCalculationUtil());
         }
         
         public void InitNavigator(PlayerScript ps)

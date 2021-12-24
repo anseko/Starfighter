@@ -1,4 +1,6 @@
 using System;
+using Client.Core;
+using Client.Util;
 using Core;
 using UnityEngine;
 
@@ -7,31 +9,33 @@ namespace Client
     public class CollisionHpReductionScript : MonoBehaviour
     {
         private PlayerScript _playerScript;
-
-        public void Init(PlayerScript playerScript)
+        private ShipDamageCalculationUtil _calculationUtil;
+        
+        public void Init(PlayerScript playerScript, ShipDamageCalculationUtil util)
         {
+            _calculationUtil = util;
             _playerScript = playerScript;
         }
         
         private void OnCollisionEnter(Collision collision)
         {
-            var maxSpeed = _playerScript.shipConfig.maxSpeed;
-            var speed = _playerScript.shipSpeed.magnitude;
-            
-            var resultHp = (float)Math.Pow(Math.E, speed / maxSpeed);
-            
-            _playerScript.shipConfig.currentHp -= resultHp;
+            var maxSpeed = _playerScript.unitConfig.maxSpeed;
+            var speed = _playerScript.shipSpeed.Value.magnitude;
 
-            if (_playerScript.shipConfig.currentHp <= 0)
+            var resultHp = _calculationUtil.CalculateDamage(speed, maxSpeed, Constants.MaxPossibleDamageHp);
+
+            _playerScript.unitConfig.currentHp -= resultHp;
+
+            if (_playerScript.unitConfig.currentHp <= 0)
             {
                 _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
                 Debug.unityLogger.Log(
-                    String.Format($"Ship is dead, current speed {speed}, result hp {resultHp}, current hp {_playerScript.shipConfig.currentHp}")
+                    String.Format($"Ship is dead, current speed {speed}, result hp {resultHp}, current hp {_playerScript.unitConfig.currentHp}")
                     );
             }
 
             Debug.unityLogger.Log(
-                String.Format($"Collision speed {speed}, result hp {resultHp}, current hp {_playerScript.shipConfig.currentHp}", speed, resultHp, _playerScript.shipConfig.currentHp)
+                String.Format($"Collision speed {speed}, result hp {resultHp}, current hp {_playerScript.unitConfig.currentHp}", speed, resultHp, _playerScript.unitConfig.currentHp)
                 );
         }
     }

@@ -88,7 +88,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.multiplayer.mlapi": {
-      "version": "file:C:\\Unity\\Starfighter\\Packages\\com.unity.multiplayer.mlapi-0.1.0.tgz",
+      "version": "file:com.unity.multiplayer.mlapi-0.1.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
