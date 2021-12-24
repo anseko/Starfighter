@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6223689952303800060}
   - component: {fileID: 6207258498277166452}
   - component: {fileID: 6197573074214361902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: core engine ribs003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6223716019688054868}
   - component: {fileID: 6207672762149201090}
   - component: {fileID: 6198060881807937150}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: core engine ribs005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2561140807261167277}
   - component: {fileID: 2629831759114806377}
   - component: {fileID: -8060894224577305379}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ScienceVessel
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 6223897312235773640}
   - component: {fileID: 6207674104100646822}
   - component: {fileID: 6197665965618802432}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: upper engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 6215053089904368368}
   - component: {fileID: 6207920262831011146}
   - component: {fileID: 6197626726094790576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: core engine ribs004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 6215477894312181434}
   - component: {fileID: 6207296428428846428}
   - component: {fileID: 6198312080884134022}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Core engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 6223746012339445144}
   - component: {fileID: 6208006494574352116}
   - component: {fileID: 6198056557923427824}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: lower Rotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

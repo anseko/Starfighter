@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Client.UI;
+using Net;
 using Client.Util;
 using Net.Components;
+using UnityEngine.SceneManagement;
 
 namespace Client.Core
 {
@@ -33,8 +36,15 @@ namespace Client.Core
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
             
+            //не отображать зоны опасности на пилоте
+            foreach (var dangerZone in FindObjectsOfType<DangerZone>())
+            {
+                dangerZone.gameObject.SetActive(false);
+            }
+            
             // Init collision behavior
             ps.gameObject.GetComponent<CollisionHpReductionScript>().Init(ps, new ShipDamageCalculationUtil());
+
         }
         
         public void InitNavigator(PlayerScript ps)
@@ -55,6 +65,7 @@ namespace Client.Core
             ps.GetComponent<WayPointComponent>()?.Init(true);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<CourseView>()?.Init(ps);
+            FindObjectOfType<Stressbar>(true)?.Init(ps);
         }
     }
 }

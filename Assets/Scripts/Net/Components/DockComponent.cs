@@ -96,7 +96,6 @@ namespace Net.Components
             if (myObj is null || otherObj is null) return;
 
             var otherIsReady = false;
-            //BUG: Корабль без пилота тоже во владении сервера
             otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock.Value;
 
             if (!otherIsReady) return;

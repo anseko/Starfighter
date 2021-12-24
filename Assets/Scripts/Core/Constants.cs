@@ -3,11 +3,13 @@
     public class Constants
     {
         public const string PathToPrefabs = "Prefabs/";
+        public const string PathToShipsPrefabs = "Prefabs/Ships/";
         public const string PathToAxes = "ScriptableObjects/Axes/";
         public const string PathToKeys = "ScriptableObjects/Keys/";
         public const string PathToAccounts = "ScriptableObjects/Accounts/";
         public const string PathToShipsObjects = "ScriptableObjects/Ships/";
         public const string PathToUnitsObjects = "ScriptableObjects/Units/";
+        public const string PathToDangerZones = "ScriptableObjects/DangerZones/";
         public const string PathToAsteroids = "./asteroids.json";
         public const string PathToShips = "./ships.dat";
         public const string PathToUnits = "./units.dat";

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Client;
 using Client.Core;
 using Core;
 using Core.Models;
@@ -29,9 +28,17 @@ namespace Net.Core
             public SpaceUnitDto[] spaceUnitConfigs;
         }
         
+        [Serializable]
+        public class DangerZoneWrapper
+        {
+            [SerializeField] 
+            public DangerZoneDto[] dangerZoneConfigs;
+        }
+        
         private BinaryFormatter _binaryFormatter;
         private SpaceShipConfig[] _shipConfigs;
         private SpaceUnitConfig[] _unitConfigs;
+        private DangerZoneConfig[] _dangerZoneConfigs;
 
         private void InitShips()
         {
@@ -99,17 +106,48 @@ namespace Net.Core
                 _unitConfigs = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
             }
         }
+
+        private void InitDangerZones()
+        {
+            _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
+            return;
+            
+            try
+            {
+                _dangerZoneConfigs = JsonUtility.FromJson<DangerZoneWrapper>(File.ReadAllText(Constants.PathToDangerZones))
+                    .dangerZoneConfigs.Select(x =>
+                    {
+                        var temp = ScriptableObject.CreateInstance<DangerZoneConfig>();
+                        temp.Center = x.center;
+                        temp.Color = x.color;
+                        temp.Damage = x.damage;
+                        temp.Radius = x.radius;
+                        return temp;
+                    }).ToArray();
+            }
+            catch (FileNotFoundException ex)
+            {
+                Debug.unityLogger.Log($"ERROR: {ex.Message}");
+                _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
+            }
+            catch (SerializationException ex)
+            {
+                Debug.unityLogger.Log($"ERROR {ex.Message}");
+                _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
+            }
+        }
         
         public IEnumerator InitServer()
         {
             InitShips();
             InitUnits();
+            InitDangerZones();
             
-            foreach (var spaceShipConfig in _shipConfigs)
+            foreach (var dangerZone in _dangerZoneConfigs)
             {
                 try
                 {
-                    var playerScript = InstantiateHelper.InstantiateServerShip(spaceShipConfig);
+                    InstantiateHelper.InstantiateDangerZone(dangerZone);
                 }
                 catch(Exception ex)
                 {
@@ -117,12 +155,25 @@ namespace Net.Core
                 }
                 yield return null;
             }
-
+            
             foreach (var unitConfig in _unitConfigs)
             {
                 try
                 {
                     InstantiateHelper.InstantiateObject(unitConfig);
+                }
+                catch(Exception ex)
+                {
+                    Debug.unityLogger.LogException(ex);
+                }
+                yield return null;
+            }
+            
+            foreach (var spaceShipConfig in _shipConfigs)
+            {
+                try
+                {
+                    var playerScript = InstantiateHelper.InstantiateServerShip(spaceShipConfig);
                 }
                 catch(Exception ex)
                 {
@@ -144,8 +195,11 @@ namespace Net.Core
                 var ship = GameObject.Find(
                     $"{spaceShipConfig.prefabName}{Constants.Separator}{spaceShipConfig.shipId}");
                 if (ship is null) continue;
+                var ps = ship.GetComponent<PlayerScript>();
                 spaceShipConfig.rotation = ship.transform.rotation;
                 spaceShipConfig.position = ship.transform.position;
+                spaceShipConfig.currentStress = ps.currentStress.Value;
+                spaceShipConfig.currentHp = ps.currentHp.Value;
                 //Save other fields;
                 spaceShipConfig.shipState = ship.GetComponent<PlayerScript>().GetState();
                 Debug.unityLogger.Log($"Saving ships {spaceShipConfig.prefabName} state {spaceShipConfig.shipState}");
@@ -171,7 +225,6 @@ namespace Net.Core
             {
                 spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
-
         }
     }
 }

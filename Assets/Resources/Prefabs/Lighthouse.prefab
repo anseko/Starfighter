@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 4157473527665658512}
   - component: {fileID: 4157473527664691280}
   - component: {fileID: 1877259350421271003}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Asteroid_01_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 1025900477015599493}
   - component: {fileID: -6352981743897141286}
   - component: {fileID: 2541066169855358594}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lighthouse
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -420,6 +420,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: 13888_Space_Beacon_large_v1_L1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d65159833c64f6746898b50c4103d2b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957399111397970924, guid: d65159833c64f6746898b50c4103d2b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762949556716379628, guid: d65159833c64f6746898b50c4103d2b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65159833c64f6746898b50c4103d2b7, type: 3}
 --- !u!1 &5926816262082472659 stripped
@@ -442,8 +457,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5468588887525517940}
     m_Modifications:
     - target: {fileID: 100000, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
       propertyPath: m_IsActive
@@ -453,9 +476,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: buoy
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 98d89738379b58d4fa6366837b44232a, type: 3}
       propertyPath: m_RootOrder
@@ -522,6 +557,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Range
       value: 26.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2719509842257321736, guid: 98d89738379b58d4fa6366837b44232a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6026378172146895832, guid: 98d89738379b58d4fa6366837b44232a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6622016394003575288, guid: 98d89738379b58d4fa6366837b44232a,
         type: 3}

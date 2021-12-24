@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8190149244424677854}
   - component: {fileID: 3347874320575107683}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wing collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2362884862766698136}
   - component: {fileID: 1241276508731283507}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wing collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2450321010809378420}
   - component: {fileID: 9003948101772855290}
   - component: {fileID: -8282039748990938463}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jacht
   m_TagString: Dynamic
   m_Icon: {fileID: 0}

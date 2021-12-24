@@ -43,10 +43,12 @@ namespace Client.Core
         
         public void OnEnter(GameObject unit)
         {
-            //TODO: запретить перемещения, подписаться на триггер столкновения для принудительного разрыва
+            //запретить перемещения, подписаться на триггер столкновения для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            if(unit.TryGetComponent<GrappleComponent>(out var grappler))
+                grappler.enabled = false;
             ClientEventStorage.GetInstance().IsDocked.Invoke();
-            //TODO: поменять UI
+            //TODO: поменять UI?
         }
 
         public void Update(GameObject unit)
@@ -56,10 +58,12 @@ namespace Client.Core
         
         public void OnExit(GameObject unit)
         {
-            //TODO: разрешить перемещения, отписаться от триггера столкновений для принудительного разрыва
+            //разрешить перемещения, отписаться от триггера столкновений для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+            if(unit.TryGetComponent<GrappleComponent>(out var grappler))
+                grappler.enabled = true;
             ClientEventStorage.GetInstance().DockingAvailable.Invoke();
-            //TODO: поменять UI
+            //TODO: поменять UI?
         }
     }
 
@@ -70,24 +74,26 @@ namespace Client.Core
         public void OnEnter(GameObject unit)
         {
             //TODO: ХП в ноль, отключить весь функционал, кроме аварийного?
+            unit.GetComponent<PlayerScript>().GiveAwayShipOwnershipServerRpc();
         }
 
         
         public void Update(GameObject unit)
         {
-            
+            //TODO: испускать маяком сигнал
         }
         
         public void OnExit(GameObject unit)
         {
             //TODO: полагаю, выставить новые параметры
+            unit.GetComponent<PlayerScript>().RequestShipOwnership(); 
         }
     }
     
     public class UnitStateMachine
     {
         public IUnitState currentState;
-        public GameObject unit;
+        private readonly GameObject _unit;
         private readonly IsDeadState _isDeadState;
         private readonly IsDockedState _isDockedState;
         private readonly InFlightState _inFlightState;
@@ -97,7 +103,7 @@ namespace Client.Core
             _isDeadState = new IsDeadState();
             _isDockedState = new IsDockedState();
             _inFlightState = new InFlightState();
-            unit = unitToControl;
+            _unit = unitToControl;
 
             switch (currentState)
             {
@@ -114,13 +120,13 @@ namespace Client.Core
                     this.currentState = _inFlightState;
                     break;
             }
-            this.currentState.OnEnter(unit);
+            this.currentState.OnEnter(_unit);
         }
 
         public void ChangeState(UnitState newState)
         {
             Debug.unityLogger.Log($"State changing to {newState}");
-            currentState.OnExit(unit);
+            currentState.OnExit(_unit);
             switch (newState)
             {
                 case UnitState.InFlight:
@@ -136,12 +142,12 @@ namespace Client.Core
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
             
-            currentState.OnEnter(unit);
+            currentState.OnEnter(_unit);
         }
 
         public void Update()
         {
-            currentState.Update(unit);
+            currentState.Update(_unit);
         }
         
     }

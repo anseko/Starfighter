@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6421239289667938405}
   - component: {fileID: -8845916403516198259}
   - component: {fileID: 633979006067857553}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EndShip
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5446094508948057041}
   - component: {fileID: 8811351268495910746}
   - component: {fileID: 6072791045760757185}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spaceship_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

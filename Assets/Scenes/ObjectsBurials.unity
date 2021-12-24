@@ -828,34 +828,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2014895431}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &313346665 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4683736729940911175, guid: e2c23dce4c8a1b8498e21572ddbb4be5,
-    type: 3}
-  m_PrefabInstance: {fileID: 2014895431}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 313346659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &313346670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 313346659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e22e84099bfb481e8099c9ae3013e57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grapplerPrefab: {fileID: 5752616692047359496, guid: 23c349fdde5e2174db35d9385a268bac,
-    type: 3}
-  _unit: {fileID: 313346665}
-  _launcher: {fileID: 555634674}
 --- !u!1 &330701179
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,12 +920,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330701179}
   m_CullTransparentMesh: 0
---- !u!4 &555634674 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3036660466555335935, guid: e2c23dce4c8a1b8498e21572ddbb4be5,
-    type: 3}
-  m_PrefabInstance: {fileID: 2014895431}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &627921792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1226,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -2598,11 +2564,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3036660466555335935, guid: e2c23dce4c8a1b8498e21572ddbb4be5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.54
-      objectReference: {fileID: 0}
     - target: {fileID: 4683736729940911175, guid: e2c23dce4c8a1b8498e21572ddbb4be5,
         type: 3}
       propertyPath: localUsage
