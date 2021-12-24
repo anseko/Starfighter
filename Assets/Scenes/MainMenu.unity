@@ -2125,7 +2125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &500423924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6679,7 +6679,6 @@ MonoBehaviour:
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 1
     ConnectionData: 
-    SecondsHistory: 5
     EnableTimeResync: 0
     TimeResyncInterval: 30
     EnableNetworkVariable: 1

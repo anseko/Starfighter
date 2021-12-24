@@ -24,14 +24,17 @@ namespace Client.Core
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
 
-            NetworkManager.OnServerStarted += () =>
+            if (!localUsage)
             {
-                if (IsServer)
+                NetworkManager.OnServerStarted += () =>
                 {
-                    currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
-                    currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
-                }
-            };
+                    if (IsServer)
+                    {
+                        currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
+                        currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
+                    }
+                };
+            }
         }
 
         private void Start()
@@ -54,7 +57,7 @@ namespace Client.Core
             return unitStateMachine.currentState.State;
         }
         
-        private void FixedUpdate()
+        private void Update()
         {
             unitStateMachine.Update();
         }

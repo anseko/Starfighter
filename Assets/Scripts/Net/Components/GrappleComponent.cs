@@ -19,7 +19,7 @@ namespace Net.Components
         
         private void Update()
         {
-            if (!IsOwner) return;
+            if (!IsOwner || _unit.isGrappled.Value) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
                 if (_grappler == null)
@@ -40,7 +40,6 @@ namespace Net.Components
             grapplerGo.GetComponent<NetworkObject>().SpawnWithOwnership(clientId, destroyWithScene: true);
             _grappler = grapplerGo.GetComponent<Grappler>();
             _grappler?.Init(_unit, 20);
-            Debug.unityLogger.Log($"ServerSide:{_grappler?.name}");
             InitGrappleClientRpc(_grappler.NetworkObjectId);
         }
 
@@ -49,7 +48,6 @@ namespace Net.Components
         {
             //BUG
             _grappler = GetNetworkObject(objectId)?.GetComponent<Grappler>();
-            Debug.unityLogger.Log(_grappler?.name);
             _grappler?.Init(_unit, 20);
         }
     }

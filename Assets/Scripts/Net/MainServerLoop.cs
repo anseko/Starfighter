@@ -68,7 +68,7 @@ namespace Net
             };
             
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
-            //TODO: OtherConnectionStuff
+            //OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;
             
