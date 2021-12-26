@@ -26,8 +26,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _slider.value = playerScript.currentStress.Value; 
-            //(playerScript.unitConfig as SpaceShipConfig).currentStress;
+            _slider.value = playerScript.currentStress.Value;
         }
     }
 }

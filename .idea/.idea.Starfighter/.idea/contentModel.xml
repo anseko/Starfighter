@@ -60,16 +60,6 @@
             </e>
           </e>
         </e>
-        <e p="Prefabs" t="Include">
-          <e p="Luminaris Starship" t="Include">
-            <e p="Documentation" t="Include">
-              <e p="Readme Luminaris.txt" t="Include" />
-            </e>
-          </e>
-          <e p="Space Shooter" t="Include">
-            <e p="Info.txt" t="Include" />
-          </e>
-        </e>
         <e p="Procedural fire" t="Include">
           <e p="Shaders" t="Include">
             <e p="FireSphere.shader" t="Include" />
@@ -134,6 +124,7 @@
             <e p="DangerZoneEdit.cs" t="Include" />
           </e>
           <e p="Net" t="Include">
+            <e p="AIComponent.cs" t="Include" />
             <e p="Components" t="Include">
               <e p="DockComponent.cs" t="Include" />
               <e p="GrappleComponent.cs" t="Include" />

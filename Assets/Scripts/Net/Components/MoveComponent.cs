@@ -98,6 +98,7 @@ namespace Net.Components
         [ServerRpc]
         private void AnimateMovementServerRpc()
         {
+            #if !UNITY_SERVER
             #region Reset movement animation
             
             _trustSystems.ForEach(x=>x.Stop());
@@ -133,6 +134,7 @@ namespace Net.Components
             {
                 _backRightSystems.ForEach(x=>x.Play(true));
             }
+            #endif
             
             AnimateMovementClientRpc();
         }

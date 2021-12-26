@@ -1,3 +1,4 @@
+using System;
 using Client.Core;
 using Core;
 using MLAPI;
@@ -34,7 +35,7 @@ namespace Net.Components
         }
 
         [ServerRpc]
-        public void InitGrappleServerRpc(ulong clientId)
+        private void InitGrappleServerRpc(ulong clientId)
         {
             var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
             grapplerGo.GetComponent<NetworkObject>().SpawnWithOwnership(clientId, destroyWithScene: true);
@@ -46,9 +47,26 @@ namespace Net.Components
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         private void InitGrappleClientRpc(ulong objectId)
         {
-            //BUG
-            _grappler = GetNetworkObject(objectId)?.GetComponent<Grappler>();
-            _grappler?.Init(_unit, 20);
+            //BUG: fixed(?) by kostil'
+            try
+            {
+                _grappler = GetNetworkObject(objectId)?.GetComponent<Grappler>();
+                if (_grappler is null)
+                {
+                    FixByDestroyServerRpc();
+                }
+                _grappler?.Init(_unit, 20);
+            }
+            catch (Exception exception)
+            {
+                FixByDestroyServerRpc();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void FixByDestroyServerRpc()
+        {
+            _grappler.DestroyOnServer(NetworkManager.LocalClientId, _grappler.grappledObject?.GetComponent<NetworkObject>().NetworkObjectId ?? default);
         }
     }
 }

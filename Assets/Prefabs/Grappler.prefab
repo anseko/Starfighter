@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLength: 20
-  _grappleVelocity: 2
+  _grappleVelocity: 1
 --- !u!33 &5752616692047359493
 MeshFilter:
   m_ObjectHideFlags: 0
