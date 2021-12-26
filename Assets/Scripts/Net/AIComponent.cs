@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
+using Core;
 using MLAPI;
 using Net.Components;
 using UnityEngine;
@@ -13,27 +14,25 @@ namespace Net
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private List<Transform> _wayPoints;
+        private int _counter = 0;
         private UnitScript _unit;
-        private Queue<Vector3> _wayPointsQueue;
 
-        private void Start()
+        private void Awake()
         {
             _unit = GetComponent<UnitScript>();
-            _wayPointsQueue = new Queue<Vector3>(_wayPoints.Select(x=>x.position));
-            _agent.SetDestination(_wayPointsQueue.Dequeue());
-            
         }
 
+        public void Init()
+        {
+            _wayPoints = GameObject.FindGameObjectsWithTag(Constants.AIPointTag).Select(x=>x.transform).ToList();
+            _agent.SetDestination(_wayPoints[_counter++ % _wayPoints.Count].position);
+        }
+        
         private void Update()
         {
-            if (!_agent.hasPath)
+            if (!_agent.hasPath && _wayPoints.Any())
             {
-                _agent.SetDestination(_wayPointsQueue.Dequeue());
-            }
-
-            if (!_wayPointsQueue.Any())
-            {
-                _wayPointsQueue = new Queue<Vector3>(_wayPoints.Select(x=>x.position));
+                _agent.SetDestination(_wayPoints[_counter++ % _wayPoints.Count].position);
             }
         }
     }

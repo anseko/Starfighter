@@ -101,16 +101,30 @@ namespace Net.Components
             if (!otherIsReady) return;
 
             var otherUnit = otherObj.GetComponent<PlayerScript>();
-  
+            
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
                     _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                    if(otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    if (otherUnit != null)
+                    {
+                        //если мы стыкуемся к объекту с PlayerScript
+                        otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    }
+                    else
+                    {
+                        //если мы стыкуемся к объекту без PlayerScript
+                        transform.SetParent(otherObj.transform);
+                    }
                     break;
                 case UnitState.IsDocked:
                     _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                    if(otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    if (otherUnit != null)
+                    {
+                        otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    }
+                    //если мы отходим от объекта без PlayerScript
+                    transform.SetParent(null);
                     break;
                 case UnitState.IsDead:
                     break;
@@ -125,15 +139,20 @@ namespace Net.Components
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         private void SwitchDockStateClientRpc(ClientRpcParams clientRpcParams = default)
         {
-            if (!IsOwner) return;
+            if (!IsOwner || IsServer || _unit is null) return;
             //Клиент не может быть владельцем unitScript 
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
                     _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    if (!lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
+                    {
+                        transform.SetParent(lastThingToDock.transform);
+                    }
                     break;
                 case UnitState.IsDocked:
                     _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    transform.SetParent(null);
                     break;
                 case UnitState.IsDead:
                     break;

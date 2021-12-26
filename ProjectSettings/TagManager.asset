@@ -11,6 +11,7 @@ TagManager:
   - CoursePoint
   - Dock
   - FxTemporaire
+  - AIPoint
   layers:
   - Default
   - TransparentFX

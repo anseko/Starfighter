@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3818194686854029251}
   - component: {fileID: 3818194686851729313}
   - component: {fileID: 4986360144294380593}
+  - component: {fileID: 704940172119289095}
   m_Layer: 3
   m_Name: Asteroid_04_XL
   m_TagString: Untagged
@@ -115,3 +116,19 @@ MonoBehaviour:
   PrefabHashGenerator: Asteroid_04_XL
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!208 &704940172119289095
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818194686851760387}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.497, y: 0.83100003, z: 0.497}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.011000001, y: -0.030000001, z: -0.006}
+  m_TimeToStationary: 0.5

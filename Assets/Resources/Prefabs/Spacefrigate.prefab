@@ -208,11 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 161327652552128371}
-  _wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _wayPoints: []
 --- !u!114 &6676837935091037447
 MonoBehaviour:
   m_ObjectHideFlags: 0
