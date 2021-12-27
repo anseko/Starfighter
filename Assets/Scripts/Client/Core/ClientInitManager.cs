@@ -33,7 +33,7 @@ namespace Client.Core
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
-            
+
             //не отображать зоны опасности на пилоте
             foreach (var dangerZone in FindObjectsOfType<DangerZone>())
             {
@@ -58,7 +58,7 @@ namespace Client.Core
             zoomComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(true);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
-            FindObjectOfType<CourseView>()?.Init(ps);
+            FindObjectOfType<NavigatorCourseView>()?.Init(ps);
             FindObjectOfType<Stressbar>(true)?.Init(ps);
         }
     }

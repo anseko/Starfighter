@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitConfig: {fileID: 11400000, guid: b9a8ae6d797ee2c4189a6855d5f7d434, type: 2}
+  currentHp:
+    m_InternalValue: 0
+  isGrappled:
+    m_InternalValue: 0
 --- !u!114 &-8845916403516198259
 MonoBehaviour:
   m_ObjectHideFlags: 0
