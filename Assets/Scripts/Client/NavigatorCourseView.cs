@@ -16,6 +16,7 @@ namespace Client
         {
             ship = playerScript;
             renderer = GetComponent<LineRenderer>();
+            renderer.material = new Material(Shader.Find("Sprites/Default"));
         }
 
         private void FixedUpdate()
