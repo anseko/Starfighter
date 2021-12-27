@@ -13,6 +13,7 @@ namespace Client.Core
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody rigidbody;
+        public float FOVRadius;
 
         private void Awake()
         {
@@ -39,12 +40,14 @@ namespace Client.Core
 
         private void Start()
         {
-            if (localUsage)
-            {
-                unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
-                // GetComponent<ClientInitManager>().InitPilot(this);
-                MLAPI.NetworkManager.Singleton.StartHost();
-            }
+            #if UNITY_EDITOR
+                if (localUsage)
+                {
+                    unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
+                    // GetComponent<ClientInitManager>().InitPilot(this);
+                    MLAPI.NetworkManager.Singleton.StartHost();
+                }
+            #endif
             
             unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
             Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
