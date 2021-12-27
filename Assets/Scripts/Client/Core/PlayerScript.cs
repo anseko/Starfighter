@@ -13,6 +13,7 @@ namespace Client.Core
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody rigidbody;
+        public float FOVRadius;
 
         private void Awake()
         {
@@ -24,24 +25,29 @@ namespace Client.Core
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
 
-            NetworkManager.OnServerStarted += () =>
+            if (!localUsage)
             {
-                if (IsServer)
+                NetworkManager.OnServerStarted += () =>
                 {
-                    currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
-                    currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
-                }
-            };
+                    if (IsServer)
+                    {
+                        currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
+                        currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
+                    }
+                };
+            }
         }
 
         private void Start()
         {
-            if (localUsage)
-            {
-                unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
-                // GetComponent<ClientInitManager>().InitPilot(this);
-                MLAPI.NetworkManager.Singleton.StartHost();
-            }
+            #if UNITY_EDITOR
+                if (localUsage)
+                {
+                    unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
+                    // GetComponent<ClientInitManager>().InitPilot(this);
+                    MLAPI.NetworkManager.Singleton.StartHost();
+                }
+            #endif
             
             unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
             Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
@@ -54,7 +60,7 @@ namespace Client.Core
             return unitStateMachine.currentState.State;
         }
         
-        private void FixedUpdate()
+        private void Update()
         {
             unitStateMachine.Update();
         }

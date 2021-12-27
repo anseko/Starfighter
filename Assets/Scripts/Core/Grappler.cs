@@ -13,7 +13,7 @@ namespace Core
         public GameObject grappledObject { get; private set; }
         public NetworkVariable<ulong> grappledObjectId { get; private set; }
         
-        private FixedJoint _joint;
+        private Joint _joint;
         private LineRenderer _lineRenderer;
         private GameObject _owner;
         [SerializeField] private float _maxLength;
@@ -94,7 +94,7 @@ namespace Core
             }
             
             //Add joint to _grappledObject
-            _joint = gameObject.AddComponent<FixedJoint>();
+            _joint = gameObject.AddComponent<HingeJoint>();
             _joint.connectedBody = grappledObject.GetComponent<Rigidbody>();
             _joint.connectedAnchor = other.GetContact(0).point;
             _joint.enableCollision = false;

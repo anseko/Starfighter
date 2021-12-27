@@ -68,7 +68,7 @@ namespace Net
             };
             
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
-            //TODO: OtherConnectionStuff
+            //OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;
             
@@ -88,6 +88,10 @@ namespace Net
         private void BeginReceiving(int _)
         {
             NetworkManager.Singleton.StartServer();
+            foreach (var aiComponent in FindObjectsOfType<AIComponent>())
+            {
+                aiComponent.Init();
+            }
         }
         
         private void Update()

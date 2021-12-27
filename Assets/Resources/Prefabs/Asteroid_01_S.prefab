@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8044737309741013616}
   - component: {fileID: 5239537243281526691}
   - component: {fileID: -3020207217569528063}
+  - component: {fileID: 9066890503176413220}
   m_Layer: 3
   m_Name: Asteroid_01_S
   m_TagString: Untagged
@@ -115,3 +116,19 @@ MonoBehaviour:
   PrefabHashGenerator: Asteroid_01_S
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!208 &9066890503176413220
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8044737309739009200}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.2, y: 0.326, z: 0.2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.019000001, y: 0.038000003, z: -0.004}
+  m_TimeToStationary: 0.5
