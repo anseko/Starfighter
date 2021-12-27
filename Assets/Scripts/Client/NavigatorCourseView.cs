@@ -9,18 +9,23 @@ namespace Client
         public PlayerScript ship;
         public float speedOffset = 5f;
         public Color lineColor = new Color(89,250,19,255);
+        public LineRenderer renderer;
+        public Vector3[] points;
         
         public void Init(PlayerScript playerScript)
         {
             ship = playerScript;
-            ship.shipSpeed.OnValueChanged += CourseChange;
+            renderer = GetComponent<LineRenderer>();
         }
 
-        private void CourseChange(Vector3 previousvalue, Vector3 newvalue)
+        private void FixedUpdate()
         {
             var shipPosition = ship.transform.position;
-            Handles.color = lineColor;
-            Handles.DrawLine(shipPosition, ship.shipSpeed.Value*speedOffset);
+            points = new Vector3[2];
+            points[0] = shipPosition;
+            points[1] = shipPosition + (ship.shipSpeed.Value)*speedOffset;
+            renderer.startColor = lineColor;
+            renderer.SetPositions(points);
         }
     }
 }

@@ -128,7 +128,6 @@
             <e p="DangerZoneEdit.cs" t="Include" />
           </e>
           <e p="Net" t="Include">
-            <e p="AIComponent.cs" t="Include" />
             <e p="Components" t="Include">
               <e p="AIComponent.cs" t="Include" />
               <e p="DockComponent.cs" t="Include" />
