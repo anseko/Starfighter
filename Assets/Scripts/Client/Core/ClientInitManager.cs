@@ -33,7 +33,7 @@ namespace Client.Core
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
-
+            Destroy(FindObjectOfType<GridFiller>().gameObject);
             //не отображать зоны опасности на пилоте
             foreach (var dangerZone in FindObjectsOfType<DangerZone>())
             {

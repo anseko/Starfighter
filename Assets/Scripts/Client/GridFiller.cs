@@ -1,23 +1,23 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class GridFiller : MonoBehaviour
+namespace Client
 {
-    private GameObject gridCell;
-    [SerializeField] public GameObject grid;
-    [SerializeField] private GameObject gridCellPrefab;
-
-    private char[] letters = Enumerable.Range('A', 'T' - 'A' + 1).Select(c => (char) c).ToArray();
-    // Start is called before the first frame update
-    void Start()
+    public class GridFiller : MonoBehaviour
     {
-        foreach (var columnIndex in letters)
+        [SerializeField] private GameObject grid;
+        [SerializeField] private GameObject gridCellPrefab;
+
+
+        private void Start()
         {
-            for (int rowIndex = 1; rowIndex <= 20; rowIndex++)
+            for (var columnIndex = 'A'; columnIndex <= 'T'; columnIndex++)
             {
-                gridCell = Instantiate(gridCellPrefab,grid.transform);
-                gridCell.GetComponent<TextMeshPro>().SetText($"{columnIndex}{rowIndex}");
+                for (var rowIndex = 1; rowIndex <= 20; rowIndex++)
+                {
+                    var gridCell = Instantiate(gridCellPrefab,grid.transform);
+                    gridCell.GetComponentInChildren<TextMeshPro>().SetText($"{columnIndex}{rowIndex}");
+                }
             }
         }
     }

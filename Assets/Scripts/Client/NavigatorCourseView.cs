@@ -24,7 +24,7 @@ namespace Client
         {
             var shipPosition = ship.transform.position;
             points[0] = shipPosition;
-            points[1] = shipPosition + (ship.shipSpeed.Value)*speedOffset;
+            points[1] = shipPosition + ship.shipSpeed.Value * speedOffset;
             renderer.startColor = lineColor;
             renderer.SetPositions(points);
         }
