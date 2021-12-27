@@ -15,6 +15,7 @@ namespace Client
         public void Init(PlayerScript playerScript)
         {
             ship = playerScript;
+            points = new Vector3[2];
             renderer = GetComponent<LineRenderer>();
             renderer.material = new Material(Shader.Find("Sprites/Default"));
         }
@@ -22,7 +23,6 @@ namespace Client
         private void FixedUpdate()
         {
             var shipPosition = ship.transform.position;
-            points = new Vector3[2];
             points[0] = shipPosition;
             points[1] = shipPosition + (ship.shipSpeed.Value)*speedOffset;
             renderer.startColor = lineColor;
