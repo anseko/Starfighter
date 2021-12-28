@@ -70,7 +70,6 @@
         <e p="Scripts" t="Include">
           <e p="Client" t="Include">
             <e p="CameraMotion.cs" t="Include" />
-            <e p="CellFiller.cs" t="Include" />
             <e p="Core" t="Include">
               <e p="ClientEventStorage.cs" t="Include" />
               <e p="ClientInitManager.cs" t="Include" />
@@ -103,6 +102,10 @@
               <e p="PauseMenu.cs" t="Include" />
               <e p="RotationPanelScript.cs" t="Include" />
               <e p="RotationWheelScript.cs" t="Include" />
+              <e p="Spectator" t="Include">
+                <e p="CenterView.cs" t="Include" />
+                <e p="PlayerSelectorFill.cs" t="Include" />
+              </e>
               <e p="SpeedPanelScript.cs" t="Include" />
               <e p="Stressbar.cs" t="Include" />
             </e>
