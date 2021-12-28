@@ -70,6 +70,7 @@
         <e p="Scripts" t="Include">
           <e p="Client" t="Include">
             <e p="CameraMotion.cs" t="Include" />
+            <e p="CellFiller.cs" t="Include" />
             <e p="Core" t="Include">
               <e p="ClientEventStorage.cs" t="Include" />
               <e p="ClientInitManager.cs" t="Include" />

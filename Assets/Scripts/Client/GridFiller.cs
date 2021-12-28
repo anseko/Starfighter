@@ -18,6 +18,7 @@ public class GridFiller : MonoBehaviour
             {
                 gridCell = Instantiate(gridCellPrefab,grid.transform);
                 gridCell.GetComponent<TextMeshPro>().SetText($"{columnIndex}{rowIndex}");
+                //gridCell.GetComponent<CellFiller>().Init(transform.position);
             }
         }
     }

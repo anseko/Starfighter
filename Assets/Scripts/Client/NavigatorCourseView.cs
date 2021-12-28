@@ -10,23 +10,27 @@ namespace Client
         public float speedOffset = 5f;
         public Color lineColor = new Color(89,250,19,255);
         public LineRenderer renderer;
-        public Vector3[] points;
-        
+        [SerializeField] private Vector3[] _points;
+        [SerializeField] private Vector3 shipPosition;
+
+        public void Start()
+        {
+            _points = new Vector3[2];
+        }
         public void Init(PlayerScript playerScript)
         {
             ship = playerScript;
-            points = new Vector3[2];
             renderer = GetComponent<LineRenderer>();
             renderer.material = new Material(Shader.Find("Sprites/Default"));
         }
 
         private void FixedUpdate()
         {
-            var shipPosition = ship.transform.position;
-            points[0] = shipPosition;
-            points[1] = shipPosition + (ship.shipSpeed.Value)*speedOffset;
+            shipPosition = ship.transform.position;
+            _points[0] = shipPosition;
+            _points[1] = shipPosition + (ship.shipSpeed.Value)*speedOffset;
             renderer.startColor = lineColor;
-            renderer.SetPositions(points);
+            renderer.SetPositions(_points);
         }
     }
 }
