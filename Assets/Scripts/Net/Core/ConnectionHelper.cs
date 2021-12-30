@@ -34,7 +34,7 @@ namespace Net.Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            if(ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
+            if(ps != null && ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
         }
     }
 }

@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 33407616175334784}
   - component: {fileID: 23066359335779394}
   - component: {fileID: 65181051199376934}
+  - component: {fileID: 6961659269789130642}
   - component: {fileID: 161327652552128371}
   - component: {fileID: 4499930881292750717}
   - component: {fileID: 1690762029545708180}
   - component: {fileID: 8410993182357636384}
   - component: {fileID: 6676837935091037447}
   - component: {fileID: 5828820422742964226}
-  - component: {fileID: 6961659269789130642}
   - component: {fileID: 3389935491197024343}
   m_Layer: 7
   m_Name: Spacefrigate
@@ -110,6 +110,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.88, y: 4.3518705, z: 8.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6961659269789130642
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247619388254216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.39, y: 4.3518705, z: 1.3}
+  m_Center: {x: 0, y: 0, z: -2.27}
 --- !u!195 &161327652552128371
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -247,19 +260,6 @@ MonoBehaviour:
     m_InternalValue: 0
   _dockingMarkers: []
   _dockCheckZone: {fileID: 0}
---- !u!65 &6961659269789130642
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247619388254216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.39, y: 4.3518705, z: 1.3}
-  m_Center: {x: 0, y: 0, z: -2.27}
 --- !u!54 &3389935491197024343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &278061934356264989
 GameObject:
