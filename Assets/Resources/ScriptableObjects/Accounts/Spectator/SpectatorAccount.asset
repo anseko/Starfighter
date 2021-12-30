@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e85199e5c1224af8903b6f008261b563, type: 3}
-  m_Name: ShipPilotAccount
+  m_Name: SpectatorAccount
   m_EditorClassIdentifier: 
-  login: ShipPilot
-  password: shippilot
-  type: 2
-  ship: {fileID: 11400000, guid: 1617cde83ec5f4e41a6b391f58c2e2b3, type: 2}
+  login: Spectator
+  password: spetator
+  type: 1
+  ship: {fileID: 0}

@@ -1271,6 +1271,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eb382c314864e9448b9dc6b02dd65a7f, type: 2}
   - {fileID: 11400000, guid: 0a0390b46eb7bf146939275b08579c89, type: 2}
   - {fileID: 11400000, guid: e57a7b9decb4de94b91c4b379c297453, type: 2}
+  - {fileID: 11400000, guid: fa591dcf102eb8b43934989f4aca7b26, type: 2}
   _connector: {fileID: 872456032}
 --- !u!4 &2088699828
 Transform:

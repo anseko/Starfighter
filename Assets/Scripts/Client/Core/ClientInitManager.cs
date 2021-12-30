@@ -64,17 +64,15 @@ namespace Client.Core
             FindObjectOfType<Stressbar>(true)?.Init(ps);
         }
         
-        public void InitSpectator(PlayerScript ps)
+        public void InitSpectator()
         {
+            _spectatorUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(false);
-            _spectatorUi.gameObject.SetActive(true);
-            ps.gameObject.GetComponent<Collider>().enabled = false;
-            ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
-            ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
+            followComp.enabled = false;
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;

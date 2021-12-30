@@ -15,6 +15,7 @@ public class CenterView : MonoBehaviour
     void Start()
     {
         _ship = GameObject.Find(GetComponent<TextMeshPro>().text);
+        _camera = FindObjectOfType<Camera>();
     }
 
 
