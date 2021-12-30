@@ -60,6 +60,7 @@ namespace Net
             if (account.type == UserType.Spectator)
             {
                 _connector.SelectSceneClientRpc(account.type, 0, UnitState.InFlight, clientRpcParams);
+                return;
             }
             
             var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");

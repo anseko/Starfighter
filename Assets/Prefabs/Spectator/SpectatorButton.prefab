@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6290530591995667018}
   - component: {fileID: 1114472883557173268}
   - component: {fileID: 7269508715482490381}
+  - component: {fileID: 635178772513192423}
   m_Layer: 5
   m_Name: SpectatorButton
   m_TagString: Untagged
@@ -147,6 +148,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
+--- !u!114 &635178772513192423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263473152166621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 160
+  m_PreferredHeight: 30
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!1 &8181623847195847175
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,8 +235,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cadabdf9a892bd349a922e80f6e42f5b, type: 2}
-  m_sharedMaterial: {fileID: -861736661142445094, guid: cadabdf9a892bd349a922e80f6e42f5b,
+  m_fontAsset: {fileID: 11400000, guid: e6a9cc231c46fc849ac33b7424085e1f, type: 2}
+  m_sharedMaterial: {fileID: -861736661142445094, guid: e6a9cc231c46fc849ac33b7424085e1f,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
