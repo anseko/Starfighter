@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Client;
 using Client.Core;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,6 @@ public class CenterView : MonoBehaviour
 
     public void Spectate()
     {
-        _camera.transform.position = _ship.transform.position;
+        _ship.gameObject.GetComponent<CameraMotion>().Player = _ship;
     }
 }
