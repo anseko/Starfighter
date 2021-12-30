@@ -28,6 +28,7 @@ namespace Net.Core
                     GetComponent<ClientInitManager>().InitNavigator(ps);
                     break;
                 case UserType.Spectator:
+                    GetComponent<ClientInitManager>().InitSpectator(ps);
                     break;
                 case UserType.Moderator:
                     break;
