@@ -49,6 +49,19 @@ namespace Net
         {
             Debug.Log($"Connection accepted: {clientId}");
             var account = accountObjects.First(x => x.clientId == clientId);
+            var clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new[]{clientId}
+                }
+            };
+            
+            if (account.type == UserType.Spectator)
+            {
+                _connector.SelectSceneClientRpc(account.type, 0, UnitState.InFlight, clientRpcParams);
+            }
+            
             var go = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
             var netId = go.GetComponent<NetworkObject>().NetworkObjectId;
             if (account.type == UserType.Pilot && go.GetComponent<PlayerScript>().isGrappled.Value)
@@ -58,14 +71,6 @@ namespace Net
                     grappler.DestroyOnServer(clientId, netId); //передаст владение серверу
                 }
             }
-            
-            var clientRpcParams = new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new[]{clientId}
-                }
-            };
             
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //OtherConnectionStuff

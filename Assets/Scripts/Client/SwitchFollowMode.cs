@@ -11,23 +11,20 @@ namespace Client
         private void Start()
         {
             _buttonText = transform.GetComponentInChildren<TextMeshProUGUI>();
+            _buttonText.text = _cameraMotion.GetFollowMode() switch
+            {
+                true => ">cam<",
+                false => "<cam>"
+            };
         }
         
         public void SwitchButtonText()
         {
-            switch (_cameraMotion.GetFollowMode())
+            _buttonText.text = _cameraMotion.GetFollowMode() switch
             {
-                case true:
-                {
-                    _buttonText.text = ">cam<";
-                    break;
-                }
-                case false:
-                {
-                    _buttonText.text = "<cam>";
-                    break;
-                }
-            }
+                true => ">cam<",
+                false => "<cam>"
+            };
         }
     }
 }

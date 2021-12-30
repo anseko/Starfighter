@@ -1,32 +1,31 @@
 using Client.Core;
-using UnityEditor;
 using UnityEngine;
 
 namespace Client
 {
     public class NavigatorCourseView : MonoBehaviour
     {
-        public PlayerScript ship;
-        public float speedOffset = 5f;
-        public Color lineColor = new Color(89,250,19,255);
-        public LineRenderer renderer;
-        public Vector3[] points;
-        
+        [SerializeField] private PlayerScript _ship;
+        [SerializeField] private float _radius = 8f;
+        [Range(1, 10)] [SerializeField] private float _speedMarkerRatio = 1f;
+        private LineRenderer _renderer;
+
         public void Init(PlayerScript playerScript)
         {
-            ship = playerScript;
-            points = new Vector3[2];
-            renderer = GetComponent<LineRenderer>();
-            renderer.material = new Material(Shader.Find("Sprites/Default"));
+            _ship = playerScript;
+            _renderer = GetComponent<LineRenderer>();
+            _renderer.material = new Material(Shader.Find("Sprites/Default"));
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            var shipPosition = ship.transform.position;
-            points[0] = shipPosition;
-            points[1] = shipPosition + ship.shipSpeed.Value * speedOffset;
-            renderer.startColor = lineColor;
-            renderer.SetPositions(points);
+            var shipPosition = _ship.transform.position;
+            var size = Mathf.LerpUnclamped(0,
+                _ship.unitConfig.maxSpeed / _speedMarkerRatio,
+                Mathf.Log(_ship.shipSpeed.Value.magnitude / Mathf.PI + 1)) ;
+            var radiusVector = _ship.shipSpeed.Value.normalized * _radius;
+            _renderer.SetPosition(0, shipPosition + _ship.shipSpeed.Value.normalized + radiusVector);
+            _renderer.SetPosition(1, shipPosition + _ship.shipSpeed.Value.normalized * size + radiusVector);
         }
     }
 }
