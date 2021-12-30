@@ -8,19 +8,24 @@ using UnityEngine;
 public class CenterView : MonoBehaviour
 
 {
-    
     private GameObject _ship;
     [SerializeField] private Camera _camera;
     
-    void Start()
+    private void Start()
     {
-        _ship = GameObject.Find(GetComponent<TextMeshPro>().text);
-        _camera = FindObjectOfType<Camera>();
+        _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
+        _ship = GameObject.Find(GetComponentInChildren<TextMeshProUGUI>().text);
     }
-
-
+    
     public void Spectate()
     {
-        _ship.gameObject.GetComponent<CameraMotion>().Player = _ship;
+        var motion = _camera.GetComponent<CameraMotion>();
+        motion.Player = _ship;
+        if (!motion.GetFollowMode())
+        {
+            motion.SwitchFollowMode();
+        }
+
+        motion.enabled = true;
     }
 }

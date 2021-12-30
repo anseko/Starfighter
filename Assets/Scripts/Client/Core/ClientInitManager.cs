@@ -68,7 +68,6 @@ namespace Client.Core
         {
             _spectatorUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
-            _navigatorUi.gameObject.SetActive(false);
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;

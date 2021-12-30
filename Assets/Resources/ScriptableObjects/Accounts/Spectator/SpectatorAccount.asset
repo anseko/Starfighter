@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SpectatorAccount
   m_EditorClassIdentifier: 
   login: Spectator
-  password: spetator
+  password: spectator
   type: 1
   ship: {fileID: 0}
