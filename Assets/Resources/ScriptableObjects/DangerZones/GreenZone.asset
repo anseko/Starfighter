@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: GreenZone
   m_EditorClassIdentifier: 
-  Damage: -5
-  Center: {x: -2249, y: -1, z: -283}
-  Radius: 5
-  Color: {r: 0, g: 1, b: 0.22779655, a: 0.39607844}
+  Damage: -0.5
+  Center: {x: -1447, y: -1, z: -945}
+  Radius: 14
+  Color: {r: 0, g: 1, b: 0.22779655, a: 0.15686275}

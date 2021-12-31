@@ -114,6 +114,7 @@
             <e p="CoreEventStorage.cs" t="Include" />
             <e p="Enums.cs" t="Include" />
             <e p="Events.cs" t="Include" />
+            <e p="FramesLimiter.cs" t="Include" />
             <e p="Grappler.cs" t="Include" />
             <e p="Importer.cs" t="Include" />
             <e p="InputManager" t="Include">

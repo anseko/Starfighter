@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: RedZone
   m_EditorClassIdentifier: 
-  Damage: 10
-  Center: {x: -2249, y: -1, z: -230}
-  Radius: 10
-  Color: {r: 1, g: 0, b: 0, a: 0.39215687}
+  Damage: 1
+  Center: {x: -1255, y: -1, z: -959}
+  Radius: 27
+  Color: {r: 1, g: 0, b: 0, a: 0.15686275}
