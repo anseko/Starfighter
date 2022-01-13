@@ -8,8 +8,12 @@ namespace Client
         private Camera _camera;
         private Vector3 _offset;
         private Vector3 _translationPoint;
+        private Vector3 _startPoint;
+        private Vector2 _mousePosition;
         [SerializeField]
         private bool _isFollowMode;
+        [SerializeField]
+        private Vector3 _dragVector;
         
         // Start is called before the first frame update
         private void Start()
@@ -20,8 +24,16 @@ namespace Client
 
         private void FreeMode()
         {
-            _translationPoint = new Vector3(Input.GetAxis("Horizontal") * _camera.orthographicSize / 30, Input.GetAxis("Vertical") * _camera.orthographicSize / 30, 0);
-            _camera.transform.Translate(_translationPoint * -1);
+            _translationPoint = new Vector3(Input.GetAxis("Horizontal") * _camera.orthographicSize, Input.GetAxis("Vertical") * _camera.orthographicSize, 0);
+            _camera.transform.Translate(_translationPoint * -1 * Time.deltaTime);
+        }
+
+        private void OnMouseDrag()
+        {
+            _startPoint = _camera.transform.position;
+           // _mousePosition.x = 
+           // _dragVector = _camera.ScreenToWorldPoint();
+           // _camera.transform.Translate(- _dragVector);
         }
 
         private void FollowShip()

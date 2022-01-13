@@ -449,6 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 0
+  _dragVector: {x: 0, y: 0, z: 0}
 --- !u!114 &161898615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,6 +2251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 1
+  _dragVector: {x: 0, y: 0, z: 0}
 --- !u!120 &495581936
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3936,6 +3938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 984578449}
   _isFollowMode: 1
+  _dragVector: {x: 0, y: 0, z: 0}
 --- !u!114 &984578454
 MonoBehaviour:
   m_ObjectHideFlags: 0
