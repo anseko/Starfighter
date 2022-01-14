@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 namespace Client
 {
@@ -8,12 +10,9 @@ namespace Client
         private Camera _camera;
         private Vector3 _offset;
         private Vector3 _translationPoint;
-        private Vector3 _startPoint;
-        private Vector2 _mousePosition;
-        [SerializeField]
-        private bool _isFollowMode;
-        [SerializeField]
-        private Vector3 _dragVector;
+        [SerializeField] private bool _isFollowMode;
+        [SerializeField] private Vector3 lastMousePosition;
+        [SerializeField] private Vector3 currentMousePosition;
         
         // Start is called before the first frame update
         private void Start()
@@ -28,12 +27,26 @@ namespace Client
             _camera.transform.Translate(_translationPoint * -1 * Time.deltaTime);
         }
 
-        private void OnMouseDrag()
+        
+
+        public void OnBeginDrag(PointerEventData eventData)
         {
-            _startPoint = _camera.transform.position;
-           // _mousePosition.x = 
-           // _dragVector = _camera.ScreenToWorldPoint();
-           // _camera.transform.Translate(- _dragVector);
+            if (!_isFollowMode)
+            {
+                lastMousePosition = _camera.ScreenToWorldPoint(eventData.position);
+            }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (!_isFollowMode)
+            {
+                currentMousePosition = _camera.ScreenToWorldPoint(eventData.position);
+                Vector3 difference = currentMousePosition - lastMousePosition;
+                _camera.transform.Translate(_camera.transform.position+difference);;
+                lastMousePosition = currentMousePosition;
+            }
+            
         }
 
         private void FollowShip()

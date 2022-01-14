@@ -449,7 +449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 0
-  _dragVector: {x: 0, y: 0, z: 0}
+  lastMousePosition: {x: 0, y: 0, z: 0}
+  currentMousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &161898615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2120,6 +2121,7 @@ GameObject:
   - component: {fileID: 495581931}
   - component: {fileID: 495581937}
   - component: {fileID: 495581936}
+  - component: {fileID: 495581938}
   m_Layer: 0
   m_Name: NavigatorCamera
   m_TagString: Untagged
@@ -2251,7 +2253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 1
-  _dragVector: {x: 0, y: 0, z: 0}
+  lastMousePosition: {x: 0, y: 0, z: 0}
+  currentMousePosition: {x: 0, y: 0, z: 0}
 --- !u!120 &495581936
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2375,6 +2378,22 @@ MonoBehaviour:
   _ship: {fileID: 0}
   _radius: 8
   _speedMarkerRatio: 4
+--- !u!114 &495581938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495581930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &500423923
 GameObject:
   m_ObjectHideFlags: 0
@@ -3938,7 +3957,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 984578449}
   _isFollowMode: 1
-  _dragVector: {x: 0, y: 0, z: 0}
+  lastMousePosition: {x: 0, y: 0, z: 0}
+  currentMousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &984578454
 MonoBehaviour:
   m_ObjectHideFlags: 0
