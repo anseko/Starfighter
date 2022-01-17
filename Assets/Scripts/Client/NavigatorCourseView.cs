@@ -8,7 +8,7 @@ namespace Client
         [SerializeField] private PlayerScript _ship;
         [SerializeField] private float _radius = 8f;
         [Range(1, 10)] [SerializeField] private float _speedMarkerRatio = 1f;
-        private LineRenderer _renderer;
+        [SerializeField] private LineRenderer _renderer;
 
         public void Init(PlayerScript playerScript)
         {
