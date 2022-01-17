@@ -89,6 +89,27 @@ namespace Net.Components
         }
 
         [ServerRpc]
+        public void EmergencyUndockServerRpc(ulong myObjectId, ulong otherObjectId, bool changeSelfState = false)
+        {
+            var myObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == myObjectId);
+            var otherObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == otherObjectId);
+            if (myObj is null || otherObj is null) return;
+
+            var otherUnit = otherObj.GetComponent<PlayerScript>();
+            
+            if(changeSelfState) _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+            
+            if (otherUnit != null)
+            {
+                otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+            }
+            transform.SetParent(null);
+            
+            EmergencyUndockClientRpc();
+            otherObj.GetComponent<DockComponent>().EmergencyUndockClientRpc();
+        }
+        
+        [ServerRpc]
         private void TryToDockServerRpc(ulong myObjectId, ulong otherObjectId)
         {
             var myObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == myObjectId);
@@ -137,7 +158,7 @@ namespace Net.Components
         }
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        private void SwitchDockStateClientRpc(ClientRpcParams clientRpcParams = default)
+        private void SwitchDockStateClientRpc()
         {
             if (!IsOwner || IsServer || _unit is null) return;
             //Клиент не может быть владельцем unitScript 
@@ -154,6 +175,25 @@ namespace Net.Components
                     _unit.unitStateMachine.ChangeState(UnitState.InFlight);
                     transform.SetParent(null);
                     break;
+                case UnitState.IsDead:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        [ClientRpc(Delivery = RpcDelivery.Reliable)]
+        private void EmergencyUndockClientRpc()
+        {
+            if (!IsOwner || IsServer || _unit is null) return;
+            //Клиент не может быть владельцем unitScript 
+            switch (_unit.GetState())
+            {
+                case UnitState.IsDocked:
+                    _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    transform.SetParent(null);
+                    break;
+                case UnitState.InFlight:
                 case UnitState.IsDead:
                     break;
                 default:

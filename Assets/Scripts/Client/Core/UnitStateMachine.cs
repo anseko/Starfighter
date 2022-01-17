@@ -1,5 +1,6 @@
 using System;
 using Core;
+using MLAPI;
 using Net.Components;
 using UnityEngine;
 
@@ -73,11 +74,19 @@ namespace Client.Core
         
         public void OnEnter(GameObject unit)
         {
-            //TODO: ХП в ноль, отключить весь функционал, кроме аварийного?
+            //Если были пристыкованы - отстыковаться
+            var dockComp = unit.GetComponent<DockComponent>();
+            if (unit.GetComponent<PlayerScript>().unitStateMachine.previousState.State == UnitState.IsDocked &&
+                dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
+            {
+                dockComp.EmergencyUndockServerRpc(unit.GetComponent<NetworkObject>().NetworkObjectId,
+                    dockComp.lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
+            }
+            
+            //TODO: отключить весь функционал, кроме аварийного?
             unit.GetComponent<PlayerScript>().GiveAwayShipOwnershipServerRpc();
         }
 
-        
         public void Update(GameObject unit)
         {
             //TODO: испускать маяком сигнал
@@ -92,6 +101,7 @@ namespace Client.Core
     
     public class UnitStateMachine
     {
+        public IUnitState previousState;
         public IUnitState currentState;
         private readonly GameObject _unit;
         private readonly IsDeadState _isDeadState;
@@ -105,21 +115,14 @@ namespace Client.Core
             _inFlightState = new InFlightState();
             _unit = unitToControl;
 
-            switch (currentState)
+            this.currentState = currentState switch
             {
-                case UnitState.InFlight:
-                    this.currentState = _inFlightState; 
-                    break;
-                case UnitState.IsDocked:
-                    this.currentState = _isDockedState;
-                    break;
-                case UnitState.IsDead:
-                    this.currentState = _isDeadState;
-                    break;
-                default:
-                    this.currentState = _inFlightState;
-                    break;
-            }
+                UnitState.InFlight => _inFlightState,
+                UnitState.IsDocked => _isDockedState,
+                UnitState.IsDead => _isDeadState,
+                _ => _inFlightState
+            };
+            previousState = this.currentState;
             this.currentState.OnEnter(_unit);
         }
 
@@ -127,28 +130,18 @@ namespace Client.Core
         {
             Debug.unityLogger.Log($"State changing to {newState}");
             currentState.OnExit(_unit);
-            switch (newState)
+            previousState = currentState;
+            currentState = newState switch
             {
-                case UnitState.InFlight:
-                    currentState = _inFlightState;
-                    break;
-                case UnitState.IsDocked:
-                    currentState = _isDockedState;
-                    break;
-                case UnitState.IsDead:
-                    currentState = _isDeadState;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-            }
-            
+                UnitState.InFlight => _inFlightState,
+                UnitState.IsDocked => _isDockedState,
+                UnitState.IsDead => _isDeadState,
+                _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
+            };
+
             currentState.OnEnter(_unit);
         }
 
-        public void Update()
-        {
-            currentState.Update(_unit);
-        }
-        
+        public void Update() => currentState.Update(_unit);
     }
 }

@@ -24,7 +24,21 @@ namespace Client.Core
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
-
+            
+            currentHp.OnValueChanged += (value, newValue) =>
+            {
+                if (currentHp.Value <= 0)
+                {
+                    currentHp.Value = 0;
+                    unitStateMachine.ChangeState(UnitState.IsDead);
+                }
+                else
+                {
+                    unitStateMachine.ChangeState(UnitState.InFlight);
+                }
+            }; 
+            
+            
             if (!localUsage)
             {
                 NetworkManager.OnServerStarted += () =>
@@ -38,6 +52,9 @@ namespace Client.Core
             }
         }
 
+        
+        
+        
         private void Start()
         {
             #if UNITY_EDITOR

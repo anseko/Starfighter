@@ -25,5 +25,9 @@
         public const int ZoomStep = 1000;
         //Настройки навигатора
        
+        //Прочие настройки
+        public const int MaxPossibleDamageHp = 93;
+        
+
     }
 }
