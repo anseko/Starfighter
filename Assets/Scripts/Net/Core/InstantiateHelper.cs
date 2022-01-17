@@ -52,7 +52,8 @@ namespace Net.Core
             var goToInstantiate = Resources.Load(Constants.PathToPrefabs + "DangerZone") as GameObject;
             var instance = Object.Instantiate(goToInstantiate, dangerZone.Center, Quaternion.Euler(90, 0, 0));
             instance.GetComponent<DangerZone>().zoneColor.Value = dangerZone.Color;
-            instance.GetComponent<DangerZone>().zoneDamage.Value = dangerZone.Damage;
+            instance.GetComponent<DangerZone>().zoneStressDamage.Value = dangerZone.StressDamage;
+            instance.GetComponent<DangerZone>().zoneHpDamage.Value = dangerZone.HpDamage;
             instance.GetComponent<DangerZone>().zoneRadius.Value = dangerZone.Radius;
             instance.SetActive(true);
         }

@@ -2,13 +2,15 @@ using MLAPI;
 using MLAPI.NetworkVariable;
 using Net.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Net
 {
     public class DangerZone: NetworkBehaviour
     {
         public NetworkVariable<Color> zoneColor;
-        public NetworkVariable<float> zoneDamage;
+        public NetworkVariable<float> zoneStressDamage;
+        public NetworkVariable<float> zoneHpDamage;
         public NetworkVariable<float> zoneRadius;
 
         private void Awake()
@@ -23,7 +25,12 @@ namespace Net
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
-            zoneDamage = new NetworkVariable<float>(new NetworkVariableSettings()
+            zoneStressDamage = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
+            zoneHpDamage = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
@@ -42,7 +49,11 @@ namespace Net
             if (!IsServer) return;
             if (other.gameObject.TryGetComponent<StressComponent>(out var stressComponent))
             {
-                stressComponent.stressDelta.Value += zoneDamage.Value;
+                stressComponent.stressDelta.Value += zoneStressDamage.Value;
+            }
+            if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
+            {
+                hpComponent.hpDelta.Value += zoneHpDamage.Value;
             }
         }
 
@@ -51,7 +62,11 @@ namespace Net
             if (!IsServer) return;
             if (other.gameObject.TryGetComponent<StressComponent>(out var stressComponent))
             {
-                stressComponent.stressDelta.Value -= zoneDamage.Value;
+                stressComponent.stressDelta.Value -= zoneStressDamage.Value;
+            }
+            if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
+            {
+                hpComponent.hpDelta.Value -= zoneHpDamage.Value;
             }
         }
     }

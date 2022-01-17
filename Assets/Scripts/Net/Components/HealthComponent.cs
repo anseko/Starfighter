@@ -1,6 +1,9 @@
+using System;
 using Client.Core;
 using Core;
 using MLAPI;
+using MLAPI.NetworkVariable;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components
@@ -8,7 +11,30 @@ namespace Net.Components
     public class HealthComponent: NetworkBehaviour
     {
         [SerializeField] private PlayerScript _playerScript;
+        public NetworkVariable<float> hpDelta;
 
+        private void Awake()
+        {
+            hpDelta = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
+        }
+
+        private void Update()
+        {
+            if(IsServer)
+                _playerScript.currentHp.Value = 
+                    Math.Min(
+                        Math.Max(
+                            _playerScript.currentHp.Value + hpDelta.Value * Time.deltaTime,
+                            0
+                        ),
+                        ((SpaceShipConfig) _playerScript.unitConfig).maxHp
+                    );
+        }
+        
         private void OnCollisionEnter(Collision collision)
         {
             if (!IsOwner) return;

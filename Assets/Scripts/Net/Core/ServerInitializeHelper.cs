@@ -120,7 +120,8 @@ namespace Net.Core
                         var temp = ScriptableObject.CreateInstance<DangerZoneConfig>();
                         temp.Center = x.center;
                         temp.Color = x.color;
-                        temp.Damage = x.damage;
+                        temp.StressDamage = x.stressDamage;
+                        temp.HpDamage = x.hpDamage;
                         temp.Radius = x.radius;
                         return temp;
                     }).ToArray();

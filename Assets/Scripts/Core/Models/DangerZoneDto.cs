@@ -9,14 +9,16 @@ namespace Core.Models
     {
         public Vector3 center;
         public float radius;
-        public float damage;
+        public float stressDamage;
+        public float hpDamage;
         public Color color;
 
         public DangerZoneDto(DangerZoneConfig config)
         {
             center = config.Center;
             radius = config.Radius;
-            damage = config.Damage;
+            stressDamage = config.StressDamage;
+            hpDamage = config.HpDamage;
             color = config.Color;
         }
     }
