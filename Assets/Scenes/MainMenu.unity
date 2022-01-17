@@ -162,8 +162,8 @@ RectTransform:
   m_Father: {fileID: 691536147}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -449,8 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 0
-  lastMousePosition: {x: 0, y: 0, z: 0}
-  currentMousePosition: {x: 0, y: 0, z: 0}
+  _startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &161898615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,8 +2252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 1
-  lastMousePosition: {x: 0, y: 0, z: 0}
-  currentMousePosition: {x: 0, y: 0, z: 0}
+  _startPosition: {x: 0, y: 0, z: 0}
 --- !u!120 &495581936
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2378,6 +2376,7 @@ MonoBehaviour:
   _ship: {fileID: 0}
   _radius: 8
   _speedMarkerRatio: 4
+  _renderer: {fileID: 0}
 --- !u!114 &495581938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,7 +2745,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.27001953, y: 0}
   m_SizeDelta: {x: 9.459564, y: -0.0000047683716}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3957,8 +3956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 984578449}
   _isFollowMode: 1
-  lastMousePosition: {x: 0, y: 0, z: 0}
-  currentMousePosition: {x: 0, y: 0, z: 0}
+  _startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &984578454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5956,7 +5954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!223 &1425991807
 Canvas:
   m_ObjectHideFlags: 0
@@ -7203,6 +7201,7 @@ MonoBehaviour:
   _ship: {fileID: 0}
   _radius: 8
   _speedMarkerRatio: 1
+  _renderer: {fileID: 0}
 --- !u!1 &1842989693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5583377962922656225, guid: ffc94cef545e13e43a9f9e8a9dab0acb,
