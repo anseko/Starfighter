@@ -76,32 +76,42 @@ namespace Client.Core
         {
             //Если были пристыкованы - отстыковаться
             var dockComp = unit.GetComponent<DockComponent>();
-            if (unit.GetComponent<PlayerScript>().unitStateMachine.previousState.State == UnitState.IsDocked &&
+            var unitPS = unit.GetComponent<PlayerScript>();
+            if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
                 dockComp.EmergencyUndockServerRpc(unit.GetComponent<NetworkObject>().NetworkObjectId,
                     dockComp.lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
             }
             
-            //TODO: отключить весь функционал, кроме аварийного?
-            unit.GetComponent<PlayerScript>().GiveAwayShipOwnershipServerRpc();
+            //TODO: отключить весь функционал, кроме аварийного
+            if(unitPS.volume != null && unitPS.IsOwner) unitPS.volume.gameObject.SetActive(true);
+            if(unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
         }
 
         public void Update(GameObject unit)
         {
             //TODO: испускать маяком сигнал
+            var ps = unit.GetComponent<PlayerScript>();
+            if(NetworkManager.Singleton.IsClient) Debug.unityLogger.Log($"In Dead update: {ps.currentHp.Value}");
+            if (ps.currentHp.Value > 0)
+            {
+                Debug.unityLogger.Log("Trying to resurrect self");
+                ps.unitStateMachine.ChangeState(UnitState.InFlight);
+            }
         }
         
         public void OnExit(GameObject unit)
         {
-            //TODO: полагаю, выставить новые параметры
-            unit.GetComponent<PlayerScript>().RequestShipOwnership(); 
+            var unitPS = unit.GetComponent<PlayerScript>();
+            if(unitPS.volume != null) unitPS.volume.gameObject.SetActive(false);
+            unitPS.RequestShipOwnership(); 
         }
     }
     
     public class UnitStateMachine
     {
-        public IUnitState previousState;
+        public UnitState previousState;
         public IUnitState currentState;
         private readonly GameObject _unit;
         private readonly IsDeadState _isDeadState;
@@ -122,15 +132,17 @@ namespace Client.Core
                 UnitState.IsDead => _isDeadState,
                 _ => _inFlightState
             };
-            previousState = this.currentState;
+            previousState = this.currentState.State;
             this.currentState.OnEnter(_unit);
         }
 
         public void ChangeState(UnitState newState)
         {
+            if (currentState.State == newState) return;
+            
             Debug.unityLogger.Log($"State changing to {newState}");
             currentState.OnExit(_unit);
-            previousState = currentState;
+            previousState = currentState.State;
             currentState = newState switch
             {
                 UnitState.InFlight => _inFlightState,

@@ -99,10 +99,8 @@ namespace Net.Components
             
             if(changeSelfState) _unit.unitStateMachine.ChangeState(UnitState.InFlight);
             
-            if (otherUnit != null)
-            {
-                otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
-            }
+            if (otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+            
             transform.SetParent(null);
             
             EmergencyUndockClientRpc();

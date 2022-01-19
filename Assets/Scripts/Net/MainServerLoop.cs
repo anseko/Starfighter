@@ -105,9 +105,9 @@ namespace Net
             clientCounter.text = NetworkManager.Singleton.ConnectedClients.Count.ToString();
         }
 
-        private void FixedUpdate()
+        public bool CheckForAccountId(ulong clientId, string shipId)
         {
-
+            return accountObjects.FirstOrDefault(x => x.clientId == clientId)?.ship.shipId == shipId;
         }
         
         private void OnApplicationQuit()

@@ -3,6 +3,7 @@ using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
+using Net;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -28,13 +29,16 @@ namespace Client.Core
         
         public void RequestShipOwnership()
         {
+            if (IsServer) return;
+            
             RequestShipOwnershipServerRpc(NetworkManager.LocalClientId);
         }
         
         [ServerRpc(RequireOwnership = false)]
-        public void RequestShipOwnershipServerRpc(ulong clientId)
+        private void RequestShipOwnershipServerRpc(ulong clientId)
         {
             Debug.unityLogger.Log($"Ownership requestig for {clientId}");
+            if (unitConfig is SpaceShipConfig shipConfig && !FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, shipConfig.shipId)) return;
             if (GetComponent<UnitScript>().isGrappled.Value) // если подключается к схваченному кораблю - отпустить
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObject == gameObject))
