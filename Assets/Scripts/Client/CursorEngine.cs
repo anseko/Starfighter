@@ -6,7 +6,7 @@ public class CursorEngine : MonoBehaviour
     
     void Start()
     {
-        Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursor, new Vector2(0,0), CursorMode.Auto);
     }
     
 }
