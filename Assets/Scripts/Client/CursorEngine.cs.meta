@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2ab5ffd45157aab45b307a0de729de44
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _cursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
+  - _cursorQuestion: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
+  - _cursorExclamation: {fileID: 2800000, guid: 12a29531fbff14d4c9df6b98a0ea52c4,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

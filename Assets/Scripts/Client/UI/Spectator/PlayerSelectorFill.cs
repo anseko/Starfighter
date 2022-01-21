@@ -15,7 +15,8 @@ public class PlayerSelectorFill : MonoBehaviour
         foreach (var ship in players)
         {
             var button = Instantiate(_button, _panel.transform);
-            button.GetComponentInChildren<TextMeshProUGUI>().text = ship.name;
+            string buttonName = button.GetComponentInChildren<TextMeshProUGUI>().text;
+            buttonName = ship.name.Substring(0, buttonName.Length -7);
         }
     }
 }

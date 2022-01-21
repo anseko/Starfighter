@@ -62,22 +62,27 @@
             </e>
           </e>
         </e>
+        <e p="OrdersStaticFrame.cs" t="Include" />
+        <e p="OrdersStaticFrameDriver.cs" t="Include" />
         <e p="Procedural fire" t="Include">
           <e p="Shaders" t="Include">
             <e p="FireSphere.shader" t="Include" />
           </e>
         </e>
+        <e p="raycastScript.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Client" t="Include">
             <e p="CameraMotion.cs" t="Include" />
             <e p="Core" t="Include">
               <e p="ClientEventStorage.cs" t="Include" />
               <e p="ClientInitManager.cs" t="Include" />
+              <e p="OrdersScript.cs" t="Include" />
               <e p="playerScript.cs" t="Include" />
               <e p="UnitScript.cs" t="Include" />
               <e p="UnitStateMachine.cs" t="Include" />
             </e>
             <e p="CourseView.cs" t="Include" />
+            <e p="CursorEngine.cs" t="Include" />
             <e p="DockCheckZone.cs" t="Include" />
             <e p="Follow.cs" t="Include" />
             <e p="GPSView.cs" t="Include" />
@@ -94,11 +99,13 @@
               <e p="BasePlayerUIElement.cs" t="Include" />
               <e p="CoordinatesUI.cs" t="Include" />
               <e p="DataOutput.cs" t="Include" />
+              <e p="Destructor.cs" t="Include" />
               <e p="DockingIndicator.cs" t="Include" />
               <e p="DockingState.cs" t="Include" />
               <e p="DockingTrigger.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
               <e p="MenuButton.cs" t="Include" />
+              <e p="OrderStaticFrameInit.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
               <e p="RotationPanelScript.cs" t="Include" />
               <e p="RotationWheelScript.cs" t="Include" />
@@ -107,6 +114,7 @@
                 <e p="PlayerSelectorFill.cs" t="Include" />
               </e>
               <e p="SpeedPanelScript.cs" t="Include" />
+              <e p="StationControler.cs" t="Include" />
               <e p="Stressbar.cs" t="Include" />
             </e>
             <e p="Zoom.cs" t="Include" />
@@ -129,15 +137,13 @@
               <e p="SpaceUnitDto.cs" t="Include" />
             </e>
           </e>
-          <e p="Editor" t="Include">
-            <e p="DangerZoneEdit.cs" t="Include" />
-          </e>
           <e p="Net" t="Include">
             <e p="Components" t="Include">
               <e p="AIComponent.cs" t="Include" />
               <e p="DockComponent.cs" t="Include" />
               <e p="FieldOfViewComponent.cs" t="Include" />
               <e p="GrappleComponent.cs" t="Include" />
+              <e p="HealthComponent.cs" t="Include" />
               <e p="MaskingComponent.cs" t="Include" />
               <e p="MoveComponent.cs" t="Include" />
               <e p="StressComponent.cs" t="Include" />
