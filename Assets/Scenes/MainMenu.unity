@@ -4371,6 +4371,7 @@ MonoBehaviour:
   _camera: {fileID: 1064009356}
   _orderPlanePrefab: {fileID: 3161604368269336981, guid: fb24ee48793daaf4a9dab929262db292,
     type: 3}
+  _dropdown: {fileID: 823677287}
 --- !u!114 &840824282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8736,7 +8737,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.8773585, g: 0.13656996, b: 0.14397414, a: 1}
+    m_SelectedColor: {r: 0.254717, g: 0.14297794, b: 0.14416036, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

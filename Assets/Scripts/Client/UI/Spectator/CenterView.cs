@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Client;
-using Client.Core;
 using TMPro;
 using UnityEngine;
 
@@ -19,13 +15,6 @@ public class CenterView : MonoBehaviour
     
     public void Spectate()
     {
-        var motion = _camera.GetComponent<CameraMotion>();
-        motion.Player = _ship;
-        if (!motion.GetFollowMode())
-        {
-            motion.SwitchFollowMode();
-        }
-
-        motion.enabled = true;
+        _camera.transform.position = _ship.transform.position;
     }
 }
