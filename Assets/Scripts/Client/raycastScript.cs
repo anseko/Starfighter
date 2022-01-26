@@ -22,7 +22,12 @@ public class raycastScript : MonoBehaviour
                 GameObject go = hit.collider.gameObject;
                 if (go.name == "DestroyButton")
                 {
-                    go.transform.parent.GetComponent<Destructor>().DestroyOrder();
+                    go.transform.parent.GetComponent<Destructor>().Destroy();
+                }
+
+                if (go.name == "EditButton")
+                {
+                    go.transform.parent.GetComponent<Editor>().Edit();
                 }
             }
         }

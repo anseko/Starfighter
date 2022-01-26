@@ -5,7 +5,7 @@ using UnityEngine;
 public class Destructor : MonoBehaviour
 {
     
-    public void DestroyOrder()
+    public void Destroy()
     {
         Destroy(gameObject);
     }

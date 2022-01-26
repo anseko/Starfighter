@@ -4,7 +4,7 @@ using Client.Core;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class OrderStaticFrameInit : MonoBehaviour
+public class StaticFrameInit : MonoBehaviour
 {
     //public PlayerScript ship;
     public Vector3 position;
@@ -13,7 +13,7 @@ public class OrderStaticFrameInit : MonoBehaviour
     public float scaleX;
     public float scaleZ;
 
-    public void OrderFrameInit(/*PlayerScript shipInit,*/ Vector3 positionInit, Vector3 sizeInit, string textInit)
+    public void FrameInit(/*PlayerScript shipInit,*/ Vector3 positionInit, Vector3 sizeInit, string textInit)
     {
         //ship = shipInit;
         position = positionInit;

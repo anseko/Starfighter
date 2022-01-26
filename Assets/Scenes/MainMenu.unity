@@ -3503,7 +3503,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 670160426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 840824282}
+        m_TargetAssemblyTypeName: StationControler, Assembly-CSharp
+        m_MethodName: SetPOI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &670160426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4230,6 +4242,7 @@ GameObject:
   - component: {fileID: 840824276}
   - component: {fileID: 840824280}
   - component: {fileID: 840824281}
+  - component: {fileID: 840824283}
   - component: {fileID: 840824282}
   m_Layer: 5
   m_Name: SpaceStationUI
@@ -4341,8 +4354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
-  cursorQuestion: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
-  cursorExclamation: {fileID: 2800000, guid: 12a29531fbff14d4c9df6b98a0ea52c4, type: 3}
+  cursorQuestion: {fileID: 2800000, guid: cc97a8f9772354743a9dbf3c638fe823, type: 3}
+  cursorExclamation: {fileID: 2800000, guid: c25c4a19f5a25d148aee9b23d1bb6628, type: 3}
 --- !u!114 &840824281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4356,9 +4369,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  textField: {fileID: 1725781514}
+  isOrder: 0
+  _textField: {fileID: 1828188316}
   skin: {fileID: 11400000, guid: b7982ba4fb655894e9bf859eb597c566, type: 2}
-  _ordersText: 
   _ordersFrame:
     serializedVersion: 2
     x: 0
@@ -4384,7 +4397,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebf8eda741b8d8498d3b265ce2b09db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ordersScript: {fileID: 0}
+--- !u!114 &840824283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840824275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6127d70c53d0c97439efdc814d4d3aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  isPOI: 0
+  _textField: {fileID: 1828188316}
+  skin: {fileID: 11400000, guid: b7982ba4fb655894e9bf859eb597c566, type: 2}
+  _POIFrame:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  _startPosition: {x: 0, y: 0, z: 0}
+  _endPosition: {x: 0, y: 0, z: 0}
+  _editPanel: {fileID: 408183323}
+  _camera: {fileID: 1064009356}
+  _POIPlanePrefab: {fileID: 3161604368269336981, guid: 42d1d353171f29a42bd07ae4297139d8,
+    type: 3}
+  _dropdown: {fileID: 823677287}
 --- !u!1 &854694734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4958683676828634062, guid: a81be7ad4eaee87499805961edd870d2,
@@ -5709,7 +5750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043E\u0442\u043C\u0435\u043D\u0430"
+  m_text: "\u0443\u0434\u0430\u043B\u0438\u0442\u044C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6a9cc231c46fc849ac33b7424085e1f, type: 2}
   m_sharedMaterial: {fileID: -861736661142445094, guid: e6a9cc231c46fc849ac33b7424085e1f,
@@ -8418,6 +8459,7 @@ GameObject:
   - component: {fileID: 1394283563}
   - component: {fileID: 1394283562}
   - component: {fileID: 1394283561}
+  - component: {fileID: 1394283564}
   m_Layer: 5
   m_Name: OKButton
   m_TagString: Untagged
@@ -8489,9 +8531,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 840824281}
-        m_TargetAssemblyTypeName: OrdersScript, Assembly-CSharp
-        m_MethodName: CreateOrder
+      - m_Target: {fileID: 1394283564}
+        m_TargetAssemblyTypeName: ConfigPanelOKClick, Assembly-CSharp
+        m_MethodName: Create
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8539,6 +8581,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394283559}
   m_CullTransparentMesh: 1
+--- !u!114 &1394283564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394283559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eea1cd9454a8042bdeb437bbb9db4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1398711184
 GameObject:
   m_ObjectHideFlags: 0
@@ -10061,7 +10115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644948294}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -10508,7 +10562,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "456456\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6a9cc231c46fc849ac33b7424085e1f, type: 2}
   m_sharedMaterial: {fileID: -861736661142445094, guid: e6a9cc231c46fc849ac33b7424085e1f,

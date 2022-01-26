@@ -5,16 +5,26 @@ using UnityEngine;
 public class StationControler : MonoBehaviour
 {
     // Start is called before the first frame update
-    public OrdersScript ordersScript;
+    private OrdersScript _ordersScript;
+    private POIScript _poiScript;
     
     void Start()
     {
-        ordersScript = GetComponent<OrdersScript>();
-        ordersScript.isActive = false;
+        _ordersScript = GetComponent<OrdersScript>();
+        _ordersScript.isActive = false;
+        _poiScript = GetComponent<POIScript>();
+        _poiScript.isActive = false;
     }
 
     public void SetOrder()
     {
-        ordersScript.isActive = true;
+        _ordersScript.isActive = true;
+        Cursor.SetCursor(GetComponent<CursorEngine>().cursorExclamation, new Vector2(0,0), CursorMode.Auto);
+    }
+
+    public void SetPOI()
+    {
+        _poiScript.isActive = true;
+        Cursor.SetCursor(GetComponent<CursorEngine>().cursorQuestion,new Vector2(0,0), CursorMode.Auto);
     }
 }

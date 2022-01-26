@@ -96,17 +96,19 @@
             <e p="SwitchFollowMode.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="BasePlayerUIElement.cs" t="Include" />
+              <e p="ConfigPanelOKClick.cs" t="Include" />
               <e p="CoordinatesUI.cs" t="Include" />
               <e p="DataOutput.cs" t="Include" />
               <e p="Destructor.cs" t="Include" />
               <e p="DockingIndicator.cs" t="Include" />
               <e p="DockingState.cs" t="Include" />
               <e p="DockingTrigger.cs" t="Include" />
+              <e p="Editor.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
               <e p="MenuButton.cs" t="Include" />
               <e p="OrdersScript.cs" t="Include" />
-              <e p="OrderStaticFrameInit.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
+              <e p="POIScript.cs" t="Include" />
               <e p="RotationPanelScript.cs" t="Include" />
               <e p="RotationWheelScript.cs" t="Include" />
               <e p="Spectator" t="Include">
@@ -114,6 +116,7 @@
                 <e p="PlayerSelectorFill.cs" t="Include" />
               </e>
               <e p="SpeedPanelScript.cs" t="Include" />
+              <e p="StaticFrameInit.cs" t="Include" />
               <e p="StationControler.cs" t="Include" />
               <e p="Stressbar.cs" t="Include" />
             </e>
