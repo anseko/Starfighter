@@ -12,11 +12,12 @@ public class Editor : MonoBehaviour
     }
     public void Edit()
     {
+        Debug.Log(gameObject.name);
         if (gameObject.name == "POIStaticFrame")
         {
             _poiScript.EditPOI(GetComponent<StaticFrameInit>());
         }
-        else if (gameObject.name == "OrderStaticFrame")
+        if (gameObject.name == "OrderStaticFrame")
         {
             _ordersScript.EditOrder(GetComponent<StaticFrameInit>());
         }
