@@ -1,4 +1,5 @@
-﻿using Client.Core;
+﻿using System;
+using Client.Core;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
@@ -16,6 +17,7 @@ namespace Core
         private Joint _joint;
         private LineRenderer _lineRenderer;
         private GameObject _owner;
+        private NetworkVariable<ulong> _ownerObjectId;
         [SerializeField] private float _maxLength;
         [SerializeField] private float _grappleVelocity;
 
@@ -23,6 +25,7 @@ namespace Core
         public void Init(PlayerScript playerScript, float maxLength)
         {
             _owner = playerScript.gameObject;
+            _ownerObjectId.Value = playerScript.NetworkObjectId; 
             _maxLength = maxLength;
             if (IsOwner)
             {
@@ -30,13 +33,17 @@ namespace Core
                 GetComponent<Rigidbody>().AddForce(forceVector.normalized * _grappleVelocity,
                     ForceMode.Impulse);
             }
-            enabled = true;
+            // enabled = true;
         }
     
         private void Awake()
         {
-            enabled = false;
             grappledObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings(){
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission =  NetworkVariablePermission.OwnerOnly
+            });
+            _ownerObjectId = new NetworkVariableULong(new NetworkVariableSettings()
+            {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission =  NetworkVariablePermission.OwnerOnly
             });
@@ -46,6 +53,11 @@ namespace Core
 
         private void Update()
         {
+            if (_owner == null)
+            {
+                _owner = GetNetworkObject(_ownerObjectId.Value)?.gameObject;
+                if (_owner == null) return;
+            }
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, _owner.transform.position);
             if (!IsOwner) return;
@@ -55,6 +67,7 @@ namespace Core
             {
                 //превысили возможную длину, но так ничего не нашли.
                 DestroyOnServer(NetworkManager.LocalClientId);
+                _owner.GetComponent<GrappleComponent>().SetGrappleState(false);
             }
         }
 
@@ -124,12 +137,12 @@ namespace Core
                 grappledObject = GetNetworkObject(grappledObjectId)?.gameObject;
 
                 Debug.unityLogger.Log($"grappled object {grappledObject?.name}");
+                
                 if (grappledObject != null &&
-                    grappledObject.TryGetComponent<UnitScript>(out var unitScript) &&
-                    unitScript.OwnerClientId == clientId)
+                    grappledObject.TryGetComponent<UnitScript>(out var unitScript))
                 {
-                    GetNetworkObject(grappledObjectId).RemoveOwnership();
                     unitScript.isGrappled.Value = false;
+                    GetNetworkObject(grappledObjectId).RemoveOwnership();
                 }
                 if (grappledObject != null && 
                     grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
@@ -152,11 +165,10 @@ namespace Core
             grappledObject = GetNetworkObject(grappledObjectId)?.gameObject;
 
             if (grappledObject != null &&
-                grappledObject.TryGetComponent<UnitScript>(out var unitScript) &&
-                unitScript.OwnerClientId == clientId)
+                grappledObject.TryGetComponent<UnitScript>(out var unitScript))
             {
-                grappledObject.GetComponent<NetworkObject>().RemoveOwnership();
                 unitScript.isGrappled.Value = false;
+                grappledObject.GetComponent<NetworkObject>().RemoveOwnership();
             }
             if (grappledObject != null && 
                 grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))

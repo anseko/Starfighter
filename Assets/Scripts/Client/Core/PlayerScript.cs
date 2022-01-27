@@ -19,8 +19,17 @@ namespace Client.Core
 
         private void Awake()
         {
-            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
-            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
+            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
+            {
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => { return IsOwner || IsServer; }
+            }, Vector3.zero);
+            
+            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => { return IsOwner || IsServer; } 
+            }, Vector3.zero);
+            
             currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,

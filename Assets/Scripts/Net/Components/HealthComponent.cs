@@ -42,7 +42,7 @@ namespace Net.Components
             
             if (!IsServer) return;
             
-            var otherVelocity = collision.gameObject.GetComponent<Rigidbody>()?.velocity ?? Vector3.zero;
+            var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
             var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude,  _playerScript.unitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
             _playerScript.currentHp.Value -= _playerScript.currentHp.Value * (percentageDamage * 0.01f);

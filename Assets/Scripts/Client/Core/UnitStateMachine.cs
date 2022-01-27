@@ -105,6 +105,11 @@ namespace Client.Core
         {
             var unitPS = unit.GetComponent<PlayerScript>();
             if(unitPS.volume != null) unitPS.volume.gameObject.SetActive(false);
+            if (unitPS.isGrappled.Value)
+            {
+                // unit.GetComponent<>();
+                //TODO: Отцепиться
+            }
             unitPS.RequestShipOwnership(); 
         }
     }
