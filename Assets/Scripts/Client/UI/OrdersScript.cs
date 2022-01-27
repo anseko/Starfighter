@@ -35,11 +35,6 @@ public class OrdersScript : MonoBehaviour
         isPOI = false;
     }
 
-    public void Init(GameObject _plane)
-    {
-        _orderPlaneCopy = _plane;
-    }
-
     public void SetOrder()
     {
         isOrder = true;
@@ -65,6 +60,7 @@ public class OrdersScript : MonoBehaviour
                 _shipList[i].gameObject.name.Length - 6);
         }
 
+        Debug.Log(_shipListData);
         return _shipListData;
     }
     
@@ -77,8 +73,9 @@ public class OrdersScript : MonoBehaviour
             _textField.text);
         _textField.text = "";
         isOrder = false;
-        _editPanel.SetActive(false);
+        isPOI = false;
         isActive = false;
+        _editPanel.SetActive(false);
         _camera.GetComponent<CameraMotion>()._isDragable = true;
     }
 
@@ -101,19 +98,19 @@ public class OrdersScript : MonoBehaviour
         _orderPlaneCopy.GetComponent<Editor>().Destroy();
         _editPanel.SetActive(false);
         isActive = false;
+        isOrder = false;
+        isPOI = false;
         _camera.GetComponent<CameraMotion>()._isDragable = true;
     }
 
-    public void EditOrder([SerializeField] StaticFrameInit _parent)
+    public void EditOrder(StaticFrameInit _parent)
     {
         GetComponent<OrdersScript>().isOrder = false;
         _orderPlaneCopy = _parent.gameObject;
         _editPanel.SetActive(true);
         _textField.text = _parent.text;
-        Debug.Log(_parent.text,_parent);
-        Debug.Log(_textField.text,_textField);
-        
-        _dropdown.SetValueWithoutNotify(_index);
+
+        //_dropdown.SetValueWithoutNotify(_index);
     }
 
     private void OnGUI()

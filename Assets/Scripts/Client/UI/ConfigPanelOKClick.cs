@@ -15,9 +15,6 @@ public class ConfigPanelOKClick : MonoBehaviour
     // Update is called once per frame
     public void Create()
     {
-        if (_os.isOrder)
-        {
-            _os.CreateOrder();
-        }
+        _os.CreateOrder();
     }
 }
