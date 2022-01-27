@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3bc5a7a657ee0c48aece9d43bd69b89, type: 3}
-  m_Name: RaceTracker 5
+  m_Name: RaceTracker 13
   m_EditorClassIdentifier: 
   maxAngleSpeed: 0
   maxSpeed: 0
@@ -18,6 +18,6 @@ MonoBehaviour:
   currentHp: 0
   isDockable: 0
   isMovable: 0
-  position: {x: -1357, y: -5, z: -638}
-  rotation: {x: 0, y: 0.9563047, z: 0, w: -0.29237175}
+  position: {x: -1756, y: 5, z: -1406}
+  rotation: {x: 0, y: 0.39874908, z: 0, w: 0.9170601}
   prefabName: RaceTracker

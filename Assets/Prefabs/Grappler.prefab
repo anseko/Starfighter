@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FixedSendsPerSecond: 120
-  AssumeSyncedSends: 0
-  InterpolatePosition: 0
+  AssumeSyncedSends: 1
+  InterpolatePosition: 1
   SnapDistance: 1
   InterpolateServer: 0
   MinMeters: 0.1

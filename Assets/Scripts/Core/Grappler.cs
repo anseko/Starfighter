@@ -154,6 +154,7 @@ namespace Core
             }
             else
             {
+                if(!IsOwner) return;
                 DestroyServerRpc(clientId, grappledObjectId);
             }
         }
