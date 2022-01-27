@@ -9,6 +9,7 @@ public class OrdersScript : MonoBehaviour
     //private PlayerScript _ordersPS;
     public bool isActive;
     public bool isOrder;
+    public bool isPOI;
     private bool isDrawing;
     private Vector3 _endPositionGlobal;
     private GameObject _orderPlaneCopy;
@@ -18,18 +19,43 @@ public class OrdersScript : MonoBehaviour
     [SerializeField] private Vector3 _startPosition, _endPosition;
     [SerializeField] private GameObject _editPanel;
     [SerializeField] private Camera _camera;
-    [SerializeField] private StaticFrameInit _orderPlanePrefab;
+    [SerializeField] private GameObject[] _orderPlanePrefab = new GameObject[2];
     [SerializeField] private TMP_Dropdown _dropdown;
+    [SerializeField] private CursorEngine _cursor;
     private List<PlayerScript> _shipList;
     private List<TMP_Dropdown.OptionData> _shipListData;
     private int _index;
-
+    private int _chosenPrefab;
+    
     void Start()
     {
         _shipListData = GetShipList();
         _dropdown.AddOptions(_shipListData);
+        isOrder = false;
+        isPOI = false;
     }
 
+    public void Init(GameObject _plane)
+    {
+        _orderPlaneCopy = _plane;
+    }
+
+    public void SetOrder()
+    {
+        isOrder = true;
+        _chosenPrefab = 0;
+        isActive = true;
+        Cursor.SetCursor(_cursor.cursorExclamation,new Vector2(0,0), CursorMode.Auto);
+    }
+
+    public void SetPOI()
+    {
+        isPOI = true;
+        _chosenPrefab = 1;
+        isActive = true;
+        Cursor.SetCursor(_cursor.cursorQuestion, new Vector2(0,0), CursorMode.Auto);
+    }
+    
     private List<TMP_Dropdown.OptionData> GetShipList()
     {
         _shipList = new List<PlayerScript>(GameObject.FindObjectsOfType<PlayerScript>());
@@ -58,10 +84,9 @@ public class OrdersScript : MonoBehaviour
 
     void EnterOrder()
     {
-        isOrder = true;
         isActive = false;
         isDrawing = false;
-        _orderPlaneCopy = Instantiate(_orderPlanePrefab.gameObject);
+        _orderPlaneCopy = Instantiate(_orderPlanePrefab[_chosenPrefab]);
         _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit( /*_ordersPS,*/
             _camera.ScreenToWorldPoint(_startPosition), 
             _endPositionGlobal, 
@@ -73,7 +98,7 @@ public class OrdersScript : MonoBehaviour
     
     public void CancelOrder()
     {
-        _orderPlaneCopy.GetComponent<Destructor>().Destroy();
+        _orderPlaneCopy.GetComponent<Editor>().Destroy();
         _editPanel.SetActive(false);
         isActive = false;
         _camera.GetComponent<CameraMotion>()._isDragable = true;
@@ -81,8 +106,7 @@ public class OrdersScript : MonoBehaviour
 
     public void EditOrder([SerializeField] StaticFrameInit _parent)
     {
-        GetComponent<POIScript>().isPOI = false;
-        isOrder = true;
+        GetComponent<OrdersScript>().isOrder = false;
         _orderPlaneCopy = _parent.gameObject;
         _editPanel.SetActive(true);
         _textField.text = _parent.text;
@@ -111,7 +135,7 @@ public class OrdersScript : MonoBehaviour
             {
                 Debug.Log("end drawing");
                 isDrawing = false;
-                Cursor.SetCursor(GetComponent<CursorEngine>().cursor, new Vector2(0,0), CursorMode.Auto);
+                Cursor.SetCursor(_cursor.cursor, new Vector2(0,0), CursorMode.Auto);
                 if (!(_ordersFrame.size.magnitude < 50))
                 {
                     EnterOrder();
