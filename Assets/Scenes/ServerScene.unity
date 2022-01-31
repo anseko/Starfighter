@@ -1207,6 +1207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   _isFollowMode: 0
+  _startPosition: {x: 0, y: 0, z: 0}
+  _isDragable: 0
 --- !u!1 &2088699826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1274,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a0390b46eb7bf146939275b08579c89, type: 2}
   - {fileID: 11400000, guid: e57a7b9decb4de94b91c4b379c297453, type: 2}
   - {fileID: 11400000, guid: fa591dcf102eb8b43934989f4aca7b26, type: 2}
+  - {fileID: 11400000, guid: 0d5623d49ad86bf43b96a8444078e3e3, type: 2}
   _connector: {fileID: 872456032}
 --- !u!4 &2088699828
 Transform:

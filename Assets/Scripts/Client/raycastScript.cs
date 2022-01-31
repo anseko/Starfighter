@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class raycastScript : MonoBehaviour
 {
     RaycastHit hit;
     private Camera _camera;
+    [SerializeField] private TMP_Text _textContainer;
     
     void Start()
     {
@@ -14,9 +14,9 @@ public class raycastScript : MonoBehaviour
     
     void Update()
     {
+        Ray myRay = _camera.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
-            Ray myRay = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(myRay, out hit, 100500))
             {
                 GameObject go = hit.collider.gameObject;
@@ -30,6 +30,30 @@ public class raycastScript : MonoBehaviour
                     go.transform.parent.GetComponent<Editor>().Edit();
                 }
             }
+        }
+        
+        if (Physics.Raycast(myRay, out hit, 100500))
+        {
+            GameObject go = hit.collider.gameObject;
+            Debug.Log(go.name);
+            if ((go.name == "OrderStaticFrame(Clone)") || ((go.name == "POIStaticFrame(Clone)")))
+            {
+                _textContainer.transform.position = Input.mousePosition;
+                _textContainer.text = go.GetComponent<StaticFrameInit>().text;
+            }
+            else if (go.name == "DestroyButton")
+            {
+                _textContainer.text = "";
+            }
+            else if (go.name == "EditButton")
+            {
+                _textContainer.text = "";
+            }
+            
+        }
+        else
+        {
+            _textContainer.text = "";
         }
     }
 }

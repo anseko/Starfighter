@@ -14,6 +14,7 @@ namespace Client.Core
         [SerializeField] private Canvas _spectatorUi;
         [SerializeField] private Canvas _moderatorUi;
         [SerializeField] private Canvas _mainMenuUi;
+        [SerializeField] private Canvas _StationUi;
         
         public void InitPilot(PlayerScript ps)
         {
@@ -67,6 +68,20 @@ namespace Client.Core
         public void InitSpectator()
         {
             _spectatorUi.gameObject.SetActive(true);
+            _mainMenuUi.gameObject.SetActive(false);
+            var cam = FindObjectOfType<Camera>();
+            var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
+            cam.orthographicSize = 50;
+            followComp.enabled = false;
+            var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
+            zoomComp.navigatorCamera = cam;
+            zoomComp.enabled = true;
+            cam.cullingMask &= ~(1 << 10); //Disable docking marks render
+        }
+        
+        public void InitStation()
+        {
+            _StationUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
