@@ -36,8 +36,10 @@ namespace Net
         
         private void OnDisconnectCallback(ulong clientId)
         {
-            var account = accountObjects.First(x => x.clientId == clientId);
-            account.clientId = null;
+            var account = accountObjects.FirstOrDefault(x => x.clientId == clientId);
+            
+            if(account != null) account.clientId = null;
+            
             Debug.unityLogger.Log($"Disconnection: {clientId}");
             foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.OwnerClientId == clientId))
             {
@@ -48,7 +50,7 @@ namespace Net
         private void OnConnectCallback(ulong clientId)
         {
             Debug.Log($"Connection accepted: {clientId}");
-            var account = accountObjects.First(x => x.clientId == clientId);
+            var account = accountObjects.FirstOrDefault(x => x.clientId == clientId);
             var clientRpcParams = new ClientRpcParams
             {
                 Send = new ClientRpcSendParams
@@ -57,9 +59,9 @@ namespace Net
                 }
             };
             
-            if (account.type == UserType.Spectator)
+            if (account == null || account.type == UserType.Spectator)
             {
-                _connector.SelectSceneClientRpc(account.type, 0, UnitState.InFlight, clientRpcParams);
+                _connector.SelectSceneClientRpc(UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
                 return;
             }
             
@@ -86,7 +88,20 @@ namespace Net
             var connectionString = Encoding.ASCII.GetString(connectionData);
             Debug.unityLogger.Log($"Connection approve: {connectionString}");
             var account = accountObjects.FirstOrDefault(acc => (acc.login + acc.password).GetHashCode() == connectionString.GetHashCode());
-            account.clientId = clientId;
+            if (account == null)
+            {
+                Debug.unityLogger.Log($"Wrong login\\password pair: {connectionString}");
+                callback(false, null, false, null, null);
+                return;
+            }
+            if(account.clientId != null)
+            {
+                Debug.unityLogger.Log($"Account already connected: {connectionString}");
+                callback(false, null, false, null, null);
+                return;
+            }
+            if(account.type != UserType.Spectator)
+                account.clientId = clientId;
             //If approve is true, the connection gets added. If it's false. The client gets disconnected
             callback(false, null, account != null, null, null);
         }
@@ -105,9 +120,9 @@ namespace Net
             clientCounter.text = NetworkManager.Singleton.ConnectedClients.Count.ToString();
         }
 
-        private void FixedUpdate()
+        public bool CheckForAccountId(ulong clientId, string shipId)
         {
-
+            return accountObjects.FirstOrDefault(x => x.clientId == clientId)?.ship.shipId == shipId;
         }
         
         private void OnApplicationQuit()
