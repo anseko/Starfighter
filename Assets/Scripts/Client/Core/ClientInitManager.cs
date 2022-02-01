@@ -83,7 +83,7 @@ namespace Client.Core
         {
             _stationUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
-            FindObjectOfType<OrdersScript>().gameObject.SetActive(true);
+            FindObjectOfType<OrdersScript>(true).gameObject.SetActive(true);
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
