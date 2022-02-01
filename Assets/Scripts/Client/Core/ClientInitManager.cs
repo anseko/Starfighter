@@ -14,7 +14,7 @@ namespace Client.Core
         [SerializeField] private Canvas _spectatorUi;
         [SerializeField] private Canvas _moderatorUi;
         [SerializeField] private Canvas _mainMenuUi;
-        [SerializeField] private Canvas _StationUi;
+        [SerializeField] private Canvas _stationUi;
         
         public void InitPilot(PlayerScript ps)
         {
@@ -81,7 +81,7 @@ namespace Client.Core
         
         public void InitStation()
         {
-            _StationUi.gameObject.SetActive(true);
+            _stationUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
             FindObjectOfType<OrdersScript>().gameObject.SetActive(true);
             var cam = FindObjectOfType<Camera>();
