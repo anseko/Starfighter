@@ -2,11 +2,13 @@
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Client.Core
 {
     public class PlayerScript : UnitScript
     {
+        public Volume volume;
         public KeyConfig keyConfig;
         public NetworkVariableVector3 shipSpeed, shipRotation;
         public NetworkVariable<float> currentStress;
@@ -17,28 +19,24 @@ namespace Client.Core
 
         private void Awake()
         {
-            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
-            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){WritePermission = NetworkVariablePermission.OwnerOnly}, Vector3.zero);
+            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
+            {
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => { return IsOwner || IsServer; }
+            }, Vector3.zero);
+            
+            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => { return IsOwner || IsServer; } 
+            }, Vector3.zero);
+            
             currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
             
-            currentHp.OnValueChanged += (value, newValue) =>
-            {
-                if (currentHp.Value <= 0)
-                {
-                    currentHp.Value = 0;
-                    unitStateMachine.ChangeState(UnitState.IsDead);
-                }
-                else
-                {
-                    unitStateMachine.ChangeState(UnitState.InFlight);
-                }
-            }; 
-            
-            
+
             if (!localUsage)
             {
                 NetworkManager.OnServerStarted += () =>
@@ -52,9 +50,6 @@ namespace Client.Core
             }
         }
 
-        
-        
-        
         private void Start()
         {
             #if UNITY_EDITOR
@@ -67,8 +62,17 @@ namespace Client.Core
             #endif
             
             unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
+            
+            currentHp.OnValueChanged += (value, newValue) =>
+            {
+                if (newValue <= 0)
+                {
+                    unitStateMachine.ChangeState(UnitState.IsDead);
+                }
+            };
+            
             Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
-
+            volume = FindObjectOfType<Volume>(true);
             rigidbody = GetComponent<Rigidbody>();
         }
         

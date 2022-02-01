@@ -59,9 +59,9 @@ namespace Net
                 }
             };
             
-            if (account == null || account.type == UserType.Spectator)
+            if (account == null || account.type == UserType.Spectator || account.type == UserType.SpaceStation)
             {
-                _connector.SelectSceneClientRpc(UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
+                _connector.SelectSceneClientRpc(account?.type ?? UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
                 return;
             }
             

@@ -3372,7 +3372,7 @@ GameObject:
   - component: {fileID: 659897513}
   - component: {fileID: 659897512}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: FramesLimiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11321,7 +11321,7 @@ MonoBehaviour:
   _spectatorUi: {fileID: 1165992879}
   _moderatorUi: {fileID: 0}
   _mainMenuUi: {fileID: 431568589}
-  _StationUi: {fileID: 840824278}
+  _stationUi: {fileID: 840824278}
 --- !u!1 &1868262356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4958683676828634062, guid: a81be7ad4eaee87499805961edd870d2,
@@ -12926,6 +12926,15 @@ MonoBehaviour:
         type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 5598131333054404712, guid: cb7624df2d427d944892e365cd9a1b81,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 7603253874080902280, guid: b7a17958bc13caf41b1b24849927a42d,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 544278041891355393, guid: b2c8272b4478b0a419da913280fe27a1,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 544278041891355393, guid: a05f9b89b0f21144d92e2684d7ed688c,
         type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:
