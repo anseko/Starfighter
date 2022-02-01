@@ -57,7 +57,7 @@ public class OrdersScript : MonoBehaviour
         for (int i = 0; i < _shipList.Count; i++)
         {
             _shipListData[i].text = _shipList[i].gameObject.name.Substring(0,
-                _shipList[i].gameObject.name.Length - 6);
+                _shipList[i].gameObject.name.Length - 7);
         }
 
         Debug.Log(_shipListData);

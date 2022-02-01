@@ -10,11 +10,11 @@ public class CenterView : MonoBehaviour
     private void Start()
     {
         _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
-        _ship = GameObject.Find(GetComponentInChildren<TextMeshProUGUI>().text);
+        _ship = GameObject.Find(GetComponentInChildren<TextMeshProUGUI>().text+"(Clone)");
     }
     
     public void Spectate()
     {
-        _camera.transform.position = _ship.transform.position;
+        _camera.transform.position = new Vector3(_ship.transform.position.x,100,_ship.transform.position.z);
     }
 }
