@@ -22,15 +22,15 @@ public class OrdersScript : MonoBehaviour
     [SerializeField] private GameObject[] _orderPlanePrefab = new GameObject[2];
     [SerializeField] private TMP_Dropdown _dropdown;
     [SerializeField] private CursorEngine _cursor;
-    private List<PlayerScript> _shipList;
-    private List<TMP_Dropdown.OptionData> _shipListData;
+    private List<string> _shipNamesList;
+    private TMP_Dropdown _shipListData;
     private int _index;
     private int _chosenPrefab;
-    
+    private List<PlayerScript> _allShips;
+
     void Start()
     {
-        _shipListData = GetShipList();
-        _dropdown.AddOptions(_shipListData);
+        GetShipList();
         isOrder = false;
         isPOI = false;
     }
@@ -51,17 +51,23 @@ public class OrdersScript : MonoBehaviour
         Cursor.SetCursor(_cursor.cursorQuestion, new Vector2(0,0), CursorMode.Auto);
     }
     
-    private List<TMP_Dropdown.OptionData> GetShipList()
+    private void GetShipList()
     {
-        _shipList = new List<PlayerScript>(GameObject.FindObjectsOfType<PlayerScript>());
-        for (int i = 0; i < _shipList.Count; i++)
+        var ps = FindObjectsOfType<PlayerScript>();
+        Debug.Log(ps.Length);
+        foreach (var x in ps)
         {
-            _shipListData[i].text = _shipList[i].gameObject.name.Substring(0,
-                _shipList[i].gameObject.name.Length - 7);
+            _allShips.Add(x);
         }
-
+        _allShips.ForEach(delegate(PlayerScript script) {_shipNamesList.Add(script.gameObject.name);});
+        _shipListData.AddOptions(_shipNamesList);
         Debug.Log(_shipListData);
-        return _shipListData;
+    }
+
+    public PlayerScript GetAssignedShip(int index)
+    {
+        var _ship = _allShips[index];
+        return _ship;
     }
     
     public void CreateOrder()
