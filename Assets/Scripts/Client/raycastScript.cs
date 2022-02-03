@@ -17,7 +17,7 @@ public class raycastScript : MonoBehaviour
         Ray myRay = _camera.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(myRay, out hit, 100500))
+            if (Physics.Raycast(myRay, out hit, 100500,layerMask:1 << 15))
             {
                 GameObject go = hit.collider.gameObject;
                 
@@ -33,7 +33,7 @@ public class raycastScript : MonoBehaviour
             }
         }
         
-        if (Physics.Raycast(myRay, out hit, 100500))
+        if (Physics.Raycast(myRay, out hit, 100500, layerMask:1 << 15))
         {
             GameObject go = hit.collider.gameObject;
             Debug.Log(go.name);
