@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Client.Core;
 using MLAPI;
@@ -51,6 +52,25 @@ namespace Net.Components
             _backLeftSystems.ForEach(x=>x.Stop());
             _backRightSystems.ForEach(x=>x.Stop());
             _trustSystems.ForEach(x=>x.Stop());
+        }
+
+
+        private void OnDisable()
+        {   
+            _frontLeftSystems.ForEach(x=>x.Stop());
+            _frontRightSystems.ForEach(x=>x.Stop());
+            _backLeftSystems.ForEach(x=>x.Stop());
+            _backRightSystems.ForEach(x=>x.Stop());
+            _trustSystems.ForEach(x=>x.Stop());
+            _lastMovement.Value = new MovementData()
+            {
+                rotationValue = 0,
+                sideManeurValue = 0,
+                straightManeurValue = 0,
+                thrustValue = 0
+            };
+            if (!IsServer) AnimateMovementServerRpc();
+            else AnimateMovementClientRpc();
         }
 
         private void ValueChanged(MovementData previousvalue, MovementData newvalue)

@@ -13,6 +13,7 @@ namespace Client.Core
         public NetworkVariableVector3 shipSpeed, shipRotation;
         public NetworkVariable<float> currentStress;
         public UnitStateMachine unitStateMachine;
+        public NetworkVariable<UnitState> currentState;
         public bool localUsage = false;
         public Rigidbody rigidbody;
         public float FOVRadius;
@@ -36,6 +37,11 @@ namespace Client.Core
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
             
+            currentState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
 
             if (!localUsage)
             {
@@ -45,6 +51,7 @@ namespace Client.Core
                     {
                         currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
                         currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
+                        currentState.Value = ((SpaceShipConfig)unitConfig).shipState;
                     }
                 };
             }
@@ -62,23 +69,29 @@ namespace Client.Core
             #endif
             
             unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
-            
             currentHp.OnValueChanged += (value, newValue) =>
             {
-                if (newValue <= 0)
+                if (newValue <= 0 && IsServer)
                 {
-                    unitStateMachine.ChangeState(UnitState.IsDead);
+                    currentState.Value = UnitState.IsDead;
                 }
             };
+
+            currentState.OnValueChanged += (state, newState) =>
+            {
+                unitStateMachine.ChangeState(newState);
+            };
+
+            Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState} | currentState:{currentState.Value}");
+            if(IsClient) unitStateMachine.ChangeState(currentState.Value);
             
-            Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
             volume = FindObjectOfType<Volume>(true);
             rigidbody = GetComponent<Rigidbody>();
         }
         
         public override UnitState GetState()
         {
-            return unitStateMachine.currentState.State;
+            return currentState.Value;
         }
         
         private void Update()

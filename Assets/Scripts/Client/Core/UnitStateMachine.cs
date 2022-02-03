@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using Core;
 using MLAPI;
 using Net.Components;
+using ScriptableObjects;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Client.Core
 {
@@ -77,6 +80,9 @@ namespace Client.Core
             //Если были пристыкованы - отстыковаться
             var dockComp = unit.GetComponent<DockComponent>();
             var unitPS = unit.GetComponent<PlayerScript>();
+            unit.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            unit.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            
             if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
@@ -87,29 +93,39 @@ namespace Client.Core
             //TODO: отключить весь функционал, кроме аварийного
             if(unitPS.volume != null && unitPS.IsOwner) unitPS.volume.gameObject.SetActive(true);
             if(unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
+
+            var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
+            if (beacon == null) return; 
+            beacon.ChangeState(true);
         }
 
         public void Update(GameObject unit)
         {
-            //TODO: испускать маяком сигнал
             var ps = unit.GetComponent<PlayerScript>();
-            if(NetworkManager.Singleton.IsClient) Debug.unityLogger.Log($"In Dead update: {ps.currentHp.Value}");
-            if (ps.currentHp.Value > 0)
+            if (ps.currentHp.Value > 0 && NetworkManager.Singleton.IsServer) //Нет нужды вызывать отдельно явно на клиентах и сервере, так как currentHp будет обновлено на всех
             {
                 Debug.unityLogger.Log("Trying to resurrect self");
-                ps.unitStateMachine.ChangeState(UnitState.InFlight);
+                // ps.unitStateMachine.ChangeState(UnitState.InFlight);
+                ps.currentState.Value = UnitState.InFlight;
             }
         }
         
         public void OnExit(GameObject unit)
         {
+            var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
+            if (beacon == null) return; 
+            beacon.ChangeState(false);
+            
             var unitPS = unit.GetComponent<PlayerScript>();
             if(unitPS.volume != null) unitPS.volume.gameObject.SetActive(false);
             if (unitPS.isGrappled.Value)
             {
-                // unit.GetComponent<>();
-                //TODO: Отцепиться
+                var id = unit.GetComponent<NetworkObject>().NetworkObjectId;
+                var grappler = Object.FindObjectsOfType<Grappler>()
+                    .FirstOrDefault(x => x.grappledObjectId.Value == id);
+                grappler?.DestroyOnServer(id);
             }
+            
             unitPS.RequestShipOwnership(); 
         }
     }

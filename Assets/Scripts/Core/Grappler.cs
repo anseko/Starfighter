@@ -129,7 +129,7 @@ namespace Core
             DestroyOnServer(grappledObject.GetComponent<NetworkObject>().NetworkObjectId);
         }
 
-        public void DestroyOnServer(ulong clientId, ulong grappledObjectId = default)
+        public void DestroyOnServer(ulong grappledObjectId = default)
         {
             if (IsServer)
             {
@@ -155,12 +155,12 @@ namespace Core
             else
             {
                 if(!IsOwner) return;
-                DestroyServerRpc(clientId, grappledObjectId);
+                DestroyServerRpc(grappledObjectId);
             }
         }
         
         [ServerRpc(RequireOwnership = true)]
-        private void DestroyServerRpc(ulong clientId, ulong grappledObjectId = default)
+        private void DestroyServerRpc(ulong grappledObjectId = default)
         {
             Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId}");
             grappledObject = GetNetworkObject(grappledObjectId)?.gameObject;

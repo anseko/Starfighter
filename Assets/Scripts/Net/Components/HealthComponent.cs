@@ -2,6 +2,7 @@ using System;
 using Client.Core;
 using Core;
 using MLAPI;
+using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
@@ -21,6 +22,12 @@ namespace Net.Components
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
             hpDelta.Value = 0;
+
+            if (_playerScript.currentHp.Value <= 0 && IsServer)
+            {
+                _playerScript.currentHp.Value = 0;
+                _playerScript.currentState.Value = UnitState.IsDead;
+            }
         }
 
         private void Update()
@@ -43,14 +50,16 @@ namespace Net.Components
             if (!IsServer) return;
             
             var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
-            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude,  _playerScript.unitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
+            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude ,  _playerScript.unitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
-            _playerScript.currentHp.Value -= _playerScript.currentHp.Value * (percentageDamage * 0.01f);
+            _playerScript.currentHp.Value -= _playerScript.unitConfig.maxHp * (percentageDamage * 0.01f);
 
-            if (_playerScript.currentHp.Value <= 0)
+            if (_playerScript.currentHp.Value <= 0 && IsServer)
             {
                 _playerScript.currentHp.Value = 0;
-                _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
+                // _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
+                _playerScript.currentState.Value = UnitState.IsDead;
+                // ChangeToDeadClientRpc();
                 return;
             }
 
@@ -58,6 +67,13 @@ namespace Net.Components
                 $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.currentHp.Value}");
         }
 
+        [ClientRpc]
+        private void ChangeToDeadClientRpc()
+        {
+            if (!IsOwner || IsServer) return;
+            _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
+        }
+        
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>
             Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed);
     }

@@ -7242,6 +7242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3f9edeefff7f84ab59eaf92211866c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scaleMultiplier: 20
 --- !u!4 &1839756684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3148613215993742622, guid: 2c5c42cd0d101d24abdce67bbace7a97,
@@ -8382,6 +8383,9 @@ MonoBehaviour:
         type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 544278041891355393, guid: a05f9b89b0f21144d92e2684d7ed688c,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 7916807377453890324, guid: 6af0d004a2cca904a906f58853764a89,
         type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:

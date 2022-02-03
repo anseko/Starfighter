@@ -71,10 +71,10 @@ namespace Net
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObjectId.Value == netId))
                 {
-                    grappler.DestroyOnServer(clientId, netId); //передаст владение серверу
+                    grappler.DestroyOnServer(netId); //передаст владение серверу
                 }
             }
-            
+            // _connector.CreateAsteroidsClientRpc();
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //OtherConnectionStuff
             //Передача владения объектом корабля
@@ -122,7 +122,7 @@ namespace Net
 
         public bool CheckForAccountId(ulong clientId, string shipId)
         {
-            return accountObjects.FirstOrDefault(x => x.clientId == clientId)?.ship.shipId == shipId;
+            return accountObjects.FirstOrDefault(x => x.clientId == clientId && x.type >= UserType.Pilot)?.ship.shipId == shipId;
         }
         
         private void OnApplicationQuit()

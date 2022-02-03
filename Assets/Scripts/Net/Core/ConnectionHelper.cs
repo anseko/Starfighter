@@ -11,6 +11,14 @@ namespace Net.Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {
+
+        [ClientRpc(Delivery = RpcDelivery.Reliable)]
+        public void CreateAsteroidsClientRpc()
+        {
+            var asteroidsCoroutine =
+                StartCoroutine(Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
+        }
+        
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         public void SelectSceneClientRpc(UserType type, ulong networkId, UnitState state, ClientRpcParams clientRpcParams = default)
         {
@@ -35,7 +43,7 @@ namespace Net.Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            if(ps != null && ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
+            // if(ps != null && ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
         }
     }
 }

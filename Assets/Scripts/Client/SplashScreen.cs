@@ -14,7 +14,6 @@ public class SplashScreen : MonoBehaviour
     [SerializeField] private GameObject _screen;
     private void Awake()
     {
-        NetEventStorage.GetInstance().WorldInit.AddListener(LoadScene);
         _loadRatio = Mathf.RoundToInt(_currentNumAsteroids / _maxNumAsteroids * 100);
     }
 

@@ -51,9 +51,7 @@ namespace Net.Components
                 {
                     _grappleOut = false;
                     var grappler = GetNetworkObject(_grapplerObjectId.Value)?.GetComponent<Grappler>();
-                    grappler?.DestroyOnServer(
-                        NetworkManager.LocalClientId,
-                        grappler.grappledObject?.GetComponent<NetworkObject>().NetworkObjectId ?? default);
+                    grappler?.DestroyOnServer(grappler.grappledObjectId?.Value ?? default);
                 }
             }
         }

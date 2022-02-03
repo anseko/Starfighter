@@ -140,9 +140,12 @@ namespace Net.Core
         
         public IEnumerator InitServer()
         {
+            InitDangerZones();
             InitShips();
             InitUnits();
-            InitDangerZones();
+            
+            yield return StartCoroutine(
+                Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             
             foreach (var dangerZone in _dangerZoneConfigs)
             {
@@ -183,8 +186,6 @@ namespace Net.Core
                 yield return null;
             }
             
-            yield return StartCoroutine(
-                Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             gameObject.GetComponent<MainServerLoop>().indicator.color = Color.green;
             NetEventStorage.GetInstance().WorldInit.Invoke(0);
         }
