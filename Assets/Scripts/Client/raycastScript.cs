@@ -20,6 +20,7 @@ public class raycastScript : MonoBehaviour
             if (Physics.Raycast(myRay, out hit, 100500))
             {
                 GameObject go = hit.collider.gameObject;
+                
                 if (go.name == "DestroyButton")
                 {
                     go.transform.parent.GetComponent<Editor>().Destroy();

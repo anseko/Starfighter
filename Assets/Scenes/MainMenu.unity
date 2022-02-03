@@ -1209,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &286107409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1259,8 +1259,8 @@ MonoBehaviour:
   _orderPlanePrefab:
   - {fileID: 7096535666573038979, guid: fb24ee48793daaf4a9dab929262db292, type: 3}
   - {fileID: 7096535666573038979, guid: 42d1d353171f29a42bd07ae4297139d8, type: 3}
-  _dropdown: {fileID: 823677287}
   _cursor: {fileID: 712562063}
+  _shipListDropdown: {fileID: 0}
 --- !u!1 &296818993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6122,7 +6122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa48ceb0153c5d4aa7c09b0c5ad3ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1064009351}
+  Player: {fileID: 0}
   _isFollowMode: 0
   _startPosition: {x: 0, y: 0, z: 0}
   _isDragable: 0

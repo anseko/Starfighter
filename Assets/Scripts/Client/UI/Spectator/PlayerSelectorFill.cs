@@ -16,7 +16,6 @@ public class PlayerSelectorFill : MonoBehaviour
         {
             var button = Instantiate(_button, _panel.transform);
             TextMeshProUGUI buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-            Debug.Log(ship.name);
             buttonName.text = ship.name.Substring(0, ship.name.Length-7);
         }
     }

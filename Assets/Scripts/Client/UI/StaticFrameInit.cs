@@ -21,7 +21,7 @@ public class StaticFrameInit : MonoBehaviour
         text = textInit;
         scaleX =  size.x - position.x;
         scaleZ =  size.z - position.z;
-        transform.position = new Vector3(positionInit.x+scaleX/2, -200, positionInit.z+scaleZ/2);
+        transform.position = new Vector3(positionInit.x+scaleX/2, -180, positionInit.z+scaleZ/2);
         transform.localScale = new Vector3( Mathf.Abs(scaleX), Mathf.Abs(scaleZ), 1);
         transform.eulerAngles = new Vector3(90,0,0);
     }

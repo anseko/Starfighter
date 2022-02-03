@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using Client;
 using Client.Core;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OrdersScript : MonoBehaviour
 {
@@ -20,19 +23,21 @@ public class OrdersScript : MonoBehaviour
     [SerializeField] private GameObject _editPanel;
     [SerializeField] private Camera _camera;
     [SerializeField] private GameObject[] _orderPlanePrefab = new GameObject[2];
-    [SerializeField] private TMP_Dropdown _dropdown;
     [SerializeField] private CursorEngine _cursor;
+    [SerializeField] private TMP_Dropdown _shipListDropdown;
     private List<string> _shipNamesList;
-    private TMP_Dropdown _shipListData;
     private int _index;
     private int _chosenPrefab;
     private List<PlayerScript> _allShips;
 
     void Start()
     {
-        GetShipList();
         isOrder = false;
         isPOI = false;
+        _allShips = new List<PlayerScript>();
+        _shipNamesList = new List<string>();
+        _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
+        _shipListDropdown.ClearOptions();
     }
 
     public void SetOrder()
@@ -54,14 +59,13 @@ public class OrdersScript : MonoBehaviour
     private void GetShipList()
     {
         var ps = FindObjectsOfType<PlayerScript>();
-        Debug.Log(ps.Length);
-        foreach (var x in ps)
+        _allShips = ps.Cast<PlayerScript>().ToList();
+        _allShips.ForEach(delegate(PlayerScript script)
         {
-            _allShips.Add(x);
-        }
-        _allShips.ForEach(delegate(PlayerScript script) {_shipNamesList.Add(script.gameObject.name);});
-        _shipListData.AddOptions(_shipNamesList);
-        Debug.Log(_shipListData);
+            _shipNamesList.Add(script.name);
+        });
+        _shipListDropdown.AddOptions(_shipNamesList);
+        Debug.Log(_shipListDropdown.options.Count);
     }
 
     public PlayerScript GetAssignedShip(int index)
