@@ -49,7 +49,9 @@ namespace Client.Utils
             switch (_playerScript.currentState.Value)
             {
                 case UnitState.InFlight:
-                    GoResurrect(300);
+                    var blur = _volume.profile.components.First(x => x is DepthOfField);
+                    var blurParameter = new FloatParameter(1);
+                    blur.parameters[7].SetValue(blurParameter);
                     break;
                 case UnitState.IsDocked:
                     break;
