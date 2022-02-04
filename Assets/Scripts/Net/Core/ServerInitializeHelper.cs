@@ -144,8 +144,8 @@ namespace Net.Core
             InitShips();
             InitUnits();
             
-            yield return StartCoroutine(
-                Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
+            // yield return StartCoroutine(
+            //     Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             
             foreach (var dangerZone in _dangerZoneConfigs)
             {

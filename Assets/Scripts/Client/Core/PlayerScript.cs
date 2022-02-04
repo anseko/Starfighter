@@ -68,12 +68,24 @@ namespace Client.Core
                 }
             #endif
             
+            volume = FindObjectOfType<Volume>(true);
+            rigidbody = GetComponent<Rigidbody>();
+            
             unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
             currentHp.OnValueChanged += (value, newValue) =>
             {
-                if (newValue <= 0 && IsServer)
+                if (!IsServer) return;
+                
+                if (newValue <= 0)
                 {
                     currentState.Value = UnitState.IsDead;
+                    return;
+                }
+                
+                if (newValue > 0)
+                {
+                    Debug.unityLogger.Log("Trying to resurrect self");
+                    currentState.Value = UnitState.InFlight;
                 }
             };
 
@@ -84,9 +96,6 @@ namespace Client.Core
 
             Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState} | currentState:{currentState.Value}");
             if(IsClient) unitStateMachine.ChangeState(currentState.Value);
-            
-            volume = FindObjectOfType<Volume>(true);
-            rigidbody = GetComponent<Rigidbody>();
         }
         
         public override UnitState GetState()

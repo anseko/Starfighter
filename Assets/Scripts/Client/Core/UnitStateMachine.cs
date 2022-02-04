@@ -101,13 +101,13 @@ namespace Client.Core
 
         public void Update(GameObject unit)
         {
-            var ps = unit.GetComponent<PlayerScript>();
-            if (ps.currentHp.Value > 0 && NetworkManager.Singleton.IsServer) //Нет нужды вызывать отдельно явно на клиентах и сервере, так как currentHp будет обновлено на всех
-            {
-                Debug.unityLogger.Log("Trying to resurrect self");
-                // ps.unitStateMachine.ChangeState(UnitState.InFlight);
-                ps.currentState.Value = UnitState.InFlight;
-            }
+            // var ps = unit.GetComponent<PlayerScript>();
+            // if (ps.currentHp.Value > 0 && NetworkManager.Singleton.IsServer)
+            // {
+            //     Debug.unityLogger.Log("Trying to resurrect self");
+            //     // ps.unitStateMachine.ChangeState(UnitState.InFlight);
+            //     ps.currentState.Value = UnitState.InFlight;
+            // }
         }
         
         public void OnExit(GameObject unit)

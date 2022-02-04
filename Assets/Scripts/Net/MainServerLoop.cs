@@ -31,6 +31,9 @@ namespace Net
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
+
+            var field = Resources.Load<GameObject>(Constants.PathToPrefabs + "SpaceField");
+            var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
             StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
         }
         

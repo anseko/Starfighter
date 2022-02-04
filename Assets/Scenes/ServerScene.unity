@@ -218,16 +218,7 @@ MonoBehaviour:
     - ServerScene
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
-    - Prefab: {fileID: 8044737309739009200, guid: b4c7d846fab88e64086fac58a6f82c6b,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 9027943611396249260, guid: 8e0d8e5bd9bda6849ba175e5b006b0e5,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 3818194686851760387, guid: 1181e9e689e5659408a5049f37390d35,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 4794218097035069429, guid: c11e5bd99107a4241a2a77cb81d27266,
+    - Prefab: {fileID: 591459473423668555, guid: 3bbb6ad8ae0563441a574be2f48a5b88,
         type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 5458636848271729485, guid: b4da72910f8e15747acef65678875259,
@@ -1135,6 +1126,7 @@ GameObject:
   - component: {fileID: 2088699827}
   - component: {fileID: 2088699831}
   - component: {fileID: 2088699832}
+  - component: {fileID: 2088699829}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -1203,6 +1195,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2088699829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088699826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671df43cfd2cb7e4f95fbfd40da43212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2088699831
 MonoBehaviour:
   m_ObjectHideFlags: 0

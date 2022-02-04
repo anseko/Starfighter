@@ -53,7 +53,7 @@ namespace Net
         
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsServer && _serverIsStarted) return;
+            if (IsClient) return;
             if (other.gameObject.TryGetComponent<StressComponent>(out var stressComponent))
             {
                 stressComponent.stressDelta.Value += zoneStressDamage.Value;

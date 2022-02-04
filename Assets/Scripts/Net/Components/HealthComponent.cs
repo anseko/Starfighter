@@ -23,11 +23,16 @@ namespace Net.Components
             });
             hpDelta.Value = 0;
 
-            if (_playerScript.currentHp.Value <= 0 && IsServer)
+            NetworkManager.Singleton.OnServerStarted += () =>
             {
-                _playerScript.currentHp.Value = 0;
-                _playerScript.currentState.Value = UnitState.IsDead;
-            }
+                if(!IsServer) return;
+                
+                if (_playerScript.currentHp.Value <= 0)
+                {
+                    _playerScript.currentHp.Value = 0;
+                    _playerScript.currentState.Value = UnitState.IsDead;
+                }
+            };
         }
 
         private void Update()
@@ -54,7 +59,7 @@ namespace Net.Components
 
             _playerScript.currentHp.Value -= _playerScript.unitConfig.maxHp * (percentageDamage * 0.01f);
 
-            if (_playerScript.currentHp.Value <= 0 && IsServer)
+            if (_playerScript.currentHp.Value <= 0)
             {
                 _playerScript.currentHp.Value = 0;
                 // _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);

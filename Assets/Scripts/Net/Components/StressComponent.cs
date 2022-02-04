@@ -23,15 +23,15 @@ namespace Net.Components
 
         private void Update()
         {
-            if(IsServer)
-                _playerScript.currentStress.Value = 
-                    Math.Min(
-                        Math.Max(
-                            _playerScript.currentStress.Value + stressDelta.Value * Time.deltaTime,
-                            0
-                            ),
-                        ((SpaceShipConfig) _playerScript.unitConfig).maxStress
-                        );
+            if (!IsServer) return;
+            _playerScript.currentStress.Value = 
+                Math.Min(
+                    Math.Max(
+                        _playerScript.currentStress.Value + stressDelta.Value * Time.deltaTime,
+                        0
+                        ),
+                    ((SpaceShipConfig) _playerScript.unitConfig).maxStress
+                    );
         }
     }
 }
