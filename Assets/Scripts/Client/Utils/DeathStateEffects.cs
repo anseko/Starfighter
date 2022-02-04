@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Client.Core;
+using Core;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -11,50 +13,77 @@ namespace Client.Utils
     public class DeathStateEffects: MonoBehaviour
     {
         private Volume _volume;
-        private Task _deathTask;
+        private PlayerScript _playerScript;
 
-        
+        public void Init(PlayerScript ps)
+        {
+            _playerScript = ps;
+
+            _playerScript.currentState.OnValueChanged += (value, newValue) =>
+            {
+                switch (newValue)
+                {
+                    case UnitState.InFlight:
+                        GoResurrect(300);
+                        break;
+                    case UnitState.IsDocked:
+                        break;
+                    case UnitState.IsDead:
+                        GoToDeath(300);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(newValue), newValue, null);
+                }
+            };
+        }
+
         private void Awake()
         {
             _volume = GetComponent<Volume>();
-            var vignette = _volume.profile.components.First(x => x is Vignette);
             var blur = _volume.profile.components.First(x => x is DepthOfField);
-            vignette.parameters[2].SetValue(new FloatParameter(0));
             blur.parameters[7].SetValue(new FloatParameter(1));
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            _deathTask = GoToDeath(300);
+            switch (_playerScript.currentState.Value)
+            {
+                case UnitState.InFlight:
+                    GoResurrect(300);
+                    break;
+                case UnitState.IsDocked:
+                    break;
+                case UnitState.IsDead:
+                    GoToDeath(300);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
-
-        private async Task GoToDeath(int timeLength)
+        
+        public async Task GoToDeath(int timeLength)
         {
-            var vignette = _volume.profile.components.First(x => x is Vignette);
             var blur = _volume.profile.components.First(x => x is DepthOfField);
-
-            var vignetteParameter = new FloatParameter(0);
             var blurParameter = new FloatParameter(1);
-
             for (var i = 0; i < timeLength; i++)
             {
-                var val = Mathf.Lerp(0, 1, (float)i / timeLength);
                 blurParameter.value = i;
-                vignetteParameter.value = val;
-
-                vignette.parameters[2].SetValue(vignetteParameter);
+                blur.parameters[7].SetValue(blurParameter);
+                await Task.Delay(1);
+            }
+        }
+        
+        public async Task GoResurrect(int timeLength)
+        {
+            var blur = _volume.profile.components.First(x => x is DepthOfField);
+            var blurParameter = new FloatParameter(timeLength);
+            for (var i = timeLength; i >= 1; i--)
+            {
+                blurParameter.value = i;
                 blur.parameters[7].SetValue(blurParameter);
                 await Task.Delay(1);
             }
             
-        }
-
-        private void OnDisable()
-        {
-            var vignette = _volume.profile.components.First(x => x is Vignette);
-            var blur = _volume.profile.components.First(x => x is DepthOfField);
-            vignette.parameters[2].SetValue(new FloatParameter(0));
-            blur.parameters[7].SetValue(new FloatParameter(1));
         }
     }
 }

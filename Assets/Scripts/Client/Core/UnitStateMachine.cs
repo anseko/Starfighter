@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Client.Utils;
 using Core;
 using MLAPI;
 using Net.Components;
@@ -91,7 +92,7 @@ namespace Client.Core
             }
             
             //TODO: отключить весь функционал, кроме аварийного
-            if(unitPS.volume != null && unitPS.IsOwner) unitPS.volume.gameObject.SetActive(true);
+            // if(unitPS.volume != null) unitPS.volume.GetComponent<DeathStateEffects>()?.GoToDeath(300);
             if(unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
 
             var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
@@ -101,13 +102,6 @@ namespace Client.Core
 
         public void Update(GameObject unit)
         {
-            // var ps = unit.GetComponent<PlayerScript>();
-            // if (ps.currentHp.Value > 0 && NetworkManager.Singleton.IsServer)
-            // {
-            //     Debug.unityLogger.Log("Trying to resurrect self");
-            //     // ps.unitStateMachine.ChangeState(UnitState.InFlight);
-            //     ps.currentState.Value = UnitState.InFlight;
-            // }
         }
         
         public void OnExit(GameObject unit)
@@ -117,7 +111,7 @@ namespace Client.Core
             beacon.ChangeState(false);
             
             var unitPS = unit.GetComponent<PlayerScript>();
-            if(unitPS.volume != null) unitPS.volume.gameObject.SetActive(false);
+            // if (unitPS.volume != null) unitPS.volume.GetComponent<DeathStateEffects>()?.GoResurrect(300);
             if (unitPS.isGrappled.Value)
             {
                 var id = unit.GetComponent<NetworkObject>().NetworkObjectId;

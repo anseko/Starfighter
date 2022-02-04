@@ -53044,6 +53044,7 @@ GameObject:
   - component: {fileID: 4570277334352140934}
   - component: {fileID: -2304237055800942833}
   - component: {fileID: -463294830230267313}
+  - component: {fileID: 8686481938428564538}
   m_Layer: 6
   m_Name: Player13
   m_TagString: Dynamic
@@ -53329,6 +53330,18 @@ MonoBehaviour:
   _playerScript: {fileID: 4683736729940911175}
   hpDelta:
     m_InternalValue: 0
+--- !u!114 &8686481938428564538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12f191d108d401cbc9c2cdb5424894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5598239764343346318
 GameObject:
   m_ObjectHideFlags: 0
