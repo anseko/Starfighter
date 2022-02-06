@@ -11,6 +11,7 @@ namespace Net.Components
     public class MaskingComponent: NetworkBehaviour
     {
         [SerializeField] private GameObject model;
+        [SerializeField] private GameObject numbers;
         private PlayerScript _playerScript;
         private Material _bodymat;
         private Task _dissolveTask;
@@ -28,20 +29,21 @@ namespace Net.Components
             if (!IsOwner || IsServer) return;
             if (Input.GetKeyDown(_playerScript.keyConfig.mask))
             {
-                StartCoroutine(Dissolve(300));
+                DissolveServerRpc();
             }
         }
 
         [ClientRpc]
         public void DissolveClientRpc()
         {
-            
+            StartCoroutine(Dissolve(300));
         }
 
         [ServerRpc]
         public void DissolveServerRpc()
         {
-            
+            StartCoroutine(Dissolve(300));
+            DissolveClientRpc();
         }
         
         private IEnumerator Dissolve(int timeLength)
@@ -53,6 +55,7 @@ namespace Net.Components
                     _bodymat.SetFloat(Value, (float)i / timeLength);
                     yield return new WaitForSeconds(0.001f);
                 }
+                numbers.SetActive(true);
                 yield break;
             }
             
@@ -61,7 +64,7 @@ namespace Net.Components
                 _bodymat.SetFloat(Value, (float)i / timeLength);
                 yield return new WaitForSeconds(0.001f);
             }
-            
+            numbers.SetActive(false);
         }
     }
 }
