@@ -49,14 +49,12 @@ namespace Client.Utils
             switch (_playerScript.currentState.Value)
             {
                 case UnitState.InFlight:
-                    var blur = _volume.profile.components.First(x => x is DepthOfField);
-                    var blurParameter = new FloatParameter(1);
-                    blur.parameters[7].SetValue(blurParameter);
+                    GoResurrect(1);
                     break;
                 case UnitState.IsDocked:
                     break;
                 case UnitState.IsDead:
-                    GoToDeath(300);
+                    GoToDeath(1);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

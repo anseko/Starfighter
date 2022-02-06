@@ -142,7 +142,9 @@ namespace Core
                     grappledObject.TryGetComponent<UnitScript>(out var unitScript))
                 {
                     unitScript.isGrappled.Value = false;
-                    GetNetworkObject(grappledObjectId).RemoveOwnership();
+                    var networkObject = grappledObject.GetComponent<NetworkObject>();
+                    if(!networkObject.IsOwnedByServer)
+                        networkObject.RemoveOwnership();
                 }
                 if (grappledObject != null && 
                     grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
@@ -169,7 +171,9 @@ namespace Core
                 grappledObject.TryGetComponent<UnitScript>(out var unitScript))
             {
                 unitScript.isGrappled.Value = false;
-                grappledObject.GetComponent<NetworkObject>().RemoveOwnership();
+                var networkObject = grappledObject.GetComponent<NetworkObject>();
+                if(!networkObject.IsOwnedByServer)
+                    networkObject.RemoveOwnership();
             }
             if (grappledObject != null && 
                 grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
