@@ -31,7 +31,8 @@ namespace Net.Core
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
             playerScript.unitConfig = ship;
             playerScript.baseColor.Value = ship.baseColor;
-            playerScript.shipNumber.Value = int.Parse(ship.shipId.Replace("ship", ""));
+            if (int.TryParse(ship.shipId.Replace("ship", ""), out var num))
+                playerScript.shipNumber.Value = num;
             shipInstance.SetActive(true);
             return playerScript;
         }
