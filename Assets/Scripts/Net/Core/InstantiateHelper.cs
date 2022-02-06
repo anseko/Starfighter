@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Client.Core;
+using Client.Utils;
 using Core;
 using ScriptableObjects;
 using UnityEngine;
@@ -28,6 +30,8 @@ namespace Net.Core
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
             playerScript.unitConfig = ship;
+            playerScript.baseColor.Value = ship.baseColor;
+            playerScript.shipNumber.Value = int.Parse(ship.shipId.Replace("ship", ""));
             shipInstance.SetActive(true);
             return playerScript;
         }
@@ -36,7 +40,6 @@ namespace Net.Core
         {
             worldObject.id = worldObject.id == Guid.Empty ? Guid.NewGuid() : worldObject.id;
             var prefabName = worldObject.prefabName;
-            // Debug.unityLogger.Log($"Try to load resource: {Constants.PathToPrefabs + prefabName}");
             var goToInstantiate = Resources.Load(Constants.PathToPrefabs + prefabName);
             var instance =
                 Object.Instantiate(goToInstantiate, worldObject.position, worldObject.rotation) as

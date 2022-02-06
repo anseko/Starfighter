@@ -12,5 +12,7 @@ namespace ScriptableObjects
         public float currentStress;
         public string shipId;
         public UnitState shipState;
+        [ColorUsage(true, true)]
+        public Color baseColor;
     }
 }

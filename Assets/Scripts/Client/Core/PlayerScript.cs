@@ -1,4 +1,7 @@
-﻿using Core;
+﻿using System;
+using System.Linq;
+using Core;
+using MLAPI;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
@@ -12,6 +15,8 @@ namespace Client.Core
         public KeyConfig keyConfig;
         public NetworkVariableVector3 shipSpeed, shipRotation;
         public NetworkVariable<float> currentStress;
+        public NetworkVariableColor baseColor;
+        public NetworkVariableInt shipNumber;
         public UnitStateMachine unitStateMachine;
         public NetworkVariable<UnitState> currentState;
         public bool localUsage = false;
@@ -38,6 +43,18 @@ namespace Client.Core
             });
             
             currentState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
+            
+            baseColor = new NetworkVariableColor(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.ServerOnly
+            });
+            
+            shipNumber = new NetworkVariableInt(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
@@ -96,6 +113,10 @@ namespace Client.Core
 
             Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState} | currentState:{currentState.Value}");
             if(IsClient) unitStateMachine.ChangeState(currentState.Value);
+            
+            transform.GetComponentsInChildren<MeshRenderer>().ToList()
+                .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = baseColor.Value);
+            GetComponentsInChildren<TextMesh>().ToList().ForEach(t => t.text = shipNumber.Value.ToString());
         }
         
         public override UnitState GetState()

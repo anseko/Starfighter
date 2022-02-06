@@ -20,6 +20,7 @@ namespace Core.Models
         public Quaternion rotation;
         public string prefabName;
         public UnitState shipState;
+        public Color baseColor;
 
         public SpaceShipDto(SpaceShipConfig config)
         {
@@ -36,6 +37,7 @@ namespace Core.Models
             rotation = config.rotation;
             prefabName = config.prefabName;
             shipState = config.shipState;
+            baseColor = config.baseColor;
         }
     }
 }

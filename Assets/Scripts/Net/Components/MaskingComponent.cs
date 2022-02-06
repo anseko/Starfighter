@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Client.Core;
 using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 using UnityEngine;
 
 namespace Net.Components
@@ -14,14 +15,32 @@ namespace Net.Components
         [SerializeField] private GameObject numbers;
         private PlayerScript _playerScript;
         private Material _bodymat;
-        private Task _dissolveTask;
+        private Coroutine _dissolveCoroutine;
+        private NetworkVariableBool _isMasked;
         private static readonly int Value = Shader.PropertyToID("Value");
 
         private void Awake()
         {
+            _isMasked = new NetworkVariableBool(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.OwnerOnly
+            })
+            {
+                Value = false
+            };
+
+            _isMasked.OnValueChanged += (value, newValue) => _dissolveCoroutine = StartCoroutine(Dissolve(300));
+            
             _bodymat = model.GetComponent<Renderer>().material;
             _playerScript = GetComponent<PlayerScript>();
             _bodymat.SetFloat(Value, 0);
+        }
+
+        private void Start()
+        {
+            _bodymat.SetFloat(Value, _isMasked.Value ? 1 : 0);
+            if(_dissolveCoroutine != null) StopCoroutine(_dissolveCoroutine);
         }
 
         private void Update()
@@ -29,26 +48,13 @@ namespace Net.Components
             if (!IsOwner || IsServer) return;
             if (Input.GetKeyDown(_playerScript.keyConfig.mask))
             {
-                DissolveServerRpc();
+                _isMasked.Value = !_isMasked.Value;
             }
         }
 
-        [ClientRpc]
-        public void DissolveClientRpc()
-        {
-            StartCoroutine(Dissolve(300));
-        }
-
-        [ServerRpc]
-        public void DissolveServerRpc()
-        {
-            StartCoroutine(Dissolve(300));
-            DissolveClientRpc();
-        }
-        
         private IEnumerator Dissolve(int timeLength)
         {
-            if (_bodymat.GetFloat(Value) > 0.5)
+            if (!_isMasked.Value)
             {
                 for (var i = timeLength; i >= 0; i--)
                 {

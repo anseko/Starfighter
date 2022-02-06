@@ -18,10 +18,11 @@ MonoBehaviour:
   currentHp: 100
   isDockable: 1
   isMovable: 0
-  position: {x: -673, y: 1.0000094, z: -657.9999}
-  rotation: {x: 0.00000015087382, y: 0.000000028331506, z: -4.5474724e-13, w: 1}
-  prefabName: Player8
+  position: {x: -674.5392, y: 0.998544, z: -794.04846}
+  rotation: {x: 0.0000034354787, y: -0.14906737, z: 0.00636988, w: 0.98880655}
+  prefabName: Player
   maxStress: 100
   currentStress: 0
   shipId: ship008
   shipState: 0
+  baseColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}

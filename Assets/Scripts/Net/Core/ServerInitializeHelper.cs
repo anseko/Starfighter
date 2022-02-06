@@ -60,6 +60,7 @@ namespace Net.Core
                         temp.rotation = x.rotation;
                         temp.prefabName = x.prefabName;
                         temp.shipState = x.shipState;
+                        temp.baseColor = x.baseColor;
                         return temp;
                     }).ToArray();
             }
