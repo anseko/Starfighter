@@ -40,7 +40,9 @@ public class raycastScript : MonoBehaviour
             if ((go.name == "OrderStaticFrame(Clone)") || ((go.name == "POIStaticFrame(Clone)")))
             {
                 _textContainer.transform.position = Input.mousePosition;
-                _textContainer.text = go.GetComponent<StaticFrameInit>().text;
+                _textContainer.text = go.GetComponent<StaticFrameInit>().ship.gameObject.name.Substring(0,
+                                          go.GetComponent<StaticFrameInit>().ship.gameObject.name.Length-7) 
+                                      + "\n" + go.GetComponent<StaticFrameInit>().text;
             }
             else if (go.name == "DestroyButton")
             {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class OrdersScript : MonoBehaviour
 {
-    //private PlayerScript _ordersPS;
+    private PlayerScript _ordersPS;
     public bool isActive;
     public bool isOrder;
     public bool isPOI;
@@ -36,8 +36,6 @@ public class OrdersScript : MonoBehaviour
         isPOI = false;
         _allShips = new List<PlayerScript>();
         _shipNamesList = new List<string>();
-        _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
-        _shipListDropdown.ClearOptions();
     }
 
     public void SetOrder()
@@ -56,28 +54,31 @@ public class OrdersScript : MonoBehaviour
         Cursor.SetCursor(_cursor.cursorQuestion, new Vector2(0,0), CursorMode.Auto);
     }
     
-    private void GetShipList()
+    public void GetShipList()
     {
+        _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
+        _shipNamesList = new List<string>();
         var ps = FindObjectsOfType<PlayerScript>();
+        Debug.Log($"Number of ships on scene: {ps.Length}");
         _allShips = ps.Cast<PlayerScript>().ToList();
         _allShips.ForEach(delegate(PlayerScript script)
         {
-            _shipNamesList.Add(script.name);
+            _shipNamesList.Add(script.name.Substring(0,script.name.Length-7));
         });
         _shipListDropdown.AddOptions(_shipNamesList);
-        Debug.Log(_shipListDropdown.options.Count);
     }
 
-    public PlayerScript GetAssignedShip(int index)
+    public void GetAssignedShip()
     {
-        var _ship = _allShips[index];
-        return _ship;
+        var name = _shipListDropdown.options[_shipListDropdown.value].text;
+        var _ship = GameObject.Find(name+"(Clone)").GetComponent<PlayerScript>();
+        _ordersPS = _ship;
     }
     
     public void CreateOrder()
     {
         Debug.Log("Creating Mode");
-        _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(
+        _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(_ordersPS,
             _orderPlaneCopy.GetComponent<StaticFrameInit>().position,
             _orderPlaneCopy.GetComponent<StaticFrameInit>().size,
             _textField.text);
@@ -94,7 +95,7 @@ public class OrdersScript : MonoBehaviour
         isActive = false;
         isDrawing = false;
         _orderPlaneCopy = Instantiate(_orderPlanePrefab[_chosenPrefab]);
-        _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit( /*_ordersPS,*/
+        _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit( _ordersPS,
             _camera.ScreenToWorldPoint(_startPosition), 
             _endPositionGlobal, 
             "");

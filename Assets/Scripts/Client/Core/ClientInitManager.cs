@@ -92,6 +92,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
+            FindObjectOfType<OrdersScript>().GetShipList();
         }
     }
 }

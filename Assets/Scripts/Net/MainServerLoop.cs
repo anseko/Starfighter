@@ -124,6 +124,13 @@ namespace Net
         {
             return accountObjects.FirstOrDefault(x => x.clientId == clientId)?.ship.shipId == shipId;
         }
+
+        public ulong GetClientIdByShipName(string name)
+        {
+            var targetClientId = accountObjects.FirstOrDefault(x => x.ship.name == name 
+                                                                    && x.type == UserType.Navigator).clientId.Value;
+            return targetClientId;
+        }
         
         private void OnApplicationQuit()
         {

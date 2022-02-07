@@ -18,6 +18,7 @@
         public const string DynamicTag = "Dynamic";
         public const string AsteroidTag = "Asteroid";
         public const string WayPointTag = "WayPoint";
+        public const string OrderFrameTag = "StaticFrames";
         public const string AIPointTag = "AIPoint";
         public const string DockTag = "Dock";
         public const char Separator = '|';
