@@ -4,9 +4,7 @@ using Client;
 using Client.Core;
 using MLAPI;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OrdersScript : NetworkBehaviour
 {

@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd286b3bf5bb364ab17d8d880319ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _orderFramePrefab: {fileID: 0}
+  _orderFramePrefab: {fileID: 7096535666573038979}
   ship: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
   size: {x: 0, y: 0, z: 0}

@@ -22,7 +22,7 @@ public class OrdersListEditor : NetworkBehaviour
         }
     }
 
-    void Start()
+    public void Init()
         {
             var ordersList = new NetworkDictionary<string, OrderUnit>();
         }
