@@ -59,7 +59,7 @@ public class OrdersListEditor : NetworkBehaviour
         var _isSucces = false;
         foreach (var x in ordersList)
         {
-            if (x.Value == unit)
+            if (x.Value.shipName == unit.shipName)
             {
                 ordersList.Remove(x.Key);
                 _isSucces = true;

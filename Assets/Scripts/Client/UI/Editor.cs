@@ -1,3 +1,4 @@
+using Net.Components;
 using UnityEngine;
 
 public class Editor : MonoBehaviour
@@ -15,6 +16,13 @@ public class Editor : MonoBehaviour
     
     public void Destroy()
     {
+        var unit = new OrdersListEditor.OrderUnit();
+        var panel = gameObject.GetComponent<OrderPanelComponent>();
+        unit.shipName = panel.name;
+        unit.position = panel.position;
+        unit.size = panel.size;
+        unit.text = panel.text;
+        GetComponent<OrdersListEditor>().RemoveOrderFromList(unit);
         Destroy(gameObject);
     }
 }

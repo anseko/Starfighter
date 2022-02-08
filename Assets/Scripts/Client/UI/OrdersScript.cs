@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Client;
 using Client.Core;
+using MLAPI;
 using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OrdersScript : MonoBehaviour
+public class OrdersScript : NetworkBehaviour
 {
     private PlayerScript _ordersPS;
     public bool isActive;
@@ -78,15 +79,27 @@ public class OrdersScript : MonoBehaviour
     public void CreateOrder()
     {
         Debug.Log("Creating Mode");
-        _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(_ordersPS,
-            _orderPlaneCopy.GetComponent<StaticFrameInit>().position,
-            _orderPlaneCopy.GetComponent<StaticFrameInit>().size,
-            _textField.text);
-        _textField.text = "";
-        isOrder = false;
-        isPOI = false;
-        isActive = false;
-        _editPanel.SetActive(false);
+        var unit = new OrdersListEditor.OrderUnit();
+        unit.shipName = _ordersPS.name;
+        unit.position = _orderPlaneCopy.GetComponent<StaticFrameInit>().position;
+        unit.size = _orderPlaneCopy.GetComponent<StaticFrameInit>().size;
+        unit.text = _textField.text;
+        var _isTryingToAddToList = FindObjectOfType<OrdersListEditor>().AddOrderInList(unit);
+        if (_isTryingToAddToList)
+        {
+            _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
+            _textField.text = "";
+            isOrder = false;
+            isPOI = false;
+            isActive = false;
+            _editPanel.SetActive(false);
+        }
+
+        if (!_isTryingToAddToList)
+        {
+            FindObjectOfType<OrdersListEditor>().RemoveOrderFromList(unit);
+            FindObjectOfType<OrdersListEditor>().AddOrderInList(unit);
+        }
         _camera.GetComponent<CameraMotion>()._isDragable = true;
     }
 
@@ -106,6 +119,21 @@ public class OrdersScript : MonoBehaviour
     
     public void CancelOrder()
     {
+        var unit = new OrdersListEditor.OrderUnit();
+        unit.shipName = _ordersPS.name;
+        unit.position = _orderPlaneCopy.GetComponent<StaticFrameInit>().position;
+        unit.size = _orderPlaneCopy.GetComponent<StaticFrameInit>().size;
+        unit.text = _textField.text;
+        var _tryToRemoveFromList = GetComponent<OrdersListEditor>().RemoveOrderFromList(unit);
+        if (_tryToRemoveFromList)
+        {
+            // CALL MESSAGE SUCCESSFULLY DESTROYED
+        }
+
+        if (!_tryToRemoveFromList)
+        {
+            // CALL MESSAGE NO SUCH ORDER
+        }
         _orderPlaneCopy.GetComponent<Editor>().Destroy();
         _editPanel.SetActive(false);
         isActive = false;
@@ -116,7 +144,7 @@ public class OrdersScript : MonoBehaviour
 
     public void EditOrder(StaticFrameInit _parent)
     {
-        GetComponent<OrdersScript>().isOrder = false;
+        
         _orderPlaneCopy = _parent.gameObject;
         _editPanel.SetActive(true);
         _textField.text = _parent.text;
