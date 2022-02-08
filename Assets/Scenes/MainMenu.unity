@@ -1203,6 +1203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286107409}
   - component: {fileID: 286107410}
+  - component: {fileID: 286107411}
   m_Layer: 5
   m_Name: PlaneCreator
   m_TagString: Untagged
@@ -1261,6 +1262,18 @@ MonoBehaviour:
   - {fileID: 7096535666573038979, guid: 42d1d353171f29a42bd07ae4297139d8, type: 3}
   _cursor: {fileID: 712562063}
   _shipListDropdown: {fileID: 0}
+--- !u!114 &286107411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286107408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca4aaac70b409b40aab2b1ab3e77173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &296818993
 GameObject:
   m_ObjectHideFlags: 0
