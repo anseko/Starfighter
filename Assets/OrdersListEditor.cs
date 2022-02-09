@@ -24,7 +24,7 @@ public class OrdersListEditor : NetworkBehaviour
 
     public void Init()
         {
-            var ordersList = new NetworkDictionary<string, OrderUnit>();
+            ordersList = new NetworkDictionary<string, OrderUnit>();
         }
     
     public bool AddOrderInList(OrderUnit _order)
