@@ -35,7 +35,8 @@ Material:
     m_Ints: []
     m_Floats:
     - Alpha_Threshold: 0.27
-    - Frensel_Power: 3.91
+    - Frensel_Power: 30.69
+    - Step: 0.06
     m_Colors:
-    - GlowColor: {r: 0, g: 1, b: 0.0629308, a: 0}
+    - GlowColor: {r: 0.08627451, g: 0.65882355, b: 0.9176471, a: 0}
   m_BuildTextureStacks: []

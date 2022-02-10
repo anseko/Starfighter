@@ -32,7 +32,8 @@ namespace Net
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
 
-            var field = Resources.Load<GameObject>(Constants.PathToPrefabs + "SpaceField");
+            //TODO: Поменять для др карты
+            var field = Resources.Load<GameObject>(Constants.PathToPrefabs + "SpaceField 1");
             var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
             StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
         }

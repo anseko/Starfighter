@@ -67,6 +67,7 @@ namespace Client.Core
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<NavigatorCourseView>()?.Init(ps);
             FindObjectOfType<Stressbar>(true)?.Init(ps);
+            FindObjectOfType<Hpbar>(true)?.Init(ps);
         }
         
         public void InitSpectator()
