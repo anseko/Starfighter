@@ -27,6 +27,7 @@ namespace Client.Core
             followComp.Player = ps.gameObject;
             followComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(false);
+            // ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             FindObjectOfType<DataOutput>()?.Init(ps);
             FindObjectOfType<RotationWheelScript>()?.Init(ps);
             FindObjectOfType<RotationPanelScript>()?.Init(ps);
@@ -62,6 +63,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(true);
+            ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<NavigatorCourseView>()?.Init(ps);
             FindObjectOfType<Stressbar>(true)?.Init(ps);

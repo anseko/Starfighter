@@ -1,31 +1,48 @@
 using System;
+using System.Linq;
 using Client.Core;
+using MLAPI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Net.Components
 {
     public class FieldOfViewComponent: MonoBehaviour
     {
-        private PlayerScript _unit;
-        [SerializeField] private SphereCollider _fovCollider; 
-
+        [SerializeField] private GameObject _fovCollider;
+        private GameObject _fovInstance = null;
         private void Awake()
         {
-            _unit = GetComponent<PlayerScript>();
-            _fovCollider = GetComponent<SphereCollider>() ?? gameObject.AddComponent<SphereCollider>();
-            // _fovCollider.center = Vector3.zero;
-            _fovCollider.radius = _unit.FOVRadius;
-            _fovCollider.isTrigger = true;
+            enabled = false;
+        }
+
+        public void Init(PlayerScript ps)
+        {
+            _fovInstance = Instantiate(_fovCollider, gameObject.transform);
+            _fovInstance.transform.localScale *= ps.FOVRadius;
+            
+            enabled = true;
+            SceneManager.GetActiveScene()
+                .GetRootGameObjects()
+                .Where(x => x.layer == LayerMask.NameToLayer("Units") || x.layer == LayerMask.NameToLayer("Ships") 
+                && !x.Equals(gameObject))
+                .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            
+            if (_fovInstance == null) return;
+            if (other.transform.root.gameObject.layer == LayerMask.NameToLayer("Units") ||
+                other.transform.root.gameObject.layer == LayerMask.NameToLayer("Ships"))
+                other.transform.root.gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            
+            if(_fovInstance == null) return;
+            if (other.transform.root.gameObject.layer == LayerMask.NameToLayer("Units") ||
+                other.transform.root.gameObject.layer == LayerMask.NameToLayer("Ships"))
+                other.transform.root.gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false);
         }
     }
 }

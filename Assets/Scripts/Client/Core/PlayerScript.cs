@@ -72,6 +72,8 @@ namespace Client.Core
                     }
                 };
             }
+
+            FOVRadius = 1080;
         }
 
         private void Start()
