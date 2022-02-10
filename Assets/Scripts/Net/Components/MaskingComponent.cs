@@ -61,7 +61,7 @@ namespace Net.Components
                     _bodymat.SetFloat(Value, (float)i / timeLength);
                     yield return new WaitForSeconds(0.001f);
                 }
-                numbers.SetActive(true);
+                numbers?.SetActive(true);
                 yield break;
             }
             
@@ -70,7 +70,7 @@ namespace Net.Components
                 _bodymat.SetFloat(Value, (float)i / timeLength);
                 yield return new WaitForSeconds(0.001f);
             }
-            numbers.SetActive(false);
+            numbers?.SetActive(false);
         }
     }
 }

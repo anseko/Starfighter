@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 8062465039035580151}
   - component: {fileID: 9059484002749068705}
   - component: {fileID: -7599575325886155006}
+  - component: {fileID: -1958695184311846586}
   m_Layer: 6
   m_Name: StarSparrow5
   m_TagString: Dynamic
@@ -429,7 +430,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 57125df2e9117bb40a32c83b6390c301, type: 2}
+  - {fileID: 2100000, guid: fbe75bbb26085f9448888bd112065abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -517,6 +518,10 @@ MonoBehaviour:
   shipRotation:
     m_InternalValue: {x: 0, y: 0, z: 0}
   currentStress:
+    m_InternalValue: 0
+  baseColor:
+    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
+  shipNumber:
     m_InternalValue: 0
   currentState:
     m_InternalValue: 0
@@ -649,6 +654,20 @@ MonoBehaviour:
   _pointPrefab: {fileID: 8796398754777050499, guid: e038f844105cee24f9e6262803b6d298,
     type: 3}
   _isSetter: 0
+--- !u!114 &-1958695184311846586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970447681998018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 1970447681998018}
+  numbers: {fileID: 0}
 --- !u!1 &18850300427956739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1591,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
+--- !u!4 &4475282887537332635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7728363165594659329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2947148052201005590 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
@@ -1584,12 +1609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4d9ac1be15e584499f32939d837d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4475282887537332635 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7728363165594659329}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7876911453936505942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1780,15 +1799,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbcbba29825e4ad449c00b7104031a37, type: 3}
---- !u!4 &5873557323357684416 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2357500668424713268, guid: cbcbba29825e4ad449c00b7104031a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 8157310963697219316}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5873557324914337614 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2357500669696135610, guid: cbcbba29825e4ad449c00b7104031a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 8157310963697219316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5873557323357684416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2357500668424713268, guid: cbcbba29825e4ad449c00b7104031a37,
     type: 3}
   m_PrefabInstance: {fileID: 8157310963697219316}
   m_PrefabAsset: {fileID: 0}
