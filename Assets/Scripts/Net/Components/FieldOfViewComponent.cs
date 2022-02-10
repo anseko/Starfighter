@@ -31,6 +31,7 @@ namespace Net.Components
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.unityLogger.Log($"Enter:{_fovInstance}");
             if (_fovInstance == null) return;
             if (other.transform.root.gameObject.layer == LayerMask.NameToLayer("Units") ||
                 other.transform.root.gameObject.layer == LayerMask.NameToLayer("Ships"))

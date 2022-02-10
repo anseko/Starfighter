@@ -52,7 +52,7 @@ namespace Client.Core
             _navigatorUi.gameObject.SetActive(true);
             _spectatorUi.gameObject.SetActive(false);
             ps.gameObject.GetComponent<Collider>().enabled = false;
-            ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+            // ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();

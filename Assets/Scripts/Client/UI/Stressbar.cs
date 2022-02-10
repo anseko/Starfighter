@@ -7,12 +7,13 @@ namespace Client.UI
 {
     public class Stressbar: MonoBehaviour
     {
-        private Slider _slider;
+        [SerializeField] private Slider _slider;
         public PlayerScript playerScript;
 
         public void Init(PlayerScript ps)
         {
             playerScript = ps;
+            Debug.unityLogger.Log($"stress {_slider}");
             _slider.maxValue = (playerScript.unitConfig as SpaceShipConfig).maxStress;
             gameObject.SetActive(true);
         }
@@ -20,8 +21,6 @@ namespace Client.UI
         private void Awake()
         {
             gameObject.SetActive(false);
-            _slider = GetComponent<Slider>() ?? gameObject.AddComponent<Slider>();
-            
         }
 
         private void Update()
