@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Reseter : MonoBehaviour
 {
-    private const int _dayInterval = 24 * 3600;
+    private const int _dayInterval = 8 * 3600;
     private Coroutine _timer;
     private void Awake()
     {

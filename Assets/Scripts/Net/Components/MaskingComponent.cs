@@ -29,8 +29,6 @@ namespace Net.Components
             {
                 Value = false
             };
-
-            _isMasked.OnValueChanged += (value, newValue) => _dissolveCoroutine = StartCoroutine(Dissolve(300));
             
             _bodymat = model.GetComponent<Renderer>().material;
             _playerScript = GetComponent<PlayerScript>();
@@ -41,6 +39,7 @@ namespace Net.Components
         {
             _bodymat.SetFloat(Value, _isMasked.Value ? 1 : 0);
             if(_dissolveCoroutine != null) StopCoroutine(_dissolveCoroutine);
+            _isMasked.OnValueChanged += (value, newValue) => _dissolveCoroutine = StartCoroutine(Dissolve(300));
         }
 
         private void Update()
