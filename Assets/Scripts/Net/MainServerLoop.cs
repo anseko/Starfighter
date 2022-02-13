@@ -47,7 +47,7 @@ namespace Net
             Debug.unityLogger.Log($"Disconnection: {clientId}");
             foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.OwnerClientId == clientId))
             {
-                grappler.DestroyOnServer(clientId); //передаст владение серверу
+                grappler.DestroyOnServer(); //передаст владение серверу
             }
         }
 
@@ -75,7 +75,7 @@ namespace Net
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObjectId.Value == netId))
                 {
-                    grappler.DestroyOnServer(netId); //передаст владение серверу
+                    grappler.DestroyOnServer(); //передаст владение серверу
                 }
             }
             // _connector.CreateAsteroidsClientRpc();
@@ -128,6 +128,9 @@ namespace Net
         {
             return accountObjects.FirstOrDefault(x => x.clientId == clientId && x.type >= UserType.Pilot)?.ship.shipId == shipId;
         }
+
+        public IEnumerable<ulong> GetClientsOfType(UserType type) => accountObjects
+            .Where(x => x.type == type && x.clientId.HasValue).Select(x => x.clientId.Value);
         
         private void OnApplicationQuit()
         {

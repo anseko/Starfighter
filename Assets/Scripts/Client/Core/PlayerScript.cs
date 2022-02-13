@@ -95,13 +95,13 @@ namespace Client.Core
             {
                 if (!IsServer) return;
                 
-                if (newValue <= 0)
+                if (newValue <= 0 && currentState.Value != UnitState.IsDead)
                 {
                     currentState.Value = UnitState.IsDead;
                     return;
                 }
                 
-                if (newValue > 0)
+                if (newValue > 0 && currentState.Value == UnitState.IsDead)
                 {
                     Debug.unityLogger.Log("Trying to resurrect self");
                     currentState.Value = UnitState.InFlight;

@@ -44,7 +44,11 @@ namespace Net.Components
             _rigidbody = GetComponent<Rigidbody>();
             _unit = GetComponent<PlayerScript>();
             _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
-            _lastMovement.OnValueChanged += ValueChanged;
+            _lastMovement.OnValueChanged += (value, newValue) =>
+            {
+                if (IsOwner) AnimateMovementServerRpc();
+            };
+            
             _thrustForce = GetComponent<ConstantForce>();
             
             _frontLeftSystems.ForEach(x=>x.Stop());
@@ -69,13 +73,13 @@ namespace Net.Components
                 straightManeurValue = 0,
                 thrustValue = 0
             };
+            _thrustForce.force = Vector3.zero;
+            _thrustForce.torque = Vector3.zero;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            
             if (!IsServer) AnimateMovementServerRpc();
             else AnimateMovementClientRpc();
-        }
-
-        private void ValueChanged(MovementData previousvalue, MovementData newvalue)
-        {
-            if(IsOwner) AnimateMovementServerRpc();
         }
 
         private void Update()

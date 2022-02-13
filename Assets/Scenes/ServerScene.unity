@@ -254,45 +254,6 @@ MonoBehaviour:
     - Prefab: {fileID: 7820650207195793590, guid: ab41bb24afd94dd48958bb17b7e44f5b,
         type: 3}
       PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 1542d8974968fbb478f207a49292d49b,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 1c3f7d36dae7f8347b5f2cf7eeed82cb,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: a098f5d93a7cf234ab185de2e0f1b732,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 8bd6bc7cdae50674e8cc37d636d19899,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 3d83c57a1e8eaea46b9da2b2d20046e9,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: d12e2d30cffe04c46b03bee8a6621f22,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 99d58210a9276854bb34681a366b97f0,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: d6e27649a359bf3429eb80398eee4c8a,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 3942d0d703294264598e714de47c6adc,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 975fc230f6a9ccb4f948dae9f34ad2b4,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 47f1b3690f3ac5940a8b36e300fb5c67,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: 50a18875b5e398245a09edb5efbc5e82,
-        type: 3}
-      PlayerPrefab: 0
-    - Prefab: {fileID: 5598131333054404712, guid: cb7624df2d427d944892e365cd9a1b81,
-        type: 3}
-      PlayerPrefab: 0
     - Prefab: {fileID: 7603253874080902280, guid: b7a17958bc13caf41b1b24849927a42d,
         type: 3}
       PlayerPrefab: 0

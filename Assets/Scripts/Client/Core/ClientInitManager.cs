@@ -20,14 +20,12 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _pilotUi.gameObject.SetActive(true);
-            _spectatorUi.gameObject.SetActive(false);
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>() ?? cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 25;
             followComp.Player = ps.gameObject;
             followComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(false);
-            // ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             FindObjectOfType<DataOutput>()?.Init(ps);
             FindObjectOfType<RotationWheelScript>()?.Init(ps);
             FindObjectOfType<RotationPanelScript>()?.Init(ps);
@@ -50,7 +48,6 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
-            _spectatorUi.gameObject.SetActive(false);
             ps.gameObject.GetComponent<Collider>().enabled = false;
             // ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;

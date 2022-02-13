@@ -54,7 +54,14 @@ namespace Client.Core
         [ServerRpc(RequireOwnership = true)]
         public void GiveAwayShipOwnershipServerRpc()
         {
-            NetworkObject.RemoveOwnership();   
+            NetworkObject.RemoveOwnership();
+            var rigidbody = NetworkObject.gameObject.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            var force = rigidbody.gameObject.GetComponent<ConstantForce>();
+            force.force = Vector3.zero;
+            force.torque = Vector3.zero;
+
         }
     }
 }

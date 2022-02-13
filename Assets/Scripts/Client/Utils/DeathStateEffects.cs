@@ -21,7 +21,7 @@ namespace Client.Utils
 
             _playerScript.currentState.OnValueChanged += (value, newValue) =>
             {
-                if(value == UnitState.IsDocked || newValue == UnitState.IsDocked) return;
+                if(value == UnitState.IsDocked) return;
                 switch (newValue)
                 {
                     case UnitState.InFlight:

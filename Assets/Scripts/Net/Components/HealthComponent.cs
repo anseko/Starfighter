@@ -62,9 +62,7 @@ namespace Net.Components
             if (_playerScript.currentHp.Value <= 0)
             {
                 _playerScript.currentHp.Value = 0;
-                // _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
                 _playerScript.currentState.Value = UnitState.IsDead;
-                // ChangeToDeadClientRpc();
                 return;
             }
 
@@ -72,13 +70,6 @@ namespace Net.Components
                 $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.currentHp.Value}");
         }
 
-        [ClientRpc]
-        private void ChangeToDeadClientRpc()
-        {
-            if (!IsOwner || IsServer) return;
-            _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
-        }
-        
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>
             Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed);
     }
