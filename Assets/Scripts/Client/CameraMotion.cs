@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Client
 {
@@ -36,7 +35,7 @@ namespace Client
                 
                 if (Input.GetMouseButton(0))
                 {
-                    Vector3 direction = _startPosition - _camera.ScreenToWorldPoint(Input.mousePosition);
+                    var direction = _startPosition - _camera.ScreenToWorldPoint(Input.mousePosition);
                     _camera.transform.position += direction;
                 }
             }

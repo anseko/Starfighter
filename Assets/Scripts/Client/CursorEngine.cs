@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class CursorEngine : MonoBehaviour
+namespace Client
 {
-    public Texture2D cursor, cursorQuestion, cursorExclamation;
-    
-    void Start()
+    public class CursorEngine : MonoBehaviour
     {
-        Cursor.SetCursor(cursor, new Vector2(0,0), CursorMode.Auto);
-    }
+        public Texture2D cursor, cursorQuestion, cursorExclamation;
+
+        private void Start()
+        {
+            Cursor.SetCursor(cursor, new Vector2(0,0), CursorMode.Auto);
+        }
     
+    }
 }

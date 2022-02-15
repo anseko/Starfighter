@@ -8,17 +8,17 @@ namespace External_assets.StarSparrow.Readme.Readme_Files.Scripts.Editor
 	[CustomEditor(typeof(ReadmeStarSparrow))]
 	[InitializeOnLoad]
 	public class ReadmeStarSparrowEditor : UnityEditor.Editor
-	{	
-		static string kShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
-	
-		static float kSpace = 16f;
+	{
+		private static string kShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
+
+		private static float kSpace = 16f;
 	
 		static ReadmeStarSparrowEditor()
 		{
 			EditorApplication.delayCall += SelectReadmeAutomatically;
 		}
-	
-		static void SelectReadmeAutomatically()
+
+		private static void SelectReadmeAutomatically()
 		{
 			if (!SessionState.GetBool(kShowedReadmeSessionStateName, false ))
 			{
@@ -32,16 +32,16 @@ namespace External_assets.StarSparrow.Readme.Readme_Files.Scripts.Editor
 				}
 			} 
 		}
-	
-		static void LoadLayout()
+
+		private static void LoadLayout()
 		{
 			var assembly = typeof(EditorApplication).Assembly; 
 			var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
 			var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
 			method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false});
 		}
-	
-		static ReadmeStarSparrow SelectReadme() 
+
+		private static ReadmeStarSparrow SelectReadme() 
 		{
 			var ids = AssetDatabase.FindAssets("ReadmeStarSparrow t:ReadmeStarSparrow");
 			if (ids.Length == 1)
@@ -99,23 +99,23 @@ namespace External_assets.StarSparrow.Readme.Readme_Files.Scripts.Editor
 				GUILayout.Space(kSpace);
 			}
 		}
-	
-	
-		bool m_Initialized;
-	
-		GUIStyle LinkStyle { get { return m_LinkStyle; } }
-		[SerializeField] GUIStyle m_LinkStyle;
-	
-		GUIStyle TitleStyle { get { return m_TitleStyle; } }
-		[SerializeField] GUIStyle m_TitleStyle;
-	
-		GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
-		[SerializeField] GUIStyle m_HeadingStyle;
-	
-		GUIStyle BodyStyle { get { return m_BodyStyle; } }
-		[SerializeField] GUIStyle m_BodyStyle;
-	
-		void Init()
+
+
+		private bool m_Initialized;
+
+		private GUIStyle LinkStyle { get { return m_LinkStyle; } }
+		[SerializeField] private GUIStyle m_LinkStyle;
+
+		private GUIStyle TitleStyle { get { return m_TitleStyle; } }
+		[SerializeField] private GUIStyle m_TitleStyle;
+
+		private GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
+		[SerializeField] private GUIStyle m_HeadingStyle;
+
+		private GUIStyle BodyStyle { get { return m_BodyStyle; } }
+		[SerializeField] private GUIStyle m_BodyStyle;
+
+		private void Init()
 		{
 			if (m_Initialized)
 				return;
@@ -137,8 +137,8 @@ namespace External_assets.StarSparrow.Readme.Readme_Files.Scripts.Editor
 		
 			m_Initialized = true;
 		}
-	
-		bool LinkLabel (GUIContent label, params GUILayoutOption[] options)
+
+		private bool LinkLabel (GUIContent label, params GUILayoutOption[] options)
 		{
 			var position = GUILayoutUtility.GetRect(label, LinkStyle, options);
 

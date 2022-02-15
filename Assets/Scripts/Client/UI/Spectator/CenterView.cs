@@ -1,20 +1,26 @@
+using System.Linq;
+using Client.Core;
 using TMPro;
 using UnityEngine;
 
-public class CenterView : MonoBehaviour
-
+namespace Client.UI.Spectator
 {
-    private GameObject _ship;
-    [SerializeField] private Camera _camera;
-    
-    private void Start()
+    public class CenterView : MonoBehaviour
     {
-        _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
-        _ship = GameObject.Find(GetComponentInChildren<TextMeshProUGUI>().text+"(Clone)");
-    }
+        private GameObject _ship;
+        [SerializeField] private Camera _camera;
     
-    public void Spectate()
-    {
-        _camera.transform.position = new Vector3(_ship.transform.position.x,100,_ship.transform.position.z);
+        private void Start()
+        {
+            _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
+            _ship = FindObjectsOfType<PlayerScript>().FirstOrDefault(x =>
+                x.ShipConfig.shipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
+        }
+    
+        public void Spectate()
+        {
+            var position = _ship.transform.position;
+            _camera.transform.position = new Vector3(position.x, 100, position.z);
+        }
     }
 }

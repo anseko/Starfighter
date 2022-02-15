@@ -199,8 +199,8 @@ namespace Net.Core
                 var ps = ship.GetComponent<PlayerScript>();
                 spaceShipConfig.rotation = ship.transform.rotation;
                 spaceShipConfig.position = ship.transform.position;
-                spaceShipConfig.currentStress = ps.currentStress.Value;
-                spaceShipConfig.currentHp = ps.currentHp.Value;
+                spaceShipConfig.currentStress = ps.ShipConfig.currentStress;
+                spaceShipConfig.currentHp = ps.ShipConfig.currentHp;
                 //Save other fields;
                 spaceShipConfig.shipState = ship.GetComponent<PlayerScript>().GetState();
                 Debug.unityLogger.Log($"Saving ships {spaceShipConfig.prefabName} state {spaceShipConfig.shipState}");

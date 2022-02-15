@@ -2,7 +2,6 @@ using System;
 using Client.Core;
 using MLAPI;
 using MLAPI.NetworkVariable;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components
@@ -24,13 +23,13 @@ namespace Net.Components
         private void Update()
         {
             if(IsServer)
-                _playerScript.currentStress.Value = 
+                _playerScript.ShipConfig.currentStress = 
                     Math.Min(
                         Math.Max(
-                            _playerScript.currentStress.Value + stressDelta.Value * Time.deltaTime,
+                            _playerScript.ShipConfig.currentStress + stressDelta.Value * Time.deltaTime,
                             0
                             ),
-                        ((SpaceShipConfig) _playerScript.unitConfig).maxStress
+                        _playerScript.ShipConfig.maxStress
                         );
         }
     }

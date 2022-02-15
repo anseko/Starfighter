@@ -8,7 +8,7 @@ namespace Client.UI
         [SerializeField] private Image _image;
 
 
-        void Update()
+        private void Update()
         {
             _image.fillAmount = PlayerScript.shipRotation.Value.magnitude*Mathf.Rad2Deg / 90;
         }

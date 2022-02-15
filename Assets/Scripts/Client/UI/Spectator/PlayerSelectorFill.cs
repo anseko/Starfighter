@@ -3,20 +3,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSelectorFill : MonoBehaviour
+namespace Client.UI.Spectator
 {
-
-    [SerializeField] private GameObject _button;
-    [SerializeField] private VerticalLayoutGroup _panel;
-
-    private void Start()
+    public class PlayerSelectorFill : MonoBehaviour
     {
-        var players = FindObjectsOfType<PlayerScript>();
-        foreach (var ship in players)
+
+        [SerializeField] private GameObject _button;
+        [SerializeField] private VerticalLayoutGroup _panel;
+
+        private void Start()
         {
-            var button = Instantiate(_button, _panel.transform);
-            TextMeshProUGUI buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-            buttonName.text = ship.name.Substring(0, ship.name.Length-7);
+            foreach (var ship in FindObjectsOfType<PlayerScript>())
+            {
+                var button = Instantiate(_button, _panel.transform);
+                var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
+                buttonName.text = ship.ShipConfig.shipId;
+            }
         }
     }
 }

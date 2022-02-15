@@ -1,6 +1,7 @@
 ﻿using System;
 using Client.Core;
 using Core;
+using Core.Models;
 using ScriptableObjects;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -27,7 +28,7 @@ namespace Net.Core
             shipInstance.tag = Constants.DynamicTag;
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
-            playerScript.unitConfig = ship;
+            playerScript.ShipConfig = new SpaceShipDto(ship);
             shipInstance.SetActive(true);
             return playerScript;
         }

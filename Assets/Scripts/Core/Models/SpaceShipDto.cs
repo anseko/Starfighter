@@ -1,41 +1,42 @@
 ﻿using System;
+using MLAPI.Serialization;
 using ScriptableObjects;
-using UnityEngine;
 
 namespace Core.Models
 {
     [Serializable]
-    public struct SpaceShipDto
+    public class SpaceShipDto : SpaceUnitDto
     {
         public float maxStress;
         public float currentStress;
         public string shipId;
-        public float maxAngleSpeed;
-        public float maxSpeed;
-        public float maxHp;
-        public float currentHp;
-        public bool isDockable;
-        public bool isMovable;
-        public Vector3 position;
-        public Quaternion rotation;
-        public string prefabName;
         public UnitState shipState;
 
-        public SpaceShipDto(SpaceShipConfig config)
+        public SpaceShipDto() : base() {}
+        
+        public SpaceShipDto(SpaceShipConfig config) : base(config)
         {
             maxStress = config.maxStress;
             currentStress = config.currentStress;
             shipId = config.shipId;
-            maxAngleSpeed = config.maxAngleSpeed;
-            maxSpeed = config.maxSpeed;
-            maxHp = config.maxHp;
-            currentHp = config.currentHp;
-            isDockable = config.isDockable;
-            isMovable = config.isMovable;
-            position = config.position;
-            rotation = config.rotation;
-            prefabName = config.prefabName;
             shipState = config.shipState;
+        }
+
+        public SpaceShipDto(SpaceUnitConfig unitConfig) : base(unitConfig)
+        {
+            maxStress = 100;
+            currentStress = 0;
+            shipId = string.Empty;
+            shipState = UnitState.InFlight;
+        }
+        
+        public override void NetworkSerialize(NetworkSerializer serializer)
+        {
+            base.NetworkSerialize(serializer);
+            serializer.Serialize(ref maxStress);
+            serializer.Serialize(ref currentStress);
+            serializer.Serialize(ref shipId);
+            serializer.Serialize(ref shipState);
         }
     }
 }

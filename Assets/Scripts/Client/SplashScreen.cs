@@ -19,7 +19,7 @@ public class SplashScreen : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void LoadScene(int num)
+    private void LoadScene(int num)
     {
         _maxNumAsteroids = num;
         _currentNumAsteroids = GameObject.FindGameObjectsWithTag(Constants.AsteroidTag).Length;

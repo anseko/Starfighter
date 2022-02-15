@@ -2,7 +2,6 @@ using MLAPI;
 using MLAPI.NetworkVariable;
 using Net.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Net
 {

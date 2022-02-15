@@ -6,15 +6,15 @@ namespace Client.UI
     {
         [SerializeField] 
         private int _rotationModifier;
-    
-    
-        void Start()
+
+
+        private void Start()
         {
             _rotationModifier = 1;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             transform.Rotate(0,0, - PlayerScript.shipRotation.Value.normalized.y * PlayerScript.shipRotation.Value.magnitude * Mathf.Rad2Deg / _rotationModifier * Time.deltaTime);
         }

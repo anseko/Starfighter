@@ -1,28 +1,25 @@
-using Net.Components;
 using UnityEngine;
 
-public class Editor : MonoBehaviour
+namespace Client.UI
 {
-    private OrdersScript _ordersScript;
-    void Start()
+    public class Editor : MonoBehaviour
     {
-        _ordersScript = FindObjectOfType<OrdersScript>(true);
-        _ordersScript.isActive = false;
-    }
-    public void Edit()
-    {
-        _ordersScript.EditOrder(GetComponent<StaticFrameInit>());
-    }
-    
-    public void Destroy()
-    {
-        var unit = new OrdersListEditor.OrderUnit();
-        var panel = gameObject.GetComponent<OrderPanelComponent>();
-        unit.shipName = panel.name;
-        unit.position = panel.position;
-        unit.size = panel.size;
-        unit.text = panel.text;
-        GetComponent<OrdersListEditor>().RemoveOrderFromList(unit);
-        Destroy(gameObject);
+        private OrdersScript _ordersScript;
+
+        private void Start()
+        {
+            _ordersScript = FindObjectOfType<OrdersScript>(true);
+            _ordersScript.isActive = false;
+        }
+        
+        public void Edit()
+        {
+            _ordersScript.EditOrder(GetComponent<StaticFrameInit>());
+        }
+
+        public void Destroy()
+        {
+            _ordersScript.CancelOrder();
+        }
     }
 }

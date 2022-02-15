@@ -6,14 +6,14 @@ namespace Client.UI
     public class CoordinatesUI : BasePlayerUIElement
     {
         private Text _pointsText;
-        
-        
-        void Start()
+
+
+        private void Start()
         {
             _pointsText = GetComponent<Text>();
         }
-        
-        void Update()
+
+        private void Update()
         {
             var coordinates = PlayerScript.transform.position;
             _pointsText.text = "Координаты: x " + Math.Round(coordinates.x,0) + " y " + Math.Round(coordinates.z,0); // вывод в UI

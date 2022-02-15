@@ -1,24 +1,19 @@
+#nullable enable
 using System.Linq;
 using Core;
+using Core.Models;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using Net;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Client.Core
 {
     public class UnitScript : NetworkBehaviour
     {
-        public SpaceUnitConfig unitConfig;
+        public NetworkVariable<SpaceShipDto?> unitConfig;
 
-        public NetworkVariable<float> currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
-        {
-            ReadPermission = NetworkVariablePermission.Everyone,
-            WritePermission = NetworkVariablePermission.ServerOnly
-        });
-        
         public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
         {
             ReadPermission = NetworkVariablePermission.Everyone,
@@ -26,6 +21,16 @@ namespace Client.Core
         });
         
         public virtual UnitState GetState() => UnitState.InFlight;
+
+        private void Awake()
+        {
+            unitConfig = new NetworkVariable<SpaceShipDto?>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer,
+            }, null);
+        }
         
         public void RequestShipOwnership()
         {
@@ -38,7 +43,7 @@ namespace Client.Core
         private void RequestShipOwnershipServerRpc(ulong clientId)
         {
             Debug.unityLogger.Log($"Ownership requestig for {clientId}");
-            if (unitConfig is SpaceShipConfig shipConfig && !FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, shipConfig.shipId)) return;
+            if (unitConfig.Value is SpaceShipDto shipConfig && !FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, shipConfig.shipId)) return;
             if (GetComponent<UnitScript>().isGrappled.Value) // если подключается к схваченному кораблю - отпустить
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObject == gameObject))

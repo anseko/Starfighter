@@ -28,8 +28,8 @@ namespace Client.Core
         public void Update(GameObject unit)
         {
             if (!_playerScript.IsOwner) return;
-            _playerScript.shipSpeed.Value = _playerScript.rigidbody.velocity;
-            _playerScript.shipRotation.Value = _playerScript.rigidbody.angularVelocity;
+            _playerScript.shipSpeed.Value = _playerScript.Rigidbody.velocity;
+            _playerScript.shipRotation.Value = _playerScript.Rigidbody.angularVelocity;
         }
 
         public void OnExit(GameObject unit)
@@ -93,8 +93,8 @@ namespace Client.Core
         {
             //TODO: испускать маяком сигнал
             var ps = unit.GetComponent<PlayerScript>();
-            if(NetworkManager.Singleton.IsClient) Debug.unityLogger.Log($"In Dead update: {ps.currentHp.Value}");
-            if (ps.currentHp.Value > 0)
+            if(NetworkManager.Singleton.IsClient) Debug.unityLogger.Log($"In Dead update: {ps.ShipConfig.currentHp}");
+            if (ps.ShipConfig.currentHp > 0)
             {
                 Debug.unityLogger.Log("Trying to resurrect self");
                 ps.unitStateMachine.ChangeState(UnitState.InFlight);

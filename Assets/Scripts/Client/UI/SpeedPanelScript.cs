@@ -10,7 +10,7 @@ namespace Client.UI
         [Range(0, 200)]
         private float _changeRate = 100;
 
-        void Update()
+        private void Update()
         {
             _image.fillAmount = PlayerScript.shipSpeed.Value.magnitude / _changeRate;
         }

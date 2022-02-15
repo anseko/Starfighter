@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Models;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
 using UnityEngine;
@@ -11,43 +12,28 @@ namespace Client.Core
         public Volume volume;
         public KeyConfig keyConfig;
         public NetworkVariableVector3 shipSpeed, shipRotation;
-        public NetworkVariable<float> currentStress;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
-        public Rigidbody rigidbody;
+        public Rigidbody Rigidbody;
         public float FOVRadius;
-
+        public SpaceShipDto ShipConfig
+        {
+            get => unitConfig.Value;
+            set => unitConfig.Value = value;
+        }
+        
         private void Awake()
         {
             shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => { return IsOwner || IsServer; }
+                WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
             
             shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => { return IsOwner || IsServer; } 
+                WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
-            
-            currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            
-
-            if (!localUsage)
-            {
-                NetworkManager.OnServerStarted += () =>
-                {
-                    if (IsServer)
-                    {
-                        currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
-                        currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
-                    }
-                };
-            }
         }
 
         private void Start()
@@ -55,25 +41,25 @@ namespace Client.Core
             #if UNITY_EDITOR
                 if (localUsage)
                 {
-                    unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
+                    ShipConfig = new SpaceShipDto(Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig"));
                     // GetComponent<ClientInitManager>().InitPilot(this);
                     MLAPI.NetworkManager.Singleton.StartHost();
                 }
             #endif
             
-            unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
+            unitStateMachine = new UnitStateMachine(gameObject, ShipConfig.shipState);
             
-            currentHp.OnValueChanged += (value, newValue) =>
+            unitConfig.OnValueChanged += (value, newValue) =>
             {
-                if (newValue <= 0)
+                if (newValue.currentHp <= 0)
                 {
                     unitStateMachine.ChangeState(UnitState.IsDead);
                 }
             };
             
-            Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState}");
+            Debug.unityLogger.Log($"PS {ShipConfig.shipState}");
             volume = FindObjectOfType<Volume>(true);
-            rigidbody = GetComponent<Rigidbody>();
+            Rigidbody = GetComponent<Rigidbody>();
         }
         
         public override UnitState GetState()

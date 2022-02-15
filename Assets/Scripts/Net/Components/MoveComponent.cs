@@ -82,16 +82,16 @@ namespace Net.Components
                 (maneurForceVector.normalized) * _lastMovement.Value.sideManeurValue;
             _thrustForce.torque = new Vector3(0, _lastMovement.Value.rotationValue, 0);
             
-            if (Mathf.Abs(_rigidbody.angularVelocity.magnitude * Mathf.Rad2Deg) >= _unit.unitConfig.maxAngleSpeed)
+            if (Mathf.Abs(_rigidbody.angularVelocity.magnitude * Mathf.Rad2Deg) >= _unit.unitConfig.Value.maxAngleSpeed)
             {
                 var angularVelocity = _rigidbody.angularVelocity;
-                _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.unitConfig.maxAngleSpeed) * Mathf.Deg2Rad));
+                _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.unitConfig.Value.maxAngleSpeed) * Mathf.Deg2Rad));
             }
 
-            if (Mathf.Abs(_rigidbody.velocity.magnitude) >= _unit.unitConfig.maxSpeed)
+            if (Mathf.Abs(_rigidbody.velocity.magnitude) >= _unit.unitConfig.Value.maxSpeed)
             {
                 var velocity = _rigidbody.velocity;
-                _thrustForce.force = -(velocity.normalized * (Mathf.Abs(velocity.magnitude) - _unit.unitConfig.maxSpeed));
+                _thrustForce.force = -(velocity.normalized * (Mathf.Abs(velocity.magnitude) - _unit.unitConfig.Value.maxSpeed));
             }
         }
 

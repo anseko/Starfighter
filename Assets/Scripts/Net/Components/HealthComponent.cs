@@ -3,7 +3,6 @@ using Client.Core;
 using Core;
 using MLAPI;
 using MLAPI.NetworkVariable;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components
@@ -27,13 +26,13 @@ namespace Net.Components
         {
             if (!IsServer) return;
             
-            _playerScript.currentHp.Value = 
+            _playerScript.ShipConfig.currentHp = 
                 Math.Min(
                     Math.Max(
-                        _playerScript.currentHp.Value + hpDelta.Value * Time.deltaTime,
+                        _playerScript.ShipConfig.currentHp + hpDelta.Value * Time.deltaTime,
                         0
                     ),
-                    ((SpaceShipConfig) _playerScript.unitConfig).maxHp
+                    _playerScript.ShipConfig.maxHp
                 );
         }
         
@@ -43,19 +42,19 @@ namespace Net.Components
             if (!IsServer) return;
             
             var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
-            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude,  _playerScript.unitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
+            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude,  _playerScript.ShipConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
-            _playerScript.currentHp.Value -= _playerScript.currentHp.Value * (percentageDamage * 0.01f);
+            _playerScript.ShipConfig.currentHp -= _playerScript.ShipConfig.currentHp * (percentageDamage * 0.01f);
 
-            if (_playerScript.currentHp.Value <= 0)
+            if (_playerScript.ShipConfig.currentHp <= 0)
             {
-                _playerScript.currentHp.Value = 0;
+                _playerScript.ShipConfig.currentHp = 0;
                 _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
                 return;
             }
 
             Debug.unityLogger.Log(
-                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.currentHp.Value}");
+                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.ShipConfig.currentHp}");
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>

@@ -48,8 +48,6 @@ namespace Net.Components
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         private void MovePointClientRpc(Vector3 position, ClientRpcParams clientRpcParams = default)
         {
-            if (IsServer) return;
-            
             position.Set(position.x, 0,position.z);
             if (_point is null)
             {
