@@ -14,7 +14,7 @@ namespace Client.UI.Spectator
         {
             _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
             _ship = FindObjectsOfType<PlayerScript>().FirstOrDefault(x =>
-                x.ShipConfig.shipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
+                x.NetworkUnitConfig.ShipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
         }
     
         public void Spectate()

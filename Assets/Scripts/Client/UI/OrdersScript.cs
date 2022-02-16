@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
 using MLAPI;
-using MLAPI.NetworkVariable;
 using MLAPI.Serialization;
 using Net.Components;
 using TMPro;
@@ -95,7 +94,7 @@ namespace Client.UI
             Debug.unityLogger.Log($"Number of ships on scene: {ps.Length}");
             
             _allShips = ps.ToList();
-            _allShips.ForEach(ship => _shipNamesList.Add(ship.ShipConfig.shipId));
+            _allShips.ForEach(ship => _shipNamesList.Add(ship.NetworkUnitConfig.ShipId));
             _shipListDropdown.AddOptions(_shipNamesList);
         }
 
@@ -103,7 +102,7 @@ namespace Client.UI
         {
             var name = _shipListDropdown.options[_shipListDropdown.value].text;
             var ship = FindObjectsOfType<PlayerScript>()
-                .FirstOrDefault(ps => ps.ShipConfig.shipId == name);
+                .FirstOrDefault(ps => ps.NetworkUnitConfig.ShipId == name);
             _ordersPS = ship;
         }
     
@@ -114,7 +113,7 @@ namespace Client.UI
             Debug.unityLogger.Log("Creating Mode");
             var unit = new OrderUnit
             {
-                shipName = _ordersPS?.ShipConfig.shipId ?? "Unknown",
+                shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
                 position = _orderPlaneCopy.GetComponent<StaticFrameInit>().position,
                 size = _orderPlaneCopy.GetComponent<StaticFrameInit>().size,
                 text = _textField.text,
@@ -168,7 +167,7 @@ namespace Client.UI
         {
             if (_ordersPS is null) return;
             
-            if (_ordersList.TryGetValue(_ordersPS.ShipConfig.shipId, out var orderUnit))
+            if (_ordersList.TryGetValue(_ordersPS.NetworkUnitConfig.ShipId, out var orderUnit))
             {
                 if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
                 {
@@ -176,7 +175,7 @@ namespace Client.UI
                     orderComponent.lastOrder.Value = orderUnit;
                 }
 
-                _ordersList.Remove(_ordersPS.ShipConfig.shipId);
+                _ordersList.Remove(_ordersPS.NetworkUnitConfig.ShipId);
             }
 
             Destroy(_orderPlaneCopy);

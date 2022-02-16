@@ -30,7 +30,7 @@ namespace Net.Components
 
         private void OnValueChanged(OrdersScript.OrderUnit previousvalue, OrdersScript.OrderUnit newvalue)
         {
-            if (IsServer || newvalue.shipName != _playerScript.ShipConfig.shipId) return;
+            if (IsServer || newvalue.shipName != _playerScript.NetworkUnitConfig.ShipId) return;
             
             switch (newvalue.operation)
             {

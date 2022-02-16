@@ -18,11 +18,11 @@ namespace Client.Utils
         {
             _playerScript = ps;
 
-            _playerScript.unitConfig.OnValueChanged += (value, newValue) =>
+            _playerScript.NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
             {
                 
-                if(value.shipState == UnitState.IsDocked || value.shipState == newValue.shipState) return;
-                switch (newValue.shipState)
+                if (value == UnitState.IsDocked || value == newValue) return;
+                switch (newValue)
                 {
                     case UnitState.InFlight:
                         GoResurrect(300);
@@ -47,7 +47,7 @@ namespace Client.Utils
 
         private void Start()
         {
-            switch (_playerScript.ShipConfig.shipState)
+            switch (_playerScript.NetworkUnitConfig.ShipState)
             {
                 case UnitState.InFlight:
                     GoResurrect(1);

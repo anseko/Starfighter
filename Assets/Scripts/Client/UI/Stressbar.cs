@@ -12,7 +12,7 @@ namespace Client.UI
         public void Init(PlayerScript ps)
         {
             playerScript = ps;
-            _slider.maxValue = playerScript.ShipConfig.maxStress;
+            _slider.maxValue = playerScript.NetworkUnitConfig.MaxStress;
             gameObject.SetActive(true);
         }
         
@@ -23,7 +23,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _slider.value = playerScript.ShipConfig.currentStress;
+            _slider.value = playerScript.NetworkUnitConfig.CurrentStress;
         }
     }
 }

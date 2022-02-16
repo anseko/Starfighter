@@ -1,5 +1,6 @@
 using System;
 using Client.Core;
+using Core;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using UnityEngine;
@@ -18,19 +19,45 @@ namespace Net.Components
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
+            
+            _playerScript.NetworkUnitConfig._currentStress.OnValueChanged += (value, newValue) =>
+            {
+                if (newValue <= 0)
+                {
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    return;
+                }
+
+                if (newValue > 0 && _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead)
+                {
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                }
+            };
+            
+            NetworkManager.Singleton.OnServerStarted += () =>
+            {
+                if(!IsServer) return;
+                
+                if (_playerScript.NetworkUnitConfig.CurrentStress >= _playerScript.NetworkUnitConfig.MaxStress)
+                {
+                    _playerScript.NetworkUnitConfig.CurrentStress = _playerScript.NetworkUnitConfig.MaxStress;
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                }
+            };
         }
 
         private void Update()
         {
-            if(IsServer)
-                _playerScript.ShipConfig.currentStress = 
-                    Math.Min(
-                        Math.Max(
-                            _playerScript.ShipConfig.currentStress + stressDelta.Value * Time.deltaTime,
-                            0
-                            ),
-                        _playerScript.ShipConfig.maxStress
-                        );
+            if (!IsServer) return;
+            
+            _playerScript.NetworkUnitConfig.CurrentStress = 
+                Math.Min(
+                    Math.Max(
+                        _playerScript.NetworkUnitConfig.CurrentStress + stressDelta.Value * Time.deltaTime,
+                        0
+                        ),
+                    _playerScript.NetworkUnitConfig.MaxStress
+                    );
         }
     }
 }

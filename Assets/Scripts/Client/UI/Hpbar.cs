@@ -1,5 +1,4 @@
 using Client.Core;
-using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,7 @@ namespace Client.UI
         public void Init(PlayerScript ps)
         {
             playerScript = ps;
-            _slider.maxValue = playerScript.ShipConfig.maxHp;
+            _slider.maxValue = playerScript.NetworkUnitConfig.MaxHp;
             gameObject.SetActive(true);
         }
         
@@ -24,7 +23,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _slider.value = playerScript.ShipConfig.currentHp;
+            _slider.value = playerScript.NetworkUnitConfig.CurrentHp;
         }
     }
 }

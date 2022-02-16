@@ -1,4 +1,3 @@
-#nullable enable
 using System.Linq;
 using Core;
 using Core.Models;
@@ -12,7 +11,8 @@ namespace Client.Core
 {
     public class UnitScript : NetworkBehaviour
     {
-        public NetworkVariable<SpaceShipDto> unitConfig;
+        public NetworkSpaceUnitDto NetworkUnitConfig;
+        public SpaceUnitDto unitConfig;
 
         public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
         {
@@ -22,14 +22,9 @@ namespace Client.Core
         
         public virtual UnitState GetState() => UnitState.InFlight;
 
-        private void Awake()
+        public void Awake()
         {
-            unitConfig = new NetworkVariable<SpaceShipDto>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer,
-            });
+           NetworkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
         }
         
         public void RequestShipOwnership()
@@ -43,7 +38,7 @@ namespace Client.Core
         private void RequestShipOwnershipServerRpc(ulong clientId)
         {
             Debug.unityLogger.Log($"Ownership requestig for {clientId}");
-            if (unitConfig.Value is SpaceShipDto shipConfig && !FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, shipConfig.shipId)) return;
+            if (!FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, NetworkUnitConfig.ShipId)) return;
             if (GetComponent<UnitScript>().isGrappled.Value) // если подключается к схваченному кораблю - отпустить
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObject == gameObject))

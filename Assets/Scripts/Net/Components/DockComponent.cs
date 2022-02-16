@@ -97,9 +97,9 @@ namespace Net.Components
 
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
-            if (changeSelfState) _unit.ShipConfig.shipState = UnitState.InFlight;
+            if (changeSelfState) _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
-            if (otherUnit != null) otherUnit.ShipConfig.shipState = UnitState.InFlight;
+            if (otherUnit != null) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
             transform.SetParent(null);
             
@@ -119,16 +119,18 @@ namespace Net.Components
 
             if (!otherIsReady) return;
 
+            Debug.unityLogger.Log("Both ready to docking");
+            
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
-                    _unit.ShipConfig.shipState = UnitState.IsDocked;
+                    _unit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
                         //если мы стыкуемся к объекту с PlayerScript
-                        otherUnit.ShipConfig.shipState = UnitState.IsDocked;
+                        otherUnit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     }
                     else
                     {
@@ -137,10 +139,10 @@ namespace Net.Components
                     }
                     break;
                 case UnitState.IsDocked:
-                    _unit.ShipConfig.shipState = UnitState.InFlight;
+                    _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
-                        otherUnit.ShipConfig.shipState = UnitState.InFlight;
+                        otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     }
                     //если мы отходим от объекта без PlayerScript
                     transform.SetParent(null);
