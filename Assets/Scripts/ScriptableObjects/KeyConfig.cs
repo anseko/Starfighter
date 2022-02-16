@@ -10,6 +10,7 @@ namespace ScriptableObjects
         // them have to bind with Unity axes for be able to use all sorts of controllers
         public KeyCode fire;
         public KeyCode dock;
-        public KeyCode grapple; 
+        public KeyCode grapple;
+        public KeyCode mask;
     }
 }

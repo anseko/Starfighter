@@ -97,14 +97,14 @@ namespace Net.Components
 
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
-            if(changeSelfState) _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+            if (changeSelfState) _unit.ShipConfig.shipState = UnitState.InFlight;
             
-            if (otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+            if (otherUnit != null) otherUnit.ShipConfig.shipState = UnitState.InFlight;
             
             transform.SetParent(null);
             
-            EmergencyUndockClientRpc();
-            otherObj.GetComponent<DockComponent>().EmergencyUndockClientRpc();
+            // EmergencyUndockClientRpc();
+            // otherObj.GetComponent<DockComponent>().EmergencyUndockClientRpc();
         }
         
         [ServerRpc]
@@ -124,11 +124,11 @@ namespace Net.Components
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
-                    _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                    _unit.ShipConfig.shipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
                         //если мы стыкуемся к объекту с PlayerScript
-                        otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
+                        otherUnit.ShipConfig.shipState = UnitState.IsDocked;
                     }
                     else
                     {
@@ -137,10 +137,10 @@ namespace Net.Components
                     }
                     break;
                 case UnitState.IsDocked:
-                    _unit.unitStateMachine.ChangeState(UnitState.InFlight);
+                    _unit.ShipConfig.shipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
-                        otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
+                        otherUnit.ShipConfig.shipState = UnitState.InFlight;
                     }
                     //если мы отходим от объекта без PlayerScript
                     transform.SetParent(null);
@@ -150,9 +150,6 @@ namespace Net.Components
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-                
-            SwitchDockStateClientRpc();
-            otherObj.GetComponent<DockComponent>().SwitchDockStateClientRpc();
         }
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]

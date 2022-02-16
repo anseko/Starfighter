@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Client.UI;
+using Client.Utils;
 using Net;
 using Net.Components;
 
@@ -33,6 +34,8 @@ namespace Client.Core
             FindObjectOfType<CourseView>()?.Init(ps);
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
+            FindObjectOfType<DeathStateEffects>()?.Init(ps);
+            FindObjectOfType<HpMarker>()?.Init();
             Destroy(FindObjectOfType<GridFiller>().gameObject);
             //не отображать зоны опасности на пилоте
             foreach (var dangerZone in FindObjectsOfType<DangerZone>())
@@ -46,7 +49,7 @@ namespace Client.Core
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
             ps.gameObject.GetComponent<Collider>().enabled = false;
-            ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+            // ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
@@ -58,9 +61,11 @@ namespace Client.Core
             zoomComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(true);
             ps.GetComponent<OrderComponent>()?.Init();
+            ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<NavigatorCourseView>()?.Init(ps);
             FindObjectOfType<Stressbar>(true)?.Init(ps);
+            FindObjectOfType<Hpbar>(true)?.Init(ps);
         }
         
         public void InitSpectator()

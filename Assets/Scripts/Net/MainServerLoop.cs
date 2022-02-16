@@ -32,6 +32,10 @@ namespace Net
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
+
+            //TODO: Поменять для др карты
+            var field = Resources.Load<GameObject>(Constants.PathToPrefabs + "SpaceField 1");
+            var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
             StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
         }
         
@@ -44,7 +48,7 @@ namespace Net
             Debug.unityLogger.Log($"Disconnection: {clientId}");
             foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.OwnerClientId == clientId))
             {
-                grappler.DestroyOnServer(clientId); //передаст владение серверу
+                grappler.DestroyOnServer(); //передаст владение серверу
             }
         }
 
@@ -72,10 +76,10 @@ namespace Net
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObjectId.Value == netId))
                 {
-                    grappler.DestroyOnServer(clientId, netId); //передаст владение серверу
+                    grappler.DestroyOnServer(); //передаст владение серверу
                 }
             }
-            
+            // _connector.CreateAsteroidsClientRpc();
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //OtherConnectionStuff
             //Передача владения объектом корабля
@@ -123,14 +127,11 @@ namespace Net
 
         public bool CheckForAccountId(ulong clientId, string shipId)
         {
-            return accountObjects.FirstOrDefault(x => x.clientId == clientId)?.ship.shipId == shipId;
+            return accountObjects.FirstOrDefault(x => x.clientId == clientId && x.type >= UserType.Pilot)?.ship.shipId == shipId;
         }
 
-        public ulong GetNavigatorClientIdByShipName(string name)
-        {
-            var clientId = accountObjects.FirstOrDefault(x => x.ship.name == name && x.type == UserType.Navigator)?.clientId;
-            return clientId.Value;
-        }
+        public IEnumerable<ulong> GetClientsOfType(UserType type) => accountObjects
+            .Where(x => x.type == type && x.clientId.HasValue).Select(x => x.clientId.Value);
         
         private void OnApplicationQuit()
         {

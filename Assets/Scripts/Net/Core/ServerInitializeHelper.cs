@@ -60,6 +60,7 @@ namespace Net.Core
                         temp.rotation = x.rotation;
                         temp.prefabName = x.prefabName;
                         temp.shipState = x.shipState;
+                        temp.baseColor = x.baseColor;
                         return temp;
                     }).ToArray();
             }
@@ -140,9 +141,12 @@ namespace Net.Core
         
         public IEnumerator InitServer()
         {
+            InitDangerZones();
             InitShips();
             InitUnits();
-            InitDangerZones();
+            
+            // yield return StartCoroutine(
+            //     Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             
             foreach (var dangerZone in _dangerZoneConfigs)
             {
@@ -183,8 +187,6 @@ namespace Net.Core
                 yield return null;
             }
             
-            yield return StartCoroutine(
-                Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
             gameObject.GetComponent<MainServerLoop>().indicator.color = Color.green;
             NetEventStorage.GetInstance().WorldInit.Invoke(0);
         }

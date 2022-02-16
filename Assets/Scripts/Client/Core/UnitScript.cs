@@ -12,7 +12,7 @@ namespace Client.Core
 {
     public class UnitScript : NetworkBehaviour
     {
-        public NetworkVariable<SpaceShipDto?> unitConfig;
+        public NetworkVariable<SpaceShipDto> unitConfig;
 
         public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
         {
@@ -24,12 +24,12 @@ namespace Client.Core
 
         private void Awake()
         {
-            unitConfig = new NetworkVariable<SpaceShipDto?>(new NetworkVariableSettings()
+            unitConfig = new NetworkVariable<SpaceShipDto>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
                 WritePermissionCallback = id => IsOwner || IsServer,
-            }, null);
+            });
         }
         
         public void RequestShipOwnership()
@@ -58,7 +58,14 @@ namespace Client.Core
         [ServerRpc(RequireOwnership = true)]
         public void GiveAwayShipOwnershipServerRpc()
         {
-            NetworkObject.RemoveOwnership();   
+            NetworkObject.RemoveOwnership();
+            var rigidbody = NetworkObject.gameObject.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            var force = rigidbody.gameObject.GetComponent<ConstantForce>();
+            force.force = Vector3.zero;
+            force.torque = Vector3.zero;
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Net.Components
         [SerializeField]
         private Transform _launcher;
         private NetworkVariableULong _grapplerObjectId;
-        private bool _grappleOut = false;
+        public bool GrappleOut { get; private set; }
 
         private void Awake()
         {
@@ -37,18 +37,16 @@ namespace Net.Components
             if (!IsOwner || _unit.isGrappled.Value) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
-                if (!_grappleOut)
+                if (!GrappleOut)
                 {
-                    _grappleOut = true;
+                    GrappleOut = true;
                     InitGrappleServerRpc(NetworkManager.Singleton.LocalClientId);
                 }
                 else
                 {
-                    _grappleOut = false;
+                    GrappleOut = false;
                     var grappler = GetNetworkObject(_grapplerObjectId.Value)?.GetComponent<Grappler>();
-                    grappler?.DestroyOnServer(
-                        NetworkManager.LocalClientId,
-                        grappler.grappledObject?.GetComponent<NetworkObject>().NetworkObjectId ?? default);
+                    grappler?.DestroyOnServer();
                 }
             }
         }
@@ -60,19 +58,19 @@ namespace Net.Components
             var netGrappler = grapplerGo.GetComponent<NetworkObject>();
             netGrappler.SpawnWithOwnership(clientId, destroyWithScene: true);
             _grapplerObjectId.Value = netGrappler.NetworkObjectId;
+            
+            var clientIds = FindObjectOfType<MainServerLoop>().GetClientsOfType(UserType.Navigator);
+            
         }
         
         private void InitGrapple(ulong oldValue, ulong value)
         {
-            if(!_grappleOut) return;
-            
-            var grappler = GetNetworkObject(value)?.GetComponent<Grappler>();
-            grappler?.Init(_unit, 20);
+            GetNetworkObject(value)?.GetComponent<Grappler>()?.Init(_unit, 20);
         }
 
         public void SetGrappleState(bool newState)
         {
-            _grappleOut = newState;
+            GrappleOut = newState;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Client.Core;
 using Core;
 using MLAPI;
+using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using UnityEngine;
 
@@ -20,6 +21,17 @@ namespace Net.Components
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
             hpDelta.Value = 0;
+
+            NetworkManager.Singleton.OnServerStarted += () =>
+            {
+                if(!IsServer) return;
+                
+                if (_playerScript.ShipConfig.currentHp <= 0)
+                {
+                    _playerScript.ShipConfig.currentHp = 0;
+                    _playerScript.ShipConfig.shipState = UnitState.IsDead;
+                }
+            };
         }
 
         private void Update()
@@ -42,16 +54,9 @@ namespace Net.Components
             if (!IsServer) return;
             
             var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
-            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude,  _playerScript.ShipConfig.maxSpeed, Constants.MaxPossibleDamageHp);
+            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude, _playerScript.ShipConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
-            _playerScript.ShipConfig.currentHp -= _playerScript.ShipConfig.currentHp * (percentageDamage * 0.01f);
-
-            if (_playerScript.ShipConfig.currentHp <= 0)
-            {
-                _playerScript.ShipConfig.currentHp = 0;
-                _playerScript.unitStateMachine.ChangeState(UnitState.IsDead);
-                return;
-            }
+            _playerScript.unitConfig.Value.currentHp -= _playerScript.ShipConfig.maxHp * (percentageDamage * 0.01f);
 
             Debug.unityLogger.Log(
                 $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.ShipConfig.currentHp}");

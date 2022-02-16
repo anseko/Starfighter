@@ -6,7 +6,7 @@ namespace Client.UI
 {
     public class Stressbar: MonoBehaviour
     {
-        private Slider _slider;
+        [SerializeField] private Slider _slider;
         public PlayerScript playerScript;
 
         public void Init(PlayerScript ps)
@@ -19,8 +19,6 @@ namespace Client.UI
         private void Awake()
         {
             gameObject.SetActive(false);
-            _slider = GetComponent<Slider>() ?? gameObject.AddComponent<Slider>();
-            
         }
 
         private void Update()

@@ -1,8 +1,12 @@
 using System;
+using System.Linq;
+using Client.Utils;
 using Core;
 using MLAPI;
 using Net.Components;
+using ScriptableObjects;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Client.Core
 {
@@ -44,12 +48,10 @@ namespace Client.Core
         
         public void OnEnter(GameObject unit)
         {
-            //запретить перемещения, подписаться на триггер столкновения для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             if(unit.TryGetComponent<GrappleComponent>(out var grappler))
                 grappler.enabled = false;
             ClientEventStorage.GetInstance().IsDocked.Invoke();
-            //TODO: поменять UI?
         }
 
         public void Update(GameObject unit)
@@ -59,12 +61,10 @@ namespace Client.Core
         
         public void OnExit(GameObject unit)
         {
-            //разрешить перемещения, отписаться от триггера столкновений для принудительного разрыва
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
             if(unit.TryGetComponent<GrappleComponent>(out var grappler))
                 grappler.enabled = true;
             ClientEventStorage.GetInstance().DockingAvailable.Invoke();
-            //TODO: поменять UI?
         }
     }
 
@@ -77,40 +77,50 @@ namespace Client.Core
             //Если были пристыкованы - отстыковаться
             var dockComp = unit.GetComponent<DockComponent>();
             var unitPS = unit.GetComponent<PlayerScript>();
+            unit.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            unit.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            
             if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
                 dockComp.EmergencyUndockServerRpc(unit.GetComponent<NetworkObject>().NetworkObjectId,
                     dockComp.lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
             }
-            
-            //TODO: отключить весь функционал, кроме аварийного
-            if(unitPS.volume != null && unitPS.IsOwner) unitPS.volume.gameObject.SetActive(true);
+
+            if (unit.GetComponent<GrappleComponent>())
+            {
+                var grappler = Object.FindObjectsOfType<Grappler>()
+                    .FirstOrDefault(x => x.IsOwner);
+                grappler?.DestroyOnServer();
+            }
+
             if(unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
+
+            var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
+            if (beacon == null) return; 
+            beacon.ChangeState(true);
         }
 
         public void Update(GameObject unit)
         {
-            //TODO: испускать маяком сигнал
-            var ps = unit.GetComponent<PlayerScript>();
-            if(NetworkManager.Singleton.IsClient) Debug.unityLogger.Log($"In Dead update: {ps.ShipConfig.currentHp}");
-            if (ps.ShipConfig.currentHp > 0)
-            {
-                Debug.unityLogger.Log("Trying to resurrect self");
-                ps.unitStateMachine.ChangeState(UnitState.InFlight);
-            }
         }
         
         public void OnExit(GameObject unit)
         {
+            var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
+            if (beacon == null) return; 
+            beacon.ChangeState(false);
+            
             var unitPS = unit.GetComponent<PlayerScript>();
-            if(unitPS.volume != null) unitPS.volume.gameObject.SetActive(false);
             if (unitPS.isGrappled.Value)
             {
-                // unit.GetComponent<>();
-                //TODO: Отцепиться
+                var id = unit.GetComponent<NetworkObject>().NetworkObjectId;
+                var grappler = Object.FindObjectsOfType<Grappler>()
+                    .FirstOrDefault(x => x.grappledObjectId.Value == id);
+                grappler?.DestroyOnServer();
             }
-            unitPS.RequestShipOwnership(); 
+            
+            unitPS.RequestShipOwnership();
         }
     }
     

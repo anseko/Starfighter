@@ -23,16 +23,13 @@ namespace Core
     
         public void Init(PlayerScript playerScript, float maxLength)
         {
+            if (!IsOwner) return;
             _owner = playerScript.gameObject;
             _ownerObjectId.Value = playerScript.NetworkObjectId; 
             _maxLength = maxLength;
-            if (IsOwner)
-            {
-                var forceVector = _owner.transform.Find("Back").position - _owner.transform.position;
+            var forceVector = _owner.transform.Find("Back").position - _owner.transform.position;
                 GetComponent<Rigidbody>().AddForce(forceVector.normalized * _grappleVelocity,
                     ForceMode.Impulse);
-            }
-            // enabled = true;
         }
     
         private void Awake()
@@ -65,7 +62,7 @@ namespace Core
                 _maxLength < distance)
             {
                 //превысили возможную длину, но так ничего не нашли.
-                DestroyOnServer(NetworkManager.LocalClientId);
+                DestroyOnServer();
                 _owner.GetComponent<GrappleComponent>().SetGrappleState(false);
             }
         }
@@ -81,7 +78,7 @@ namespace Core
             if(!grappledObject.TryGetComponent<NetworkObject>(out var net) 
                || !net.IsOwnedByServer)
             {
-                DestroyOnServer(NetworkManager.LocalClientId);
+                DestroyOnServer();
                 return;
             }
             
@@ -110,7 +107,6 @@ namespace Core
             _joint.connectedBody = grappledObject.GetComponent<Rigidbody>();
             _joint.connectedAnchor = other.GetContact(0).point;
             _joint.enableCollision = false;
-            // _joint.breakForce = 100f;
             _joint.autoConfigureConnectedAnchor = true;
             _joint.axis = Vector3.up;
 
@@ -125,15 +121,15 @@ namespace Core
         private void OnJointBreak(float breakForce)
         {
             Debug.unityLogger.Log($"Joint breaks with force: {breakForce}");
-            DestroyOnServer(grappledObject.GetComponent<NetworkObject>().NetworkObjectId);
+            DestroyOnServer();
         }
 
-        public void DestroyOnServer(ulong clientId, ulong grappledObjectId = default)
+        public void DestroyOnServer()
         {
             if (IsServer)
             {
-                Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId}");
-                grappledObject = GetNetworkObject(grappledObjectId)?.gameObject;
+                Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId.Value}");
+                grappledObject = GetNetworkObject(grappledObjectId.Value)?.gameObject;
 
                 Debug.unityLogger.Log($"grappled object {grappledObject?.name}");
                 
@@ -141,7 +137,9 @@ namespace Core
                     grappledObject.TryGetComponent<UnitScript>(out var unitScript))
                 {
                     unitScript.isGrappled.Value = false;
-                    GetNetworkObject(grappledObjectId).RemoveOwnership();
+                    var networkObject = grappledObject.GetComponent<NetworkObject>();
+                    if(!networkObject.IsOwnedByServer)
+                        networkObject.RemoveOwnership();
                 }
                 if (grappledObject != null && 
                     grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
@@ -154,21 +152,23 @@ namespace Core
             else
             {
                 if(!IsOwner) return;
-                DestroyServerRpc(clientId, grappledObjectId);
+                DestroyServerRpc();
             }
         }
         
         [ServerRpc(RequireOwnership = true)]
-        private void DestroyServerRpc(ulong clientId, ulong grappledObjectId = default)
+        private void DestroyServerRpc()
         {
-            Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId}");
-            grappledObject = GetNetworkObject(grappledObjectId)?.gameObject;
+            Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId.Value}");
+            grappledObject = GetNetworkObject(grappledObjectId.Value)?.gameObject;
 
             if (grappledObject != null &&
                 grappledObject.TryGetComponent<UnitScript>(out var unitScript))
             {
                 unitScript.isGrappled.Value = false;
-                grappledObject.GetComponent<NetworkObject>().RemoveOwnership();
+                var networkObject = grappledObject.GetComponent<NetworkObject>();
+                if(!networkObject.IsOwnedByServer)
+                    networkObject.RemoveOwnership();
             }
             if (grappledObject != null && 
                 grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))

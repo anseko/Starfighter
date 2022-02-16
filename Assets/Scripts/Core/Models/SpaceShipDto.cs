@@ -1,6 +1,7 @@
 ﻿using System;
 using MLAPI.Serialization;
 using ScriptableObjects;
+using UnityEngine;
 
 namespace Core.Models
 {
@@ -11,6 +12,7 @@ namespace Core.Models
         public float currentStress;
         public string shipId;
         public UnitState shipState;
+        public Color baseColor;
 
         public SpaceShipDto() : base() {}
         
@@ -20,6 +22,7 @@ namespace Core.Models
             currentStress = config.currentStress;
             shipId = config.shipId;
             shipState = config.shipState;
+            baseColor = config.baseColor;
         }
 
         public SpaceShipDto(SpaceUnitConfig unitConfig) : base(unitConfig)
@@ -37,6 +40,7 @@ namespace Core.Models
             serializer.Serialize(ref currentStress);
             serializer.Serialize(ref shipId);
             serializer.Serialize(ref shipState);
+            serializer.Serialize(ref baseColor);
         }
     }
 }
