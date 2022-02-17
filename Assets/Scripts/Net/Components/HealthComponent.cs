@@ -2,9 +2,7 @@ using System;
 using Client.Core;
 using Core;
 using MLAPI;
-using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net.Components
@@ -23,14 +21,28 @@ namespace Net.Components
             });
             hpDelta.Value = 0;
 
+            _playerScript.NetworkUnitConfig._currentHp.OnValueChanged += (value, newValue) =>
+            {
+                if (newValue <= 0)
+                {
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    return;
+                }
+
+                if (newValue > 0 && _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead)
+                {
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                }
+            };
+            
             NetworkManager.Singleton.OnServerStarted += () =>
             {
                 if(!IsServer) return;
                 
-                if (_playerScript.currentHp.Value <= 0)
+                if (_playerScript.NetworkUnitConfig.CurrentHp <= 0)
                 {
-                    _playerScript.currentHp.Value = 0;
-                    _playerScript.currentState.Value = UnitState.IsDead;
+                    _playerScript.NetworkUnitConfig.CurrentHp = 0;
+                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
                 }
             };
         }
@@ -39,13 +51,13 @@ namespace Net.Components
         {
             if (!IsServer) return;
             
-            _playerScript.currentHp.Value = 
+            _playerScript.NetworkUnitConfig.CurrentHp = 
                 Math.Min(
                     Math.Max(
-                        _playerScript.currentHp.Value + hpDelta.Value * Time.deltaTime,
+                        _playerScript.NetworkUnitConfig.CurrentHp + hpDelta.Value * Time.deltaTime,
                         0
                     ),
-                    ((SpaceShipConfig) _playerScript.unitConfig).maxHp
+                    _playerScript.NetworkUnitConfig.MaxHp
                 );
         }
         
@@ -55,19 +67,12 @@ namespace Net.Components
             if (!IsServer) return;
             
             var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
-            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude ,  _playerScript.unitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
+            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude, _playerScript.NetworkUnitConfig.MaxSpeed, Constants.MaxPossibleDamageHp);
 
-            _playerScript.currentHp.Value -= _playerScript.unitConfig.maxHp * (percentageDamage * 0.01f);
-
-            if (_playerScript.currentHp.Value <= 0)
-            {
-                _playerScript.currentHp.Value = 0;
-                _playerScript.currentState.Value = UnitState.IsDead;
-                return;
-            }
+            _playerScript.NetworkUnitConfig.CurrentHp -= _playerScript.NetworkUnitConfig.MaxHp * (percentageDamage * 0.01f);
 
             Debug.unityLogger.Log(
-                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.currentHp.Value}");
+                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.NetworkUnitConfig.CurrentHp}");
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>

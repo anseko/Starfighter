@@ -53079,6 +53079,7 @@ GameObject:
   - component: {fileID: -1464960194997158463}
   - component: {fileID: 3292655346845149900}
   - component: {fileID: -2989362028558285010}
+  - component: {fileID: 6558366185625327069}
   m_Layer: 6
   m_Name: Player
   m_TagString: Dynamic
@@ -53174,9 +53175,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitConfig: {fileID: 11400000, guid: 1617cde83ec5f4e41a6b391f58c2e2b3, type: 2}
-  currentHp:
-    m_InternalValue: 0
+  unitConfig:
+    m_InternalValue:
+      maxAngleSpeed: 0
+      maxSpeed: 0
+      maxHp: 0
+      currentHp: 0
+      isDockable: 0
+      isMovable: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      prefabName: 
+      maxStress: 0
+      currentStress: 0
+      shipId: 
+      shipState: 0
+      baseColor: {r: 0, g: 0, b: 0, a: 0}
   isGrappled:
     m_InternalValue: 0
   volume: {fileID: 0}
@@ -53185,16 +53199,8 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   shipRotation:
     m_InternalValue: {x: 0, y: 0, z: 0}
-  currentStress:
-    m_InternalValue: 0
-  baseColor:
-    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
-  shipNumber:
-    m_InternalValue: 0
-  currentState:
-    m_InternalValue: 0
   localUsage: 0
-  rigidbody: {fileID: 5599932588400767304}
+  Rigidbody: {fileID: 0}
   FOVRadius: 0
 --- !u!114 &1072001758478384732
 MonoBehaviour:
@@ -53407,6 +53413,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fovCollider: {fileID: 2341582271297964913, guid: 22d33c3e979c54544ac355870d1ef35f,
+    type: 3}
+--- !u!114 &6558366185625327069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd286b3bf5bb364ab17d8d880319ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orderFramePrefab: {fileID: 7096535666573038979, guid: fb24ee48793daaf4a9dab929262db292,
     type: 3}
 --- !u!1 &5598239764343346318
 GameObject:
@@ -69324,6 +69344,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
+--- !u!4 &3180043062609408687 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8753316625881549109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4241530806740680994 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
@@ -69336,9 +69362,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4d9ac1be15e584499f32939d837d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3180043062609408687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
-    type: 3}
-  m_PrefabInstance: {fileID: 8753316625881549109}
-  m_PrefabAsset: {fileID: 0}

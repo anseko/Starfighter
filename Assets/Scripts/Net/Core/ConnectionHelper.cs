@@ -30,6 +30,9 @@ namespace Net.Core
                 case UserType.Spectator:
                     GetComponent<ClientInitManager>().InitSpectator();
                     break;
+                case UserType.SpaceStation:
+                    GetComponent<ClientInitManager>().InitStation();
+                    break;
                 case UserType.Moderator:
                     break;
                 default:

@@ -11,7 +11,7 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 		static private CFXEasyEditor SingleWindow;
 	
 		[MenuItem("Window/Cartoon FX Easy Editor")]
-		static void ShowWindow()
+		private static void ShowWindow()
 		{
 			CFXEasyEditor window = EditorWindow.GetWindow<CFXEasyEditor>(EditorPrefs.GetBool("CFX_ShowAsToolbox", true), "Easy Editor", true);
 			window.minSize = new Vector2(300, 8);
@@ -104,17 +104,17 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 		};
 
 		//Foldouts
-		bool basicFoldout = false;
-		bool colorFoldout = false;
-		bool copyFoldout = false;
-		bool foldoutChanged;
+		private bool basicFoldout = false;
+		private bool colorFoldout = false;
+		private bool copyFoldout = false;
+		private bool foldoutChanged;
 	
 		//Editor Prefs
 		private bool pref_ShowAsToolbox;
 		private bool pref_IncludeChildren;
 		private bool pref_HideDisabledModulesCopy;
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			//Load Settings
 			pref_ShowAsToolbox = EditorPrefs.GetBool("CFX_ShowAsToolbox", true);
@@ -127,18 +127,18 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			RefreshCurrentlyEnabledModules();
 		}
 
-		void OnFocus()
+		private void OnFocus()
 		{
 			RefreshCurrentlyEnabledModules();
 		}
 
-		void OnSelectionChange()
+		private void OnSelectionChange()
 		{
 			UpdateSelectionCount();
 			this.Repaint();
 		}
 
-		void OnDisable()
+		private void OnDisable()
 		{
 			//Save Settings
 			EditorPrefs.SetBool("CFX_BasicFoldout", basicFoldout);
@@ -146,7 +146,7 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			EditorPrefs.SetBool("CFX_CopyFoldout", copyFoldout);
 		}
 
-		void UpdateSelectionCount()
+		private void UpdateSelectionCount()
 		{
 			SelectedParticleSystemsCount = 0;
 			foreach(var go in Selection.gameObjects)
@@ -160,8 +160,8 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 				SelectedParticleSystemsCount += systems.Length;
 			}
 		}
-	
-		void OnGUI()
+
+		private void OnGUI()
 		{
 			GUILayout.Space(4);
 		
@@ -609,7 +609,7 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			}
 		}
 
-		void RefreshCurrentlyEnabledModules()
+		private void RefreshCurrentlyEnabledModules()
 		{
 			if(sourceObject != null)
 			{
@@ -626,9 +626,9 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			foldoutChanged = true;
 		}
 
-		bool needSpace = false;
+		private bool needSpace = false;
 
-		void SelectModulesSpace()
+		private void SelectModulesSpace()
 		{
 			if(needSpace)
 			{
@@ -637,7 +637,7 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			}
 		}
 
-		void GUISelectModule(ParticleSystemModule module)
+		private void GUISelectModule(ParticleSystemModule module)
 		{
 			if(module.enabledInSource || !pref_HideDisabledModulesCopy)
 			{
@@ -1037,8 +1037,8 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 			
 				return new Color(r, g, b, a);
 			}
-		
-			static float Value(float n1, float n2, float hue)
+
+			private static float Value(float n1, float n2, float hue)
 			{
 				hue = Mathf.Repeat(hue, 360f);
 			
@@ -1548,7 +1548,7 @@ namespace External_assets.ExplosionEffects.Cartoon_FX_Easy_Editor.Editor
 #endif
 		};
 
-		void GUISeparator()
+		private void GUISeparator()
 		{
 			GUILayout.Space(4);
 			if(EditorGUIUtility.isProSkin)

@@ -5,6 +5,7 @@ using Client.Core;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
+using Net.Components;
 using Net.Core;
 using ScriptableObjects;
 using TMPro;
@@ -63,9 +64,9 @@ namespace Net
                 }
             };
             
-            if (account == null || account.type == UserType.Spectator)
+            if (account == null || account.type == UserType.Spectator || account.type == UserType.SpaceStation)
             {
-                _connector.SelectSceneClientRpc(UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
+                _connector.SelectSceneClientRpc(account?.type ?? UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
                 return;
             }
             

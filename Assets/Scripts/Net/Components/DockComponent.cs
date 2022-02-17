@@ -97,11 +97,9 @@ namespace Net.Components
 
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
-            // if(changeSelfState) _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-            if(changeSelfState) _unit.currentState.Value = UnitState.InFlight;
+            if (changeSelfState) _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
-            // if (otherUnit != null) otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
-            if (otherUnit != null) otherUnit.currentState.Value = UnitState.InFlight;
+            if (otherUnit != null) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
             transform.SetParent(null);
             
@@ -121,18 +119,18 @@ namespace Net.Components
 
             if (!otherIsReady) return;
 
+            Debug.unityLogger.Log("Both ready to docking");
+            
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
-                    // _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                    _unit.currentState.Value = UnitState.IsDocked;
+                    _unit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
                         //если мы стыкуемся к объекту с PlayerScript
-                        // otherUnit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                        otherUnit.currentState.Value = UnitState.IsDocked;
+                        otherUnit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     }
                     else
                     {
@@ -141,12 +139,10 @@ namespace Net.Components
                     }
                     break;
                 case UnitState.IsDocked:
-                    // _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                    _unit.currentState.Value = UnitState.InFlight;
+                    _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
-                        // otherUnit.unitStateMachine.ChangeState(UnitState.InFlight);
-                        otherUnit.currentState.Value = UnitState.InFlight;
+                        otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     }
                     //если мы отходим от объекта без PlayerScript
                     transform.SetParent(null);
@@ -156,9 +152,6 @@ namespace Net.Components
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-                
-            // SwitchDockStateClientRpc();
-            // otherObj.GetComponent<DockComponent>().SwitchDockStateClientRpc();
         }
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]

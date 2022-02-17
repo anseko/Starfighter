@@ -27,14 +27,14 @@ namespace External_assets.ExplosionEffects.WarFX.Scripts
 		private float fadeout;
 		private Color color;
 		private float orgAlpha;
-	
-		void Awake()
+
+		private void Awake()
 		{
 			color = this.GetComponent<Renderer>().material.GetColor("_TintColor");
 			orgAlpha = color.a;
 		}
-	
-		void OnEnable()
+
+		private void OnEnable()
 		{
 			//Random UVs
 			int random = Random.Range(0, (int)(frames.x*frames.y));
@@ -61,8 +61,8 @@ namespace External_assets.ExplosionEffects.WarFX.Scripts
 			StopAllCoroutines();
 			StartCoroutine("holeUpdate");
 		}
-	
-		IEnumerator holeUpdate()
+
+		private IEnumerator holeUpdate()
 		{
 			while(life > 0f)
 			{

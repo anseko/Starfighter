@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Client.Core;
 using Core;
@@ -19,9 +18,10 @@ namespace Client.Utils
         {
             _playerScript = ps;
 
-            _playerScript.currentState.OnValueChanged += (value, newValue) =>
+            _playerScript.NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
             {
-                if(value == UnitState.IsDocked) return;
+                
+                if (value == UnitState.IsDocked || value == newValue) return;
                 switch (newValue)
                 {
                     case UnitState.InFlight:
@@ -47,7 +47,7 @@ namespace Client.Utils
 
         private void Start()
         {
-            switch (_playerScript.currentState.Value)
+            switch (_playerScript.NetworkUnitConfig.ShipState)
             {
                 case UnitState.InFlight:
                     GoResurrect(1);

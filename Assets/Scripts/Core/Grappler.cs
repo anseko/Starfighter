@@ -1,5 +1,4 @@
-﻿using System;
-using Client.Core;
+﻿using Client.Core;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;

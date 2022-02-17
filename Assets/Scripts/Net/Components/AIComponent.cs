@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
 using Core;
 using MLAPI;
-using Net.Components;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Net
+namespace Net.Components
 {
     public class AIComponent: NetworkBehaviour
     {

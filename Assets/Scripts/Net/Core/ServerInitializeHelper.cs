@@ -18,7 +18,7 @@ namespace Net.Core
         public class SpaceShipsWrapper
         {
             [SerializeField]
-            public SpaceShipDto[] spaceShipConfigs;
+            public SpaceUnitDto[] spaceShipConfigs;
         }
 
         [Serializable]
@@ -201,8 +201,8 @@ namespace Net.Core
                 var ps = ship.GetComponent<PlayerScript>();
                 spaceShipConfig.rotation = ship.transform.rotation;
                 spaceShipConfig.position = ship.transform.position;
-                spaceShipConfig.currentStress = ps.currentStress.Value;
-                spaceShipConfig.currentHp = ps.currentHp.Value;
+                spaceShipConfig.currentStress = ps.NetworkUnitConfig.CurrentStress;
+                spaceShipConfig.currentHp = ps.NetworkUnitConfig.CurrentHp;
                 //Save other fields;
                 spaceShipConfig.shipState = ship.GetComponent<PlayerScript>().GetState();
                 Debug.unityLogger.Log($"Saving ships {spaceShipConfig.prefabName} state {spaceShipConfig.shipState}");
@@ -210,7 +210,7 @@ namespace Net.Core
             
             File.WriteAllText(Constants.PathToShips, JsonUtility.ToJson(new SpaceShipsWrapper()
             {
-                spaceShipConfigs = _shipConfigs.Select(x=> new SpaceShipDto(x)).ToArray()
+                spaceShipConfigs = _shipConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
             
             foreach (var unitConfig in _unitConfigs)

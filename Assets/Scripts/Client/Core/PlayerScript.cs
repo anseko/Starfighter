@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
 using Core;
+using Core.Models;
+using System.Linq;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using ScriptableObjects;
@@ -14,65 +14,27 @@ namespace Client.Core
         public Volume volume;
         public KeyConfig keyConfig;
         public NetworkVariableVector3 shipSpeed, shipRotation;
-        public NetworkVariable<float> currentStress;
-        public NetworkVariableColor baseColor;
-        public NetworkVariableInt shipNumber;
         public UnitStateMachine unitStateMachine;
-        public NetworkVariable<UnitState> currentState;
         public bool localUsage = false;
-        public Rigidbody rigidbody;
+        public Rigidbody Rigidbody;
         public float FOVRadius;
 
-        private void Awake()
+        
+        private new void Awake()
         {
+            base.Awake();
+            
             shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => { return IsOwner || IsServer; }
+                WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
             
             shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => { return IsOwner || IsServer; } 
+                WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
-            
-            currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            
-            currentState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            
-            baseColor = new NetworkVariableColor(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            
-            shipNumber = new NetworkVariableInt(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
-
-            if (!localUsage)
-            {
-                NetworkManager.OnServerStarted += () =>
-                {
-                    if (IsServer)
-                    {
-                        currentStress.Value = ((SpaceShipConfig) unitConfig).currentStress;
-                        currentHp.Value = ((SpaceShipConfig) unitConfig).currentHp;
-                        currentState.Value = ((SpaceShipConfig)unitConfig).shipState;
-                    }
-                };
-            }
-
+                
             FOVRadius = 1080;
         }
 
@@ -81,51 +43,56 @@ namespace Client.Core
             #if UNITY_EDITOR
                 if (localUsage)
                 {
-                    unitConfig = Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceShipConfig");
+                    var dto = new SpaceUnitDto(
+                        Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceunitConfig.Value"));
+                    // NetworkUnitConfig = new NetworkSpaceUnitDto(dto, id => IsOwner || IsServer);
                     // GetComponent<ClientInitManager>().InitPilot(this);
-                    MLAPI.NetworkManager.Singleton.StartHost();
+                    NetworkManager.Singleton.StartHost();
                 }
             #endif
+            unitStateMachine = new UnitStateMachine(gameObject, NetworkUnitConfig.ShipState);
             
             volume = FindObjectOfType<Volume>(true);
-            rigidbody = GetComponent<Rigidbody>();
+            Rigidbody = GetComponent<Rigidbody>();
             
-            unitStateMachine = new UnitStateMachine(gameObject, ((SpaceShipConfig) unitConfig).shipState);
-            currentHp.OnValueChanged += (value, newValue) =>
+            NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
             {
-                if (!IsServer) return;
-                
-                if (newValue <= 0 && currentState.Value != UnitState.IsDead)
-                {
-                    currentState.Value = UnitState.IsDead;
-                    return;
-                }
-                
-                if (newValue > 0 && currentState.Value == UnitState.IsDead)
-                {
-                    Debug.unityLogger.Log("Trying to resurrect self");
-                    currentState.Value = UnitState.InFlight;
-                }
-            };
+                unitStateMachine.ChangeState(newValue);
+            }; 
+            
+            //
+            // NetworkUnitConfig.OnValueChanged += (value, newValue) =>
+            // {
+            //     Debug.unityLogger.Log("HERE");
+            //     if (newValue.currentHp <= 0 || newValue.currentStress >= NetworkUnitConfig.Value.maxStress)
+            //     {
+            //         
+            //         unitStateMachine.ChangeState(UnitState.IsDead);
+            //         return;
+            //     }
+            //
+            //     if (newValue.currentHp > 0 &&
+            //         newValue.currentStress < NetworkUnitConfig.MaxStress &&
+            //         NetworkUnitConfig.ShipState == UnitState.IsDead)
+            //     {
+            //         NetworkUnitConfig.ShipState = UnitState.InFlight;
+            //         unitStateMachine.ChangeState(UnitState.InFlight);
+            //         return;
+            //     }
+            //     
+            // };
 
-            currentState.OnValueChanged += (state, newState) =>
-            {
-                unitStateMachine.ChangeState(newState);
-            };
-
-            Debug.unityLogger.Log($"PS {((SpaceShipConfig) unitConfig).shipState} | currentState:{currentState.Value}");
-            if(IsClient) unitStateMachine.ChangeState(currentState.Value);
+            Debug.unityLogger.Log($"PS {NetworkUnitConfig.ShipState}");
+            
+            if (IsClient) unitStateMachine.ChangeState(NetworkUnitConfig.ShipState);
             
             transform.GetComponentsInChildren<MeshRenderer>().ToList()
-                .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = baseColor.Value);
-            GetComponentsInChildren<TextMesh>().ToList().ForEach(t => t.text = shipNumber.Value.ToString());
+                .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = NetworkUnitConfig.BaseColor);
+            // GetComponentsInChildren<TextMesh>().ToList().ForEach(t => t.text = shipNumber.Value.ToString());
         }
-        
-        public override UnitState GetState()
-        {
-            return currentState.Value;
-        }
-        
+
+        public override UnitState GetState() => NetworkUnitConfig.ShipState;
+
         private void Update()
         {
             unitStateMachine.Update();

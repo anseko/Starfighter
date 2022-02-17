@@ -1,10 +1,8 @@
 using System;
 using System.Linq;
-using Client.Utils;
 using Core;
 using MLAPI;
 using Net.Components;
-using ScriptableObjects;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -32,14 +30,13 @@ namespace Client.Core
         public void Update(GameObject unit)
         {
             if (!_playerScript.IsOwner) return;
-            _playerScript.shipSpeed.Value = _playerScript.rigidbody.velocity;
-            _playerScript.shipRotation.Value = _playerScript.rigidbody.angularVelocity;
+            _playerScript.shipSpeed.Value = _playerScript.Rigidbody.velocity;
+            _playerScript.shipRotation.Value = _playerScript.Rigidbody.angularVelocity;
         }
 
         public void OnExit(GameObject unit)
         {
             _playerScript.GetComponent<MoveComponent>().enabled = false;
-            
         }
     }
     

@@ -7,13 +7,13 @@ namespace External_assets.ExplosionEffects.WarFX.Scripts
 	public class CFX_AutoDestructShuriken : MonoBehaviour
 	{
 		public bool OnlyDeactivate;
-	
-		void OnEnable()
+
+		private void OnEnable()
 		{
 			StartCoroutine("CheckIfAlive");
 		}
-	
-		IEnumerator CheckIfAlive ()
+
+		private IEnumerator CheckIfAlive ()
 		{
 			while(true)
 			{

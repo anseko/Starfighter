@@ -3,7 +3,6 @@ using Client.UI;
 using Client.Utils;
 using Net;
 using Net.Components;
-using UnityEngine.SceneManagement;
 
 namespace Client.Core
 {
@@ -15,6 +14,7 @@ namespace Client.Core
         [SerializeField] private Canvas _spectatorUi;
         [SerializeField] private Canvas _moderatorUi;
         [SerializeField] private Canvas _mainMenuUi;
+        [SerializeField] private Canvas _stationUi;
         
         public void InitPilot(PlayerScript ps)
         {
@@ -60,6 +60,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(true);
+            ps.GetComponent<OrderComponent>()?.Init();
             ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<NavigatorCourseView>()?.Init(ps);
@@ -74,11 +75,27 @@ namespace Client.Core
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
-            followComp.enabled = false;
+            followComp.enabled = true;
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
+        }
+        
+        public void InitStation()
+        {
+            _stationUi.gameObject.SetActive(true);
+            _mainMenuUi.gameObject.SetActive(false);
+            FindObjectOfType<OrdersScript>(true).gameObject.SetActive(true);
+            var cam = FindObjectOfType<Camera>();
+            var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
+            cam.orthographicSize = 50;
+            followComp.enabled = true;
+            var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
+            zoomComp.navigatorCamera = cam;
+            zoomComp.enabled = true;
+            cam.cullingMask &= ~(1 << 10); //Disable docking marks render
+            FindObjectOfType<OrdersScript>().GetShipList();
         }
     }
 }

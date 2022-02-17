@@ -15,14 +15,14 @@ namespace External_assets.ExplosionEffects.WarFX.Scripts
 		public float time = 0.05f;
 	
 		private float timer;
-	
-		void Start ()
+
+		private void Start ()
 		{
 			timer = time;
 			StartCoroutine("Flicker");
 		}
-	
-		IEnumerator Flicker()
+
+		private IEnumerator Flicker()
 		{
 			while(true)
 			{

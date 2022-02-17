@@ -1,5 +1,4 @@
 using Client.Core;
-using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,7 @@ namespace Client.UI
         public void Init(PlayerScript ps)
         {
             playerScript = ps;
-            Debug.unityLogger.Log($"stress {_slider}");
-            _slider.maxValue = (playerScript.unitConfig as SpaceShipConfig).maxStress;
+            _slider.maxValue = playerScript.NetworkUnitConfig.MaxStress;
             gameObject.SetActive(true);
         }
         
@@ -25,7 +23,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _slider.value = playerScript.currentStress.Value;
+            _slider.value = playerScript.NetworkUnitConfig.CurrentStress;
         }
     }
 }

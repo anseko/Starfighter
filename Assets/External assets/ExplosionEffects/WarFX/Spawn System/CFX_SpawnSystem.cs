@@ -208,15 +208,15 @@ namespace External_assets.ExplosionEffects.WarFX.Spawn_System
 
 		//--------------------------------
 
-		void Awake()
+		private void Awake()
 		{
 			if(instance != null)
 				Debug.LogWarning("CFX_SpawnSystem: There should only be one instance of CFX_SpawnSystem per Scene!\n", this.gameObject);
 		
 			instance = this;
 		}
-	
-		void Start()
+
+		private void Start()
 		{
 			allObjectsLoaded = false;
 		
