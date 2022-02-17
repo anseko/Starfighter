@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3bc5a7a657ee0c48aece9d43bd69b89, type: 3}
-  m_Name: GarbageUnitConfig
+  m_Script: {fileID: 11500000, guid: ac3204a753c829944a31cb0489dc8759, type: 3}
+  m_Name: GrabageShipConfig
   m_EditorClassIdentifier: 
   maxAngleSpeed: 110
   maxSpeed: 30
@@ -18,6 +18,11 @@ MonoBehaviour:
   currentHp: 100
   isDockable: 1
   isMovable: 0
-  position: {x: -2303, y: 0, z: -2400}
+  position: {x: 1, y: 1, z: 1}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   prefabName: GarbageUnit
+  maxStress: 100
+  currentStress: 0
+  shipId: grabage
+  shipState: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
