@@ -38,15 +38,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 8e9dac75f56ed874c96a91d022c8a769, type: 3}
+        m_Texture: {fileID: 2800000, guid: fc5d6b93f70eb2e499b45d16532253da, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - MaskTexture:
+        m_Texture: {fileID: 2800000, guid: 48ecabd530ef79b458ed6f0e9196ddfc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - MetallicTexture:
-        m_Texture: {fileID: 2800000, guid: 26ef18b8554244e468494868dd6fead7, type: 3}
+        m_Texture: {fileID: 2800000, guid: f3ffb954962977443ada0663a3ecd44d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Normal_Texture:
-        m_Texture: {fileID: 2800000, guid: bad3d999b886d0f459b9f69e2625c78a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8acfa108df3dc724bb02b95ffc346a3d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -124,7 +128,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Noise_Scale: 100
-    - Smoothness: 0.6
+    - Smoothness: 1
     - Value: 0
     - Width: 0.04
     - _AlphaClip: 0
@@ -155,9 +159,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Base_Color: {r: 0.020421505, g: 0, b: 1, a: 1}
-    - Dissolve_Color: {r: 0, g: 0.01192188, b: 1, a: 0}
+    - Dissolve_Color: {r: 0.043137245, g: 0.16513693, b: 0.99215686, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5784977, g: 0.9811321, b: 0.6393347, a: 1}
+    - _Color: {r: 0.35186878, g: 0, b: 0.020698164, a: 1}
     - _Color_1: {r: 0.01625133, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
