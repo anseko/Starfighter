@@ -36,13 +36,13 @@ namespace Net.Components
             {
                 case OrdersScript.OrderOperation.Add:
                     _myOrder = GameObject.Find("OrderStaticFrame(Clone)") ?? Instantiate(_orderFramePrefab);
-                    _myOrder.GetComponent<StaticFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
+                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
                     break;
                 case OrdersScript.OrderOperation.Remove:
                     Destroy(_myOrder);
                     break;
                 case OrdersScript.OrderOperation.Edit:
-                    _myOrder.GetComponent<StaticFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
+                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
                     break;
             }
         }

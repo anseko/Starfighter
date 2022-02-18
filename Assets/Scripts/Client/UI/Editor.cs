@@ -14,7 +14,7 @@ namespace Client.UI
         
         public void Edit()
         {
-            _ordersScript.EditOrder(GetComponent<StaticFrameInit>());
+            _ordersScript.EditOrder(GetComponent<OrderFrameInit>());
         }
 
         public void Destroy()

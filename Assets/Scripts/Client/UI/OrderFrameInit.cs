@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Client.UI
 {
-    public class StaticFrameInit : MonoBehaviour
+    public class OrderFrameInit : MonoBehaviour
     {
         public PlayerScript ship;
         public Vector3 position;

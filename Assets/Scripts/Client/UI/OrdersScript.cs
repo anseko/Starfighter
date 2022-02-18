@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
@@ -30,6 +31,25 @@ namespace Client.UI
             }
         }
         
+        public class POIUnit: INetworkSerializable
+        {
+            public string identifier;
+            public Vector3 position;
+            public Vector3 size;
+            public string text;
+            public OrderOperation operation;
+            public GameObject orderPlane;
+            
+            public void NetworkSerialize(NetworkSerializer serializer)
+            {
+                serializer.Serialize(ref identifier);
+                serializer.Serialize(ref position);
+                serializer.Serialize(ref size);
+                serializer.Serialize(ref text);
+                serializer.Serialize(ref operation);
+            }
+        }
+        
         public enum OrderOperation
         {
             Add,
@@ -38,6 +58,7 @@ namespace Client.UI
         }
 
         private Dictionary<string, OrderUnit> _ordersList;
+        private Dictionary<string, POIUnit> _poiList;
 
         private PlayerScript _ordersPS;
         public bool isActive;
@@ -62,6 +83,7 @@ namespace Client.UI
         private void Awake()
         {
             _ordersList = new Dictionary<string, OrderUnit>();
+            _poiList = new Dictionary<string, POIUnit>();
         }
 
         private void Start()
@@ -73,6 +95,7 @@ namespace Client.UI
 
         public void SetOrder()
         {
+            isPOI = false;
             _chosenPrefab = 0;
             isActive = true;
             Cursor.SetCursor(_cursor.cursorExclamation,new Vector2(0,0), CursorMode.Auto);
@@ -114,8 +137,8 @@ namespace Client.UI
             var unit = new OrderUnit
             {
                 shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
-                position = _orderPlaneCopy.GetComponent<StaticFrameInit>().position,
-                size = _orderPlaneCopy.GetComponent<StaticFrameInit>().size,
+                position = _orderPlaneCopy.GetComponent<OrderFrameInit>().position,
+                size = _orderPlaneCopy.GetComponent<OrderFrameInit>().size,
                 text = _textField.text,
                 orderPlane = _orderPlaneCopy
             };
@@ -138,7 +161,7 @@ namespace Client.UI
             if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
                 orderComponent.lastOrder.Value = unit;
             
-            _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
+            _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
             _textField.text = "";
             isPOI = false;
             isActive = false;
@@ -153,11 +176,23 @@ namespace Client.UI
             isActive = false;
             isDrawing = false;
             _orderPlaneCopy = Instantiate(_orderPlanePrefab[_chosenPrefab]);
-            _orderPlaneCopy.GetComponent<StaticFrameInit>().FrameInit(
-                _ordersPS,
-                _camera.ScreenToWorldPoint(_startPosition), 
-                _endPositionGlobal, 
-                "");
+            if (_orderPlaneCopy.name.Contains("OrderStaticFrame"))
+            {
+                _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(
+                                _ordersPS,
+                                _camera.ScreenToWorldPoint(_startPosition), 
+                                _endPositionGlobal, 
+                                "");
+            }
+            else
+            {
+                var identificator = Guid.NewGuid().ToString();
+                _orderPlaneCopy.GetComponent<POIFrameInit>().FrameInit(
+                    identificator,
+                    _camera.ScreenToWorldPoint(_startPosition), 
+                    _endPositionGlobal, 
+                    "");
+            }
             Debug.unityLogger.Log("editing");
             _editPanel.SetActive(true);
             Debug.unityLogger.Log("panel is active");
@@ -185,7 +220,7 @@ namespace Client.UI
             _camera.GetComponent<CameraMotion>()._isDragable = true;
         }
 
-        public void EditOrder(StaticFrameInit parent)
+        public void EditOrder(OrderFrameInit parent)
         {
             _orderPlaneCopy = parent.gameObject;
             _editPanel.SetActive(true);
