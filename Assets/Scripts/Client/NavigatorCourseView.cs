@@ -21,7 +21,7 @@ namespace Client
         {
             var shipPosition = _ship.transform.position;
             var size = Mathf.LerpUnclamped(0,
-                _ship.unitConfig.Value.maxSpeed / _speedMarkerRatio,
+                _ship.NetworkUnitConfig.MaxSpeed / _speedMarkerRatio,
                 Mathf.Log(_ship.shipSpeed.Value.magnitude / Mathf.PI + 1)) ;
             var radiusVector = _ship.shipSpeed.Value.normalized * _radius;
             _renderer.SetPosition(0, shipPosition + _ship.shipSpeed.Value.normalized + radiusVector);

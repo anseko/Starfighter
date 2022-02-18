@@ -1,6 +1,4 @@
 ﻿using System;
-using Core;
-using Core.Models;
 using UnityEngine;
 
 namespace Net.Core

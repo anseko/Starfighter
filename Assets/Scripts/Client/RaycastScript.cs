@@ -43,7 +43,7 @@ namespace Client
                         case "OrderStaticFrame(Clone)":
                         case "POIStaticFrame(Clone)":
                             _textContainer.transform.position = Input.mousePosition;
-                            _textContainer.text = go.GetComponent<StaticFrameInit>()?.ship?.ShipConfig.shipId
+                            _textContainer.text = go.GetComponent<StaticFrameInit>()?.ship?.NetworkUnitConfig.ShipId
                                                   + "\n" + go.GetComponent<StaticFrameInit>()?.text;
                             break;
                         case "DestroyButton":

@@ -17,7 +17,7 @@ namespace Client.UI.Spectator
             {
                 var button = Instantiate(_button, _panel.transform);
                 var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-                buttonName.text = ship.ShipConfig.shipId;
+                buttonName.text = ship.NetworkUnitConfig.ShipId;
             }
         }
     }

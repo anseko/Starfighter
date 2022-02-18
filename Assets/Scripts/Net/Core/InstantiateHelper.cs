@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using Client.Core;
-using Client.Utils;
 using Core;
 using Core.Models;
 using ScriptableObjects;
@@ -30,8 +28,8 @@ namespace Net.Core
             shipInstance.tag = Constants.DynamicTag;
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
-            playerScript.ShipConfig = new SpaceShipDto(ship);
-
+            // playerScript.unitConfig = new SpaceUnitDto(ship);
+            playerScript.NetworkUnitConfig.Init(new SpaceUnitDto(ship));
             // if (int.TryParse(ship.shipId.Replace("ship", ""), out var num))
             //     playerScript.shipNumber.Value = num;
 
@@ -48,7 +46,7 @@ namespace Net.Core
                 Object.Instantiate(goToInstantiate, worldObject.position, worldObject.rotation) as
                     GameObject;
             instance.name = worldObject.prefabName + Constants.Separator + worldObject.id;
-            instance.tag = Constants.DynamicTag;
+            instance.GetComponent<UnitScript>()?.NetworkUnitConfig.Init(new SpaceUnitDto(worldObject));
             instance.SetActive(true);
             return instance;
         }

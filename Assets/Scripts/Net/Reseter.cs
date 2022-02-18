@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Security.Cryptography;
 using Client.Core;
 using UnityEngine;
 
@@ -19,7 +18,8 @@ public class Reseter : MonoBehaviour
             foreach (var unitScript in FindObjectsOfType<PlayerScript>())
             {
                 Debug.unityLogger.Log($"Timer elapsed:{unitScript.gameObject.name}");
-                unitScript.unitConfig.Value.currentHp = unitScript.unitConfig.Value.maxHp;
+                unitScript.NetworkUnitConfig.CurrentHp = unitScript.NetworkUnitConfig.MaxHp;
+                unitScript.NetworkUnitConfig.CurrentStress = 0;
             }
 
             yield return new WaitForSecondsRealtime(_dayInterval);

@@ -1,6 +1,5 @@
 using System.Linq;
 using Client.Core;
-using MLAPI;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -15,19 +14,17 @@ namespace Client.Utils
         public void Init()
         {
             _volume = FindObjectOfType<Volume>(true);
-            _maxHp = gameObject.GetComponent<PlayerScript>().unitConfig.Value.maxHp;
+            _maxHp = gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.MaxHp;
             
             var vignette = _volume.profile.components.First(x => x is Vignette);
-            var vignetteParameter = new FloatParameter(Mathf.Lerp(0, 0.4f, (_maxHp - gameObject.GetComponent<PlayerScript>().ShipConfig.currentHp) / _maxHp));
+            var vignetteParameter = new FloatParameter(Mathf.Lerp(0, 0.4f, (_maxHp - gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.CurrentHp) / _maxHp));
                 
             vignette.parameters[2].SetValue(vignetteParameter);
             
-            gameObject.GetComponent<PlayerScript>().unitConfig.OnValueChanged += (value, newValue) =>
+            gameObject.GetComponent<PlayerScript>().NetworkUnitConfig._currentHp.OnValueChanged += (value, newValue) =>
             {
-                if (value.currentHp == newValue.currentHp) return;
-                
                 var vignette = _volume.profile.components.First(x => x is Vignette);
-                var vignetteParameter = new FloatParameter(Mathf.Lerp(0, 0.4f, (_maxHp - newValue.currentHp) / _maxHp));
+                var vignetteParameter = new FloatParameter(Mathf.Lerp(0, 0.4f, (_maxHp - newValue) / _maxHp));
                 
                 vignette.parameters[2].SetValue(vignetteParameter);
             };
