@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
-  m_Name: GreenZone
+  m_Name: YellowZone
   m_EditorClassIdentifier: 
   StressDamage: 0
-  HpDamage: -0.0555
+  HpDamage: -0.0833
   Center: {x: -1447, y: -1, z: -945}
   Radius: 14
-  Color: {r: 0.5882353, g: 1, b: 0, a: 0.15686275}
+  Color: {r: 1, g: 0.9647059, b: 0, a: 0.15686275}

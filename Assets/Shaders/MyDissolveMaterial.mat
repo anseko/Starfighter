@@ -129,7 +129,7 @@ Material:
     m_Floats:
     - Noise_Scale: 100
     - Smoothness: 1
-    - Value: 0.455
+    - Value: 0
     - Width: 0.04
     - _AlphaClip: 0
     - _Blend: 0
