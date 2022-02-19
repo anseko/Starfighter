@@ -39,8 +39,6 @@ namespace Client
                     _camera.transform.position += direction;
                 }
             }
-            
-            
         }
         
         private void FollowShip()

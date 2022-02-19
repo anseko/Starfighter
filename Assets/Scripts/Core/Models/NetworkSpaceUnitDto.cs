@@ -1,6 +1,7 @@
 using System;
 using MLAPI;
 using MLAPI.NetworkVariable;
+using Net.Core;
 using UnityEngine;
 
 namespace Core.Models
@@ -120,102 +121,106 @@ namespace Core.Models
         
         public void Awake()
         {
+            var permissionDelegate =
+                new NetworkVariablePermissionsDelegate(id =>
+                    IsOwner || IsServer || FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin);
+
             _maxAngleSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _maxSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _maxHp = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _isDockable = new NetworkVariable<bool>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _isMovable = new NetworkVariable<bool>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _position = new NetworkVariable<Vector3>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _rotation = new NetworkVariable<Quaternion>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _prefabName = new NetworkVariable<string>(new NetworkVariableSettings()
             {
                 WritePermission = NetworkVariablePermission.Custom,
                 ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
 
             _maxStress = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _shipId = new NetworkVariable<string>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _shipState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
             
             _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
+                WritePermissionCallback = permissionDelegate
             });
         }
     }

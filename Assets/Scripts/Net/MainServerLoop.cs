@@ -66,7 +66,15 @@ namespace Net
             
             if (account == null || account.type == UserType.Spectator || account.type == UserType.SpaceStation)
             {
+                _connector.userType.Value = account?.type ?? UserType.Spectator;
                 _connector.SelectSceneClientRpc(account?.type ?? UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
+                return;
+            }
+
+            if (account.type == UserType.Admin)
+            {
+                _connector.userType.Value = account.type;
+                _connector.SelectSceneClientRpc(account.type, 0, UnitState.InFlight, clientRpcParams);
                 return;
             }
             
@@ -79,7 +87,7 @@ namespace Net
                     grappler.DestroyOnServer(); //передаст владение серверу
                 }
             }
-            // _connector.CreateAsteroidsClientRpc();
+            _connector.userType.Value = account.type;
             _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
             //OtherConnectionStuff
             //Передача владения объектом корабля
@@ -127,7 +135,7 @@ namespace Net
 
         public bool CheckForAccountId(ulong clientId, string shipId)
         {
-            return accountObjects.FirstOrDefault(x => x.clientId == clientId && x.type >= UserType.Pilot)?.ship.shipId == shipId;
+            return accountObjects.FirstOrDefault(x => x.clientId == clientId && x.type == UserType.Pilot)?.ship.shipId == shipId;
         }
 
         public IEnumerable<ulong> GetClientsOfType(UserType type) => accountObjects

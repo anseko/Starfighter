@@ -275,6 +275,12 @@ MonoBehaviour:
     - Prefab: {fileID: 2115461363551409235, guid: baef485129fb77f4b8852e1062c29c67,
         type: 3}
       PlayerPrefab: 0
+    - Prefab: {fileID: 8990402764898823965, guid: 10a5753773ecc4d49aafc58e46af346b,
+        type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 8990402764898823965, guid: 14493a0804b29bb46bdf6a942f4447a4,
+        type: 3}
+      PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
     CreatePlayerPrefab: 0
@@ -1174,6 +1180,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 775d5f7dcfc3f504ab719616aaf4c336, type: 2}
   - {fileID: 11400000, guid: 5fc08b51f7892754d8cc844764adb5e0, type: 2}
   - {fileID: 11400000, guid: 9d4fa7779c971594ab708460a94002b3, type: 2}
+  - {fileID: 11400000, guid: db1b5c5c3984aed4ba68a3c3e57cafca, type: 2}
   _connector: {fileID: 872456032}
 --- !u!4 &2088699828
 Transform:
