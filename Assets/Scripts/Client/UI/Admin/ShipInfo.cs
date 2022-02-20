@@ -16,6 +16,7 @@ namespace Client.UI.Admin
         [SerializeField] private Slider _stress;
         [SerializeField] private Dropdown _state;
         [SerializeField] private Button _applyButton;
+        [SerializeField] private Button _refreshButton;
         [SerializeField] private Button _focusButton;
         [SerializeField] private TMP_InputField _maxSpeed;
         [SerializeField] private TMP_InputField _maxAngleSpeed;
@@ -26,6 +27,7 @@ namespace Client.UI.Admin
         private void Awake()
         {
             _applyButton.onClick.AddListener(Apply);
+            _refreshButton.onClick.AddListener(UpdateCurrentValues);
             _focusButton.onClick.AddListener(() =>
             {
                 var camMotion = FindObjectOfType<Camera>().GetComponent<CameraMotion>();
@@ -46,16 +48,16 @@ namespace Client.UI.Admin
             
             _hp.maxValue = _playerScript.NetworkUnitConfig.MaxHp;
             _hp.value = _playerScript.NetworkUnitConfig.CurrentHp;
-            _playerScript.NetworkUnitConfig._currentHp.OnValueChanged +=
-                (value, newValue) => _hp.value = newValue; 
+            // _playerScript.NetworkUnitConfig._currentHp.OnValueChanged +=
+            //     (value, newValue) => _hp.value = newValue; 
             
             _maxStress.text = _playerScript.NetworkUnitConfig.MaxStress.ToString(CultureInfo.InvariantCulture);
             _maxStress.onValueChanged.AddListener((arg0 => _stress.maxValue = float.Parse(arg0)));
             
             _stress.maxValue = _playerScript.NetworkUnitConfig.MaxStress;
             _stress.value = _playerScript.NetworkUnitConfig.CurrentStress;
-            _playerScript.NetworkUnitConfig._currentStress.OnValueChanged +=
-                (value, newValue) => _stress.value = newValue; 
+            // _playerScript.NetworkUnitConfig._currentStress.OnValueChanged +=
+            //     (value, newValue) => _stress.value = newValue; 
 
             _state.value = (int)_playerScript.NetworkUnitConfig.ShipState;
             _playerScript.NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) => _state.value = (int)newValue;
@@ -73,6 +75,12 @@ namespace Client.UI.Admin
             _playerScript.NetworkUnitConfig.ShipState = (UnitState)_state.value;
             _playerScript.NetworkUnitConfig.MaxHp = float.Parse(_maxHp.text);
             _playerScript.NetworkUnitConfig.MaxStress = float.Parse(_maxStress.text);
+        }
+
+        private void UpdateCurrentValues()
+        {
+            _stress.value = _playerScript.NetworkUnitConfig.CurrentStress;
+            _hp.value = _playerScript.NetworkUnitConfig.CurrentHp;
         }
     }
 }

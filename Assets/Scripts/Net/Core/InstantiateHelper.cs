@@ -28,16 +28,13 @@ namespace Net.Core
             shipInstance.tag = Constants.DynamicTag;
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
-            // playerScript.unitConfig = new SpaceUnitDto(ship);
             playerScript.NetworkUnitConfig.Init(new SpaceUnitDto(ship));
-            // if (int.TryParse(ship.shipId.Replace("ship", ""), out var num))
-            //     playerScript.shipNumber.Value = num;
 
             shipInstance.SetActive(true);
             return playerScript;
         }
 
-        public static GameObject InstantiateObject(SpaceUnitConfig worldObject)
+        public static void InstantiateObject(SpaceUnitConfig worldObject)
         {
             worldObject.id = worldObject.id == Guid.Empty ? Guid.NewGuid() : worldObject.id;
             var prefabName = worldObject.prefabName;
@@ -48,13 +45,14 @@ namespace Net.Core
             instance.name = worldObject.prefabName + Constants.Separator + worldObject.id;
             instance.GetComponent<UnitScript>()?.NetworkUnitConfig.Init(new SpaceUnitDto(worldObject));
             instance.SetActive(true);
-            return instance;
         }
 
         public static void InstantiateDangerZone(DangerZoneConfig dangerZone)
         {
             var goToInstantiate = Resources.Load(Constants.PathToPrefabs + "DangerZone") as GameObject;
             var instance = Object.Instantiate(goToInstantiate, dangerZone.Center, Quaternion.Euler(90, 0, 0));
+            instance.GetComponent<DangerZone>().id = dangerZone.Id;
+            dangerZone.Id = Guid.NewGuid();
             instance.GetComponent<DangerZone>().zoneColor.Value = dangerZone.Color;
             instance.GetComponent<DangerZone>().zoneStressDamage.Value = dangerZone.StressDamage;
             instance.GetComponent<DangerZone>().zoneHpDamage.Value = dangerZone.HpDamage;

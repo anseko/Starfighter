@@ -18,8 +18,7 @@ namespace Net.Components
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            hpDelta.Value = 0;
+            }, 0);
 
             _playerScript.NetworkUnitConfig._currentHp.OnValueChanged += (value, newValue) =>
             {

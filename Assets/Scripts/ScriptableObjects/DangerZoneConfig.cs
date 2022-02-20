@@ -11,5 +11,6 @@ namespace ScriptableObjects
         public Vector3 Center;
         public float Radius;
         public Color Color;
+        public Guid Id;
     }
 }

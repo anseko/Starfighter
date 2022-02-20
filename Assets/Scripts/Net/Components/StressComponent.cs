@@ -18,8 +18,7 @@ namespace Net.Components
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            stressDelta.Value = 0.0114f;
+            }, 0.0114f);
             
             _playerScript.NetworkUnitConfig._currentStress.OnValueChanged += (value, newValue) =>
             {

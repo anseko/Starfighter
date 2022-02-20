@@ -228,6 +228,21 @@ namespace Net.Core
             {
                 spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
+            
+            foreach (var dangerZone in _dangerZoneConfigs)
+            {
+                var ship = FindObjectsOfType<DangerZone>().FirstOrDefault(zone => zone.id == dangerZone.Id);
+                if (ship is null) continue;
+                dangerZone.Radius = ship.transform.localScale.x / 10;
+                dangerZone.Center = ship.transform.position;
+                
+                //Save other fields;
+            }
+            
+            // File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()
+            // {
+            //     spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
+            // }));
         }
     }
 }
