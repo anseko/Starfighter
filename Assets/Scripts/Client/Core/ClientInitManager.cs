@@ -105,6 +105,7 @@ namespace Client.Core
             _adminUi.gameObject.SetActive(true);
             FindObjectOfType<ShipInfoCollector>().Init();
             FindObjectOfType<UnitInfoCollector>().Init();
+            FindObjectOfType<PrefabCollector>().Init();
             
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();

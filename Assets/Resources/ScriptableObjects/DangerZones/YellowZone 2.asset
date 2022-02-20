@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StressDamage: 0
   HpDamage: -0.0833
-  Center: {x: -1607, y: -1, z: -922}
-  Radius: 14
+  Center: {x: -1445, y: -1, z: -2338}
+  Radius: 30
   Color: {r: 1, g: 0.9647059, b: 0, a: 0.15686275}

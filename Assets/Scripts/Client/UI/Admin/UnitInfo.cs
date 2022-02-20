@@ -29,11 +29,11 @@ namespace Client.UI.Admin
             });
         }
 
-        public void Init(UnitScript playerScript)
+        public void Init(UnitScript unitScript)
         {
-            _unitScript = playerScript;
+            _unitScript = unitScript;
 
-            _unitName.text = _unitScript.NetworkUnitConfig.ShipId;
+            _unitName.text = _unitScript.NetworkUnitConfig.PrefabName;
             
             _maxHp.text = _unitScript.NetworkUnitConfig.MaxHp.ToString(CultureInfo.InvariantCulture);
             _maxHp.onValueChanged.AddListener((arg0 => _hp.maxValue = float.Parse(arg0)));

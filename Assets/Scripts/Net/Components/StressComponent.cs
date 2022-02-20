@@ -28,7 +28,9 @@ namespace Net.Components
                     return;
                 }
 
-                if (newValue < _playerScript.NetworkUnitConfig.MaxStress && _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead)
+                if (newValue < _playerScript.NetworkUnitConfig.MaxStress &&
+                    _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead &&
+                    _playerScript.NetworkUnitConfig.CurrentHp > 0)
                 {
                     _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
                 }

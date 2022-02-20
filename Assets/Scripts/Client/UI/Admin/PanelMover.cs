@@ -7,7 +7,17 @@ namespace Client.UI.Admin
 {
     public class PanelMover : MonoBehaviour
     {
+        public enum HideDirection
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
+        
+        
         [SerializeField] private bool isOn;
+        [SerializeField] private HideDirection _hideDirection;
         [SerializeField] private RectTransform _panel;
         private float ratio;
         private Coroutine _coroutine;
@@ -24,9 +34,17 @@ namespace Client.UI.Admin
 
         private IEnumerator MoveCoroutine()
         {
-            var delta = isOn ? Vector3.left : Vector3.right;
+            var delta = _hideDirection switch
+            {
+                HideDirection.Up => (isOn ? Vector3.up : Vector3.down) * _panel.rect.height,
+                HideDirection.Down => (isOn ? Vector3.down : Vector3.up) * _panel.rect.height,
+                HideDirection.Left => (isOn ? Vector3.left : Vector3.right) * _panel.rect.width,
+                HideDirection.Right => (isOn ? Vector3.right : Vector3.left) * _panel.rect.width,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
             var startPosition = _panel.position;
-            var targetPosition = _panel.position + delta * _panel.rect.width;
+            var targetPosition = _panel.position + delta;
             Debug.unityLogger.Log($"Start: {startPosition}, Target: {targetPosition}");
             var i = 0f;
             while (i < 1)
