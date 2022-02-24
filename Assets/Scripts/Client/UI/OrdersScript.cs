@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
 using MLAPI;
+using MLAPI.Messaging;
 using MLAPI.Serialization;
 using Net.Components;
 using TMPro;
@@ -58,7 +59,6 @@ namespace Client.UI
         }
 
         private Dictionary<string, OrderUnit> _ordersList;
-        private Dictionary<string, POIUnit> _poiList;
 
         private PlayerScript _ordersPS;
         public bool isActive;
@@ -79,11 +79,11 @@ namespace Client.UI
         private int _index;
         private int _chosenPrefab;
         private List<PlayerScript> _allShips;
+        private POIUnit poiTransmision;
 
         private void Awake()
         {
             _ordersList = new Dictionary<string, OrderUnit>();
-            _poiList = new Dictionary<string, POIUnit>();
         }
 
         private void Start()
@@ -91,6 +91,43 @@ namespace Client.UI
             isPOI = false;
             _allShips = new List<PlayerScript>();
             _shipNamesList = new List<string>();
+        }
+
+        [ServerRpc]
+        public void CreatePOIFrameServerRPC(POIUnit unit)
+        {
+            var targetFrame = FindObjectsOfType<POIFrameInit>().FirstOrDefault(x => x.identificator
+                == unit.identifier);
+            if (targetFrame)
+            {
+                unit.operation = OrderOperation.Edit;
+            }
+            else
+            {
+                unit.operation = OrderOperation.Add;
+            }
+            
+            if (unit.operation == OrderOperation.Add)
+            {
+                var thisCopy = Instantiate(_orderPlaneCopy);
+                thisCopy.GetComponent<POIFrameInit>().FrameInit(unit.identifier, unit.position, unit.size, 
+                    unit.text, true);
+                thisCopy.GetComponent<NetworkObject>().Spawn();
+                isPOI = false;
+            }
+            else 
+            {
+                var currentPOIFrames = FindObjectsOfType<POIFrameInit>();
+                targetFrame.FrameInit(unit.identifier, unit.position, unit.size, 
+                    unit.text, true);
+                isPOI = false;
+            }
+        }
+
+        [ServerRpc]
+        public void DeletePOIFrameServerRPC(string unit)
+        {
+            Destroy(FindObjectsOfType<POIFrameInit>().FirstOrDefault(x => x.identificator == unit));
         }
 
         public void SetOrder()
@@ -131,37 +168,50 @@ namespace Client.UI
     
         public void CreateOrder()
         {
-            _ordersPS ??= _allShips.FirstOrDefault();
-            
-            Debug.unityLogger.Log("Creating Mode");
-            var unit = new OrderUnit
+            if (isPOI)
             {
-                shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
-                position = _orderPlaneCopy.GetComponent<OrderFrameInit>().position,
-                size = _orderPlaneCopy.GetComponent<OrderFrameInit>().size,
-                text = _textField.text,
-                orderPlane = _orderPlaneCopy
-            };
-
-            var isSuccess = _ordersList.TryGetValue(unit.shipName, out var oldOrder);
-            Debug.unityLogger.Log($"creating order {isSuccess}: {unit.shipName} : {_ordersList.Count}");
-            
-            if (isSuccess)
-            {
-                Destroy(oldOrder.orderPlane);
-                _ordersList.Remove(oldOrder.shipName);
-                unit.operation = OrderOperation.Edit;
+                poiTransmision = new POIUnit();
+                poiTransmision.identifier = _orderPlaneCopy.GetComponent<POIFrameInit>().identificator;
+                poiTransmision.position = _orderPlaneCopy.GetComponent<POIFrameInit>().position;
+                poiTransmision.size = _orderPlaneCopy.GetComponent<POIFrameInit>().size;
+                poiTransmision.text = _textField.text;
+                CreatePOIFrameServerRPC(poiTransmision);
             }
             else
             {
-                unit.operation = OrderOperation.Add;
+                _ordersPS ??= _allShips.FirstOrDefault();
+                            
+                Debug.unityLogger.Log("Creating Mode");
+                var unit = new OrderUnit
+                {
+                    shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
+                    position = _orderPlaneCopy.GetComponent<OrderFrameInit>().position,
+                    size = _orderPlaneCopy.GetComponent<OrderFrameInit>().size,
+                    text = _textField.text,
+                    orderPlane = _orderPlaneCopy
+                };
+                
+                var isSuccess = _ordersList.TryGetValue(unit.shipName, out var oldOrder);
+                Debug.unityLogger.Log($"creating order {isSuccess}: {unit.shipName} : {_ordersList.Count}");
+                            
+                if (isSuccess)
+                {
+                    Destroy(oldOrder.orderPlane);
+                    _ordersList.Remove(oldOrder.shipName);
+                    unit.operation = OrderOperation.Edit;
+                }
+                else
+                {
+                    unit.operation = OrderOperation.Add;
+                }
+                            
+                _ordersList.Add(unit.shipName, unit);
+                if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
+                    orderComponent.lastOrder.Value = unit;
+                            
+                _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
             }
             
-            _ordersList.Add(unit.shipName, unit);
-            if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
-                orderComponent.lastOrder.Value = unit;
-            
-            _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
             _textField.text = "";
             isPOI = false;
             isActive = false;
@@ -186,6 +236,7 @@ namespace Client.UI
             }
             else
             {
+                isPOI = true;
                 var identificator = Guid.NewGuid().ToString();
                 _orderPlaneCopy.GetComponent<POIFrameInit>().FrameInit(
                     identificator,
@@ -200,6 +251,12 @@ namespace Client.UI
     
         public void CancelOrder()
         {
+            if (_orderPlaneCopy.name.Contains("POI"))
+            {
+                string thisPlane = _orderPlaneCopy.GetComponent<POIFrameInit>().identificator;
+                DeletePOIFrameServerRPC(thisPlane);
+            }
+            
             if (_ordersPS is null) return;
             
             if (_ordersList.TryGetValue(_ordersPS.NetworkUnitConfig.ShipId, out var orderUnit))
