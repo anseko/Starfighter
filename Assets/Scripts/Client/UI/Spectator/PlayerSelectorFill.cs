@@ -1,4 +1,6 @@
 using Client.Core;
+using Core;
+using Net.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,9 +17,13 @@ namespace Client.UI.Spectator
         {
             foreach (var ship in FindObjectsOfType<PlayerScript>())
             {
-                var button = Instantiate(_button, _panel.transform);
-                var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-                buttonName.text = ship.NetworkUnitConfig.ShipId;
+                if (ship.GetState() == UnitState.IsDocked && 
+                    ship.GetComponent<DockComponent>().lastThingToDock.name.Contains("Station"))
+                {
+                    var button = Instantiate(_button, _panel.transform);
+                    var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
+                    buttonName.text = ship.NetworkUnitConfig.ShipId;
+                }
             }
         }
     }
