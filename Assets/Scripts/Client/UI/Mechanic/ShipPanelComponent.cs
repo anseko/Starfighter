@@ -13,15 +13,23 @@ public class ShipPanelComponent : MonoBehaviour
     private TMP_Text _freePointsText;
     private PlayerScript _ship;
     private float _totalPoints;
-    
+    private float _speed, _physRes, _radRes, _radar;
     void Awake()
     {
         
     }
 
+    public void AssignPoints()
+    {
+        if (!(_totalPoints < 0))
+        {
+            
+        }
+    }
+    
     void Update()
     {
         _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
-        _freePointsText.text = $"Свободных очков {8 - _totalPoints}";
+        _freePointsText.text = $"Свободных очков: {8 - _totalPoints}";
     }
 }
