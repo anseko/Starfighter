@@ -71,9 +71,6 @@ namespace Net.Components
             var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude, _playerScript.NetworkUnitConfig.MaxSpeed, Constants.MaxPossibleDamageHp);
 
             _playerScript.NetworkUnitConfig.CurrentHp -= _playerScript.NetworkUnitConfig.MaxHp * (percentageDamage * 0.01f);
-
-            Debug.unityLogger.Log(
-                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.NetworkUnitConfig.CurrentHp}");
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>

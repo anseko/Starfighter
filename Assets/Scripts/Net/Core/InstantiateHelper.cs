@@ -34,7 +34,7 @@ namespace Net.Core
             return playerScript;
         }
 
-        public static void InstantiateObject(SpaceUnitConfig worldObject)
+        public static UnitScript InstantiateObject(SpaceUnitConfig worldObject)
         {
             worldObject.id = worldObject.id == Guid.Empty ? Guid.NewGuid() : worldObject.id;
             var prefabName = worldObject.prefabName;
@@ -43,8 +43,11 @@ namespace Net.Core
                 Object.Instantiate(goToInstantiate, worldObject.position, worldObject.rotation) as
                     GameObject;
             instance.name = worldObject.prefabName + Constants.Separator + worldObject.id;
-            instance.GetComponent<UnitScript>()?.NetworkUnitConfig.Init(new SpaceUnitDto(worldObject));
+
+            var unitScript = instance.GetComponent<UnitScript>() ?? instance.AddComponent<UnitScript>();
+            unitScript.NetworkUnitConfig.Init(new SpaceUnitDto(worldObject));
             instance.SetActive(true);
+            return unitScript;
         }
 
         public static void InstantiateDangerZone(DangerZoneConfig dangerZone)

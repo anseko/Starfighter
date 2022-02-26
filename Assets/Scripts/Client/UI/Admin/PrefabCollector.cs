@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core;
-using Unity.Burst.CompilerServices;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Client.UI.Admin
@@ -13,8 +13,8 @@ namespace Client.UI.Admin
         
         public void Init()
         {
-            var ships = Resources.LoadAll<GameObject>(Constants.PathToShipsPrefabs);
-            var units = Resources.LoadAll<GameObject>(Constants.PathToPrefabs);
+            var ships = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
+            var units = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
             
             foreach (var info in ships)
             {

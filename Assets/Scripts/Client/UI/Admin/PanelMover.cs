@@ -45,7 +45,6 @@ namespace Client.UI.Admin
 
             var startPosition = _panel.position;
             var targetPosition = _panel.position + delta;
-            Debug.unityLogger.Log($"Start: {startPosition}, Target: {targetPosition}");
             var i = 0f;
             while (i < 1)
             {

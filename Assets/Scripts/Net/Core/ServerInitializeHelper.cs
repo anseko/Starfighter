@@ -145,9 +145,6 @@ namespace Net.Core
             InitShips();
             InitUnits();
             
-            // yield return StartCoroutine(
-            //     Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
-            
             foreach (var dangerZone in _dangerZoneConfigs)
             {
                 try
@@ -193,6 +190,20 @@ namespace Net.Core
 
         public void SaveServer()
         {
+            // var shipsConfigs = FindObjectsOfType<PlayerScript>()
+            //     .Select(x=> x.NetworkUnitConfig.Export())
+            //     .ToList();
+            //
+            // foreach (var shipConfig in shipsConfigs)
+            // {
+            //     var ship = GameObject.Find(
+            //         $"{shipConfig.prefabName}{Constants.Separator}{shipConfig.id}");
+            //     if (ship is null) continue;
+            //     shipConfig.rotation = ship.transform.rotation;
+            //     shipConfig.position = ship.transform.position;
+            //     Debug.unityLogger.Log($"Saving ships {shipConfig.prefabName} state {shipConfig.shipState}");
+            // }
+
             foreach (var spaceShipConfig in _shipConfigs)
             {
                 var ship = GameObject.Find(
@@ -213,20 +224,23 @@ namespace Net.Core
                 spaceShipConfigs = _shipConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
             
-            foreach (var unitConfig in _unitConfigs)
+            var configs = FindObjectsOfType<UnitScript>()
+                .Where(x=> !(x is PlayerScript))
+                .Select(x=> x.NetworkUnitConfig.Export())
+                .ToList();
+            
+            foreach (var unitConfig in configs)
             {
                 var ship = GameObject.Find(
                     $"{unitConfig.prefabName}{Constants.Separator}{unitConfig.id}");
                 if (ship is null) continue;
                 unitConfig.rotation = ship.transform.rotation;
                 unitConfig.position = ship.transform.position;
-                
-                //Save other fields;
             }
             
             File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()
             {
-                spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
+                spaceUnitConfigs = configs.ToArray()
             }));
             
             foreach (var dangerZone in _dangerZoneConfigs)

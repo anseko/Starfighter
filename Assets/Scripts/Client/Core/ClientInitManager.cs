@@ -49,8 +49,6 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
-            ps.gameObject.GetComponent<Collider>().enabled = false;
-            // ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
@@ -107,7 +105,7 @@ namespace Client.Core
             FindObjectOfType<UnitInfoCollector>().Init();
             FindObjectOfType<PrefabCollector>().Init();
             
-            var cam = FindObjectOfType<Camera>();
+            var cam = FindObjectOfType<Camera>(false);
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
             followComp.enabled = true;

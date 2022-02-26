@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using Net.Core;
@@ -18,7 +19,7 @@ namespace Core.Models
         public NetworkVariable<Vector3> _position;
         public NetworkVariable<Quaternion> _rotation;
         public NetworkVariable<string> _prefabName;
-        public Guid _id;
+        public NetworkVariable<string> _id;
         public NetworkVariable<float> _maxStress;
         public NetworkVariable<float> _currentStress;
         public NetworkVariable<string> _shipId;
@@ -72,8 +73,8 @@ namespace Core.Models
         }
         public Guid ID
         {
-            get => _id;
-            set => _id = value;
+            get => Guid.Parse(_id.Value);
+            set => _id.Value = value.ToString();
         }
         public float MaxStress
         {
@@ -111,12 +112,26 @@ namespace Core.Models
             _position.Value = config.position;
             _rotation.Value = config.rotation;
             _prefabName.Value = config.prefabName;
-            _id = config.id;
+            _id.Value = config.id.ToString();
             _maxStress.Value = config.maxStress;
             _currentStress.Value = config.currentStress;
             _shipId.Value = config.shipId;
             _shipState.Value = config.shipState;
             _baseColor.Value = config.baseColor;
+        }
+
+        public SpaceUnitDto Export()
+        {
+            var dto = new SpaceUnitDto();
+
+            foreach (var dtoField in typeof(SpaceUnitDto).GetFields())
+            {
+                var value = typeof(NetworkSpaceUnitDto).GetProperties().FirstOrDefault(x =>
+                    string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
+                dtoField.SetValue(dto, value?.GetValue(this));
+            }
+
+            return dto;
         }
         
         public void Awake()
@@ -217,6 +232,13 @@ namespace Core.Models
             });
             
             _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+
+            _id = new NetworkVariable<string>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,

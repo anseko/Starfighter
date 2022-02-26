@@ -19,7 +19,7 @@ namespace Net
     {
         public Image indicator;
         public TextMeshProUGUI clientCounter;
-        [SerializeField] private List<ClientAccountObject> accountObjects;
+        public List<ClientAccountObject> accountObjects;
         [SerializeField] private ConnectionHelper _connector;
 
         private void Awake()

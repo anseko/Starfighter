@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Client.Core;
 using UnityEngine;
 
@@ -19,6 +20,21 @@ namespace Client.UI.Admin
                 instance.Init(playerScript);
                 ShipInfos.Add(instance);
             }
+        }
+
+        public void Add(PlayerScript playerScript)
+        {
+            var instance = Instantiate(_shipInfoPrefab, _view.transform);
+            instance.Init(playerScript);
+            ShipInfos.Add(instance);
+        }
+
+        public void Remove(PlayerScript playerScript)
+        {
+            var toRemove = ShipInfos.FirstOrDefault(x =>
+                x.playerScript.NetworkUnitConfig.ShipId == playerScript.NetworkUnitConfig.ShipId);
+            ShipInfos.Remove(toRemove);
+            Destroy(toRemove);
         }
     }
 }

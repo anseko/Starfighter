@@ -23,5 +23,19 @@ namespace Client.UI.Admin
                 UnitInfos.Add(instance);
             }
         }
+        
+        public void Add(UnitScript playerScript)
+        {
+            var instance = Instantiate(_unitInfoPrefab, _view.transform);
+            instance.Init(playerScript);
+            UnitInfos.Add(instance);
+        }
+        
+        public void Remove(UnitScript playerScript)
+        {
+            var toRemoveInfo = UnitInfos.FirstOrDefault(x => x.unitScript == playerScript);
+            UnitInfos.Remove(toRemoveInfo);
+            Destroy(playerScript.gameObject);
+        }
     }
 }
