@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: GreenZone
   m_EditorClassIdentifier: 
-  StressDamage: -5
-  HpDamage: 10
-  Center: {x: -1447, y: -1, z: -945}
-  Radius: 14
-  Color: {r: 0, g: 1, b: 0.22779655, a: 0.15686275}
+  StressDamage: 0
+  HpDamage: -0.0555
+  Center: {x: -1692, y: -1, z: -1429}
+  Radius: 35
+  Color: {r: 0.5882353, g: 1, b: 0, a: 0.15686275}

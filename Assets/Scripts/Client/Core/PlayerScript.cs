@@ -58,29 +58,7 @@ namespace Client.Core
             NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
             {
                 unitStateMachine.ChangeState(newValue);
-            }; 
-            
-            //
-            // NetworkUnitConfig.OnValueChanged += (value, newValue) =>
-            // {
-            //     Debug.unityLogger.Log("HERE");
-            //     if (newValue.currentHp <= 0 || newValue.currentStress >= NetworkUnitConfig.Value.maxStress)
-            //     {
-            //         
-            //         unitStateMachine.ChangeState(UnitState.IsDead);
-            //         return;
-            //     }
-            //
-            //     if (newValue.currentHp > 0 &&
-            //         newValue.currentStress < NetworkUnitConfig.MaxStress &&
-            //         NetworkUnitConfig.ShipState == UnitState.IsDead)
-            //     {
-            //         NetworkUnitConfig.ShipState = UnitState.InFlight;
-            //         unitStateMachine.ChangeState(UnitState.InFlight);
-            //         return;
-            //     }
-            //     
-            // };
+            };
 
             Debug.unityLogger.Log($"PS {NetworkUnitConfig.ShipState}");
             
@@ -88,7 +66,13 @@ namespace Client.Core
             
             transform.GetComponentsInChildren<MeshRenderer>().ToList()
                 .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = NetworkUnitConfig.BaseColor);
-            // GetComponentsInChildren<TextMesh>().ToList().ForEach(t => t.text = shipNumber.Value.ToString());
+            
+            GetComponentsInChildren<TextMesh>().ToList().ForEach(t =>
+            {
+                int.TryParse(NetworkUnitConfig.ShipId.Replace("ship", ""), out var num);
+                var shipNumber = num == 10 ? "X" : num.ToString();
+                t.text = shipNumber;
+            });
         }
 
         public override UnitState GetState() => NetworkUnitConfig.ShipState;

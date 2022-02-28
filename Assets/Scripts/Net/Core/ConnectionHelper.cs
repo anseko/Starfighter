@@ -5,12 +5,19 @@ using Client.UI;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 using UnityEngine;
 
 namespace Net.Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {
+        public NetworkVariable<UserType> userType = new NetworkVariable<UserType>(new NetworkVariableSettings()
+        {
+            ReadPermission = NetworkVariablePermission.Everyone,
+            WritePermission = NetworkVariablePermission.ServerOnly
+        });
+
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         public void SelectSceneClientRpc(UserType type, ulong networkId, UnitState state, ClientRpcParams clientRpcParams = default)
         {
@@ -20,6 +27,7 @@ namespace Net.Core
             switch (type)
             {
                 case UserType.Admin:
+                    GetComponent<ClientInitManager>().InitAdmin();
                     break;
                 case UserType.Pilot:
                     GetComponent<ClientInitManager>().InitPilot(ps);
@@ -38,7 +46,6 @@ namespace Net.Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            // if(ps != null && ps.GetState() != state) ps.unitStateMachine.ChangeState(state);
         }
     }
 }

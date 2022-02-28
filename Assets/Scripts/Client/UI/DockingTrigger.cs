@@ -16,7 +16,6 @@ namespace Client.UI
         {
             _dockComponent = dockComponent;
             _state = FindObjectOfType<DockingState>();
-            Debug.unityLogger.Log($"{dockComponent.gameObject.name}: Dock trigger INIT {_state}");
         }
 
         private void OnTriggerEnter(Collider other)

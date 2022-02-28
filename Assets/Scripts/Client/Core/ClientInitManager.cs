@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Client.UI;
+using Client.UI.Admin;
 using Client.Utils;
 using Net;
 using Net.Components;
@@ -48,8 +49,6 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
-            ps.gameObject.GetComponent<Collider>().enabled = false;
-            // ps.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             var cam = FindObjectOfType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
@@ -96,6 +95,23 @@ namespace Client.Core
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<OrdersScript>().GetShipList();
+        }
+
+        public void InitAdmin()
+        {
+            _mainMenuUi.gameObject.SetActive(false);
+            _adminUi.gameObject.SetActive(true);
+            FindObjectOfType<ShipInfoCollector>().Init();
+            FindObjectOfType<UnitInfoCollector>().Init();
+            FindObjectOfType<PrefabCollector>().Init();
+            
+            var cam = FindObjectOfType<Camera>(false);
+            var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
+            cam.orthographicSize = 50;
+            followComp.enabled = true;
+            var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
+            zoomComp.navigatorCamera = cam;
+            zoomComp.enabled = true;
         }
     }
 }

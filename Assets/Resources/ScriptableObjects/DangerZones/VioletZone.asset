@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
+  m_Name: VioletZone
+  m_EditorClassIdentifier: 
+  StressDamage: 0.0023
+  HpDamage: 0
+  Center: {x: -248, y: -1, z: -556}
+  Radius: 35
+  Color: {r: 0.7529412, g: 0, b: 1, a: 0.15686275}

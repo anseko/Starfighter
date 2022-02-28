@@ -56,7 +56,6 @@ namespace Net.Components
                 var gpsView = FindObjectOfType<GPSView>(true);
                 if (gpsView != null && !gpsView.isActiveAndEnabled)
                 {
-                    Debug.unityLogger.Log($"{gpsView.name}");
                     gpsView.SetTarget(_point);
                     gpsView.gameObject.SetActive(true);
                 }

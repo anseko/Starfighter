@@ -24,6 +24,8 @@ namespace Core.Models
         public UnitState shipState;
         public Color baseColor;
 
+        public SpaceUnitDto(){}
+        
         public SpaceUnitDto(SpaceUnitConfig config)
         {
             maxAngleSpeed = config.maxAngleSpeed;

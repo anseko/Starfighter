@@ -18,17 +18,19 @@ namespace Net.Components
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
-            });
+            }, 0.0114f);
             
             _playerScript.NetworkUnitConfig._currentStress.OnValueChanged += (value, newValue) =>
             {
-                if (newValue <= 0)
+                if (newValue >=_playerScript.NetworkUnitConfig.MaxStress)
                 {
                     _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
                     return;
                 }
 
-                if (newValue > 0 && _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead)
+                if (newValue < _playerScript.NetworkUnitConfig.MaxStress &&
+                    _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead &&
+                    _playerScript.NetworkUnitConfig.CurrentHp > 0)
                 {
                     _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
                 }

@@ -119,8 +119,6 @@ namespace Net.Components
 
             if (!otherIsReady) return;
 
-            Debug.unityLogger.Log("Both ready to docking");
-            
             var otherUnit = otherObj.GetComponent<PlayerScript>();
             
             switch (_unit.GetState())

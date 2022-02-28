@@ -145,9 +145,6 @@ namespace Net.Core
             InitShips();
             InitUnits();
             
-            // yield return StartCoroutine(
-            //     Importer.AddAsteroidsOnScene(Importer.ImportAsteroids(Constants.PathToAsteroids)));
-            
             foreach (var dangerZone in _dangerZoneConfigs)
             {
                 try
@@ -193,41 +190,58 @@ namespace Net.Core
 
         public void SaveServer()
         {
-            foreach (var spaceShipConfig in _shipConfigs)
+            var shipsConfigs = FindObjectsOfType<PlayerScript>()
+                .Select(x=> x.NetworkUnitConfig.Export())
+                .ToList();
+            
+            foreach (var shipConfig in shipsConfigs)
             {
                 var ship = GameObject.Find(
-                    $"{spaceShipConfig.prefabName}{Constants.Separator}{spaceShipConfig.shipId}");
+                    $"{shipConfig.prefabName}{Constants.Separator}{shipConfig.shipId}");
                 if (ship is null) continue;
-                var ps = ship.GetComponent<PlayerScript>();
-                spaceShipConfig.rotation = ship.transform.rotation;
-                spaceShipConfig.position = ship.transform.position;
-                spaceShipConfig.currentStress = ps.NetworkUnitConfig.CurrentStress;
-                spaceShipConfig.currentHp = ps.NetworkUnitConfig.CurrentHp;
-                //Save other fields;
-                spaceShipConfig.shipState = ship.GetComponent<PlayerScript>().GetState();
-                Debug.unityLogger.Log($"Saving ships {spaceShipConfig.prefabName} state {spaceShipConfig.shipState}");
+                shipConfig.rotation = ship.transform.rotation;
+                shipConfig.position = ship.transform.position;
+                Debug.unityLogger.Log($"Saving ships {shipConfig.prefabName} state {shipConfig.shipState}");
             }
             
             File.WriteAllText(Constants.PathToShips, JsonUtility.ToJson(new SpaceShipsWrapper()
             {
-                spaceShipConfigs = _shipConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
+                spaceShipConfigs = shipsConfigs.ToArray()//_shipConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
             
-            foreach (var unitConfig in _unitConfigs)
+            var configs = FindObjectsOfType<UnitScript>()
+                .Where(x=> !(x is PlayerScript))
+                .Select(x=> x.NetworkUnitConfig.Export())
+                .ToList();
+            
+            foreach (var unitConfig in configs)
             {
                 var ship = GameObject.Find(
                     $"{unitConfig.prefabName}{Constants.Separator}{unitConfig.id}");
                 if (ship is null) continue;
                 unitConfig.rotation = ship.transform.rotation;
                 unitConfig.position = ship.transform.position;
-                
-                //Save other fields;
             }
             
             File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()
             {
-                spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
+                spaceUnitConfigs = configs.ToArray()
             }));
+            
+            foreach (var dangerZone in _dangerZoneConfigs)
+            {
+                var ship = FindObjectsOfType<DangerZone>().FirstOrDefault(zone => zone.id == dangerZone.Id);
+                if (ship is null) continue;
+                dangerZone.Radius = ship.transform.localScale.x / 10;
+                dangerZone.Center = ship.transform.position;
+                
+                //Save other fields;
+            }
+            
+            // File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()
+            // {
+            //     spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
+            // }));
         }
     }
 }

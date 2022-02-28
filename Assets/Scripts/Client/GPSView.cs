@@ -11,7 +11,6 @@ namespace Client
 
         public void Init(PlayerScript playerScript, GameObject target = null)
         {
-            Debug.unityLogger.Log($"CourseView: {gameObject.name} , {playerScript.gameObject.name}");
             ship = playerScript.gameObject;
             if (target is null) 
                 _target = ship;

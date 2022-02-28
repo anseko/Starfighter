@@ -1,3 +1,4 @@
+using System;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using Net.Components;
@@ -11,9 +12,8 @@ namespace Net
         public NetworkVariable<float> zoneStressDamage;
         public NetworkVariable<float> zoneHpDamage;
         public NetworkVariable<float> zoneRadius;
+        public Guid id;
 
-        private bool _serverIsStarted = false;
-        
         private void Awake()
         {
             zoneColor = new NetworkVariable<Color>(new NetworkVariableSettings()
@@ -36,11 +36,6 @@ namespace Net
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
-
-            NetworkManager.Singleton.OnServerStarted += () =>
-            {
-                _serverIsStarted = true;
-            };
         }
 
         private void Start()

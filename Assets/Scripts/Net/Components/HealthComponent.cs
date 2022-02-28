@@ -18,8 +18,7 @@ namespace Net.Components
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
-            });
-            hpDelta.Value = 0;
+            }, 0);
 
             _playerScript.NetworkUnitConfig._currentHp.OnValueChanged += (value, newValue) =>
             {
@@ -29,7 +28,9 @@ namespace Net.Components
                     return;
                 }
 
-                if (newValue > 0 && _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead)
+                if (newValue > 0 &&
+                    _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead &&
+                    _playerScript.NetworkUnitConfig.CurrentStress < _playerScript.NetworkUnitConfig.MaxStress)
                 {
                     _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
                 }
@@ -70,9 +71,6 @@ namespace Net.Components
             var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude, _playerScript.NetworkUnitConfig.MaxSpeed, Constants.MaxPossibleDamageHp);
 
             _playerScript.NetworkUnitConfig.CurrentHp -= _playerScript.NetworkUnitConfig.MaxHp * (percentageDamage * 0.01f);
-
-            Debug.unityLogger.Log(
-                $"Collision speed {_playerScript.shipSpeed.Value.magnitude}, result hp percentage damage is {percentageDamage}, current hp {_playerScript.NetworkUnitConfig.CurrentHp}");
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>

@@ -1,3 +1,5 @@
+using System;
+using MLAPI;
 using UnityEngine;
 
 namespace Client.UI
@@ -5,6 +7,14 @@ namespace Client.UI
     public class Editor : MonoBehaviour
     {
         private OrdersScript _ordersScript;
+
+        private void Awake()
+        {
+            if (NetworkManager.Singleton.IsServer)
+            {
+                enabled = false;
+            }
+        }
 
         private void Start()
         {
