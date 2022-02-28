@@ -24,10 +24,14 @@ namespace Core.Models
         public UnitState shipState;
         public Color baseColor;
         
-        public float baseAcceleration;
-        public float basePhysResistance;
-        public float baseRadResistance;
-        public float baseRadarRange;
+        public float acceleration;
+        public float physResistance;
+        public float radResistance;
+        public float radarRange;
+        public float accelerationCoefficient;
+        public float physResistanceCoefficient;
+        public float radResistanceCoefficient;
+        public float radarRangeCoefficient;
         
         public SpaceUnitDto(SpaceUnitConfig config)
         {
@@ -49,10 +53,10 @@ namespace Core.Models
                 shipId = shipConfig.shipId;
                 shipState = shipConfig.shipState;
                 baseColor = shipConfig.baseColor;
-                baseAcceleration = shipConfig.acceleration;
-                basePhysResistance = shipConfig.physResistance;
-                baseRadResistance = shipConfig.radResistance;
-                baseRadarRange = shipConfig.radarRange;
+                acceleration = shipConfig.acceleration;
+                physResistance = shipConfig.physResistance;
+                radResistance = shipConfig.radResistance;
+                radarRange = shipConfig.radarRange;
             }
             else
             {
@@ -80,10 +84,14 @@ namespace Core.Models
             serializer.Serialize(ref shipId);
             serializer.Serialize(ref shipState);
             serializer.Serialize(ref baseColor);
-            serializer.Serialize(ref baseAcceleration);
-            serializer.Serialize(ref basePhysResistance);
-            serializer.Serialize(ref baseRadResistance);
-            serializer.Serialize(ref baseRadarRange);
+            serializer.Serialize(ref acceleration);
+            serializer.Serialize(ref physResistance);
+            serializer.Serialize(ref radResistance);
+            serializer.Serialize(ref radarRange);
+            serializer.Serialize(ref accelerationCoefficient);
+            serializer.Serialize(ref physResistanceCoefficient);
+            serializer.Serialize(ref radResistanceCoefficient);
+            serializer.Serialize(ref radarRangeCoefficient);
         }
     }
     

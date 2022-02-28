@@ -23,7 +23,15 @@ namespace Core.Models
         public NetworkVariable<string> _shipId;
         public NetworkVariable<UnitState> _shipState;
         public NetworkVariable<Color> _baseColor;
-        
+        public NetworkVariable<float> _acceleration;
+        public NetworkVariable<float> _physResistance;
+        public NetworkVariable<float> _radResistance;
+        public NetworkVariable<float> _radarRange;
+        public NetworkVariable<float> _accelerationCoefficient;
+        public NetworkVariable<float> _physResistanceCoefficient;
+        public NetworkVariable<float> _radResistanceCoefficient;
+        public NetworkVariable<float> _radarRangeCoefficient;
+
         public float MaxAngleSpeed
         {
             get => _maxAngleSpeed.Value;
@@ -98,7 +106,46 @@ namespace Core.Models
             get => _baseColor.Value;
             set => _baseColor.Value = value;
         }
-
+        public float Acceleration
+        {
+            get => _acceleration.Value;
+            set => _acceleration.Value = value;
+        }
+        public float PhysResistance
+        {
+            get => _physResistance.Value;
+            set => _physResistance.Value = value;
+        }
+        public float RadResistance
+        {
+            get => _radResistance.Value;
+            set => _radResistance.Value = value;
+        }
+        public float RadarRange
+        {
+            get => _radarRange.Value;
+            set => _radarRange.Value = value;
+        }
+        public float AccelerationCoefficient
+        {
+            get => _accelerationCoefficient.Value;
+            set => _accelerationCoefficient.Value = value;
+        }
+        public float PhysResistanceCoefficient
+        {
+            get => _physResistanceCoefficient.Value;
+            set => _physResistanceCoefficient.Value = value;
+        }
+        public float RadResistanceCoefficient
+        {
+            get => _radResistanceCoefficient.Value;
+            set => _radResistanceCoefficient.Value = value;
+        }
+        public float RadarRangeCoefficient
+        {
+            get => _radarRangeCoefficient.Value;
+            set => _radarRangeCoefficient.Value = value;
+        }
         public void Init(SpaceUnitDto config)
         {
             _maxAngleSpeed.Value = config.maxAngleSpeed;
@@ -116,6 +163,14 @@ namespace Core.Models
             _shipId.Value = config.shipId;
             _shipState.Value = config.shipState;
             _baseColor.Value = config.baseColor;
+            _acceleration.Value = config.acceleration;
+            _physResistance.Value = config.physResistance;
+            _radResistance.Value = config.radResistance;
+            _radarRange.Value = config.radarRange;
+            _accelerationCoefficient.Value = config.accelerationCoefficient;
+            _physResistanceCoefficient.Value = config.physResistanceCoefficient;
+            _radResistanceCoefficient.Value = config.radResistanceCoefficient;
+            _radarRangeCoefficient.Value = config.radarRangeCoefficient;
         }
         
         public void Awake()
@@ -212,6 +267,62 @@ namespace Core.Models
             });
             
             _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _acceleration = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _physResistance = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _radResistance = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _accelerationCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _physResistance = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _radResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer
+            });
+            
+            _radarRangeCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,

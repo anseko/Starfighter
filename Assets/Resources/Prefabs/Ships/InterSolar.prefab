@@ -59963,7 +59963,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300006, guid: e0f90ad78680d6145b082ac69f7fc504, type: 3}
+  m_Mesh: {fileID: 4300002, guid: e0f90ad78680d6145b082ac69f7fc504, type: 3}
 --- !u!114 &6265344899163924165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59976,9 +59976,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitConfig: {fileID: 11400000, guid: 1617cde83ec5f4e41a6b391f58c2e2b3, type: 2}
-  currentHp:
-    m_InternalValue: 0
+  NetworkUnitConfig: {fileID: 0}
+  unitConfig:
+    maxAngleSpeed: 0
+    maxSpeed: 0
+    maxHp: 0
+    currentHp: 0
+    isDockable: 0
+    isMovable: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    prefabName: 
+    maxStress: 0
+    currentStress: 0
+    shipId: 
+    shipState: 0
+    baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    physResistance: 0
+    radResistance: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
   volume: {fileID: 0}
@@ -59987,10 +60008,8 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   shipRotation:
     m_InternalValue: {x: 0, y: 0, z: 0}
-  currentStress:
-    m_InternalValue: 0
   localUsage: 0
-  rigidbody: {fileID: 6610146554356020170}
+  Rigidbody: {fileID: 0}
   FOVRadius: 0
 --- !u!114 &1796236598746676446
 MonoBehaviour:
