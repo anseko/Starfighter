@@ -53193,8 +53193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkInstanceId: 0
-  PrefabHash: 14583826705210125925
-  PrefabHashGenerator: CivilianShip1
+  PrefabHash: 14583826705210125926
+  PrefabHashGenerator: CivilianShip2
   AlwaysReplicateAsRoot: 1
   DontDestroyWithOwner: 1
 --- !u!114 &2734152212456101977
