@@ -1,3 +1,5 @@
+using Client.Core;
+using Core.Models;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using Net.Components;
@@ -59,7 +61,8 @@ namespace Net
             }
             if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
             {
-                hpComponent.hpDelta.Value += zoneHpDamage.Value;
+                hpComponent.hpDelta.Value += zoneHpDamage.Value - 
+                                             other.gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.RadResistanceCoefficient;
             }
         }
 
@@ -72,7 +75,8 @@ namespace Net
             }
             if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
             {
-                hpComponent.hpDelta.Value -= zoneHpDamage.Value;
+                hpComponent.hpDelta.Value -= zoneHpDamage.Value + 
+                                             other.gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.RadResistanceCoefficient;
             }
         }
     }
