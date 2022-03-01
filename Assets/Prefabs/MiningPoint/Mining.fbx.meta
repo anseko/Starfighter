@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78ad51c537349ec4fbbf04678ae5a413
+guid: f916459c742b37443862c4b6cc566441
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: CrateTextureBlue
-    second: {fileID: 2100000, guid: 85d86eaab3b481b42869d3edecdd5413, type: 2}
+      name: WaterTank
+    second: {fileID: 2100000, guid: f01984865b52cd940ba378eef11de79f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,8 +46,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0

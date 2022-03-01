@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78ad51c537349ec4fbbf04678ae5a413
+guid: 1e793c7c1123310408b9eb136c0da46d
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
@@ -7,8 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: CrateTextureBlue
-    second: {fileID: 2100000, guid: 85d86eaab3b481b42869d3edecdd5413, type: 2}
+      name: Fuel_tank_2_
+    second: {fileID: 2100000, guid: f74f2a05bca6bdb43bdee0c4dbe739d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fuel_tank_3_
+    second: {fileID: 2100000, guid: 802a693f7ed55524da0f94a8d29ae013, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fuel_tank_4_
+    second: {fileID: 2100000, guid: b000ebd856af835478e8839c64ea1f17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Fuel_Tank_1
+    second: {fileID: 2100000, guid: 9c88f0b180e38dc4b9ff52d7371f6dfc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Pipe_
+    second: {fileID: 2100000, guid: 16202335a6acbb14d9786ba80cdbf46d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,8 +66,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
