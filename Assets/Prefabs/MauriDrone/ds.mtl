@@ -1,0 +1,12 @@
+newmtl default1
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd ds_BaseColor.png
+map_Ks ds_Roughness.png
+bump ds_Displacement.png
+map_bump ds_Normal.png
