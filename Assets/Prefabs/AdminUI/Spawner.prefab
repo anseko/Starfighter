@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 74152687135244746}
   - component: {fileID: 74152687135244747}
   - component: {fileID: 74152687135244748}
-  - component: {fileID: 8050510278808600079}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -66,17 +65,3 @@ MonoBehaviour:
   PrefabHashGenerator: Spawner
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &8050510278808600079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74152687135244749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6469779e3a4a474f99305065fec397da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poiPrefab: {fileID: 7096535666573038979, guid: 42d1d353171f29a42bd07ae4297139d8,
-    type: 3}

@@ -19,7 +19,7 @@ namespace Client.UI
         private void Start()
         {
             _ordersScript = FindObjectOfType<OrdersScript>(true);
-            _ordersScript.isActive = false;
+            _ordersScript.state = OrdersScript.EditorState.IsInactive;
         }
         
         public void Edit()
