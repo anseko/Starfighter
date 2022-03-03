@@ -14596,7 +14596,8 @@ GameObject:
   - component: {fileID: 5796389307355462746}
   - component: {fileID: 1088110529872804307}
   - component: {fileID: 5285690487644156740}
-  - component: {fileID: 54066105917172018}
+  - component: {fileID: 9142811663092448026}
+  - component: {fileID: 5729789074779015969}
   m_Layer: 6
   m_Name: Kaos
   m_TagString: Dynamic
@@ -14612,7 +14613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2498517654465052340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3226707047139957160}
@@ -14871,8 +14872,8 @@ MonoBehaviour:
   _playerScript: {fileID: 3450869907226133147}
   hpDelta:
     m_InternalValue: 0
---- !u!136 &54066105917172018
-CapsuleCollider:
+--- !u!65 &9142811663092448026
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14881,10 +14882,22 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 3.76
-  m_Height: 13.51
-  m_Direction: 2
+  serializedVersion: 2
+  m_Size: {x: 2.22, y: 1, z: 12.65}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &5729789074779015969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498517654465052340}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.23, y: 1, z: 3.26}
+  m_Center: {x: 0, y: 0, z: -1.84}
 --- !u!1 &3484539144140598395
 GameObject:
   m_ObjectHideFlags: 0
@@ -14909,7 +14922,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3484539144140598395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -8.14}
+  m_LocalPosition: {x: 0, y: 0, z: -7.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2496588304457933936}

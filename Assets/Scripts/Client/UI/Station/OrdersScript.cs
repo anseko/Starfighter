@@ -47,12 +47,10 @@ namespace Client.UI
             IsDrawing
         }
         
-        private Dictionary<string, OrderUnit> _ordersList;
-
-        private PlayerScript _ordersPS;
         public EditorState state;
-        // public bool isActive;
-        // private bool isDrawing;
+        
+        private Dictionary<string, OrderUnit> _ordersList;
+        private PlayerScript _ordersPS;
         private Vector3 _endPositionGlobal;
         private GameObject _orderPlaneCopy;
         [SerializeField] private TMP_InputField _textField;
@@ -111,7 +109,7 @@ namespace Client.UI
         public void CreateOrder()
         {
             state = EditorState.IsInactive;
-            _ordersPS ??= _allShips.FirstOrDefault();
+            if (_ordersPS is null) GetAssignedShip();
                             
             Debug.unityLogger.Log($"Creating Mode:{_ordersPS}");
             var unit = new OrderUnit
@@ -150,7 +148,7 @@ namespace Client.UI
 
         private void EnterOrder()
         {
-            _ordersPS ??= _allShips.FirstOrDefault();
+            if (_ordersPS is null) GetAssignedShip();
 
             state = EditorState.IsInactive;
             _orderPlaneCopy = Instantiate(_orderPlanePrefab);
