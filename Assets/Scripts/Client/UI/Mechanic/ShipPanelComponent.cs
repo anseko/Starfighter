@@ -21,7 +21,7 @@ public class ShipPanelComponent : MonoBehaviour
 
     void Awake()
     {
-        
+        _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
     }
 
     void Start()
@@ -43,11 +43,11 @@ public class ShipPanelComponent : MonoBehaviour
         _accConvert = mass[0];
         _physResConvert = mass[1];
         _radRangeConvert = mass[2];
-        _radResConvert.Add(1,1);
-        _radResConvert.Add(2,2);
-        _radResConvert.Add(3,3);
-        _radResConvert.Add(4,4);
-        _radResConvert.Add(5,5);
+        _radResConvert.Add(1,1.25f);
+        _radResConvert.Add(2,1f);
+        _radResConvert.Add(3,0.75f);
+        _radResConvert.Add(4,0.5f);
+        _radResConvert.Add(5,0.25f);
     }
 
     public void AssignPoints()
@@ -60,12 +60,10 @@ public class ShipPanelComponent : MonoBehaviour
             _shipData._radarRangeCoefficient.Value = _shipData.RadarRange * _accConvert[_radarSlider.value];
             gameObject.SetActive(false);
         }
-        
     }
     
-    void Update()
+    public void FreePointsUpdate()
     {
-        _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
         _freePointsText.text = $"Свободных очков: {8 - _totalPoints}";
     }
 }
