@@ -75,3 +75,5 @@ C:\Users\lndae\Documents\Starfighter\ServerBuild
 # End of https://www.toptal.com/developers/gitignore/api/unity
 .idea/.idea.Starfighter/.idea/indexLayout.xml
 .idea/.idea.Starfighter/.idea/riderModule.iml
+Assets/TranslucentCrystals_URP_Patch.unitypackage.meta
+Assets/Resources/Prefabs/TranslucentCrystals/_SRP/TranslucentCrystals_HDRP_Patch.unitypackage.meta
