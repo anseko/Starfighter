@@ -64,17 +64,17 @@ namespace Net
                 }
             };
             
-            if (account == null || account.type == UserType.Spectator || account.type == UserType.SpaceStation)
+            if (account == null || account.type == UserType.Spectator)
             {
                 _connector.userType.Value = account?.type ?? UserType.Spectator;
-                _connector.SelectSceneClientRpc(account?.type ?? UserType.Spectator, 0, UnitState.InFlight, clientRpcParams);
+                _connector.SelectSceneClientRpc(account?.type ?? UserType.Spectator, 0, clientRpcParams);
                 return;
             }
 
             if (account.type == UserType.Admin)
             {
                 _connector.userType.Value = account.type;
-                _connector.SelectSceneClientRpc(account.type, 0, UnitState.InFlight, clientRpcParams);
+                _connector.SelectSceneClientRpc(account.type, 0, clientRpcParams);
                 return;
             }
             
@@ -88,7 +88,7 @@ namespace Net
                 }
             }
             _connector.userType.Value = account.type;
-            _connector.SelectSceneClientRpc(account.type, netId, go.GetComponent<UnitScript>().GetState(), clientRpcParams);
+            _connector.SelectSceneClientRpc(account.type, netId, clientRpcParams);
             //OtherConnectionStuff
             //Передача владения объектом корабля
             if (account.type < UserType.Pilot) return;

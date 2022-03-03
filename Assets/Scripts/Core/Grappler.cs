@@ -152,6 +152,10 @@ namespace Core
             else
             {
                 if(!IsOwner) return;
+                foreach (var component in _owner.GetComponents<Joint>())
+                {
+                    Destroy(component);
+                }
                 DestroyServerRpc();
             }
         }

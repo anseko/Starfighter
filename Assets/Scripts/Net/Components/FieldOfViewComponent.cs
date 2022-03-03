@@ -22,9 +22,9 @@ namespace Net.Components
             enabled = true;
             SceneManager.GetActiveScene()
                 .GetRootGameObjects()
-                .Where(x => x.layer == LayerMask.NameToLayer("Units") || x.layer == LayerMask.NameToLayer("Ships") 
-                && !x.Equals(gameObject))
+                .Where(x => x.layer == LayerMask.NameToLayer("Units") || x.layer == LayerMask.NameToLayer("Ships"))
                 .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
+            gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
         }
 
         public bool IsIntersect(Collider other)

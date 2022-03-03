@@ -24,7 +24,7 @@ namespace Client.Core
         public void OnEnter(GameObject unit)
         {
             _playerScript = unit.GetComponent<PlayerScript>();
-            _playerScript.GetComponent<MoveComponent>().enabled = true;
+            if (_playerScript.TryGetComponent<MoveComponent>(out var moveComponent)) moveComponent.enabled = true;
         }
 
         public void Update(GameObject unit)
@@ -36,7 +36,7 @@ namespace Client.Core
 
         public void OnExit(GameObject unit)
         {
-            _playerScript.GetComponent<MoveComponent>().enabled = false;
+            if (_playerScript.TryGetComponent<MoveComponent>(out var moveComponent)) moveComponent.enabled = false;
         }
     }
     
@@ -79,13 +79,14 @@ namespace Client.Core
             unit.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             
             if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
+                dockComp != null &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
                 dockComp.EmergencyUndockServerRpc(unit.GetComponent<NetworkObject>().NetworkObjectId,
                     dockComp.lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
             }
 
-            if (unit.GetComponent<GrappleComponent>())
+            if (unit.TryGetComponent<GrappleComponent>(out var grappleComponent))
             {
                 var grappler = Object.FindObjectsOfType<Grappler>()
                     .FirstOrDefault(x => x.IsOwner);

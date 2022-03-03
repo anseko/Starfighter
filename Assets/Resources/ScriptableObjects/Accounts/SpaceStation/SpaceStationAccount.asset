@@ -15,4 +15,4 @@ MonoBehaviour:
   login: Station
   password: station
   type: 2
-  ship: {fileID: 0}
+  ship: {fileID: 11400000, guid: 2b488b867d1efaf4eb2d418ddf90c750, type: 2}

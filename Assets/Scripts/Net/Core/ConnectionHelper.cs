@@ -19,7 +19,7 @@ namespace Net.Core
         });
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        public void SelectSceneClientRpc(UserType type, ulong networkId, UnitState state, ClientRpcParams clientRpcParams = default)
+        public void SelectSceneClientRpc(UserType type, ulong networkId, ClientRpcParams clientRpcParams = default)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
             FindObjectOfType<MainMenu>().gameObject.SetActive(false);
@@ -39,7 +39,7 @@ namespace Net.Core
                     GetComponent<ClientInitManager>().InitSpectator();
                     break;
                 case UserType.SpaceStation:
-                    GetComponent<ClientInitManager>().InitStation();
+                    GetComponent<ClientInitManager>().InitStation(ps);
                     break;
                 case UserType.Moderator:
                     break;

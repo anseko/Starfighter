@@ -81,7 +81,7 @@ namespace Client.Core
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
         }
         
-        public void InitStation()
+        public void InitStation(PlayerScript ps)
         {
             _stationUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
@@ -95,6 +95,7 @@ namespace Client.Core
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<OrdersScript>().GetShipList();
+            ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
         }
 
         public void InitAdmin()
