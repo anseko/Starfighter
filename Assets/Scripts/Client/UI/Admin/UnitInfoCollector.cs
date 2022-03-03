@@ -3,7 +3,6 @@ using System.Linq;
 using Client.Core;
 using MLAPI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Client.UI.Admin
 {
