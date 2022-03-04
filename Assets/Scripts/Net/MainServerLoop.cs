@@ -122,10 +122,6 @@ namespace Net
         private void BeginReceiving(int _)
         {
             NetworkManager.Singleton.StartServer();
-            foreach (var aiComponent in FindObjectsOfType<AIComponent>())
-            {
-                aiComponent.Init();
-            }
         }
         
         private void Update()

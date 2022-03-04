@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Client.Core;
+using UnityEngine;
 
 namespace Client.UI
 {
@@ -8,12 +9,14 @@ namespace Client.UI
         private int _rotationModifier;
 
 
-        private void Start()
+        public override void Init(PlayerScript ps)
         {
+            base.Init(ps);
             _rotationModifier = 1;
+            transform.rotation = new Quaternion(0, 0, PlayerScript.transform.rotation.y, 0);
+            // transform.Rotate(0, 0, PlayerScript.transform.rotation.y);
         }
-
-        // Update is called once per frame
+        
         private void Update()
         {
             transform.Rotate(0,0, - PlayerScript.shipRotation.Value.normalized.y * PlayerScript.shipRotation.Value.magnitude * Mathf.Rad2Deg / _rotationModifier * Time.deltaTime);
