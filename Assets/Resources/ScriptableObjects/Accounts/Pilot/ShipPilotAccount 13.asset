@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShipPilotAccount 13
   m_EditorClassIdentifier: 
   login: ShipPilot13
-  password: shippilot
+  password: 13pilot7285
   type: 3
   ship: {fileID: 11400000, guid: e47e3599ed9893f48b99fb300a5d4e7d, type: 2}

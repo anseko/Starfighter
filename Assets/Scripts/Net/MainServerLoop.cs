@@ -5,7 +5,6 @@ using Client.Core;
 using Core;
 using MLAPI;
 using MLAPI.Messaging;
-using Net.Components;
 using Net.Core;
 using ScriptableObjects;
 using TMPro;

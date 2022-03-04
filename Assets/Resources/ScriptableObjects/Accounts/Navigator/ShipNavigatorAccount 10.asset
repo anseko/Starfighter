@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShipNavigatorAccount 10
   m_EditorClassIdentifier: 
   login: ShipNavigator10
-  password: shipnavigator
+  password: 10navigator6836
   type: 0
   ship: {fileID: 11400000, guid: 86c81e4e205f1ae4b8e71ada2c9bf75e, type: 2}

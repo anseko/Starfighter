@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85199e5c1224af8903b6f008261b563, type: 3}
   m_Name: ShipPilotAccount 1
   m_EditorClassIdentifier: 
-  login: ShipPilot
-  password: shippilot
+  login: ShipPilot1
+  password: 1pilot9975
   type: 3
   ship: {fileID: 11400000, guid: 1617cde83ec5f4e41a6b391f58c2e2b3, type: 2}
