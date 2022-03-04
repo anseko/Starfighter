@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007755361, g: 0.001630185, b: 0.006686571, a: 1}
+  m_IndirectSpecularColor: {r: 0.007834044, g: 0.001630185, b: 0.006769026, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17825,7 +17825,7 @@ MonoBehaviour:
   _physResSlider: {fileID: 1394317998}
   _radResSlider: {fileID: 1066630527}
   _radarSlider: {fileID: 1865810616}
-  _freePointsText: {fileID: 0}
+  _freePointsText: {fileID: 1444213840}
 --- !u!1 &2139270087
 GameObject:
   m_ObjectHideFlags: 0
