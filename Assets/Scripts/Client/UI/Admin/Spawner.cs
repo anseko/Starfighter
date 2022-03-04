@@ -21,8 +21,6 @@ namespace Client.UI.Admin
         {
             var position = new Vector3(_cam.transform.position.x, 1, _cam.transform.position.z);
 
-            Debug.unityLogger.Log($"cam position: {position}");
-
             SpawnServerRpc(pathToPrefab, prefabName, newShipId, position, NetworkManager.Singleton.LocalClientId);
         }
 

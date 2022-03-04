@@ -36,8 +36,6 @@ namespace Client
                 }
                 else
                 {
-                    Debug.unityLogger.Log(go.name);
-                    
                     switch (go.name)
                     {
                         case "OrderStaticFrame(Clone)":

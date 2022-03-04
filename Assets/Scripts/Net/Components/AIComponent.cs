@@ -48,6 +48,7 @@ namespace Net.Components
         public void Resume()
         {
             _isPaused = false;
+            _currentDestination = _wayPoints[++_counter % _wayPoints.Count].position;
             _currentTask = StartCoroutine(GoToPoint(_currentDestination));
         }
         

@@ -78,7 +78,6 @@ namespace Client.UI
 
         public void SetOrder()
         {
-            Debug.unityLogger.Log("SettingOrder");
             state = EditorState.IsActive;
             Cursor.SetCursor(_cursor.cursorExclamation,new Vector2(0,0), CursorMode.Auto);
         }
@@ -89,8 +88,7 @@ namespace Client.UI
             _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
             _shipNamesList = new List<string>();
             var ps = FindObjectsOfType<PlayerScript>();
-            Debug.unityLogger.Log($"Number of ships on scene: {ps.Length}");
-            
+
             _allShips = ps.ToList();
             _allShips.ForEach(ship => _shipNamesList.Add(ship.NetworkUnitConfig.ShipId));
             _shipListDropdown.AddOptions(_shipNamesList);
@@ -108,8 +106,7 @@ namespace Client.UI
         {
             state = EditorState.IsInactive;
             if (_ordersPS is null) GetAssignedShip();
-                            
-            Debug.unityLogger.Log($"Creating Mode:{_ordersPS}");
+            
             var unit = new OrderUnit
             {
                 shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
@@ -156,10 +153,8 @@ namespace Client.UI
                             _camera.ScreenToWorldPoint(_startPosition), 
                             _endPositionGlobal, 
                             "");
-
-            Debug.unityLogger.Log("editing");
+            
             _editPanel.SetActive(true);
-            Debug.unityLogger.Log("panel is active");
         }
     
         public void CancelOrder()
@@ -205,7 +200,6 @@ namespace Client.UI
                     
                     if (Input.GetMouseButtonDown(0) && !_editPanel.activeInHierarchy)
                     {
-                        Debug.unityLogger.Log("start drawing");
                         _startPosition = Input.mousePosition;
                         state = EditorState.IsDrawing;
                     }
@@ -225,7 +219,6 @@ namespace Client.UI
                     
                     if (Input.GetMouseButtonUp(0))
                     {
-                        Debug.unityLogger.Log("end drawing");
                         Cursor.SetCursor(_cursor.cursor, new Vector2(0,0), CursorMode.Auto);
                         if (_ordersFrame.size.magnitude >= 50)
                         {
