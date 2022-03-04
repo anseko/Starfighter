@@ -221,9 +221,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21b31f5f07b4eb79cec4395abe5d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitConfig: {fileID: 11400000, guid: 8d92b73da26f571439068cea31375b48, type: 2}
-  currentHp:
-    m_InternalValue: 0
+  NetworkUnitConfig: {fileID: 0}
+  unitConfig:
+    maxAngleSpeed: 0
+    maxSpeed: 0
+    maxHp: 0
+    currentHp: 0
+    isDockable: 0
+    isMovable: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    prefabName: 
+    maxStress: 0
+    currentStress: 0
+    shipId: 
+    shipState: 0
+    baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    physResistance: 0
+    radResistance: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
 --- !u!114 &5828820422742964226
