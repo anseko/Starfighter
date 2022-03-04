@@ -1,6 +1,4 @@
-using System;
 using MLAPI;
-using UnityEditor.EventSystems;
 using UnityEngine;
 
 namespace Net.Components
@@ -21,7 +19,8 @@ namespace Net.Components
         {
             if (!IsServer) return;
             if (other.gameObject != _asteroid) return;
-            
+            transform.SetParent(null, true);
+            gameObject.layer = LayerMask.NameToLayer("Units");
         }
     }
 }
