@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 156, y: -233.50024}
+  m_AnchoredPosition: {x: 156, y: -259.00003}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819695792
@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 5444786663597534360}
   - component: {fileID: 8890103637554110963}
   - component: {fileID: 2141553801}
+  - component: {fileID: 4549628973616653235}
   m_Layer: 5
   m_Name: Ships
   m_TagString: Untagged
@@ -247,6 +248,20 @@ MonoBehaviour:
   _shipInfoPrefab: {fileID: 8663465374412164965, guid: 10a5753773ecc4d49aafc58e46af346b,
     type: 3}
   _view: {fileID: 819695789}
+--- !u!114 &4549628973616653235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596623469073735521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6038d3e070ae40828fc65a684bab42c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zoom: {fileID: 2334152243016585188}
+  _cameraMotion: {fileID: 132284146}
 --- !u!1 &788780876230779932
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +440,7 @@ GameObject:
   - component: {fileID: 6509620135497345653}
   - component: {fileID: 6218913321071602946}
   - component: {fileID: 5984179261909979993}
+  - component: {fileID: 6251900833331128855}
   m_Layer: 5
   m_Name: Units
   m_TagString: Untagged
@@ -507,6 +523,20 @@ MonoBehaviour:
   _unitInfoPrefab: {fileID: 2824980869368575512, guid: 14493a0804b29bb46bdf6a942f4447a4,
     type: 3}
   _view: {fileID: 5364083447980135817}
+--- !u!114 &6251900833331128855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752245254765512654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6038d3e070ae40828fc65a684bab42c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zoom: {fileID: 2334152243016585188}
+  _cameraMotion: {fileID: 132284146}
 --- !u!1 &2419766204777119460
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 156, y: -233.50024}
+  m_AnchoredPosition: {x: 156, y: -259.00003}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3131776372674417214
@@ -1159,7 +1189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 570.70966, y: 0}
+  m_AnchoredPosition: {x: 562.70984, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4633944249224920728
@@ -1592,6 +1622,7 @@ GameObject:
   - component: {fileID: 6949177207137038555}
   - component: {fileID: 4281992583403539817}
   - component: {fileID: 4606996510929532223}
+  - component: {fileID: 1369253636412603657}
   m_Layer: 5
   m_Name: AllSpawn
   m_TagString: Untagged
@@ -1674,6 +1705,20 @@ MonoBehaviour:
   _prefabInfoPrefab: {fileID: 4575709580949564081, guid: 8f4bc9f1ba8db3f4eaa04a78532aed5d,
     type: 3}
   _view: {fileID: 6433529441286202096}
+--- !u!114 &1369253636412603657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953347753584195512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6038d3e070ae40828fc65a684bab42c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zoom: {fileID: 2334152243016585188}
+  _cameraMotion: {fileID: 132284146}
 --- !u!1 &8138926889997355508
 GameObject:
   m_ObjectHideFlags: 0

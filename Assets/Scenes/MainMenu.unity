@@ -2897,7 +2897,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ship: {fileID: 0}
-  _radius: 8
   _speedMarkerRatio: 4
   _renderer: {fileID: 0}
 --- !u!114 &495581938
@@ -11802,7 +11801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ship: {fileID: 0}
-  _radius: 8
   _speedMarkerRatio: 1
   _renderer: {fileID: 0}
 --- !u!1 &1842989693 stripped

@@ -23,6 +23,6 @@ MonoBehaviour:
   prefabName: GarbageUnit
   maxStress: 100
   currentStress: 0
-  shipId: grabage
+  shipId: garbage
   shipState: 0
   baseColor: {r: 0, g: 0, b: 0, a: 0}
