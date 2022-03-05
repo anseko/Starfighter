@@ -21,8 +21,11 @@ namespace Client.UI.Spectator
     
         public void Spectate()
         {
-            var position = _ship.transform.position;
-            _camera.transform.position = new Vector3(position.x, 100, position.z);
+            if (_ship.GetComponentInChildren<MeshRenderer>().enabled)
+            {
+                var position = _ship.transform.position;
+                _camera.transform.position = new Vector3(position.x, 100, position.z);
+            }
         }
 
         private void Update()
