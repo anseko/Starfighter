@@ -18,7 +18,7 @@ MonoBehaviour:
   currentHp: 100
   isDockable: 1
   isMovable: 0
-  position: {x: -674.5392, y: 0.998544, z: -794.04846}
+  position: {x: 15, y: 0.998544, z: 94}
   rotation: {x: 0.0000034354787, y: -0.14906737, z: 0.00636988, w: 0.98880655}
   prefabName: Player
   maxStress: 100
