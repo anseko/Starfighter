@@ -1,7 +1,9 @@
+using System;
 using System.Linq;
 using Client.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client.UI.Spectator
 {
@@ -21,6 +23,15 @@ namespace Client.UI.Spectator
         {
             var position = _ship.transform.position;
             _camera.transform.position = new Vector3(position.x, 100, position.z);
+        }
+
+        private void Update()
+        {
+            if (!_ship.gameObject.GetComponent<Renderer>().enabled)
+            {
+                this.gameObject.GetComponent<Button>().interactable = false;
+            }
+            else this.gameObject.GetComponent<Button>().interactable = true;
         }
     }
 }
