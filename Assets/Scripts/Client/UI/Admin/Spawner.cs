@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Client.Core;
 using Core;
@@ -59,6 +60,7 @@ namespace Client.UI.Admin
                     return;
                 }
                 goToSpawn = InstantiateHelper.InstantiateObject(config).gameObject;
+                config.id = Guid.Empty;
             }
             
             if (goToSpawn.TryGetComponent<NetworkObject>(out var netObj) && !netObj.IsSpawned)

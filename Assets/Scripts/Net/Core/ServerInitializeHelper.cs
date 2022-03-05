@@ -216,11 +216,11 @@ namespace Net.Core
             
             foreach (var unitConfig in configs)
             {
-                var ship = GameObject.Find(
+                var unit = GameObject.Find(
                     $"{unitConfig.prefabName}{Constants.Separator}{unitConfig.id}");
-                if (ship is null) continue;
-                unitConfig.rotation = ship.transform.rotation;
-                unitConfig.position = ship.transform.position;
+                if (unit is null) continue;
+                unitConfig.rotation = unit.transform.rotation;
+                unitConfig.position = unit.transform.position;
             }
             
             File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()

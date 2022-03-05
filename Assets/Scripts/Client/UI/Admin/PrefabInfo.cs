@@ -31,11 +31,17 @@ namespace Client.UI.Admin
 
         public void Init(SpaceUnitConfig config)
         {
-            _type.sprite = config is SpaceShipConfig ? _shipImg : _unitImg;
-            _prefab = config;
-            _name.text = config.prefabName;
-            if (!(_prefab is SpaceShipConfig))
+            if (config is SpaceShipConfig shipConfig)
             {
+                _type.sprite = _shipImg;
+                _prefab = config;
+                _name.text = shipConfig.shipId;
+            }
+            else
+            {
+                _type.sprite = _unitImg;
+                _name.text = config.prefabName;
+                _prefab = config;
                 _login.gameObject.SetActive(false);
                 _password.gameObject.SetActive(false);
             }

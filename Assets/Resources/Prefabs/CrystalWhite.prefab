@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4237741520885958}
   - component: {fileID: 7477214870000802210}
   - component: {fileID: -5329870651377992600}
-  - component: {fileID: 8450831003257687949}
   - component: {fileID: 3316333134189835580}
   - component: {fileID: 8717610158754775077}
   - component: {fileID: 5565006992312314680}
+  - component: {fileID: 436552683682346634}
   m_Layer: 16
   m_Name: CrystalWhite
   m_TagString: Untagged
@@ -74,19 +74,6 @@ CapsuleCollider:
   m_Height: 4.943131
   m_Direction: 1
   m_Center: {x: 0.058481574, y: 1.6207855, z: 0}
---- !u!114 &8450831003257687949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011319553682498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28721f39da4f9b867055b8c7e4930a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _asteroid: {fileID: 0}
 --- !u!114 &3316333134189835580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +169,18 @@ MonoBehaviour:
     baseColor: {r: 0, g: 0, b: 0, a: 0}
   isGrappled:
     m_InternalValue: 0
+--- !u!114 &436552683682346634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011319553682498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d28721f39da4f9b867055b8c7e4930a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1074589251595736
 GameObject:
   m_ObjectHideFlags: 0
