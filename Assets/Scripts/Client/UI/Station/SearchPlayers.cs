@@ -15,7 +15,7 @@ public class SearchPlayers : MonoBehaviour
         _ships = new Queue<PlayerScript>();
         foreach (var x in players)
         {
-            if (x.GetComponent<Renderer>().enabled)
+            if (x.GetComponentInChildren<Renderer>().enabled)
             {
                 _ships.Enqueue(x);
             }

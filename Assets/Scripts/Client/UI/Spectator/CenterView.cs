@@ -27,7 +27,7 @@ namespace Client.UI.Spectator
 
         private void Update()
         {
-            if (!_ship.gameObject.GetComponent<Renderer>().enabled)
+            if (!_ship.gameObject.GetComponentInChildren<MeshRenderer>().enabled)
             {
                 this.gameObject.GetComponent<Button>().interactable = false;
             }
