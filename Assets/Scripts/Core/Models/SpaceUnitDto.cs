@@ -25,8 +25,6 @@ namespace Core.Models
         public Color baseColor;
         
         public float acceleration;
-        public float physResistance;
-        public float radResistance;
         public float radarRange;
         public float accelerationCoefficient;
         public float physResistanceCoefficient;
@@ -54,8 +52,6 @@ namespace Core.Models
                 shipState = shipConfig.shipState;
                 baseColor = shipConfig.baseColor;
                 acceleration = shipConfig.acceleration;
-                physResistance = shipConfig.physResistance;
-                radResistance = shipConfig.radResistance;
                 radarRange = shipConfig.radarRange;
             }
             else
@@ -85,8 +81,6 @@ namespace Core.Models
             serializer.Serialize(ref shipState);
             serializer.Serialize(ref baseColor);
             serializer.Serialize(ref acceleration);
-            serializer.Serialize(ref physResistance);
-            serializer.Serialize(ref radResistance);
             serializer.Serialize(ref radarRange);
             serializer.Serialize(ref accelerationCoefficient);
             serializer.Serialize(ref physResistanceCoefficient);

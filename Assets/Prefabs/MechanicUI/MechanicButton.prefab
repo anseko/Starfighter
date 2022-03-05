@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6827221540598097337}
   - component: {fileID: 6290530591995667018}
   - component: {fileID: 1114472883557173268}
-  - component: {fileID: 7269508715482490381}
   - component: {fileID: 635178772513192423}
+  - component: {fileID: 4041554506006465065}
   m_Layer: 5
-  m_Name: SpectatorButton
+  m_Name: MechanicButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7269508715482490381}
+      - m_Target: {fileID: 6006263473152166621}
         m_TargetAssemblyTypeName: CenterView, Assembly-CSharp
-        m_MethodName: Spectate
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -135,19 +135,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7269508715482490381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6006263473152166621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91f9bbe9845a9f44ab0d1e336cbbe5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
 --- !u!114 &635178772513192423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +155,18 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &4041554506006465065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263473152166621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b13f921c691bc7429d4ea4a8c5052b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8181623847195847175
 GameObject:
   m_ObjectHideFlags: 0

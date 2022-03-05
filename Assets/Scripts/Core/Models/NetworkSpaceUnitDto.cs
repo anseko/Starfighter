@@ -24,8 +24,6 @@ namespace Core.Models
         public NetworkVariable<UnitState> _shipState;
         public NetworkVariable<Color> _baseColor;
         public NetworkVariable<float> _acceleration;
-        public NetworkVariable<float> _physResistance;
-        public NetworkVariable<float> _radResistance;
         public NetworkVariable<float> _radarRange;
         public NetworkVariable<float> _accelerationCoefficient;
         public NetworkVariable<float> _physResistanceCoefficient;
@@ -111,16 +109,6 @@ namespace Core.Models
             get => _acceleration.Value;
             set => _acceleration.Value = value;
         }
-        public float PhysResistance
-        {
-            get => _physResistance.Value;
-            set => _physResistance.Value = value;
-        }
-        public float RadResistance
-        {
-            get => _radResistance.Value;
-            set => _radResistance.Value = value;
-        }
         public float RadarRange
         {
             get => _radarRange.Value;
@@ -164,8 +152,6 @@ namespace Core.Models
             _shipState.Value = config.shipState;
             _baseColor.Value = config.baseColor;
             _acceleration.Value = config.acceleration;
-            _physResistance.Value = config.physResistance;
-            _radResistance.Value = config.radResistance;
             _radarRange.Value = config.radarRange;
             _accelerationCoefficient.Value = config.accelerationCoefficient;
             _physResistanceCoefficient.Value = config.physResistanceCoefficient;
@@ -279,21 +265,7 @@ namespace Core.Models
                 WritePermission = NetworkVariablePermission.Custom,
                 WritePermissionCallback = id => IsOwner || IsServer
             });
-            
-            _physResistance = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            });
-            
-            _radResistance = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            });
-            
+
             _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
@@ -308,7 +280,7 @@ namespace Core.Models
                 WritePermissionCallback = id => IsOwner || IsServer
             });
             
-            _physResistance = new NetworkVariable<float>(new NetworkVariableSettings()
+            _physResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,

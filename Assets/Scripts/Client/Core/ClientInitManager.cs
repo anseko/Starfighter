@@ -15,6 +15,7 @@ namespace Client.Core
         [SerializeField] private Canvas _moderatorUi;
         [SerializeField] private Canvas _mainMenuUi;
         [SerializeField] private Canvas _stationUi;
+        [SerializeField] private Canvas _mechanicUi;
         
         public void InitPilot(PlayerScript ps)
         {
@@ -96,6 +97,18 @@ namespace Client.Core
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<OrdersScript>().GetShipList();
+        }
+        public void InitMechanic()
+        {
+            _mechanicUi.gameObject.SetActive(true);
+            _mainMenuUi.gameObject.SetActive(false);
+            var cam = FindObjectOfType<Camera>();
+            var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
+            Destroy(FindObjectOfType<GridFiller>().gameObject);
+            cam.orthographicSize = 100;
+            followComp.enabled = false;
+            var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
+            zoomComp.enabled = false;
         }
     }
 }

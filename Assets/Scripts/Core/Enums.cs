@@ -8,7 +8,7 @@
         Spectator,
         SpaceStation,
         Pilot,
-        Moderator, //игротех
+        Mechanic, //игротех
         Admin
     }
 

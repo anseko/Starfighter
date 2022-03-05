@@ -16,8 +16,6 @@ namespace ScriptableObjects
         public Color baseColor;
         
         public float acceleration;
-        public float physResistance;
-        public float radResistance;
         public float radarRange;
         
         public float accelerationCoefficient;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Client.Core;
 using Core.Models;
 using TMPro;
@@ -11,13 +12,13 @@ public class ShipPanelComponent : MonoBehaviour
     [SerializeField] private Slider _speedSlider, _physResSlider, _radResSlider, _radarSlider;
 
     [SerializeField]
-    private TMP_Text _freePointsText;
-    private PlayerScript _ship;
+    private TMP_Text _freePointsText, _noPointsText;
+    public PlayerScript ship;
     private float _totalPoints;
     private float _speed, _physRes, _radRes, _radar;
     private NetworkSpaceUnitDto _shipData;
     private Dictionary<float,float> _accConvert, _physResConvert, _radResConvert, _radRangeConvert;
-    Dictionary<float, float>[] mass;
+    [SerializeField] private Button _okButton;
 
     void Awake()
     {
@@ -26,44 +27,101 @@ public class ShipPanelComponent : MonoBehaviour
 
     void Start()
     {
-        _shipData = _ship.NetworkUnitConfig;
         _accConvert = new Dictionary<float, float>();
         _physResConvert = new Dictionary<float, float>();
         _radResConvert = new Dictionary<float, float>();
         _radRangeConvert = new Dictionary<float, float>();
-        mass = new[] {_accConvert, _physResConvert, _radRangeConvert };
-        foreach (var x in mass)
-        {
-            x.Add(1,0.75f);
-            x.Add(2,1);
-            x.Add(3,1.25f);
-            x.Add(4,1.5f);
-            x.Add(5,2);
-        }
-        _accConvert = mass[0];
-        _physResConvert = mass[1];
-        _radRangeConvert = mass[2];
+        
+        _accConvert.Add(1,0.75f);
+        _accConvert.Add(2,1);
+        _accConvert.Add(3,1.25f);
+        _accConvert.Add(4,1.5f);
+        _accConvert.Add(5,2f);
+        
+        _physResConvert.Add(1,1.25f);
+        _physResConvert.Add(2,1f);
+        _physResConvert.Add(3,0.75f);
+        _physResConvert.Add(4,0.5f);
+        _physResConvert.Add(5,0.25f);
+        
         _radResConvert.Add(1,1.25f);
         _radResConvert.Add(2,1f);
         _radResConvert.Add(3,0.75f);
         _radResConvert.Add(4,0.5f);
         _radResConvert.Add(5,0.25f);
-    }
-
-    public void AssignPoints()
-    {
-        if (!(_totalPoints < 0))
-        {
-            _shipData._accelerationCoefficient.Value = _shipData.Acceleration * _accConvert[_speedSlider.value];
-            _shipData._physResistanceCoefficient.Value = _shipData.PhysResistance * _accConvert[_physResSlider.value];
-            _shipData._radResistanceCoefficient.Value = _shipData.RadResistance * _accConvert[_radResSlider.value];
-            _shipData._radarRangeCoefficient.Value = _shipData.RadarRange * _accConvert[_radarSlider.value];
-            gameObject.SetActive(false);
-        }
+        
+        _radRangeConvert.Add(1,0.75f);
+        _radRangeConvert.Add(2,1f);
+        _radRangeConvert.Add(3,1.25f);
+        _radRangeConvert.Add(4,1.5f);
+        _radRangeConvert.Add(5,2f);
     }
     
-    public void FreePointsUpdate()
+    public void AssignPoints()
     {
+        _shipData.AccelerationCoefficient = _accConvert[_speedSlider.value];
+        _shipData.PhysResistanceCoefficient = _physResConvert[_physResSlider.value];
+        _shipData.RadResistanceCoefficient = _radResConvert[_radResSlider.value];
+        _shipData.RadarRangeCoefficient = _radRangeConvert[_radarSlider.value];
+        gameObject.SetActive(false);
+    }
+
+    public void Init()
+    {
+        _shipData = ship.NetworkUnitConfig;
+        
+        _speedSlider.value = ship.NetworkUnitConfig.AccelerationCoefficient switch
+        {
+            0.75f => 1,
+            1f => 2,
+            1.25f => 3,
+            1.5f => 4,
+            2f => 5,
+            _ => _speedSlider.value
+        };
+
+        _physResSlider.value = ship.NetworkUnitConfig.PhysResistanceCoefficient switch
+        {
+            1.25f => 1,
+            1f => 2,
+            0.75f => 3,
+            0.5f => 4,
+            0.25f => 5,
+            _ => _physResSlider.value
+        };
+        _radResSlider.value = ship.NetworkUnitConfig.RadResistanceCoefficient switch
+        {
+            1.25f => 1,
+            1f => 2,
+            0.75f => 3,
+            0.5f => 4,
+            0.25f => 5,
+            _ => _radResSlider.value
+        };
+        _radarSlider.value = ship.NetworkUnitConfig.RadarRangeCoefficient switch
+        {
+            0.75f => 1,
+            1f => 2,
+            1.25f => 3,
+            1.5f => 4,
+            2f => 5,
+            _ => _radarSlider.value
+        };
+    }
+    
+    void Update()
+    {
+        _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
         _freePointsText.text = $"Свободных очков: {8 - _totalPoints}";
+        if (_totalPoints > 8)
+        {
+            _okButton.interactable = false;
+            _noPointsText.gameObject.SetActive(true);
+        }
+        else if (_totalPoints <= 8)
+        {
+            _okButton.interactable = true;
+            _noPointsText.gameObject.SetActive(false);
+        }
     }
 }

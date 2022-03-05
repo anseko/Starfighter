@@ -35,7 +35,7 @@ namespace Client.Core
                 WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
                 
-            FOVRadius = 1080;
+            FOVRadius = NetworkUnitConfig.RadarRange * NetworkUnitConfig.RadarRangeCoefficient;
         }
 
         private void Start()

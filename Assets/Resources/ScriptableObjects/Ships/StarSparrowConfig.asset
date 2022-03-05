@@ -25,3 +25,10 @@ MonoBehaviour:
   currentStress: 0
   shipId: sparrow002
   shipState: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 5
+  radarRange: 1080
+  accelerationCoefficient: 0
+  physResistanceCoefficient: 0
+  radResistanceCoefficient: 0
+  radarRangeCoefficient: 0

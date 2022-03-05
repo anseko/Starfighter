@@ -91,10 +91,12 @@ namespace Net.Components
             if (!IsOwner || (IsServer && !IsHost)) return; 
             _lastMovement.Value = new MovementData()
             {
-                rotationValue = Input.GetAxis("Rotation") * 4.5f,
-                sideManeurValue = Input.GetAxis("Horizontal"),
-                straightManeurValue = Input.GetAxis("Vertical"),
-                thrustValue = Input.GetAxis("Jump") * 5f
+                rotationValue = Input.GetAxis("Rotation") * gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.Acceleration * 
+                                gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.AccelerationCoefficient,
+                sideManeurValue = Input.GetAxis("Horizontal") * gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.AccelerationCoefficient,
+                straightManeurValue = Input.GetAxis("Vertical") * gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.AccelerationCoefficient,
+                thrustValue = Input.GetAxis("Jump") * gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.Acceleration * 
+                              gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.AccelerationCoefficient
             };
             
             // расчет вектора тяги
