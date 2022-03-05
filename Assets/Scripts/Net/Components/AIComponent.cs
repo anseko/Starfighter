@@ -75,7 +75,7 @@ namespace Net.Components
             var t = 0f;
             while (Vector3.Distance(destination, transform.position) > _finishDistance)
             {
-                t += step * Time.deltaTime;
+                t += step * 0.1f * Time.deltaTime;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 0.5f);
                 transform.position = Vector3.Lerp(transform.position, destination, t);
                 yield return null;

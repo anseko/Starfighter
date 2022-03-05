@@ -9,6 +9,7 @@ namespace Net.Components
     {
         [SerializeField] private GameObject _fovCollider;
         private GameObject _fovInstance = null;
+        
         private void Awake()
         {
             enabled = false;
@@ -25,18 +26,6 @@ namespace Net.Components
                 .Where(x => x.layer == LayerMask.NameToLayer("Units") || x.layer == LayerMask.NameToLayer("Ships"))
                 .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
             gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
-        }
-
-        public bool IsIntersect(Collider other)
-        {
-            if (other.bounds.Intersects(_fovCollider.GetComponent<SphereCollider>().bounds))
-            {
-                other.gameObject.GetComponents<Renderer>().ToList().ForEach(x=>x.enabled = false);
-                other.gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(x=>x.enabled = false);
-                return true;
-            }
-
-            return false;
         }
 
         private void OnTriggerEnter(Collider other)

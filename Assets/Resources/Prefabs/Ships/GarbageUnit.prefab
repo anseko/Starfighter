@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4438580318664939076}
   - component: {fileID: 7282568639503559482}
   - component: {fileID: 6147631992548102576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ThurstsEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -4819,7 +4819,7 @@ GameObject:
   - component: {fileID: 1094289798134661243}
   - component: {fileID: 1094289798449129561}
   - component: {fileID: 1094289798449129562}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BotLeftEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -9639,7 +9639,7 @@ GameObject:
   - component: {fileID: 1094289799179412831}
   - component: {fileID: 1094289799179412829}
   - component: {fileID: 1094289799179412830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14457,7 +14457,7 @@ GameObject:
   - component: {fileID: 1094289799413264548}
   - component: {fileID: 1094289799413264546}
   - component: {fileID: 1094289799413264547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19275,7 +19275,7 @@ GameObject:
   - component: {fileID: 7673680542541722686}
   - component: {fileID: 847995073029861629}
   - component: {fileID: 4401930635812217764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19357,7 +19357,7 @@ GameObject:
   - component: {fileID: 5910140727676045452}
   - component: {fileID: 5400257042954577818}
   - component: {fileID: 2121486463739130210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19439,7 +19439,7 @@ GameObject:
   - component: {fileID: 1835355093610895734}
   - component: {fileID: 1835355093610895728}
   - component: {fileID: 1835355093610895729}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24257,7 +24257,7 @@ GameObject:
   - component: {fileID: 1835355094483778662}
   - component: {fileID: 1835355094483778656}
   - component: {fileID: 1835355094483778657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29075,7 +29075,7 @@ GameObject:
   - component: {fileID: 1835355092891119883}
   - component: {fileID: 1835355094499410167}
   - component: {fileID: 1835355094499410164}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopRightEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -33895,7 +33895,7 @@ GameObject:
   - component: {fileID: 953897232593194353}
   - component: {fileID: 5915583678641075477}
   - component: {fileID: 7602964400295094370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33977,7 +33977,7 @@ GameObject:
   - component: {fileID: 4141513754448657277}
   - component: {fileID: 8691979817720163981}
   - component: {fileID: 3752069210484992532}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34059,7 +34059,7 @@ GameObject:
   - component: {fileID: 5899770061272897609}
   - component: {fileID: 3903782324065226321}
   - component: {fileID: 4028097690263088110}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34141,7 +34141,7 @@ GameObject:
   - component: {fileID: 4401304888185037110}
   - component: {fileID: 4401304888185037104}
   - component: {fileID: 4401304888185037105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38959,7 +38959,7 @@ GameObject:
   - component: {fileID: 4401304889912175707}
   - component: {fileID: 4401304888299642279}
   - component: {fileID: 4401304888299642276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BotRightEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -43779,7 +43779,7 @@ GameObject:
   - component: {fileID: 4401304888923685926}
   - component: {fileID: 4401304888923685920}
   - component: {fileID: 4401304888923685921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48597,7 +48597,7 @@ GameObject:
   - component: {fileID: 1941136600413413658}
   - component: {fileID: 782286765095359061}
   - component: {fileID: 4320662824537516375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48679,7 +48679,7 @@ GameObject:
   - component: {fileID: 1815367159972732303}
   - component: {fileID: 5544542172190754369}
   - component: {fileID: 1331640497765192241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53497,7 +53497,7 @@ GameObject:
   - component: {fileID: 7050577113407062010}
   - component: {fileID: 968944226976713812}
   - component: {fileID: 3306738875222985558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53579,7 +53579,7 @@ GameObject:
   - component: {fileID: 7956982518499556456}
   - component: {fileID: 6290070466251124081}
   - component: {fileID: 3777293326305851534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58425,7 +58425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146552719692500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58455,7 +58455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146553511191327}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58485,7 +58485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146553577935384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58515,7 +58515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146554126645592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58854,7 +58854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8051306318905621240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58897,7 +58897,7 @@ GameObject:
   - component: {fileID: 7785872222030548737}
   - component: {fileID: 4126586899253360144}
   - component: {fileID: 1717299115611050763}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58979,7 +58979,7 @@ GameObject:
   - component: {fileID: 152826576918770544}
   - component: {fileID: 1777401948918171310}
   - component: {fileID: 6607412410624925440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59061,7 +59061,7 @@ GameObject:
   - component: {fileID: 8192978497885726147}
   - component: {fileID: 7372898542006164539}
   - component: {fileID: 8482836955768075239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59143,7 +59143,7 @@ GameObject:
   - component: {fileID: 8520683426295149190}
   - component: {fileID: 8520683426584664740}
   - component: {fileID: 8520683426584664743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopLeftEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -63963,7 +63963,7 @@ GameObject:
   - component: {fileID: 8520683427331823522}
   - component: {fileID: 8520683427331823520}
   - component: {fileID: 8520683427331823523}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68781,7 +68781,7 @@ GameObject:
   - component: {fileID: 8520683427834069593}
   - component: {fileID: 8520683427834069599}
   - component: {fileID: 8520683427834069598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73599,7 +73599,7 @@ GameObject:
   - component: {fileID: 8841568551533773551}
   - component: {fileID: 8424668614873261690}
   - component: {fileID: 3907994123156315961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
