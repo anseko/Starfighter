@@ -3,6 +3,7 @@ using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Net.Components
 {
@@ -11,6 +12,7 @@ namespace Net.Components
         [SerializeField]
         private GameObject _pointPrefab;
         private GameObject _point;
+        private GameObject _localPoint;
         private Camera _camera;
         [SerializeField]
         private bool _isSetter;
@@ -28,6 +30,19 @@ namespace Net.Components
                 var navigatorClientId = NetworkManager.Singleton.LocalClientId;
                 var pilotClientId = GetComponent<NetworkObject>().OwnerClientId;
                 MovePointServerRpc(_camera.ScreenToWorldPoint(Input.mousePosition), navigatorClientId, pilotClientId);
+            }
+
+            if (Input.GetMouseButtonUp(2) && _isSetter)
+            {
+                var position = _camera.ScreenToWorldPoint(Input.mousePosition);
+                position.Set(position.x, 0,position.z);
+                if (_localPoint is null)
+                {
+                    _localPoint = Instantiate(_pointPrefab, position, _pointPrefab.transform.rotation);
+                    _localPoint.GetComponent<SpriteRenderer>().color = Color.green;
+                    _localPoint.tag = Constants.WayPointTag;
+                }
+                _localPoint.transform.position = position;
             }
         }
 

@@ -25,4 +25,4 @@ MonoBehaviour:
   currentStress: 0
   shipId: kaos
   shipState: 0
-  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  baseColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
