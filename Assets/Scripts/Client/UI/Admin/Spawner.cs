@@ -71,7 +71,7 @@ namespace Client.UI.Admin
             else
             {
                 Debug.unityLogger.Log($"Can't spawn. Is already spawned? {netObj.IsSpawned}");
-                Destroy(goToSpawn);
+                // Destroy(goToSpawn);
                 return;
             }
 
@@ -135,10 +135,19 @@ namespace Client.UI.Admin
             acc.password = password;
             acc.clientId = null;
             acc.type = UserType.Pilot;
-            var config = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects).FirstOrDefault(x => x.prefabName == prefabName);
+            var configToInstance = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects).FirstOrDefault(x => x.prefabName == prefabName);
+            var config = Instantiate(configToInstance);
             config.shipId = newShipId;
             acc.ship = config;
-            FindObjectOfType<MainServerLoop>().accountObjects.Add(acc);
+
+            var server = FindObjectOfType<MainServerLoop>();
+            if (server.accountObjects.Any(x => x.ship?.shipId == acc.ship.shipId && x.type == acc.type))
+            {
+                Debug.unityLogger.Log($"There is such account in list already {acc.ship.shipId}:{acc.type}");
+                return;
+            }
+            
+            server.accountObjects.Add(acc);
         }
     }
 }
