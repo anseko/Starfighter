@@ -69,7 +69,6 @@ namespace Core
 
         private void OnCollisionEnter(Collision other)
         {
-
             Destroy(GetComponent<Collider>());
             
             if(!IsOwner) return;
@@ -81,8 +80,6 @@ namespace Core
                 DestroyOnServer();
                 return;
             }
-            
-            Destroy(GetComponent<Collider>());
 
             var netObject = grappledObject.GetComponent<NetworkObject>();
             grappledObjectId.Value = netObject.NetworkObjectId;
@@ -128,7 +125,7 @@ namespace Core
         {
             if (IsServer)
             {
-                Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId.Value}");
+                Debug.unityLogger.Log($"DestroyOnServer destroy: {grappledObjectId.Value}");
                 grappledObject = GetNetworkObject(grappledObjectId.Value)?.gameObject;
 
                 Debug.unityLogger.Log($"grappled object {grappledObject?.name}");
@@ -163,7 +160,7 @@ namespace Core
         [ServerRpc(RequireOwnership = true)]
         private void DestroyServerRpc()
         {
-            Debug.unityLogger.Log($"Grappler server destroy: {grappledObjectId.Value}");
+            Debug.unityLogger.Log($"DestroyServerRpc destroy: {grappledObjectId.Value}");
             grappledObject = GetNetworkObject(grappledObjectId.Value)?.gameObject;
 
             if (grappledObject != null &&

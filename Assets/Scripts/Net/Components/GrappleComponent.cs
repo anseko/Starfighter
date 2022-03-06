@@ -58,9 +58,6 @@ namespace Net.Components
             var netGrappler = grapplerGo.GetComponent<NetworkObject>();
             netGrappler.SpawnWithOwnership(clientId, destroyWithScene: true);
             _grapplerObjectId.Value = netGrappler.NetworkObjectId;
-            
-            var clientIds = FindObjectOfType<MainServerLoop>().GetClientsOfType(UserType.Navigator);
-            
         }
         
         private void InitGrapple(ulong oldValue, ulong value)

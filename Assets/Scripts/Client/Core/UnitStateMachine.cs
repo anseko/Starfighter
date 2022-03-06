@@ -49,8 +49,10 @@ namespace Client.Core
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             if(unit.TryGetComponent<GrappleComponent>(out var grappler))
                 grappler.enabled = false;
+
+            var dockComp = unit.GetComponent<DockComponent>();
             
-            if(unit.GetComponent<DockComponent>().lastThingToDock.TryGetComponent<AIComponent>(out var aiComponent))
+            if (dockComp.lastThingToDock != null && dockComp.lastThingToDock.TryGetComponent<AIComponent>(out var aiComponent))
             {
                 aiComponent.Pause();
             }
@@ -68,8 +70,10 @@ namespace Client.Core
             unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
             if(unit.TryGetComponent<GrappleComponent>(out var grappler))
                 grappler.enabled = true;
+
+            var dockComp = unit.GetComponent<DockComponent>();
             
-            if(unit.GetComponent<DockComponent>().lastThingToDock.TryGetComponent<AIComponent>(out var aiComponent))
+            if (dockComp.lastThingToDock != null && dockComp.lastThingToDock.TryGetComponent<AIComponent>(out var aiComponent))
             {
                 aiComponent.Resume();
             }
