@@ -16,19 +16,24 @@ namespace Net.Components
         private PlayerScript _unit;
         [SerializeField]
         private Transform _launcher;
-        private NetworkVariableULong _grapplerObjectId;
-        public bool GrappleOut { get; private set; }
+        private NetworkVariable<ulong> _grapplerObjectId;
+        public NetworkVariable<bool> GrappleOut { get; private set; }
 
         private void Awake()
         {
-            _grapplerObjectId = new NetworkVariableULong(new NetworkVariableSettings()
+            GrappleOut = new NetworkVariable<bool>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = id => IsOwner || IsServer 
+            });
+            
+            _grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
             });
 
-            _grapplerObjectId.OnValueChanged += InitGrapple;
-            
             _unit ??= gameObject.GetComponent<PlayerScript>();
         }
 
@@ -37,37 +42,28 @@ namespace Net.Components
             if (!IsOwner || _unit.isGrappled.Value) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
-                if (!GrappleOut)
+                if (GrappleOut.Value)
                 {
-                    GrappleOut = true;
-                    InitGrappleServerRpc(NetworkManager.Singleton.LocalClientId);
-                }
-                else
-                {
-                    GrappleOut = false;
                     var grappler = GetNetworkObject(_grapplerObjectId.Value)?.GetComponent<Grappler>();
                     grappler?.DestroyOnServer();
                 }
+                else
+                {
+                    InitGrappleServerRpc();   
+                }
+                
+                GrappleOut.Value = !GrappleOut.Value;
             }
         }
 
         [ServerRpc(Delivery = RpcDelivery.Reliable)]
-        private void InitGrappleServerRpc(ulong clientId)
+        private void InitGrappleServerRpc()
         {
             var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
             var netGrappler = grapplerGo.GetComponent<NetworkObject>();
-            netGrappler.SpawnWithOwnership(clientId, destroyWithScene: true);
+            netGrappler.Spawn(destroyWithScene: true);
             _grapplerObjectId.Value = netGrappler.NetworkObjectId;
-        }
-        
-        private void InitGrapple(ulong oldValue, ulong value)
-        {
-            GetNetworkObject(value)?.GetComponent<Grappler>()?.Init(_unit, 20);
-        }
-
-        public void SetGrappleState(bool newState)
-        {
-            GrappleOut = newState;
+            grapplerGo.GetComponent<Grappler>().Init(_unit, 20);
         }
     }
 }

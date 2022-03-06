@@ -89,13 +89,12 @@ namespace Client.Core
         public void OnEnter(GameObject unit)
         {
             //Если были пристыкованы - отстыковаться
-            var dockComp = unit.GetComponent<DockComponent>();
             var unitPS = unit.GetComponent<PlayerScript>();
-            unit.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            unit.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            unitPS.Rigidbody.velocity = Vector3.zero;
+            unitPS.Rigidbody.angularVelocity = Vector3.zero;
             
             if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
-                dockComp != null &&
+                unit.TryGetComponent<DockComponent>(out var dockComp) &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
                 dockComp.EmergencyUndockServerRpc(unit.GetComponent<NetworkObject>().NetworkObjectId,
@@ -108,12 +107,12 @@ namespace Client.Core
                     .FirstOrDefault(x => x.IsOwner);
                 grappler?.DestroyOnServer();
             }
-
-            if(unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
-
+            
             var beacon = unit.GetComponentInChildren<BeaconComponent>(true);
             if (beacon == null) return; 
             beacon.ChangeState(true);
+            
+            if (unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
         }
 
         public void Update(GameObject unit)

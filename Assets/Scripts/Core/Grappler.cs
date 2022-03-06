@@ -4,6 +4,7 @@ using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using Net.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Core
@@ -16,20 +17,21 @@ namespace Core
         private Joint _joint;
         private LineRenderer _lineRenderer;
         private GameObject _owner;
-        private NetworkVariable<ulong> _ownerObjectId;
+        public NetworkVariable<ulong> ownerObjectId;
         [SerializeField] private float _maxLength;
         [SerializeField] private float _grappleVelocity;
 
     
+        //Calls only on server side
         public void Init(PlayerScript playerScript, float maxLength)
         {
-            if (!IsOwner) return;
-            _owner = playerScript.gameObject;
-            _ownerObjectId.Value = playerScript.NetworkObjectId; 
+            ownerObjectId.Value = playerScript.NetworkObjectId; 
             _maxLength = maxLength;
+            
             var forceVector = _owner.transform.Find("Back").position - _owner.transform.position;
-                GetComponent<Rigidbody>().AddForce(forceVector.normalized * _grappleVelocity,
-                    ForceMode.Impulse);
+            
+            GetComponent<Rigidbody>().AddForce(forceVector.normalized * _grappleVelocity,
+                ForceMode.Impulse);
         }
     
         private void Awake()
@@ -37,78 +39,111 @@ namespace Core
             grappledObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings(){
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission =  NetworkVariablePermission.OwnerOnly
-            });
-            _ownerObjectId = new NetworkVariableULong(new NetworkVariableSettings()
+            }, 0);
+            
+            ownerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission =  NetworkVariablePermission.OwnerOnly
             });
+
+            grappledObjectId.OnValueChanged += (value, newValue) =>
+            {
+                if (newValue == 0) return;
+                grappledObject = GetNetworkObject(newValue).gameObject;
+            };
+
+            ownerObjectId.OnValueChanged += (value, newValue) =>
+            {
+                if (newValue == value) return;
+                _owner = GetNetworkObject(newValue).gameObject;
+                if(_owner == null) DestroyOnServer();
+            };
+            
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.positionCount = 2;
         }
 
         private void Update()
         {
-            if (_owner == null)
-            {
-                _owner = GetNetworkObject(_ownerObjectId.Value)?.gameObject;
-                if (_owner == null) return;
-            }
+            if (_owner == null) return;
+            
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, _owner.transform.position);
             if (!IsOwner) return;
+            
             var distance = (_owner.transform.position - transform.position).magnitude;
             if (grappledObject == null &&
                 _maxLength < distance)
             {
                 //превысили возможную длину, но так ничего не нашли.
+                _owner.GetComponent<GrappleComponent>().GrappleOut.Value = false;
                 DestroyOnServer();
-                _owner.GetComponent<GrappleComponent>().SetGrappleState(false);
             }
         }
 
         private void OnCollisionEnter(Collision other)
         {
+            if (!IsServer) return;
+            
             Destroy(GetComponent<Collider>());
             
-            if(!IsOwner) return;
             grappledObject = other.transform.root.gameObject;
             
-            if(!grappledObject.TryGetComponent<NetworkObject>(out var net) 
-               || !net.IsOwnedByServer)
+            if(!grappledObject.TryGetComponent<NetworkObject>(out var netObject) 
+               || !netObject.IsOwnedByServer)
             {
                 DestroyOnServer();
                 return;
             }
-
-            var netObject = grappledObject.GetComponent<NetworkObject>();
+            
             grappledObjectId.Value = netObject.NetworkObjectId;
+
+            var ownerClientId = GetNetworkObject(ownerObjectId.Value).OwnerClientId;
+            
+            NetworkObject.ChangeOwnership(ownerClientId);
             
             if (grappledObject.TryGetComponent<Rigidbody>(out _))
             {
-                
-                RequestOwnershipServerRpc(netObject.NetworkObjectId, NetworkManager.LocalClientId);
-                if (grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
-                {
-                    moveComponent.enabled = false;
-                }
+                //Give away ownership to owner of grappler
+                GetNetworkObject(netObject.NetworkObjectId).ChangeOwnership(ownerClientId);
+            }
 
-                if (grappledObject.TryGetComponent<UnitScript>(out var unitScript))
+            var clientRpcParams = new ClientRpcParams()
+            {
+                Send = new ClientRpcSendParams()
                 {
-                    unitScript.isGrappled.Value = true;
+                    TargetClientIds = new[] { ownerClientId }
                 }
+            };
+            OnGrappleClientRpc(other.GetContact(0).point, grappledObjectId.Value, clientRpcParams);
+        }
+
+        [ClientRpc(Delivery = RpcDelivery.Reliable)]
+        private void OnGrappleClientRpc(Vector3 contactPoint, ulong grappledObjId, ClientRpcParams clientRpcParams = default)
+        {
+            grappledObject = GetNetworkObject(grappledObjId).gameObject;
+            
+            if (grappledObject.TryGetComponent<MoveComponent>(out var moveComponent))
+            {
+                moveComponent.enabled = false;
+            }
+
+            if (grappledObject.TryGetComponent<UnitScript>(out var unitScript))
+            {
+                unitScript.isGrappled.Value = true;
             }
             
             //Add joint to _grappledObject
-            _joint = gameObject.AddComponent<HingeJoint>();
+            _joint = gameObject.AddComponent<FixedJoint>();
             _joint.connectedBody = grappledObject.GetComponent<Rigidbody>();
-            _joint.connectedAnchor = other.GetContact(0).point;
+            _joint.connectedAnchor = contactPoint;
             _joint.enableCollision = false;
             _joint.autoConfigureConnectedAnchor = true;
             _joint.axis = Vector3.up;
 
             //Add joint to _owner
-            var joint = _owner.gameObject.AddComponent<FixedJoint>();
+            var joint = _owner.AddComponent<FixedJoint>();
             joint.connectedMassScale = 0.5f;
             joint.axis = Vector3.up;
             joint.connectedBody = gameObject.GetComponent<Rigidbody>();
@@ -128,8 +163,6 @@ namespace Core
                 Debug.unityLogger.Log($"DestroyOnServer destroy: {grappledObjectId.Value}");
                 grappledObject = GetNetworkObject(grappledObjectId.Value)?.gameObject;
 
-                Debug.unityLogger.Log($"grappled object {grappledObject?.name}");
-                
                 if (grappledObject != null &&
                     grappledObject.TryGetComponent<UnitScript>(out var unitScript))
                 {
@@ -178,12 +211,6 @@ namespace Core
             }
             if(gameObject.GetComponent<NetworkObject>().IsSpawned)
                 gameObject.GetComponent<NetworkObject>().Despawn(true);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void RequestOwnershipServerRpc(ulong objectId, ulong newOwnerId)
-        {
-            GetNetworkObject(objectId).ChangeOwnership(newOwnerId);
         }
     }
 }
