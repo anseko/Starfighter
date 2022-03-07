@@ -68,15 +68,30 @@ namespace Net.Components
             _currentDestination = _wayPoints[++_counter % _wayPoints.Count].position;
             _currentTask = StartCoroutine(GoToPoint(_currentDestination));
         }
-        
-        private IEnumerator GoToPoint(Vector3 destination, float step = 0.0001f)
+
+        private IEnumerator RotateToPoint(Vector3 destination, float step = 5f)
         {
+            var targetRotation = Quaternion.LookRotation(destination - transform.position);
+            while (targetRotation != transform.rotation)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, step * Time.deltaTime);
+                yield return null;
+            }
+
+            yield return null;
+        }
+        
+        
+        private IEnumerator GoToPoint(Vector3 destination, float step = 0.000005f)
+        {
+            yield return RotateToPoint(destination);
+            
             var targetRotation = Quaternion.LookRotation(destination - transform.position);
             var t = 0f;
             while (Vector3.Distance(destination, transform.position) > _finishDistance)
             {
-                t += step * 0.1f * Time.deltaTime;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 0.5f);
+                t += step * Time.deltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 0.1f);
                 transform.position = Vector3.Lerp(transform.position, destination, t);
                 yield return null;
             }

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BeaconAnimation
+  m_Name: SearchBeaconAnimation
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -47,7 +47,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.5283019
+        value: 0.009570263
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -66,7 +66,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.6226415
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -85,7 +85,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.12286096
+        value: 0.002936995
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -281,7 +281,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.5283019
+        value: 0.009570263
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -300,7 +300,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.6226415
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -319,7 +319,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.12286096
+        value: 0.002936995
         inSlope: 0
         outSlope: 0
         tangentMode: 0
