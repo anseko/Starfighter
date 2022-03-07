@@ -23,7 +23,13 @@ namespace Core.Models
         public string shipId;
         public UnitState shipState;
         public Color baseColor;
-
+        public float acceleration;
+        public float radarRange;
+        public float accelerationCoefficient;
+        public float physResistanceCoefficient;
+        public float radResistanceCoefficient;
+        public float radarRangeCoefficient;
+        
         public SpaceUnitDto(){}
         
         public SpaceUnitDto(SpaceUnitConfig config)
@@ -38,7 +44,7 @@ namespace Core.Models
             rotation = config.rotation;
             prefabName = config.prefabName;
             id = config.id;
-
+            
             if (config is SpaceShipConfig shipConfig)
             {
                 maxStress = shipConfig.maxStress;
@@ -46,6 +52,8 @@ namespace Core.Models
                 shipId = shipConfig.shipId;
                 shipState = shipConfig.shipState;
                 baseColor = shipConfig.baseColor;
+                acceleration = shipConfig.acceleration;
+                radarRange = shipConfig.radarRange;
             }
             else
             {
@@ -73,6 +81,12 @@ namespace Core.Models
             serializer.Serialize(ref shipId);
             serializer.Serialize(ref shipState);
             serializer.Serialize(ref baseColor);
+            serializer.Serialize(ref acceleration);
+            serializer.Serialize(ref radarRange);
+            serializer.Serialize(ref accelerationCoefficient);
+            serializer.Serialize(ref physResistanceCoefficient);
+            serializer.Serialize(ref radResistanceCoefficient);
+            serializer.Serialize(ref radarRangeCoefficient);
         }
     }
     

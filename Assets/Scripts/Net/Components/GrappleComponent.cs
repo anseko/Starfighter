@@ -4,7 +4,6 @@ using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Net.Components

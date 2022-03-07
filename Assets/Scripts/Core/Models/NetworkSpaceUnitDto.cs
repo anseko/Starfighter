@@ -25,7 +25,13 @@ namespace Core.Models
         public NetworkVariable<string> _shipId;
         public NetworkVariable<UnitState> _shipState;
         public NetworkVariable<Color> _baseColor;
-        
+        public NetworkVariable<float> _acceleration;
+        public NetworkVariable<float> _radarRange;
+        public NetworkVariable<float> _accelerationCoefficient;
+        public NetworkVariable<float> _physResistanceCoefficient;
+        public NetworkVariable<float> _radResistanceCoefficient;
+        public NetworkVariable<float> _radarRangeCoefficient;
+
         public float MaxAngleSpeed
         {
             get => _maxAngleSpeed.Value;
@@ -100,7 +106,36 @@ namespace Core.Models
             get => _baseColor.Value;
             set => _baseColor.Value = value;
         }
-
+        public float Acceleration
+        {
+            get => _acceleration.Value;
+            set => _acceleration.Value = value;
+        }
+        public float RadarRange
+        {
+            get => _radarRange.Value;
+            set => _radarRange.Value = value;
+        }
+        public float AccelerationCoefficient
+        {
+            get => _accelerationCoefficient.Value;
+            set => _accelerationCoefficient.Value = value;
+        }
+        public float PhysResistanceCoefficient
+        {
+            get => _physResistanceCoefficient.Value;
+            set => _physResistanceCoefficient.Value = value;
+        }
+        public float RadResistanceCoefficient
+        {
+            get => _radResistanceCoefficient.Value;
+            set => _radResistanceCoefficient.Value = value;
+        }
+        public float RadarRangeCoefficient
+        {
+            get => _radarRangeCoefficient.Value;
+            set => _radarRangeCoefficient.Value = value;
+        }
         public void Init(SpaceUnitDto config)
         {
             _maxAngleSpeed.Value = config.maxAngleSpeed;
@@ -118,6 +153,12 @@ namespace Core.Models
             _shipId.Value = config.shipId;
             _shipState.Value = config.shipState;
             _baseColor.Value = config.baseColor;
+            _acceleration.Value = config.acceleration;
+            _radarRange.Value = config.radarRange;
+            _accelerationCoefficient.Value = config.accelerationCoefficient;
+            _physResistanceCoefficient.Value = config.physResistanceCoefficient;
+            _radResistanceCoefficient.Value = config.radResistanceCoefficient;
+            _radarRangeCoefficient.Value = config.radarRangeCoefficient;
         }
 
         public SpaceUnitDto Export()
@@ -239,6 +280,48 @@ namespace Core.Models
             });
 
             _id = new NetworkVariable<string>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+            
+            _acceleration = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+
+            _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+            
+            _accelerationCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+            
+            _physResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+            
+            _radResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            {
+                ReadPermission = NetworkVariablePermission.Everyone,
+                WritePermission = NetworkVariablePermission.Custom,
+                WritePermissionCallback = permissionDelegate
+            });
+            
+            _radarRangeCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.Custom,

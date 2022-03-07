@@ -3,7 +3,6 @@ using Core;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Net.Components
 {

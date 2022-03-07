@@ -70,7 +70,7 @@ namespace Net
                 return;
             }
 
-            if (account.type == UserType.Admin)
+            if (account.type == UserType.Admin || account.type == UserType.Mechanic)
             {
                 _connector.userType.Value = account.type;
                 _connector.SelectSceneClientRpc(account.type, 0, clientRpcParams);

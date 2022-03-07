@@ -15,9 +15,9 @@ namespace Client.UI.Spectator
         {
             foreach (var ship in FindObjectsOfType<PlayerScript>())
             {
-                var button = Instantiate(_button, _panel.transform);
-                var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-                buttonName.text = ship.NetworkUnitConfig.ShipId;
+                 var button = Instantiate(_button, _panel.transform);
+                 var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
+                 buttonName.text = ship.NetworkUnitConfig.ShipId;
             }
         }
     }

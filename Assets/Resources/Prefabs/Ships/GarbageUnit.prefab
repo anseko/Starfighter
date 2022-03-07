@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4438580318664939076}
   - component: {fileID: 7282568639503559482}
   - component: {fileID: 6147631992548102576}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ThurstsEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675045287840744114}
   m_LocalRotation: {x: 0.7058974, y: -0.051018845, z: -0.050927605, w: -0.7046364}
-  m_LocalPosition: {x: 0.11, y: 1.72, z: 0.9}
+  m_LocalPosition: {x: 0.11, y: 1.72, z: -6.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7956982518499556456}
@@ -4819,7 +4819,7 @@ GameObject:
   - component: {fileID: 1094289798134661243}
   - component: {fileID: 1094289798449129561}
   - component: {fileID: 1094289798449129562}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BotLeftEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -4834,7 +4834,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094289798449129563}
   m_LocalRotation: {x: -0.27059793, y: 0.65328157, z: -0.65328157, w: -0.27059793}
-  m_LocalPosition: {x: -1.54, y: 0.77, z: -3}
+  m_LocalPosition: {x: -2.2, y: 0.77, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1094289799179412831}
@@ -9639,7 +9639,7 @@ GameObject:
   - component: {fileID: 1094289799179412831}
   - component: {fileID: 1094289799179412829}
   - component: {fileID: 1094289799179412830}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14457,7 +14457,7 @@ GameObject:
   - component: {fileID: 1094289799413264548}
   - component: {fileID: 1094289799413264546}
   - component: {fileID: 1094289799413264547}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19275,7 +19275,7 @@ GameObject:
   - component: {fileID: 7673680542541722686}
   - component: {fileID: 847995073029861629}
   - component: {fileID: 4401930635812217764}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19357,7 +19357,7 @@ GameObject:
   - component: {fileID: 5910140727676045452}
   - component: {fileID: 5400257042954577818}
   - component: {fileID: 2121486463739130210}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19439,7 +19439,7 @@ GameObject:
   - component: {fileID: 1835355093610895734}
   - component: {fileID: 1835355093610895728}
   - component: {fileID: 1835355093610895729}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24257,7 +24257,7 @@ GameObject:
   - component: {fileID: 1835355094483778662}
   - component: {fileID: 1835355094483778656}
   - component: {fileID: 1835355094483778657}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29075,7 +29075,7 @@ GameObject:
   - component: {fileID: 1835355092891119883}
   - component: {fileID: 1835355094499410167}
   - component: {fileID: 1835355094499410164}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TopRightEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -29090,7 +29090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835355094499410165}
   m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 1.39, y: 0.77, z: 2}
+  m_LocalPosition: {x: 2.2, y: 0.77, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1835355093610895734}
@@ -33895,7 +33895,7 @@ GameObject:
   - component: {fileID: 953897232593194353}
   - component: {fileID: 5915583678641075477}
   - component: {fileID: 7602964400295094370}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33977,7 +33977,7 @@ GameObject:
   - component: {fileID: 4141513754448657277}
   - component: {fileID: 8691979817720163981}
   - component: {fileID: 3752069210484992532}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34059,7 +34059,7 @@ GameObject:
   - component: {fileID: 5899770061272897609}
   - component: {fileID: 3903782324065226321}
   - component: {fileID: 4028097690263088110}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34141,7 +34141,7 @@ GameObject:
   - component: {fileID: 4401304888185037110}
   - component: {fileID: 4401304888185037104}
   - component: {fileID: 4401304888185037105}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38959,7 +38959,7 @@ GameObject:
   - component: {fileID: 4401304889912175707}
   - component: {fileID: 4401304888299642279}
   - component: {fileID: 4401304888299642276}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BotRightEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -38974,7 +38974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4401304888299642277}
   m_LocalRotation: {x: 0.27059805, y: 0.6532815, z: -0.6532815, w: 0.27059805}
-  m_LocalPosition: {x: 1.54, y: 0.77, z: -3}
+  m_LocalPosition: {x: 2.2, y: 0.77, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4401304888923685926}
@@ -43779,7 +43779,7 @@ GameObject:
   - component: {fileID: 4401304888923685926}
   - component: {fileID: 4401304888923685920}
   - component: {fileID: 4401304888923685921}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48597,7 +48597,7 @@ GameObject:
   - component: {fileID: 1941136600413413658}
   - component: {fileID: 782286765095359061}
   - component: {fileID: 4320662824537516375}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48679,7 +48679,7 @@ GameObject:
   - component: {fileID: 1815367159972732303}
   - component: {fileID: 5544542172190754369}
   - component: {fileID: 1331640497765192241}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48694,7 +48694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4809084579072287226}
   m_LocalRotation: {x: 0.000011742113, y: 0.00008044391, z: -0.045469623, w: 0.99896574}
-  m_LocalPosition: {x: 1.09, y: 4.36, z: 0.01}
+  m_LocalPosition: {x: 1.7, y: 4.27, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4438580318664939076}
@@ -53497,7 +53497,7 @@ GameObject:
   - component: {fileID: 7050577113407062010}
   - component: {fileID: 968944226976713812}
   - component: {fileID: 3306738875222985558}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53579,7 +53579,7 @@ GameObject:
   - component: {fileID: 7956982518499556456}
   - component: {fileID: 6290070466251124081}
   - component: {fileID: 3777293326305851534}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53594,7 +53594,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5090972405441310230}
   m_LocalRotation: {x: 0.000011742113, y: 0.00008044391, z: -0.045469623, w: 0.99896574}
-  m_LocalPosition: {x: -0.11, y: 4.54, z: 0.01}
+  m_LocalPosition: {x: -0.76, y: 4.54, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4438580318664939076}
@@ -58410,11 +58410,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5281205019608451109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.3}
+  m_LocalPosition: {x: 0, y: 0, z: -7.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6608086657917255726}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5834066561107705609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8498417766116159396}
+  m_Layer: 0
+  m_Name: GrapplerLauncher (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8498417766116159396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834066561107705609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6608086657917255726}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6610146552719692507
 GameObject:
@@ -58425,7 +58455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146552719692500}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58440,7 +58470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6610146552719692507}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: -0.6199999}
+  m_LocalPosition: {x: 4, y: 0, z: -6.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6608086657917255726}
@@ -58455,7 +58485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146553511191327}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58470,7 +58500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6610146553511191326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: -0.6199999}
+  m_LocalPosition: {x: -4, y: 0, z: -6.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6608086657917255726}
@@ -58485,7 +58515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146553577935384}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58500,7 +58530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6610146553577935391}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.1941047}
+  m_LocalPosition: {x: 0, y: 0, z: -10.604105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6608086657917255726}
@@ -58515,7 +58545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6610146554126645592}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -58530,7 +58560,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6610146554126645599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.38}
+  m_LocalPosition: {x: 0, y: 0, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6608086657917255726}
@@ -58557,7 +58587,6 @@ GameObject:
   - component: {fileID: 8505246749900283277}
   - component: {fileID: 3480017413687531290}
   - component: {fileID: 2516773033153538171}
-  - component: {fileID: 5671666735843171032}
   m_Layer: 6
   m_Name: GarbageUnit
   m_TagString: Dynamic
@@ -58588,8 +58617,8 @@ Transform:
   - {fileID: 1835355092891119883}
   - {fileID: 8520683426295149190}
   - {fileID: 4438580318664939076}
+  - {fileID: 8498417766116159396}
   - {fileID: 8051306318905621240}
-  - {fileID: 8488163409569000552}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58649,6 +58678,12 @@ MonoBehaviour:
     shipId: 
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
   volume: {fileID: 0}
@@ -58659,7 +58694,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!114 &1796236598746676446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58692,7 +58726,7 @@ MonoBehaviour:
   FixedSendsPerSecond: 60
   AssumeSyncedSends: 1
   InterpolatePosition: 1
-  SnapDistance: 10
+  SnapDistance: 0.5
   InterpolateServer: 1
   MinMeters: 0.01
   MinDegrees: 0.01
@@ -58802,6 +58836,8 @@ MonoBehaviour:
     type: 3}
   _unit: {fileID: 6265344899163924165}
   _launcher: {fileID: 6185301487727607286}
+  grapplerObjectId:
+    m_InternalValue: 0
 --- !u!114 &8505246749900283277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58842,22 +58878,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.56
-  m_Height: 9.39
+  m_Radius: 2.5968513
+  m_Height: 13.069167
   m_Direction: 2
-  m_Center: {x: 0, y: 0.8, z: 0}
---- !u!114 &5671666735843171032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6610596549608757994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12f191d108d401cbc9c2cdb5424894c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Center: {x: 0.03344345, y: 1.9200001, z: -5.2696595}
 --- !u!1 &7273362725475606594
 GameObject:
   m_ObjectHideFlags: 0
@@ -58867,7 +58891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8051306318905621240}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ShipModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58882,8 +58906,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7273362725475606594}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65508, y: 0.65508, z: 0.65508}
+  m_LocalPosition: {x: 0, y: 0, z: -5.0328}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1941136600413413658}
   - {fileID: 8841568551533773551}
@@ -58897,7 +58921,7 @@ Transform:
   - {fileID: 5910140727676045452}
   - {fileID: 152826576918770544}
   m_Father: {fileID: 6608086657917255726}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &7903681326244967134
 GameObject:
@@ -58910,7 +58934,7 @@ GameObject:
   - component: {fileID: 7785872222030548737}
   - component: {fileID: 4126586899253360144}
   - component: {fileID: 1717299115611050763}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58992,7 +59016,7 @@ GameObject:
   - component: {fileID: 152826576918770544}
   - component: {fileID: 1777401948918171310}
   - component: {fileID: 6607412410624925440}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59074,7 +59098,7 @@ GameObject:
   - component: {fileID: 8192978497885726147}
   - component: {fileID: 7372898542006164539}
   - component: {fileID: 8482836955768075239}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59156,7 +59180,7 @@ GameObject:
   - component: {fileID: 8520683426295149190}
   - component: {fileID: 8520683426584664740}
   - component: {fileID: 8520683426584664743}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TopLeftEmition
   m_TagString: Dynamic
   m_Icon: {fileID: 0}
@@ -59171,7 +59195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8520683426584664742}
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: -1.39, y: 0.77, z: 2}
+  m_LocalPosition: {x: -2.2, y: 0.77, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8520683427331823522}
@@ -63976,7 +64000,7 @@ GameObject:
   - component: {fileID: 8520683427331823522}
   - component: {fileID: 8520683427331823520}
   - component: {fileID: 8520683427331823523}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68794,7 +68818,7 @@ GameObject:
   - component: {fileID: 8520683427834069593}
   - component: {fileID: 8520683427834069599}
   - component: {fileID: 8520683427834069598}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73612,7 +73636,7 @@ GameObject:
   - component: {fileID: 8841568551533773551}
   - component: {fileID: 8424668614873261690}
   - component: {fileID: 3907994123156315961}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shuttle.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73683,86 +73707,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &2584549327993880750
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6608086657917255726}
-    m_Modifications:
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7187342219552212202, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_Name
-      value: EmergencyBeacon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7187342219552212202, guid: 1761331e1d6ffc34699d154966ee9816,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1761331e1d6ffc34699d154966ee9816, type: 3}
---- !u!4 &8488163409569000552 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6202066149213531334, guid: 1761331e1d6ffc34699d154966ee9816,
-    type: 3}
-  m_PrefabInstance: {fileID: 2584549327993880750}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4483696703505763817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73885,7 +73829,7 @@ PrefabInstance:
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.56
+      value: -6.27
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
@@ -73895,7 +73839,7 @@ PrefabInstance:
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.26
+      value: -10.53
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}

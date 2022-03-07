@@ -55,7 +55,7 @@ namespace Net.Components
             _playerScript.NetworkUnitConfig.CurrentHp = 
                 Math.Min(
                     Math.Max(
-                        _playerScript.NetworkUnitConfig.CurrentHp + hpDelta.Value * Time.deltaTime,
+                        _playerScript.NetworkUnitConfig.CurrentHp + hpDelta.Value * Time.deltaTime * _playerScript.NetworkUnitConfig.RadResistanceCoefficient,
                         0
                     ),
                     _playerScript.NetworkUnitConfig.MaxHp
@@ -74,6 +74,6 @@ namespace Net.Components
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>
-            Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed);
+            Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed) * _playerScript.NetworkUnitConfig.PhysResistanceCoefficient;
     }
 }

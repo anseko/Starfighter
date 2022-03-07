@@ -1001,13 +1001,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 20
+  FixedSendsPerSecond: 60
   AssumeSyncedSends: 1
   InterpolatePosition: 1
-  SnapDistance: 10
+  SnapDistance: 0.5
   InterpolateServer: 1
-  MinMeters: 0.15
-  MinDegrees: 1.5
+  MinMeters: 0.01
+  MinDegrees: 0.01
   ExtrapolatePosition: 0
   MaxSendsToExtrapolate: 5
   Channel: 
@@ -1065,6 +1065,12 @@ MonoBehaviour:
     shipId: 
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
   volume: {fileID: 0}
@@ -1075,7 +1081,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!54 &-6264106098339312431
 Rigidbody:
   m_ObjectHideFlags: 0

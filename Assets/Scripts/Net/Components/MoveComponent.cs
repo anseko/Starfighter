@@ -93,12 +93,14 @@ namespace Net.Components
         private void UpdateMovement()
         {
             if (!IsOwner || (IsServer && !IsHost)) return; 
+            
+            
             _lastMovement.Value = new MovementData()
             {
-                rotationValue = Input.GetAxis("Rotation") * 4.5f,
-                sideManeurValue = Input.GetAxis("Horizontal"),
-                straightManeurValue = Input.GetAxis("Vertical"),
-                thrustValue = Input.GetAxis("Jump") * 5f
+                rotationValue = Input.GetAxis("Rotation") * _unit.NetworkUnitConfig.Acceleration * _unit.NetworkUnitConfig.AccelerationCoefficient,
+                sideManeurValue = Input.GetAxis("Horizontal") * _unit.NetworkUnitConfig.AccelerationCoefficient,
+                straightManeurValue = Input.GetAxis("Vertical") * _unit.NetworkUnitConfig.AccelerationCoefficient,
+                thrustValue = Input.GetAxis("Jump") * _unit.NetworkUnitConfig.Acceleration * _unit.NetworkUnitConfig.AccelerationCoefficient
             };
             
             // расчет вектора тяги

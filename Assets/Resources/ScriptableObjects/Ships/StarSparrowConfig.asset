@@ -18,11 +18,17 @@ MonoBehaviour:
   currentHp: 0
   isDockable: 1
   isMovable: 0
-  position: {x: -48.093616, y: 1.0032114, z: -25.854753}
-  rotation: {x: 0.0002818653, y: 0.39930573, z: -0.009017108, w: 0.91677344}
+  position: {x: 15, y: 1, z: 9.999973}
+  rotation: {x: 0.000000014892521, y: -0.000000012120836, z: -6.1118044e-10, w: 1}
   prefabName: StarSparrow5
   maxStress: 100
   currentStress: 0
   shipId: sparrow002
   shipState: 0
-  baseColor: {r: 0, g: 1, b: 0.050011873, a: 0}
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 5
+  radarRange: 1080
+  accelerationCoefficient: 0
+  physResistanceCoefficient: 0
+  radResistanceCoefficient: 0
+  radarRangeCoefficient: 0

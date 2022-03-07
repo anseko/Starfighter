@@ -26,3 +26,9 @@ MonoBehaviour:
   shipId: ship006
   shipState: 0
   baseColor: {r: 0.37123233, g: 0.026297145, b: 1.1149992, a: 1}
+  acceleration: 5
+  radarRange: 1080
+  accelerationCoefficient: 1
+  physResistanceCoefficient: 1
+  radResistanceCoefficient: 1
+  radarRangeCoefficient: 1

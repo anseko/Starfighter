@@ -13,9 +13,9 @@ namespace Client.Core
         [SerializeField] private Canvas _navigatorUi;
         [SerializeField] private Canvas _adminUi;
         [SerializeField] private Canvas _spectatorUi;
-        [SerializeField] private Canvas _moderatorUi;
         [SerializeField] private Canvas _mainMenuUi;
         [SerializeField] private Canvas _stationUi;
+        [SerializeField] private Canvas _mechanicUi;
         
         public void InitPilot(PlayerScript ps)
         {
@@ -113,6 +113,18 @@ namespace Client.Core
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
+        }
+        public void InitMechanic()
+        {
+            _mechanicUi.gameObject.SetActive(true);
+            _mainMenuUi.gameObject.SetActive(false);
+            var cam = FindObjectOfType<Camera>();
+            var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
+            Destroy(FindObjectOfType<GridFiller>().gameObject);
+            cam.orthographicSize = 100;
+            followComp.enabled = false;
+            var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
+            zoomComp.enabled = false;
         }
     }
 }

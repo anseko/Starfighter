@@ -18,7 +18,8 @@ namespace Net.Components
         public void Init(PlayerScript ps)
         {
             _fovInstance = Instantiate(_fovCollider, gameObject.transform);
-            _fovInstance.transform.localScale *= ps.FOVRadius;
+            _fovInstance.transform.localScale *=
+                ps.NetworkUnitConfig.RadarRange * ps.NetworkUnitConfig.RadarRangeCoefficient;
             
             enabled = true;
             SceneManager.GetActiveScene()

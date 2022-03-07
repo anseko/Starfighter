@@ -1,5 +1,4 @@
 using Core;
-using Core.Models;
 using System.Linq;
 using MLAPI;
 using MLAPI.NetworkVariable;
@@ -17,9 +16,8 @@ namespace Client.Core
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody Rigidbody;
-        public float FOVRadius;
 
-        
+
         private new void Awake()
         {
             base.Awake();
@@ -34,8 +32,6 @@ namespace Client.Core
                 WritePermission = NetworkVariablePermission.Custom,
                 WritePermissionCallback = id => IsOwner || IsServer
             }, Vector3.zero);
-                
-            FOVRadius = 1080;
         }
 
         private void Start()
@@ -43,11 +39,7 @@ namespace Client.Core
             #if UNITY_EDITOR
                 if (localUsage)
                 {
-                    var dto = new SpaceUnitDto(
-                        Resources.Load<SpaceShipConfig>(Constants.PathToShipsObjects + "SpaceunitConfig.Value"));
-                    // NetworkUnitConfig = new NetworkSpaceUnitDto(dto, id => IsOwner || IsServer);
-                    // GetComponent<ClientInitManager>().InitPilot(this);
-                    NetworkManager.Singleton.StartHost();
+                  NetworkManager.Singleton.StartHost();
                 }
             #endif
             

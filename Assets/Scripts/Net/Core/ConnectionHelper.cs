@@ -41,7 +41,8 @@ namespace Net.Core
                 case UserType.SpaceStation:
                     GetComponent<ClientInitManager>().InitStation(ps);
                     break;
-                case UserType.Moderator:
+                case UserType.Mechanic:
+                    GetComponent<ClientInitManager>().InitMechanic();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

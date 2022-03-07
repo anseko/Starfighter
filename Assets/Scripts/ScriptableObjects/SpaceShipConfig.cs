@@ -14,5 +14,13 @@ namespace ScriptableObjects
         public UnitState shipState;
         [ColorUsage(true, true)]
         public Color baseColor;
+        
+        public float acceleration;
+        public float radarRange;
+        
+        public float accelerationCoefficient;
+        public float physResistanceCoefficient;
+        public float radResistanceCoefficient;
+        public float radarRangeCoefficient;
     }
 }

@@ -61,6 +61,12 @@ namespace Net.Core
                         temp.prefabName = x.prefabName;
                         temp.shipState = x.shipState;
                         temp.baseColor = x.baseColor;
+                        temp.acceleration = x.acceleration;
+                        temp.radarRange = x.radarRange;
+                        temp.accelerationCoefficient = x.accelerationCoefficient;
+                        temp.physResistanceCoefficient = x.physResistanceCoefficient;
+                        temp.radResistanceCoefficient = x.radResistanceCoefficient;
+                        temp.radarRangeCoefficient = x.radarRangeCoefficient;
                         return temp;
                     }).ToArray();
             }

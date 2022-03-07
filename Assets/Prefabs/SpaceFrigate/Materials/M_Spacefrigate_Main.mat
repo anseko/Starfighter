@@ -20,8 +20,24 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Emission_Texture:
+        m_Texture: {fileID: 2800000, guid: fd4d61e7a6d4f764b82482047ee2242b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Main_Texture:
+        m_Texture: {fileID: 2800000, guid: 4a509910efd559c4f8ba0395fae58b1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - MetallicTexture:
+        m_Texture: {fileID: 2800000, guid: 26ef18b8554244e468494868dd6fead7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_Texture:
+        m_Texture: {fileID: 2800000, guid: 8acfa108df3dc724bb02b95ffc346a3d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 58b7cac6f4fca944db1a4c232f21a6b6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4a509910efd559c4f8ba0395fae58b1a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -45,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 58b7cac6f4fca944db1a4c232f21a6b6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4a509910efd559c4f8ba0395fae58b1a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -58,6 +74,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_16e28647a13e4061b05ac86e720bbcbe_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 48ecabd530ef79b458ed6f0e9196ddfc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -78,6 +98,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Noise_Scale: 50
+    - Smoothness: 1
+    - Value: -0.96
+    - Width: 0.01
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -107,6 +131,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Dissolve_Color: {r: 0, g: 0.01192188, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
