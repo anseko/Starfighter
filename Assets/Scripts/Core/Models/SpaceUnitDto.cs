@@ -54,6 +54,10 @@ namespace Core.Models
                 baseColor = shipConfig.baseColor;
                 acceleration = shipConfig.acceleration;
                 radarRange = shipConfig.radarRange;
+                accelerationCoefficient = shipConfig.accelerationCoefficient;
+                physResistanceCoefficient = shipConfig.physResistanceCoefficient;
+                radResistanceCoefficient = shipConfig.radResistanceCoefficient;
+                radarRangeCoefficient = shipConfig.radarRangeCoefficient;
             }
             else
             {

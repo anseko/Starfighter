@@ -27,6 +27,16 @@ namespace Net.Components
                 .Where(x => x.layer == LayerMask.NameToLayer("Units") || x.layer == LayerMask.NameToLayer("Ships"))
                 .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
             gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
+
+            ps.NetworkUnitConfig._radarRange.OnValueChanged += (value, newValue) =>
+            {
+                _fovInstance.transform.localScale *= newValue * ps.NetworkUnitConfig.RadarRangeCoefficient;
+            };
+            
+            ps.NetworkUnitConfig._radarRangeCoefficient.OnValueChanged += (value, newValue) =>
+            {
+                _fovInstance.transform.localScale *= newValue * ps.NetworkUnitConfig.RadarRange;
+            };
         }
 
         private void OnTriggerEnter(Collider other)
