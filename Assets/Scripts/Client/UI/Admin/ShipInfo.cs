@@ -23,7 +23,8 @@ namespace Client.UI.Admin
         [SerializeField] private TMP_InputField _maxStress;
         [SerializeField] private TMP_InputField _maxHp;
 
-
+        private SubmitMenu _submitMenu;
+        
         private void Awake()
         {
             _applyButton.onClick.AddListener(Apply);
@@ -38,9 +39,10 @@ namespace Client.UI.Admin
             _despawnButton.onClick.AddListener(Despawn);
         }
 
-        public void Init(PlayerScript playerScript)
+        public void Init(PlayerScript playerScript, SubmitMenu submitMenu)
         {
             this.playerScript = playerScript;
+            _submitMenu = submitMenu;
 
             _shipName.text = this.playerScript.NetworkUnitConfig.ShipId;
             
@@ -86,10 +88,13 @@ namespace Client.UI.Admin
 
         private void Despawn()
         {
-            var spawner = FindObjectOfType<Spawner>();
-            spawner.selectedPrefab = playerScript.gameObject;
-            spawner.Despawn();
-            Destroy(gameObject);
+            _submitMenu.RaiseSubmit(() =>
+            {
+                var spawner = FindObjectOfType<Spawner>();
+                spawner.selectedPrefab = playerScript.gameObject;
+                spawner.Despawn();
+                Destroy(gameObject);
+            });
         }
     }
 }

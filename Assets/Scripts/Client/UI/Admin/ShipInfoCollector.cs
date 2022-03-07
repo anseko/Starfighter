@@ -10,6 +10,7 @@ namespace Client.UI.Admin
         public List<ShipInfo> ShipInfos = new List<ShipInfo>();
         [SerializeField] private ShipInfo _shipInfoPrefab;
         [SerializeField] private GameObject _view;
+        [SerializeField] private SubmitMenu _submitMenu;
 
         public void Init()
         {
@@ -17,7 +18,7 @@ namespace Client.UI.Admin
             foreach (var playerScript in ships)
             {
                 var instance = Instantiate(_shipInfoPrefab, _view.transform);
-                instance.Init(playerScript);
+                instance.Init(playerScript, _submitMenu);
                 ShipInfos.Add(instance);
             }
         }
@@ -25,7 +26,7 @@ namespace Client.UI.Admin
         public void Add(PlayerScript playerScript)
         {
             var instance = Instantiate(_shipInfoPrefab, _view.transform);
-            instance.Init(playerScript);
+            instance.Init(playerScript, _submitMenu);
             ShipInfos.Add(instance);
         }
 
