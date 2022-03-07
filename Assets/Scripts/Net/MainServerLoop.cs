@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Client.Core;
@@ -32,10 +33,20 @@ namespace Net
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnectCallback;
 
-            //TODO: Поменять для др карты
-            var field = Resources.Load<GameObject>(Constants.PathToPrefabs + "SpaceField 1");
-            var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
-            StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
+            try
+            {
+                var spacefield = File.ReadAllText(Constants.PathToAsteroids);
+                var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
+                var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
+                StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
+            }
+            catch (FileNotFoundException notFoundException)
+            {
+                var spacefield = File.ReadAllText(Constants.PathToAsteroids + "Spacefield 1");
+                var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
+                var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
+                StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
+            }
         }
         
         private void OnDisconnectCallback(ulong clientId)
