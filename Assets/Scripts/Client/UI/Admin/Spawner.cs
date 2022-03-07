@@ -18,6 +18,14 @@ namespace Client.UI.Admin
         [SerializeField] private ShipInfoCollector _shipInfoCollector;
         [SerializeField] private UnitInfoCollector _unitInfoCollector;
 
+
+        public void Init()
+        {
+            _cam = FindObjectOfType<Camera>(false);
+            _shipInfoCollector = FindObjectOfType<ShipInfoCollector>();
+            _unitInfoCollector = FindObjectOfType<UnitInfoCollector>();
+        }
+        
         public void Spawn(string pathToPrefab, string prefabName, string newShipId)
         {
             var position = new Vector3(_cam.transform.position.x, 1, _cam.transform.position.z);

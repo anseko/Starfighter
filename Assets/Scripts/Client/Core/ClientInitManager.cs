@@ -102,9 +102,10 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _adminUi.gameObject.SetActive(true);
-            FindObjectOfType<ShipInfoCollector>().Init();
-            FindObjectOfType<UnitInfoCollector>().Init();
-            FindObjectOfType<PrefabCollector>().Init();
+            FindObjectOfType<ShipInfoCollector>()?.Init();
+            FindObjectOfType<UnitInfoCollector>()?.Init();
+            FindObjectOfType<PrefabCollector>()?.Init();
+            FindObjectOfType<Spawner>()?.Init();
             
             var cam = FindObjectOfType<Camera>(false);
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
@@ -114,6 +115,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
         }
+        
         public void InitMechanic()
         {
             _mechanicUi.gameObject.SetActive(true);
