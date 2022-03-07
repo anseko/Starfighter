@@ -59858,6 +59858,7 @@ GameObject:
   - component: {fileID: 3480017413687531290}
   - component: {fileID: 7645884573328997775}
   - component: {fileID: 9210229393573902187}
+  - component: {fileID: -6811537720813132719}
   m_Layer: 6
   m_Name: InterSolar
   m_TagString: Dynamic
@@ -60158,6 +60159,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.87, y: 3.66, z: 2.76}
   m_Center: {x: 0, y: 1.36, z: -1.81}
+--- !u!114 &-6811537720813132719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610596549608757994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12f191d108d401cbc9c2cdb5424894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6643835310466275931
 GameObject:
   m_ObjectHideFlags: 0
@@ -75302,6 +75315,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
+--- !u!4 &3469216933282618816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4483696703505763817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3352805976116402331 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1206618491851150706, guid: 491a77f13b0733d48bddf71218b8b47c,
@@ -75314,12 +75333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3469216933282618816 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
-    type: 3}
-  m_PrefabInstance: {fileID: 4483696703505763817}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7947121993454554987
 PrefabInstance:
   m_ObjectHideFlags: 0

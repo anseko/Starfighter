@@ -45,22 +45,22 @@ namespace Client.Utils
             blur.parameters[7].SetValue(new FloatParameter(1));
         }
 
-        private void Start()
-        {
-            switch (_playerScript.NetworkUnitConfig.ShipState)
-            {
-                case UnitState.InFlight:
-                    GoResurrect(1);
-                    break;
-                case UnitState.IsDocked:
-                    break;
-                case UnitState.IsDead:
-                    GoToDeath(1);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        // private void Start()
+        // {
+        //     switch (_playerScript.NetworkUnitConfig.ShipState)
+        //     {
+        //         case UnitState.InFlight:
+        //             GoResurrect(1);
+        //             break;
+        //         case UnitState.IsDocked:
+        //             break;
+        //         case UnitState.IsDead:
+        //             GoToDeath(1);
+        //             break;
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        // }
         
         public async Task GoToDeath(int timeLength)
         {

@@ -11,9 +11,9 @@ namespace Client.Utils
         private Volume _volume;
         private float _maxHp;
 
-        public void Init()
+        public void Init(PlayerScript playerScript)
         {
-            _volume = FindObjectOfType<Volume>(true);
+            _volume = playerScript.volume;
             _maxHp = gameObject.GetComponent<PlayerScript>().NetworkUnitConfig.MaxHp;
             
             var vignette = _volume.profile.components.First(x => x is Vignette);

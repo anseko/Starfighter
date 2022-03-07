@@ -36,7 +36,7 @@ namespace Client.Core
             FindObjectOfType<DockingState>()?.Init(ps);
             FindObjectOfType<GPSView>(true)?.Init(ps);
             FindObjectOfType<DeathStateEffects>()?.Init(ps);
-            FindObjectOfType<HpMarker>()?.Init();
+            FindObjectOfType<HpMarker>()?.Init(ps);
             Destroy(FindObjectOfType<GridFiller>().gameObject);
             //не отображать зоны опасности на пилоте
             foreach (var dangerZone in FindObjectsOfType<DangerZone>())

@@ -50,11 +50,11 @@ namespace Client.Core
                     NetworkManager.Singleton.StartHost();
                 }
             #endif
-            unitStateMachine = new UnitStateMachine(gameObject, NetworkUnitConfig.ShipState);
             
             volume = FindObjectOfType<Volume>(true);
             Rigidbody = GetComponent<Rigidbody>();
             
+            unitStateMachine = new UnitStateMachine(gameObject, NetworkUnitConfig.ShipState);
             NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
             {
                 unitStateMachine.ChangeState(newValue);
