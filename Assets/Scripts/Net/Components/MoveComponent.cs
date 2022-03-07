@@ -65,13 +65,6 @@ namespace Net.Components
             _backLeftSystems.ForEach(x=>x.Stop());
             _backRightSystems.ForEach(x=>x.Stop());
             _trustSystems.ForEach(x=>x.Stop());
-            _lastMovement.Value = new MovementData()
-            {
-                rotationValue = 0,
-                sideManeurValue = 0,
-                straightManeurValue = 0,
-                thrustValue = 0
-            };
             _thrustForce.force = Vector3.zero;
             _thrustForce.torque = Vector3.zero;
             _rigidbody.velocity = Vector3.zero;
@@ -82,9 +75,14 @@ namespace Net.Components
                 _unit.shipSpeed.Value = _unit.Rigidbody.velocity;
                 _unit.shipRotation.Value = _unit.Rigidbody.angularVelocity;
             }
-
-            if (!IsServer) AnimateMovementServerRpc();
-            else AnimateMovementClientRpc();
+            
+            _lastMovement.Value = new MovementData()
+            {
+                rotationValue = 0,
+                sideManeurValue = 0,
+                straightManeurValue = 0,
+                thrustValue = 0
+            };
         }
 
         private void Update()

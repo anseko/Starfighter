@@ -4,6 +4,7 @@ using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Net.Components
@@ -16,19 +17,19 @@ namespace Net.Components
         private PlayerScript _unit;
         [SerializeField]
         private Transform _launcher;
-        private NetworkVariable<ulong> _grapplerObjectId;
-        public NetworkVariable<bool> GrappleOut { get; private set; }
+        public NetworkVariable<ulong> grapplerObjectId;
+        private bool _grappleOut;
 
         private void Awake()
         {
-            GrappleOut = new NetworkVariable<bool>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer 
-            });
+            // GrappleOut = new NetworkVariable<bool>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = id => IsOwner || IsServer 
+            // });
             
-            _grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
+            grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
             {
                 ReadPermission = NetworkVariablePermission.Everyone,
                 WritePermission = NetworkVariablePermission.ServerOnly
@@ -42,17 +43,15 @@ namespace Net.Components
             if (!IsOwner || _unit.isGrappled.Value) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
-                if (GrappleOut.Value)
+                if (grapplerObjectId.Value != default)
                 {
-                    var grappler = GetNetworkObject(_grapplerObjectId.Value)?.GetComponent<Grappler>();
+                    var grappler = GetNetworkObject(grapplerObjectId.Value)?.GetComponent<Grappler>();
                     grappler?.DestroyOnServer();
                 }
                 else
                 {
                     InitGrappleServerRpc();   
                 }
-                
-                GrappleOut.Value = !GrappleOut.Value;
             }
         }
 
@@ -62,7 +61,7 @@ namespace Net.Components
             var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
             var netGrappler = grapplerGo.GetComponent<NetworkObject>();
             netGrappler.Spawn(destroyWithScene: true);
-            _grapplerObjectId.Value = netGrappler.NetworkObjectId;
+            grapplerObjectId.Value = netGrappler.NetworkObjectId;
             grapplerGo.GetComponent<Grappler>().Init(_unit, 20);
         }
     }

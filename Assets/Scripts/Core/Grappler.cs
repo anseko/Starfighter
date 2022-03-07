@@ -76,8 +76,6 @@ namespace Core
             if (grappledObject == null &&
                 _maxLength < distance)
             {
-                //превысили возможную длину, но так ничего не нашли.
-                _owner.GetComponent<GrappleComponent>().GrappleOut.Value = false;
                 DestroyOnServer();
             }
         }
@@ -176,8 +174,13 @@ namespace Core
                 {
                     moveComponent.enabled = true;
                 }
-                if(gameObject.GetComponent<NetworkObject>().IsSpawned)
+
+                if (gameObject.GetComponent<NetworkObject>().IsSpawned)
+                {
                     gameObject.GetComponent<NetworkObject>().Despawn(true);
+                }
+                
+                _owner.GetComponent<GrappleComponent>().grapplerObjectId.Value = default;
             }
             else
             {
@@ -209,8 +212,12 @@ namespace Core
             {
                 moveComponent.enabled = true;
             }
-            if(gameObject.GetComponent<NetworkObject>().IsSpawned)
+
+            if (gameObject.GetComponent<NetworkObject>().IsSpawned)
+            {
                 gameObject.GetComponent<NetworkObject>().Despawn(true);
+            }
+            _owner.GetComponent<GrappleComponent>().grapplerObjectId.Value = default;
         }
     }
 }
