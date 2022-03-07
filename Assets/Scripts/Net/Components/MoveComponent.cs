@@ -35,7 +35,7 @@ namespace Net.Components
         private List<ParticleSystem> _trustSystems;
         private ConstantForce _thrustForce;
         private NetworkVariable<MovementData> _lastMovement;
-        private UnitScript _unit;
+        private PlayerScript _unit;
         private Rigidbody _rigidbody;
 
         private void Awake()
@@ -76,7 +76,13 @@ namespace Net.Components
             _thrustForce.torque = Vector3.zero;
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
-            
+
+            if (_unit.IsOwner)
+            {
+                _unit.shipSpeed.Value = _unit.Rigidbody.velocity;
+                _unit.shipRotation.Value = _unit.Rigidbody.angularVelocity;
+            }
+
             if (!IsServer) AnimateMovementServerRpc();
             else AnimateMovementClientRpc();
         }

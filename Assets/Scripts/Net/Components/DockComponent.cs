@@ -52,9 +52,16 @@ namespace Net.Components
             
             if(_unit is null) return;
             
-            if (Input.GetKeyDown(_unit.keyConfig.dock) && readyToDock.Value)
+            if (Input.GetKeyDown(_unit.keyConfig.dock) && (readyToDock.Value || _unit.NetworkUnitConfig.ShipState == UnitState.IsDocked))
             {
-                TryToDockServerRpc(GetComponent<NetworkObject>().NetworkObjectId, lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
+                if (_unit.NetworkUnitConfig.ShipState == UnitState.IsDocked)
+                {
+                    EmergencyUndockServerRpc(lastThingToDock?.GetComponent<NetworkObject>()?.NetworkObjectId ?? default, true);
+                }
+                else
+                {
+                    TryToDockServerRpc(lastThingToDock?.GetComponent<NetworkObject>()?.NetworkObjectId ?? default);
+                }
             }
         }
 
@@ -89,30 +96,25 @@ namespace Net.Components
         }
 
         [ServerRpc]
-        public void EmergencyUndockServerRpc(ulong myObjectId, ulong otherObjectId, bool changeSelfState = false)
+        public void EmergencyUndockServerRpc(ulong otherObjectId, bool changeSelfState = false)
         {
-            var myObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == myObjectId);
             var otherObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == otherObjectId);
-            if (myObj is null || otherObj is null) return;
+            if (otherObj is null && otherObjectId != default) return;
 
-            var otherUnit = otherObj.GetComponent<PlayerScript>();
+            var otherUnit = otherObj?.GetComponent<PlayerScript>();
             
             if (changeSelfState) _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
-            if (otherUnit != null) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
+            if (otherUnit != null && otherUnit.NetworkUnitConfig.ShipState != UnitState.IsDead) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
             transform.SetParent(null);
-            
-            // EmergencyUndockClientRpc();
-            // otherObj.GetComponent<DockComponent>().EmergencyUndockClientRpc();
         }
         
         [ServerRpc]
-        private void TryToDockServerRpc(ulong myObjectId, ulong otherObjectId)
+        private void TryToDockServerRpc(ulong otherObjectId)
         {
-            var myObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == myObjectId);
             var otherObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == otherObjectId);
-            if (myObj is null || otherObj is null) return;
+            if (otherObj is null) return;
 
             var otherIsReady = false;
             otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock.Value;
@@ -127,6 +129,7 @@ namespace Net.Components
                     _unit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
+                        if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;
                         //если мы стыкуемся к объекту с PlayerScript
                         otherUnit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
                     }
@@ -140,55 +143,12 @@ namespace Net.Components
                     _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
+                        if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;
                         otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
                     }
                     //если мы отходим от объекта без PlayerScript
                     transform.SetParent(null);
                     break;
-                case UnitState.IsDead:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        private void SwitchDockStateClientRpc()
-        {
-            if (!IsOwner || IsServer || _unit is null) return;
-            //Клиент не может быть владельцем unitScript 
-            switch (_unit.GetState())
-            {
-                case UnitState.InFlight:
-                    _unit.unitStateMachine.ChangeState(UnitState.IsDocked);
-                    if (!lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
-                    {
-                        transform.SetParent(lastThingToDock.transform);
-                    }
-                    break;
-                case UnitState.IsDocked:
-                    _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                    transform.SetParent(null);
-                    break;
-                case UnitState.IsDead:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        private void EmergencyUndockClientRpc()
-        {
-            if (!IsOwner || IsServer || _unit is null) return;
-            //Клиент не может быть владельцем unitScript 
-            switch (_unit.GetState())
-            {
-                case UnitState.IsDocked:
-                    _unit.unitStateMachine.ChangeState(UnitState.InFlight);
-                    transform.SetParent(null);
-                    break;
-                case UnitState.InFlight:
                 case UnitState.IsDead:
                     break;
                 default:
