@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using ScriptableObjects;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Client.UI.Admin
         {
             var ships = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
             var units = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
+            var zones = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZonesObjects).Distinct(new ZoneComparer());
             
             foreach (var info in ships)
             {
@@ -28,6 +30,25 @@ namespace Client.UI.Admin
                 var instance = Instantiate(_prefabInfoPrefab, _view.transform);
                 instance.Init(info);
                 AllInfos.Add(instance);
+            }
+
+            foreach (var info in zones)
+            {
+                var instance = Instantiate(_prefabInfoPrefab, _view.transform);
+                instance.Init(info);
+                AllInfos.Add(instance);
+            }
+        }
+        
+        private class ZoneComparer : IEqualityComparer<DangerZoneConfig> {
+            public bool Equals(DangerZoneConfig zone1, DangerZoneConfig zone2)
+            {
+                return zone1.type == zone2.type;
+            }
+
+            public int GetHashCode(DangerZoneConfig obj)
+            {
+                return obj.GetHashCode();
             }
         }
     }

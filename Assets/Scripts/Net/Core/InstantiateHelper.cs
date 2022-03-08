@@ -50,17 +50,21 @@ namespace Net.Core
             return unitScript;
         }
 
-        public static void InstantiateDangerZone(DangerZoneConfig dangerZone)
+        public static DangerZone InstantiateDangerZone(DangerZoneConfig dangerZoneConfig)
         {
+            dangerZoneConfig.id = dangerZoneConfig.id == Guid.Empty ? Guid.NewGuid() : dangerZoneConfig.id;
             var goToInstantiate = Resources.Load(Constants.PathToPrefabs + "DangerZone") as GameObject;
-            var instance = Object.Instantiate(goToInstantiate, dangerZone.Center, Quaternion.Euler(90, 0, 0));
-            instance.GetComponent<DangerZone>().id = dangerZone.Id;
-            dangerZone.Id = Guid.NewGuid();
-            instance.GetComponent<DangerZone>().zoneColor.Value = dangerZone.Color;
-            instance.GetComponent<DangerZone>().zoneStressDamage.Value = dangerZone.StressDamage;
-            instance.GetComponent<DangerZone>().zoneHpDamage.Value = dangerZone.HpDamage;
-            instance.GetComponent<DangerZone>().zoneRadius.Value = dangerZone.Radius;
+            var instance = Object.Instantiate(goToInstantiate, dangerZoneConfig.center, Quaternion.Euler(90, 0, 0));
+            var dangerZone = instance.GetComponent<DangerZone>();
+            dangerZone.Guid = dangerZoneConfig.id;
+            dangerZone.zoneColor.Value = dangerZoneConfig.color;
+            dangerZone.zoneStressDamage.Value = dangerZoneConfig.stressDamage;
+            dangerZone.zoneHpDamage.Value = dangerZoneConfig.hpDamage;
+            dangerZone.zoneRadius.Value = dangerZoneConfig.radius;
+            dangerZone.zoneType.Value = dangerZoneConfig.type;
+            instance.name = "DangerZone" + Constants.Separator + dangerZoneConfig.id;
             instance.SetActive(true);
+            return dangerZone;
         }
     }
 }

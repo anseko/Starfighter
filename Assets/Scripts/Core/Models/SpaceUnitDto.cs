@@ -66,6 +66,10 @@ namespace Core.Models
                 shipId = string.Empty;
                 shipState = UnitState.InFlight;
                 baseColor = Color.white;
+                accelerationCoefficient = 1;
+                physResistanceCoefficient = 1;
+                radResistanceCoefficient = 1;
+                radarRangeCoefficient = 1;
             }
         }
         

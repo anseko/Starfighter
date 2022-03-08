@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: VioletZone
   m_EditorClassIdentifier: 
-  StressDamage: 0.0023
-  HpDamage: 0
-  Center: {x: -248, y: -1, z: -556}
-  Radius: 35
-  Color: {r: 0.7529412, g: 0, b: 1, a: 0.15686275}
+  stressDamage: 0
+  hpDamage: 0
+  center: {x: 0, y: 0, z: 0}
+  radius: 2
+  color: {r: 0.7529412, g: 0, b: 1, a: 0.29803923}
+  type: 3

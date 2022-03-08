@@ -17,6 +17,7 @@ namespace Client.UI.Admin
         public GameObject selectedPrefab;
         [SerializeField] private ShipInfoCollector _shipInfoCollector;
         [SerializeField] private UnitInfoCollector _unitInfoCollector;
+        [SerializeField] private DangerZoneInfoCollector _zoneInfoCollector;
 
 
         public void Init()
@@ -24,13 +25,14 @@ namespace Client.UI.Admin
             _cam = FindObjectOfType<Camera>(false);
             _shipInfoCollector = FindObjectOfType<ShipInfoCollector>();
             _unitInfoCollector = FindObjectOfType<UnitInfoCollector>();
+            _zoneInfoCollector = FindObjectOfType<DangerZoneInfoCollector>();
         }
         
-        public void Spawn(string pathToPrefab, string prefabName, string newShipId)
+        public void Spawn(string pathToConfig, string prefabName, string newShipId)
         {
             var position = new Vector3(_cam.transform.position.x, 1, _cam.transform.position.z);
 
-            SpawnServerRpc(pathToPrefab, prefabName, newShipId, position, NetworkManager.Singleton.LocalClientId);
+            SpawnServerRpc(pathToConfig, prefabName, newShipId, position, NetworkManager.Singleton.LocalClientId);
         }
 
         public void Despawn()
@@ -56,10 +58,12 @@ namespace Client.UI.Admin
                     Debug.unityLogger.Log($"Can't find any shipConfig for {prefabName}");
                     return;
                 }
-                config.shipId = newShipId;
-                goToSpawn = InstantiateHelper.InstantiateServerShip(config).gameObject;
+
+                var configInstance = Instantiate(config);
+                configInstance.shipId = newShipId;
+                goToSpawn = InstantiateHelper.InstantiateServerShip(configInstance).gameObject;
             }
-            else
+            else if(pathToConfig == Constants.PathToUnitsObjects)
             {
                 var config = Resources.LoadAll<SpaceUnitConfig>(pathToConfig).FirstOrDefault(x => x.prefabName == prefabName);
                 if (config is null)
@@ -67,7 +71,22 @@ namespace Client.UI.Admin
                     Debug.unityLogger.Log($"Can't find any unitConfig for {prefabName}");
                     return;
                 }
-                goToSpawn = InstantiateHelper.InstantiateObject(config).gameObject;
+                var configInstance = Instantiate(config);
+                goToSpawn = InstantiateHelper.InstantiateObject(configInstance).gameObject;
+                config.id = Guid.Empty;
+            }
+            else
+            {
+                var config = Resources.Load<DangerZoneConfig>(pathToConfig + prefabName);
+                if (config is null)
+                {
+                    Debug.unityLogger.Log($"Can't find any dangerZoneConfig for {prefabName}");
+                    return;
+                }
+
+                var configInstance = Instantiate(config);
+                if (float.TryParse(newShipId, out var newRadius)) configInstance.radius = newRadius;
+                goToSpawn = InstantiateHelper.InstantiateDangerZone(configInstance).gameObject;
                 config.id = Guid.Empty;
             }
             
@@ -79,7 +98,6 @@ namespace Client.UI.Admin
             else
             {
                 Debug.unityLogger.Log($"Can't spawn. Is already spawned? {netObj.IsSpawned}");
-                // Destroy(goToSpawn);
                 return;
             }
 
@@ -106,6 +124,10 @@ namespace Client.UI.Admin
             else if (selectedPrefab.TryGetComponent<UnitScript>(out var us))
             {
                 _unitInfoCollector.Add(us);
+            }
+            else if(selectedPrefab.TryGetComponent<DangerZone>(out var dz))
+            {
+                _zoneInfoCollector.Add(dz);
             }
         }
         

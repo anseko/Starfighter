@@ -1,16 +1,19 @@
 using System;
+using Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "DangerZoneConfig", menuName = "Configs/DangerZoneConfig", order = 0)]
     [Serializable]
     public class DangerZoneConfig : ScriptableObject {
-        public float StressDamage;
-        public float HpDamage;
-        public Vector3 Center;
-        public float Radius;
-        public Color Color;
-        public Guid Id;
+        public float stressDamage;
+        public float hpDamage;
+        public Vector3 center;
+        public float radius;
+        public Color color;
+        public Guid id;
+        public ZoneType type;
     }
 }

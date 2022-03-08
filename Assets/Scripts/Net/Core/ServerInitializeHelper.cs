@@ -36,15 +36,13 @@ namespace Net.Core
         }
         
         private BinaryFormatter _binaryFormatter;
-        private SpaceShipConfig[] _shipConfigs;
-        private SpaceUnitConfig[] _unitConfigs;
-        private DangerZoneConfig[] _dangerZoneConfigs;
 
-        private void InitShips()
+
+        private void InitShips(out SpaceShipConfig[] shipConfigs)
         {
             try
             {
-                _shipConfigs = JsonUtility.FromJson<SpaceShipsWrapper>(File.ReadAllText(Constants.PathToShips))
+                shipConfigs = JsonUtility.FromJson<SpaceShipsWrapper>(File.ReadAllText(Constants.PathToShips))
                     .spaceShipConfigs.Select(x =>
                     {
                         var temp = ScriptableObject.CreateInstance<SpaceShipConfig>();
@@ -73,20 +71,20 @@ namespace Net.Core
             catch (FileNotFoundException ex)
             {
                 Debug.unityLogger.Log($"ERROR: {ex.Message}");
-                _shipConfigs = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
+                shipConfigs = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
             }
             catch (SerializationException ex)
             {
                 Debug.unityLogger.Log($"ERROR {ex.Message}");
-                _shipConfigs = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
+                shipConfigs = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects);
             }
         }
 
-        private void InitUnits()
+        private void InitUnits(out SpaceUnitConfig[] unitConfigs)
         {
             try
             {
-                _unitConfigs = JsonUtility.FromJson<SpaceUnitWrapper>(File.ReadAllText(Constants.PathToUnits))
+                unitConfigs = JsonUtility.FromJson<SpaceUnitWrapper>(File.ReadAllText(Constants.PathToUnits))
                     .spaceUnitConfigs.Select(x =>
                     {
                         var temp = ScriptableObject.CreateInstance<SpaceUnitConfig>();
@@ -105,53 +103,53 @@ namespace Net.Core
             catch (FileNotFoundException ex)
             {
                 Debug.unityLogger.Log($"ERROR: {ex.Message}");
-                _unitConfigs = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
+                unitConfigs = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
             }
             catch (SerializationException ex)
             {
                 Debug.unityLogger.Log($"ERROR {ex.Message}");
-                _unitConfigs = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
+                unitConfigs = Resources.LoadAll<SpaceUnitConfig>(Constants.PathToUnitsObjects);
             }
         }
 
-        private void InitDangerZones()
+        private void InitDangerZones(out DangerZoneConfig[] dangerZoneConfigs)
         {
-            _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
-            return;
-            
             try
             {
-                _dangerZoneConfigs = JsonUtility.FromJson<DangerZoneWrapper>(File.ReadAllText(Constants.PathToDangerZones))
+                dangerZoneConfigs = JsonUtility
+                    .FromJson<DangerZoneWrapper>(File.ReadAllText(Constants.PathToDangerZones))
                     .dangerZoneConfigs.Select(x =>
                     {
                         var temp = ScriptableObject.CreateInstance<DangerZoneConfig>();
-                        temp.Center = x.center;
-                        temp.Color = x.color;
-                        temp.StressDamage = x.stressDamage;
-                        temp.HpDamage = x.hpDamage;
-                        temp.Radius = x.radius;
+                        temp.center = x.center;
+                        temp.color = x.color;
+                        temp.stressDamage = x.stressDamage;
+                        temp.hpDamage = x.hpDamage;
+                        temp.radius = x.radius;
+                        temp.id = x.id;
+                        temp.type = x.type;
                         return temp;
                     }).ToArray();
             }
             catch (FileNotFoundException ex)
             {
                 Debug.unityLogger.Log($"ERROR: {ex.Message}");
-                _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
+                dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZonesObjects);
             }
             catch (SerializationException ex)
             {
                 Debug.unityLogger.Log($"ERROR {ex.Message}");
-                _dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZones);
+                dangerZoneConfigs = Resources.LoadAll<DangerZoneConfig>(Constants.PathToDangerZonesObjects);
             }
         }
         
         public IEnumerator InitServer()
         {
-            InitDangerZones();
-            InitShips();
-            InitUnits();
-            
-            foreach (var dangerZone in _dangerZoneConfigs)
+            InitShips(out var shipConfigs);
+            InitDangerZones(out var dangerZoneConfigs);
+            InitUnits(out var unitConfigs);
+
+            foreach (var dangerZone in dangerZoneConfigs)
             {
                 try
                 {
@@ -164,7 +162,7 @@ namespace Net.Core
                 yield return null;
             }
             
-            foreach (var unitConfig in _unitConfigs)
+            foreach (var unitConfig in unitConfigs)
             {
                 try
                 {
@@ -177,7 +175,7 @@ namespace Net.Core
                 yield return null;
             }
             
-            foreach (var spaceShipConfig in _shipConfigs)
+            foreach (var spaceShipConfig in shipConfigs)
             {
                 try
                 {
@@ -233,21 +231,15 @@ namespace Net.Core
             {
                 spaceUnitConfigs = configs.ToArray()
             }));
+
+            var zones = FindObjectsOfType<DangerZone>()
+                .Select(x => x.Export())
+                .ToList();
             
-            foreach (var dangerZone in _dangerZoneConfigs)
+            File.WriteAllText(Constants.PathToDangerZones, JsonUtility.ToJson(new DangerZoneWrapper()
             {
-                var ship = FindObjectsOfType<DangerZone>().FirstOrDefault(zone => zone.id == dangerZone.Id);
-                if (ship is null) continue;
-                dangerZone.Radius = ship.transform.localScale.x / 10;
-                dangerZone.Center = ship.transform.position;
-                
-                //Save other fields;
-            }
-            
-            // File.WriteAllText(Constants.PathToUnits, JsonUtility.ToJson(new SpaceUnitWrapper()
-            // {
-            //     spaceUnitConfigs = _unitConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
-            // }));
+                dangerZoneConfigs = zones.ToArray()
+            }));
         }
     }
 }

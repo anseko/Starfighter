@@ -12,14 +12,20 @@ namespace Core.Models
         public float stressDamage;
         public float hpDamage;
         public Color color;
+        public Guid id;
+        public ZoneType type;
+        
+        public DangerZoneDto() {}
 
         public DangerZoneDto(DangerZoneConfig config)
         {
-            center = config.Center;
-            radius = config.Radius;
-            stressDamage = config.StressDamage;
-            hpDamage = config.HpDamage;
-            color = config.Color;
+            center = config.center;
+            radius = config.radius;
+            stressDamage = config.stressDamage;
+            hpDamage = config.hpDamage;
+            color = config.color;
+            id = config.id;
+            type = config.type;
         }
     }
 }

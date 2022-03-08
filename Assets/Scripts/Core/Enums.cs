@@ -19,4 +19,14 @@
         IsDead,
     }
 
+    public enum ZoneType
+    {
+        RedZone,
+        YellowZone,
+        GreenZone,
+        VioletZone,
+        LightBlueZone,
+        HealZone
+    }
+
 }

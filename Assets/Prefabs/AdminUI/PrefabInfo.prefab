@@ -1871,4 +1871,4 @@ MonoBehaviour:
   _shipId: {fileID: 8039429860966333897}
   _shipImg: {fileID: 21300000, guid: f5f869eb60d884d4587c6cb22dfbe72b, type: 3}
   _unitImg: {fileID: 21300000, guid: 2d7fea0e9ec0eba4f823afbb303c518d, type: 3}
-  _asteroidImg: {fileID: 21300000, guid: 6e9cc153409b95c40b08ec0028b78b90, type: 3}
+  _zoneImg: {fileID: 21300000, guid: 876399ffcfced2b49aad6435d8add9c6, type: 3}

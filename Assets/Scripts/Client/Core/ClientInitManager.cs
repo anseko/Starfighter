@@ -105,6 +105,7 @@ namespace Client.Core
             FindObjectOfType<ShipInfoCollector>()?.Init();
             FindObjectOfType<UnitInfoCollector>()?.Init();
             FindObjectOfType<PrefabCollector>()?.Init();
+            FindObjectOfType<DangerZoneInfoCollector>()?.Init();
             FindObjectOfType<Spawner>()?.Init();
             
             var cam = FindObjectOfType<Camera>(false);

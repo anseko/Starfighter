@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: HealZone
   m_EditorClassIdentifier: 
-  StressDamage: -10
-  HpDamage: 10
-  Center: {x: -1323.585, y: -1, z: -1755.963}
-  Radius: 20
-  Color: {r: 0.4669811, g: 0.52505463, b: 1, a: 0.19215687}
+  stressDamage: 0
+  hpDamage: 0
+  center: {x: 0, y: 0, z: 0}
+  radius: 2
+  color: {r: 0.21226418, g: 0.62031066, b: 1, a: 0.29803923}
+  type: 5

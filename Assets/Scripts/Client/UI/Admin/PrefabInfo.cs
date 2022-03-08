@@ -21,7 +21,7 @@ namespace Client.UI.Admin
         
         [SerializeField] private Sprite _shipImg;
         [SerializeField] private Sprite _unitImg;
-        [SerializeField] private Sprite _asteroidImg;
+        [SerializeField] private Sprite _zoneImg;
 
         private void Awake()
         {
@@ -29,26 +29,45 @@ namespace Client.UI.Admin
             _spawner = FindObjectOfType<Spawner>();
         }
 
+        public void Init(DangerZoneConfig zoneConfig)
+        {
+            _name.text = zoneConfig.type.ToString();
+            _type.sprite = _zoneImg;
+            // _zonePrefab = zoneConfig;
+            _login.gameObject.SetActive(false);
+            _password.gameObject.SetActive(false);
+            if (_shipId.placeholder.TryGetComponent<TMP_Text>(out var placeholder))
+            {
+                placeholder.text = "radius";
+            }
+        }
+        
+        public void Init(SpaceShipConfig shipConfig)
+        {
+            _type.sprite = _shipImg;
+            _prefab = shipConfig;
+            _name.text = shipConfig.shipId;
+        }
+        
         public void Init(SpaceUnitConfig config)
         {
-            if (config is SpaceShipConfig shipConfig)
-            {
-                _type.sprite = _shipImg;
-                _prefab = config;
-                _name.text = shipConfig.shipId;
-            }
-            else
-            {
-                _type.sprite = _unitImg;
-                _name.text = config.prefabName;
-                _prefab = config;
-                _login.gameObject.SetActive(false);
-                _password.gameObject.SetActive(false);
-            }
+            _type.sprite = _unitImg;
+            _name.text = config.prefabName;
+            _prefab = config;
+            _login.gameObject.SetActive(false);
+            _password.gameObject.SetActive(false);
+            _shipId.gameObject.SetActive(false);
         }
 
         private void Spawn()
         {
+            if (_prefab is null)
+            {
+                _spawner.selectedPrefab = Resources.Load<GameObject>(Constants.PathToShipsPrefabs + "DangerZone");
+                _spawner.Spawn(Constants.PathToDangerZonesObjects, _name.text, "");
+                return;
+            }
+            
             if (_prefab is SpaceShipConfig config)
             {
                 _spawner.selectedPrefab = Resources.Load<GameObject>(Constants.PathToShipsPrefabs + config.prefabName);
