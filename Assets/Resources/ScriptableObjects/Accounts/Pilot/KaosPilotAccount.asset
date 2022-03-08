@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85199e5c1224af8903b6f008261b563, type: 3}
   m_Name: KaosPilotAccount
   m_EditorClassIdentifier: 
-  login: KaosPilot
-  password: _kaos_p
+  login: CuckooPilot
+  password: 41kmonkeys_p
   type: 3
   ship: {fileID: 11400000, guid: f5853aac473484445860419715adfcf3, type: 2}

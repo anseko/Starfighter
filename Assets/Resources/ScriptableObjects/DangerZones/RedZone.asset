@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedZone
   m_EditorClassIdentifier: 
   stressDamage: 0
-  hpDamage: 0
+  hpDamage: -0.1666
   center: {x: 0, y: 0, z: 0}
   radius: 2
   color: {r: 1, g: 0.5176471, b: 0, a: 0.29803923}

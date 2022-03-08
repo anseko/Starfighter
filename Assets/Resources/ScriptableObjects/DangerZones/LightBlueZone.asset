@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bca77f11281ad47994c64333a99667, type: 3}
   m_Name: LightBlueZone
   m_EditorClassIdentifier: 
-  stressDamage: 0
+  stressDamage: -0.0023
   hpDamage: 0
   center: {x: 0, y: 0, z: 0}
   radius: 2
