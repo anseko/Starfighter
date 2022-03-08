@@ -262,13 +262,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6223886915030344364}
   - component: {fileID: 6270558086099531372}
-  - component: {fileID: 2561140807261167277}
   - component: {fileID: 2629831759114806377}
   - component: {fileID: -8060894224577305379}
   - component: {fileID: -296453154815537763}
   - component: {fileID: 4420169447860900052}
   - component: {fileID: 5882987197219798886}
   - component: {fileID: 6753794353157428563}
+  - component: {fileID: 1169490023632036362}
   m_Layer: 7
   m_Name: ScienceVessel
   m_TagString: Dynamic
@@ -312,36 +312,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2561140807261167277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6220760324071643012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21b31f5f07b4eb79cec4395abe5d401, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkUnitConfig: {fileID: 0}
-  unitConfig:
-    maxAngleSpeed: 0
-    maxSpeed: 0
-    maxHp: 0
-    currentHp: 0
-    isDockable: 0
-    isMovable: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    prefabName: 
-    maxStress: 0
-    currentStress: 0
-    shipId: 
-    shipState: 0
-    baseColor: {r: 0, g: 0, b: 0, a: 0}
-  isGrappled:
-    m_InternalValue: 0
 --- !u!114 &2629831759114806377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +438,50 @@ CapsuleCollider:
   m_Height: 3.8165267
   m_Direction: 2
   m_Center: {x: 0.00891304, y: 0, z: 1.7647856}
+--- !u!114 &1169490023632036362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220760324071643012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkUnitConfig: {fileID: 0}
+  unitConfig:
+    maxAngleSpeed: 0
+    maxSpeed: 0
+    maxHp: 0
+    currentHp: 0
+    isDockable: 0
+    isMovable: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    prefabName: 
+    maxStress: 0
+    currentStress: 0
+    shipId: 
+    shipState: 0
+    baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
+  isGrappled:
+    m_InternalValue: 0
+  volume: {fileID: 0}
+  keyConfig: {fileID: 0}
+  shipSpeed:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  shipRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  localUsage: 0
+  Rigidbody: {fileID: 0}
 --- !u!1 &6220796076773320842
 GameObject:
   m_ObjectHideFlags: 0
