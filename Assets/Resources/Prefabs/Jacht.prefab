@@ -99,11 +99,11 @@ GameObject:
   - component: {fileID: 1964557123604194544}
   - component: {fileID: 7356776177025621702}
   - component: {fileID: 3829200563201958463}
-  - component: {fileID: 587859025726522501}
   - component: {fileID: 2450321010809378420}
   - component: {fileID: 9003948101772855290}
   - component: {fileID: 6682621532386419847}
   - component: {fileID: -8282039748990938463}
+  - component: {fileID: 2511185827994196913}
   m_Layer: 7
   m_Name: Jacht
   m_TagString: Dynamic
@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 3249588557617223395}
   m_LocalRotation: {x: -0, y: 0.28935695, z: -0, w: 0.95722127}
   m_LocalPosition: {x: -2303.6, y: 0, z: -2400.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4860920065026399608}
   - {fileID: 2362884862766698136}
@@ -178,42 +178,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &587859025726522501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3249588557617223395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21b31f5f07b4eb79cec4395abe5d401, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkUnitConfig: {fileID: 0}
-  unitConfig:
-    maxAngleSpeed: 0
-    maxSpeed: 0
-    maxHp: 0
-    currentHp: 0
-    isDockable: 0
-    isMovable: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    prefabName: 
-    maxStress: 0
-    currentStress: 0
-    shipId: 
-    shipState: 0
-    baseColor: {r: 0, g: 0, b: 0, a: 0}
-    acceleration: 0
-    radarRange: 0
-    accelerationCoefficient: 0
-    physResistanceCoefficient: 0
-    radResistanceCoefficient: 0
-    radarRangeCoefficient: 0
-  isGrappled:
-    m_InternalValue: 0
 --- !u!136 &2450321010809378420
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -312,6 +276,50 @@ MonoBehaviour:
     m_InternalValue: 0
   _dockingMarkers: []
   _dockCheckZone: {fileID: 0}
+--- !u!114 &2511185827994196913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249588557617223395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkUnitConfig: {fileID: 0}
+  unitConfig:
+    maxAngleSpeed: 0
+    maxSpeed: 0
+    maxHp: 0
+    currentHp: 0
+    isDockable: 0
+    isMovable: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    prefabName: 
+    maxStress: 0
+    currentStress: 0
+    shipId: 
+    shipState: 0
+    baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
+  isGrappled:
+    m_InternalValue: 0
+  volume: {fileID: 0}
+  keyConfig: {fileID: 0}
+  shipSpeed:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  shipRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  localUsage: 0
+  Rigidbody: {fileID: 0}
 --- !u!1001 &1598419712474097378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,17 +335,17 @@ PrefabInstance:
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
@@ -352,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.16
+      value: 8.9
       objectReference: {fileID: 0}
     - target: {fileID: 6150737628568730522, guid: 67bef267569f9bb46b29cc196e2f062b,
         type: 3}

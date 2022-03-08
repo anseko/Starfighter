@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5828820422742964226}
   - component: {fileID: 6961659269789130642}
   - component: {fileID: 3389935491197024343}
+  - component: {fileID: 4092849611402736144}
   m_Layer: 7
   m_Name: Spacefrigate
   m_TagString: Dynamic
@@ -207,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc4cf6a7461e7242b7964e3fd327d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 161327652552128371}
   _wayPoints: []
 --- !u!114 &6676837935091037447
 MonoBehaviour:
@@ -238,8 +238,6 @@ MonoBehaviour:
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
     acceleration: 0
-    physResistance: 0
-    radResistance: 0
     radarRange: 0
     accelerationCoefficient: 0
     physResistanceCoefficient: 0
@@ -295,6 +293,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &4092849611402736144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247619388254216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 1247619388254216}
+  numbers: {fileID: 0}
 --- !u!1 &5347510626257532543
 GameObject:
   m_ObjectHideFlags: 0

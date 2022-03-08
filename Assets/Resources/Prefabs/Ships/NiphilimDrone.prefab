@@ -9787,8 +9787,6 @@ MonoBehaviour:
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
     acceleration: 0
-    physResistance: 0
-    radResistance: 0
     radarRange: 0
     accelerationCoefficient: 0
     physResistanceCoefficient: 0
@@ -9804,7 +9802,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!114 &1072001758478384732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9932,6 +9929,8 @@ MonoBehaviour:
     type: 3}
   _unit: {fileID: 4683736729940911175}
   _launcher: {fileID: 0}
+  grapplerObjectId:
+    m_InternalValue: 0
 --- !u!114 &3292655346845149900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10108,6 +10107,18 @@ PrefabInstance:
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalPosition.x
