@@ -18,8 +18,8 @@ namespace Net.Components
         public void Init(PlayerScript ps)
         {
             _fovInstance = Instantiate(_fovCollider, gameObject.transform);
-            _fovInstance.transform.localScale *=
-                ps.NetworkUnitConfig.RadarRange * ps.NetworkUnitConfig.RadarRangeCoefficient;
+            _fovInstance.transform.localScale =
+               Vector3.one * ps.NetworkUnitConfig.RadarRange * ps.NetworkUnitConfig.RadarRangeCoefficient;
             
             enabled = true;
             SceneManager.GetActiveScene()
@@ -30,12 +30,12 @@ namespace Net.Components
 
             ps.NetworkUnitConfig._radarRange.OnValueChanged += (value, newValue) =>
             {
-                _fovInstance.transform.localScale *= newValue * ps.NetworkUnitConfig.RadarRangeCoefficient;
+                _fovInstance.transform.localScale = Vector3.one * newValue * ps.NetworkUnitConfig.RadarRangeCoefficient;
             };
             
             ps.NetworkUnitConfig._radarRangeCoefficient.OnValueChanged += (value, newValue) =>
             {
-                _fovInstance.transform.localScale *= newValue * ps.NetworkUnitConfig.RadarRange;
+                _fovInstance.transform.localScale = Vector3.one * newValue * ps.NetworkUnitConfig.RadarRange;
             };
         }
 

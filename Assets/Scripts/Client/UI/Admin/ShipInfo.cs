@@ -22,6 +22,10 @@ namespace Client.UI.Admin
         [SerializeField] private TMP_InputField _maxAngleSpeed;
         [SerializeField] private TMP_InputField _maxStress;
         [SerializeField] private TMP_InputField _maxHp;
+        [SerializeField] private TMP_InputField _radarRange;
+        [SerializeField] private TMP_InputField _radiationResist;
+        [SerializeField] private TMP_InputField _hitResist;
+        [SerializeField] private TMP_InputField _acceleration;
 
         private SubmitMenu _submitMenu;
         
@@ -67,6 +71,11 @@ namespace Client.UI.Admin
             
             _maxSpeed.text = this.playerScript.NetworkUnitConfig.MaxSpeed.ToString(CultureInfo.InvariantCulture);
             _maxAngleSpeed.text = this.playerScript.NetworkUnitConfig.MaxAngleSpeed.ToString(CultureInfo.InvariantCulture);
+            
+            _acceleration.text = playerScript.NetworkUnitConfig.AccelerationCoefficient.ToString();
+            _radarRange.text = playerScript.NetworkUnitConfig.RadarRange.ToString();
+            _radiationResist.text = playerScript.NetworkUnitConfig.RadResistanceCoefficient.ToString();
+            _hitResist.text = playerScript.NetworkUnitConfig.PhysResistanceCoefficient.ToString();
         }
 
         private void Apply()
@@ -78,6 +87,10 @@ namespace Client.UI.Admin
             playerScript.NetworkUnitConfig.ShipState = (UnitState)_state.value;
             playerScript.NetworkUnitConfig.MaxHp = float.Parse(_maxHp.text);
             playerScript.NetworkUnitConfig.MaxStress = float.Parse(_maxStress.text);
+            playerScript.NetworkUnitConfig.AccelerationCoefficient = float.Parse(_acceleration.text);
+            playerScript.NetworkUnitConfig.RadarRange = float.Parse(_radarRange.text);
+            playerScript.NetworkUnitConfig.RadResistanceCoefficient = float.Parse(_radiationResist.text);
+            playerScript.NetworkUnitConfig.PhysResistanceCoefficient = float.Parse(_hitResist.text);
         }
 
         private void UpdateCurrentValues()
