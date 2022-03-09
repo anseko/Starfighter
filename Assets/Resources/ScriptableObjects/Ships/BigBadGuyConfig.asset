@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3204a753c829944a31cb0489dc8759, type: 3}
+  m_Name: BigBadGuyConfig
+  m_EditorClassIdentifier: 
+  maxAngleSpeed: 100
+  maxSpeed: 100
+  maxHp: 75
+  currentHp: 75
+  isDockable: 1
+  isMovable: 1
+  position: {x: 1, y: 1, z: 1}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  prefabName: BigBadGuy
+  maxStress: 0
+  currentStress: 0
+  shipId: badGuy
+  shipState: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 7
+  radarRange: 1
+  accelerationCoefficient: 3
+  physResistanceCoefficient: 1
+  radResistanceCoefficient: 1
+  radarRangeCoefficient: 1

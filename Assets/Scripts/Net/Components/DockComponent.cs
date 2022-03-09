@@ -81,7 +81,7 @@ namespace Net.Components
                 return;
             }
 
-            if (_dockCheckZone.IsAnyInZone())
+            if (_dockCheckZone != null && _dockCheckZone.IsAnyInZone())
             {
                 ClientEventStorage.GetInstance().DockableUnitsInRange.Invoke();
                 return;

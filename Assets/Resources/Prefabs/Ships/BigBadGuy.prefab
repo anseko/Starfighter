@@ -53010,7 +53010,6 @@ GameObject:
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
   - component: {fileID: 4570277334352140934}
-  - component: {fileID: 3292655346845149900}
   - component: {fileID: -2989362028558285010}
   - component: {fileID: 7998297230552205358}
   - component: {fileID: 3652086217584072749}
@@ -53029,7 +53028,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598131333054404712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.33}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2749485143029702466}
@@ -53105,8 +53104,6 @@ MonoBehaviour:
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
     acceleration: 0
-    physResistance: 0
-    radResistance: 0
     radarRange: 0
     accelerationCoefficient: 0
     physResistanceCoefficient: 0
@@ -53122,7 +53119,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!114 &1072001758478384732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53232,7 +53228,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers:
-  - {fileID: 4241530806740680994}
+  - {fileID: 1432789579988100097}
   _dockCheckZone: {fileID: 4074226066348235289}
 --- !u!114 &4570277334352140934
 MonoBehaviour:
@@ -53250,20 +53246,8 @@ MonoBehaviour:
     type: 3}
   _unit: {fileID: 4683736729940911175}
   _launcher: {fileID: 0}
---- !u!114 &3292655346845149900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  numbers: {fileID: 0}
+  grapplerObjectId:
+    m_InternalValue: 0
 --- !u!114 &-2989362028558285010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68145,6 +68129,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: a1ddaf2cd380cd0489b77b92add22ad4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7dd5b5f63ebd49841a7982eff7302f3b, type: 2}
     - target: {fileID: 919132149155446097, guid: a1ddaf2cd380cd0489b77b92add22ad4,
         type: 3}
       propertyPath: m_Name
@@ -68242,9 +68231,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
---- !u!114 &4241530806740680994 stripped
+--- !u!114 &1432789579988100097 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
+  m_CorrespondingSourceObject: {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b,
     type: 3}
   m_PrefabInstance: {fileID: 8753316625881549109}
   m_PrefabAsset: {fileID: 0}

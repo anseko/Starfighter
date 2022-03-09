@@ -53067,9 +53067,6 @@ GameObject:
   - component: {fileID: 2734152212456101977}
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
-  - component: {fileID: 4570277334352140934}
-  - component: {fileID: 3292655346845149900}
-  - component: {fileID: -2989362028558285010}
   - component: {fileID: 1552051368172202933}
   m_Layer: 6
   m_Name: CivilianShip2
@@ -53113,7 +53110,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598131333054404712}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.3
   m_Drag: 0.01
   m_AngularDrag: 0.01
   m_UseGravity: 0
@@ -53162,8 +53159,6 @@ MonoBehaviour:
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
     acceleration: 0
-    physResistance: 0
-    radResistance: 0
     radarRange: 0
     accelerationCoefficient: 0
     physResistanceCoefficient: 0
@@ -53179,7 +53174,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!114 &1072001758478384732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53289,52 +53283,8 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers:
-  - {fileID: 4241530806740680994}
+  - {fileID: 1432789579988100097}
   _dockCheckZone: {fileID: 4074226066348235289}
---- !u!114 &4570277334352140934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e22e84099bfb481e8099c9ae3013e57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grapplerPrefab: {fileID: 5752616692047359496, guid: 23c349fdde5e2174db35d9385a268bac,
-    type: 3}
-  _unit: {fileID: 4683736729940911175}
-  _launcher: {fileID: 0}
---- !u!114 &3292655346845149900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  numbers: {fileID: 0}
---- !u!114 &-2989362028558285010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3723da41ff4f49c39225e912f874abbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fovCollider: {fileID: 2341582271297964913, guid: 22d33c3e979c54544ac355870d1ef35f,
-    type: 3}
 --- !u!136 &1552051368172202933
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -68264,9 +68214,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
---- !u!114 &4241530806740680994 stripped
+--- !u!114 &1432789579988100097 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
+  m_CorrespondingSourceObject: {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b,
     type: 3}
   m_PrefabInstance: {fileID: 8753316625881549109}
   m_PrefabAsset: {fileID: 0}

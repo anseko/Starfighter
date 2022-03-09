@@ -9700,9 +9700,8 @@ GameObject:
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
   - component: {fileID: 4570277334352140934}
-  - component: {fileID: 3292655346845149900}
   - component: {fileID: -2989362028558285010}
-  - component: {fileID: -1877275095528882356}
+  - component: {fileID: 3768806511356159595}
   m_Layer: 6
   m_Name: NiphilimDrone
   m_TagString: Dynamic
@@ -9738,7 +9737,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598131333054404712}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0.01
   m_AngularDrag: 0.01
   m_UseGravity: 0
@@ -9883,14 +9882,10 @@ MonoBehaviour:
   _back: {fileID: 5599932587081617565}
   _right: {fileID: 5599932586765455449}
   _left: {fileID: 5599932587148960156}
-  _frontLeftSystems:
-  - {fileID: 0}
-  _frontRightSystems:
-  - {fileID: 0}
-  _backLeftSystems:
-  - {fileID: 0}
-  _backRightSystems:
-  - {fileID: 0}
+  _frontLeftSystems: []
+  _frontRightSystems: []
+  _backLeftSystems: []
+  _backRightSystems: []
   _trustSystems:
   - {fileID: 8295034405817756088}
 --- !u!114 &1596104504079781642
@@ -9910,8 +9905,7 @@ MonoBehaviour:
   lastThingToDock: {fileID: 0}
   readyToDock:
     m_InternalValue: 0
-  _dockingMarkers:
-  - {fileID: 0}
+  _dockingMarkers: []
   _dockCheckZone: {fileID: 0}
 --- !u!114 &4570277334352140934
 MonoBehaviour:
@@ -9931,20 +9925,6 @@ MonoBehaviour:
   _launcher: {fileID: 0}
   grapplerObjectId:
     m_InternalValue: 0
---- !u!114 &3292655346845149900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  numbers: {fileID: 0}
 --- !u!114 &-2989362028558285010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9959,8 +9939,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fovCollider: {fileID: 2341582271297964913, guid: 22d33c3e979c54544ac355870d1ef35f,
     type: 3}
---- !u!64 &-1877275095528882356
-MeshCollider:
+--- !u!135 &3768806511356159595
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9969,10 +9949,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 2e70299eae7fff74a9cfef859bc18b5a, type: 3}
+  serializedVersion: 2
+  m_Radius: 1.81
+  m_Center: {x: 0, y: 0, z: -0.57}
 --- !u!1 &5599932586765455449
 GameObject:
   m_ObjectHideFlags: 0
@@ -10134,23 +10113,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.91032284
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.41389897
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -48.9
       objectReference: {fileID: 0}
     - target: {fileID: 4351941035781178, guid: adc8a98e73ca77a41b7d79a6beec2ccb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

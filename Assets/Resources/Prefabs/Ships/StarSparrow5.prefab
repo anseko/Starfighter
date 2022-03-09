@@ -522,6 +522,12 @@ MonoBehaviour:
     shipId: 
     shipState: 0
     baseColor: {r: 0, g: 0, b: 0, a: 0}
+    acceleration: 0
+    radarRange: 0
+    accelerationCoefficient: 0
+    physResistanceCoefficient: 0
+    radResistanceCoefficient: 0
+    radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
   volume: {fileID: 0}
@@ -532,7 +538,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
-  FOVRadius: 0
 --- !u!114 &-5698622205738835075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +647,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers:
-  - {fileID: 2947148052201005590}
+  - {fileID: 133107745264568117}
   _dockCheckZone: {fileID: 414937710781985005}
 --- !u!114 &-7599575325886155006
 MonoBehaviour:
@@ -1602,9 +1607,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7728363165594659329}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2947148052201005590 stripped
+--- !u!114 &133107745264568117 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
+  m_CorrespondingSourceObject: {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b,
     type: 3}
   m_PrefabInstance: {fileID: 7728363165594659329}
   m_PrefabAsset: {fileID: 0}

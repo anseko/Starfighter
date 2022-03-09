@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3204a753c829944a31cb0489dc8759, type: 3}
   m_Name: StationShipConfig
   m_EditorClassIdentifier: 
-  maxAngleSpeed: 1
-  maxSpeed: 1
+  maxAngleSpeed: 5
+  maxSpeed: 5
   maxHp: 1000
   currentHp: 1000
   isDockable: 1
@@ -26,3 +26,9 @@ MonoBehaviour:
   shipId: station
   shipState: 0
   baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 1
+  radarRange: 10000
+  accelerationCoefficient: 1
+  physResistanceCoefficient: 1
+  radResistanceCoefficient: 1
+  radarRangeCoefficient: 1

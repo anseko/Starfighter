@@ -58803,7 +58803,7 @@ MonoBehaviour:
   readyToDock:
     m_InternalValue: 0
   _dockingMarkers:
-  - {fileID: 3229627990657516448}
+  - {fileID: 427642713508750979}
   _dockCheckZone: {fileID: 3352805976116402331}
 --- !u!114 &7168660596384809023
 MonoBehaviour:
@@ -73889,9 +73889,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8031896534983084983}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3229627990657516448 stripped
+--- !u!114 &427642713508750979 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4874855036323579927, guid: 67bef267569f9bb46b29cc196e2f062b,
+  m_CorrespondingSourceObject: {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b,
     type: 3}
   m_PrefabInstance: {fileID: 8031896534983084983}
   m_PrefabAsset: {fileID: 0}

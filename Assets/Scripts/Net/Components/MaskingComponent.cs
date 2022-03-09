@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Client.Core;
 using MLAPI;
 using MLAPI.NetworkVariable;
@@ -11,7 +13,7 @@ namespace Net.Components
         [SerializeField] private GameObject model;
         [SerializeField] private GameObject numbers;
         private PlayerScript _playerScript;
-        private Material _bodymat;
+        private List<Material> _bodymats;
         private Coroutine _dissolveCoroutine;
         private NetworkVariableBool _isMasked;
         private static readonly int Value = Shader.PropertyToID("Value");
@@ -27,14 +29,15 @@ namespace Net.Components
                 Value = false
             };
             
-            _bodymat = model.GetComponent<Renderer>().material;
+            _bodymats = model.GetComponents<Renderer>().SelectMany(x=>x.materials).ToList();
+            _bodymats.AddRange(model.GetComponentsInChildren<Renderer>().SelectMany(x=>x.materials).ToList());
             _playerScript = GetComponent<PlayerScript>();
-            _bodymat.SetFloat(Value, 0);
+            _bodymats.ForEach(x => x.SetFloat(Value, 0));
         }
 
         private void Start()
         {
-            _bodymat.SetFloat(Value, _isMasked.Value ? 1 : 0);
+            _bodymats.ForEach(x => x.SetFloat(Value, _isMasked.Value ? 1 : 0));
             if(_dissolveCoroutine != null) StopCoroutine(_dissolveCoroutine);
             _isMasked.OnValueChanged += (value, newValue) => _dissolveCoroutine = StartCoroutine(Dissolve(300));
         }
@@ -54,7 +57,7 @@ namespace Net.Components
             {
                 for (var i = timeLength; i >= 0; i--)
                 {
-                    _bodymat.SetFloat(Value, (float)i / timeLength);
+                    _bodymats.ForEach(x=>x.SetFloat(Value, (float)i / timeLength));
                     yield return new WaitForSeconds(0.001f);
                 }
                 numbers?.SetActive(true);
@@ -63,7 +66,7 @@ namespace Net.Components
             
             for (var i = 0; i < timeLength; i++)
             {
-                _bodymat.SetFloat(Value, (float)i / timeLength);
+                _bodymats.ForEach(x=>x.SetFloat(Value, (float)i / timeLength));
                 yield return new WaitForSeconds(0.001f);
             }
             numbers?.SetActive(false);

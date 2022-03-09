@@ -18,12 +18,12 @@ public class ShipPanelComponent : MonoBehaviour
     private Dictionary<float,float> _accConvert, _physResConvert, _radResConvert, _radRangeConvert;
     [SerializeField] private Button _okButton;
 
-    void Awake()
+    private void Awake()
     {
         _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
     }
 
-    void Start()
+    private void Start()
     {
         _accConvert = new Dictionary<float, float>();
         _physResConvert = new Dictionary<float, float>();
@@ -107,7 +107,7 @@ public class ShipPanelComponent : MonoBehaviour
         };
     }
     
-    void Update()
+    private void Update()
     {
         _totalPoints = _speedSlider.value + _physResSlider.value + _radResSlider.value + _radarSlider.value;
         _freePointsText.text = $"Свободных очков: {8 - _totalPoints}";
