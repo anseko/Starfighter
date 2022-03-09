@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 5882987197219798886}
   - component: {fileID: 6753794353157428563}
   - component: {fileID: 1169490023632036362}
+  - component: {fileID: -5390749340415869576}
   m_Layer: 7
   m_Name: ScienceVessel
   m_TagString: Dynamic
@@ -360,13 +361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 20
+  FixedSendsPerSecond: 60
   AssumeSyncedSends: 1
   InterpolatePosition: 1
-  SnapDistance: 10
+  SnapDistance: 1
   InterpolateServer: 0
-  MinMeters: 0.15
-  MinDegrees: 1.5
+  MinMeters: 0.01
+  MinDegrees: 0.01
   ExtrapolatePosition: 0
   MaxSendsToExtrapolate: 5
   Channel: 
@@ -482,6 +483,22 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
+--- !u!54 &-5390749340415869576
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220760324071643012}
+  serializedVersion: 2
+  m_Mass: 2
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &6220796076773320842
 GameObject:
   m_ObjectHideFlags: 0

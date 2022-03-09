@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Client.UI;
 using Client.UI.Admin;
 using Client.Utils;
+using Core;
+using Core.Models;
 using Net;
 using Net.Components;
 
@@ -65,6 +68,8 @@ namespace Client.Core
             FindObjectOfType<NavigatorCourseView>()?.Init(ps);
             FindObjectOfType<Stressbar>(true)?.Init(ps);
             FindObjectOfType<Hpbar>(true)?.Init(ps);
+
+            RescaleGrid();
         }
         
         public void InitSpectator()
@@ -79,6 +84,8 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
+
+            RescaleGrid();
         }
         
         public void InitStation(PlayerScript ps)
@@ -96,6 +103,8 @@ namespace Client.Core
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
             FindObjectOfType<OrdersScript>().GetShipList();
             ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
+
+            RescaleGrid();
         }
 
         public void InitAdmin()
@@ -115,6 +124,8 @@ namespace Client.Core
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
+
+            RescaleGrid();
         }
         
         public void InitMechanic()
@@ -128,6 +139,25 @@ namespace Client.Core
             followComp.enabled = false;
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.enabled = false;
+        }
+
+        private void RescaleGrid()
+        {
+            var spacefield = FindObjectOfType<SpaceFieldTypeDto>()?.Type;
+            switch (spacefield)
+            {
+                case SpaceFieldType.SpaceField_Test:
+                    break;
+                case SpaceFieldType.SpaceField_1:
+                case SpaceFieldType.SpaceField_2:
+                    FindObjectOfType<GridFiller>().transform.root.localScale *= 3;
+                    break;
+                case SpaceFieldType.SpaceField_3:
+                    FindObjectOfType<GridFiller>().transform.root.localScale *= 1.3f;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Client
             {
                 for (var rowIndex = 1; rowIndex <= 20; rowIndex++)
                 {
-                    var gridCell = Instantiate(gridCellPrefab,grid.transform);
+                    var gridCell = Instantiate(gridCellPrefab, grid.transform);
                     gridCell.GetComponentInChildren<TextMeshPro>().SetText($"{columnIndex}{rowIndex}");
                 }
             }
