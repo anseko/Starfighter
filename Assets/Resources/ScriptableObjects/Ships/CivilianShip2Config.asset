@@ -28,7 +28,7 @@ MonoBehaviour:
   baseColor: {r: 0, g: 0, b: 0, a: 0}
   acceleration: 5
   radarRange: 1
-  accelerationCoefficient: 0
+  accelerationCoefficient: 1
   physResistanceCoefficient: 0.3
   radResistanceCoefficient: 0.3
   radarRangeCoefficient: 1

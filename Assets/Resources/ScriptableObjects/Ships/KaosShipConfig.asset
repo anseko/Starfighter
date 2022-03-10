@@ -26,3 +26,9 @@ MonoBehaviour:
   shipId: kaos
   shipState: 0
   baseColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
+  acceleration: 5
+  radarRange: 1000
+  accelerationCoefficient: 1
+  physResistanceCoefficient: 1
+  radResistanceCoefficient: 1
+  radarRangeCoefficient: 1

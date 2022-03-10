@@ -26,3 +26,9 @@ MonoBehaviour:
   shipId: pirateStation
   shipState: 0
   baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 1
+  radarRange: 10000
+  accelerationCoefficient: 1
+  physResistanceCoefficient: 1
+  radResistanceCoefficient: 1
+  radarRangeCoefficient: 1
