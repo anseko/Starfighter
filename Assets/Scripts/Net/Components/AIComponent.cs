@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,14 @@ namespace Net.Components
         private Coroutine _currentTask;
         private bool _isPaused = false;
         
+        
         private void Awake()
         {
-            if(_wayPoints.Count == 0)
-                _wayPoints = GameObject.FindGameObjectsWithTag(Constants.AIPointTag).Select(x=>x.transform).ToList();
+            var comp = new Comparison<Transform>((o, o1) => String.CompareOrdinal(o.name, o1.name));
+
+            if (_wayPoints.Count == 0)
+                _wayPoints = GameObject.FindGameObjectsWithTag(Constants.AIPointTag).Select(x => x.transform).ToList();
+            _wayPoints.Sort(((transform1, transform2) => comp(transform1,transform2)));
         }
 
         private void Start()
@@ -87,7 +92,7 @@ namespace Net.Components
             {
                 t += step * Time.deltaTime;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 0.1f);
-                transform.position = Vector3.Lerp(transform.position, destination, t);
+                transform.position = Vector3.Lerp(transform.position, destination, t * 0.5f);
                 yield return null;
             }
         }

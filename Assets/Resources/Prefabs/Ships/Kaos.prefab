@@ -14598,7 +14598,6 @@ GameObject:
   - component: {fileID: 5285690487644156740}
   - component: {fileID: 9142811663092448026}
   - component: {fileID: 5729789074779015969}
-  - component: {fileID: 6349254247265637530}
   m_Layer: 6
   m_Name: Kaos
   m_TagString: Dynamic
@@ -14906,18 +14905,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.23, y: 3.14, z: 3.26}
   m_Center: {x: 0, y: 0, z: -1.84}
---- !u!114 &6349254247265637530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2498517654465052340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12f191d108d401cbc9c2cdb5424894c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3484539144140598395
 GameObject:
   m_ObjectHideFlags: 0

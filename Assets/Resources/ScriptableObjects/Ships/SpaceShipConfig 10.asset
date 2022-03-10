@@ -25,7 +25,7 @@ MonoBehaviour:
   currentStress: 0
   shipId: ship010
   shipState: 0
-  baseColor: {r: 2.149708, g: 0.606361, b: 0.0451438, a: 1}
+  baseColor: {r: 1, g: 0.84313726, b: 0, a: 1}
   acceleration: 5
   radarRange: 1080
   accelerationCoefficient: 1

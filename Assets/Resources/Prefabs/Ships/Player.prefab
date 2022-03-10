@@ -53046,7 +53046,6 @@ GameObject:
   - component: {fileID: 4570277334352140934}
   - component: {fileID: -2304237055800942833}
   - component: {fileID: 2758033823218242968}
-  - component: {fileID: -1464960194997158463}
   - component: {fileID: 3292655346845149900}
   - component: {fileID: -2989362028558285010}
   - component: {fileID: 6558366185625327069}
@@ -53350,18 +53349,6 @@ MonoBehaviour:
   _playerScript: {fileID: 4683736729940911175}
   hpDelta:
     m_InternalValue: 0
---- !u!114 &-1464960194997158463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598131333054404712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12f191d108d401cbc9c2cdb5424894c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3292655346845149900
 MonoBehaviour:
   m_ObjectHideFlags: 0
