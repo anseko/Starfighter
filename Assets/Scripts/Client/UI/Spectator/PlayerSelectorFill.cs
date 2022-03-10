@@ -13,6 +13,7 @@ namespace Client.UI.Spectator
         [SerializeField] private GameObject _button;
         [SerializeField] private VerticalLayoutGroup _panel;
         private List<CenterView> buttons;
+        public bool isSpectator = false;
 
         private void Start()
         {
@@ -28,6 +29,7 @@ namespace Client.UI.Spectator
 
         private void Update()
         {
+            if (isSpectator) return;
             buttons.ForEach(x=>x.gameObject.SetActive(x.IsInRadarRange()));
         }
     }
