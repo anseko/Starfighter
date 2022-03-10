@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 9003948101772855290}
   - component: {fileID: 6682621532386419847}
   - component: {fileID: -8282039748990938463}
-  - component: {fileID: 2511185827994196913}
   - component: {fileID: -4631180953524717066}
+  - component: {fileID: 7743738292620259777}
   m_Layer: 6
   m_Name: Jacht
   m_TagString: Dynamic
@@ -119,16 +119,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3249588557617223395}
-  m_LocalRotation: {x: -0, y: 0.28935695, z: -0, w: 0.95722127}
-  m_LocalPosition: {x: -2303.6, y: 0, z: -2400.2}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4860920065026399608}
   - {fileID: 2362884862766698136}
   - {fileID: 8190149244424677854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 33.639, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7356776177025621702
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -275,10 +275,25 @@ MonoBehaviour:
   lastThingToDock: {fileID: 0}
   readyToDock:
     m_InternalValue: 0
-  _dockingMarkers:
-  - {fileID: 8986642588872379350}
+  _dockingMarkers: []
   _dockCheckZone: {fileID: 0}
---- !u!114 &2511185827994196913
+--- !u!54 &-4631180953524717066
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249588557617223395}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
+--- !u!114 &7743738292620259777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,7 +302,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3249588557617223395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
+  m_Script: {fileID: 11500000, guid: b21b31f5f07b4eb79cec4395abe5d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkUnitConfig: {fileID: 0}
@@ -314,30 +329,6 @@ MonoBehaviour:
     radarRangeCoefficient: 0
   isGrappled:
     m_InternalValue: 0
-  volume: {fileID: 0}
-  keyConfig: {fileID: 11400000, guid: fca14635af08fe442a8970f56fa16013, type: 2}
-  shipSpeed:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  shipRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  localUsage: 0
-  Rigidbody: {fileID: 0}
---- !u!54 &-4631180953524717066
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3249588557617223395}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0.01
-  m_AngularDrag: 0.01
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 0
 --- !u!1001 &1598419712474097378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -420,7 +411,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DockingMarker (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 67bef267569f9bb46b29cc196e2f062b, type: 3}
 --- !u!4 &4860920065026399608 stripped
 Transform:
@@ -428,15 +420,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1598419712474097378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8986642588872379350 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7680974446376693044, guid: 67bef267569f9bb46b29cc196e2f062b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1598419712474097378}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4d9ac1be15e584499f32939d837d0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
