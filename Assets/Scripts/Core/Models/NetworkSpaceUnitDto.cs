@@ -179,7 +179,10 @@ namespace Core.Models
         {
             var permissionDelegate =
                 new NetworkVariablePermissionsDelegate(id =>
-                    IsOwner || IsServer || FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin);
+                    IsOwner ||
+                    IsServer ||
+                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin ||
+                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Mechanic);
 
             _maxAngleSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
             {

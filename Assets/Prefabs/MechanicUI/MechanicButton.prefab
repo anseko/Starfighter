@@ -123,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6006263473152166621}
-        m_TargetAssemblyTypeName: CenterView, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 4041554506006465065}
+        m_TargetAssemblyTypeName: MechanicButtonScript, Assembly-CSharp
+        m_MethodName: SetParameters
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b13f921c691bc7429d4ea4a8c5052b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panel: {fileID: 0}
+  ship: {fileID: 0}
 --- !u!1 &8181623847195847175
 GameObject:
   m_ObjectHideFlags: 0

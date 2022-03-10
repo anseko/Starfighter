@@ -2,6 +2,7 @@
 using UnityEngine;
 using Client.UI;
 using Client.UI.Admin;
+using Client.UI.Mechanic;
 using Client.Utils;
 using Core;
 using Core.Models;
@@ -139,6 +140,7 @@ namespace Client.Core
             followComp.enabled = false;
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.enabled = false;
+            FindObjectOfType<MechanicPlayerSelectorFill>()?.Init();
         }
 
         private void RescaleGrid()

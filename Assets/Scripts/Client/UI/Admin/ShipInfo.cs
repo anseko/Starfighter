@@ -97,6 +97,10 @@ namespace Client.UI.Admin
         {
             _stress.value = playerScript.NetworkUnitConfig.CurrentStress;
             _hp.value = playerScript.NetworkUnitConfig.CurrentHp;
+            _acceleration.text = playerScript.NetworkUnitConfig.AccelerationCoefficient.ToString();
+            _radarRange.text = playerScript.NetworkUnitConfig.RadarRange.ToString();
+            _radiationResist.text = playerScript.NetworkUnitConfig.RadResistanceCoefficient.ToString();
+            _hitResist.text = playerScript.NetworkUnitConfig.PhysResistanceCoefficient.ToString();
         }
 
         private void Despawn()
