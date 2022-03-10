@@ -27,13 +27,11 @@ namespace Client.UI.Spectator
             }
         }
 
-        private void Update()
+        public bool IsInRadarRange()
         {
-            if (!_ship.gameObject.GetComponentInChildren<MeshRenderer>().enabled)
-            {
-                this.gameObject.GetComponent<Button>().interactable = false;
-            }
-            else this.gameObject.GetComponent<Button>().interactable = true;
+            var check1 = _ship.gameObject.GetComponentsInChildren<Renderer>().All(x => x.enabled); 
+            var check2 = _ship.gameObject.GetComponents<Renderer>().All(x => x.enabled);
+            return check1 && check2;
         }
     }
 }

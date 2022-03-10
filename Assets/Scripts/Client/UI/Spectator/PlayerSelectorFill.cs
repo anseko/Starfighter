@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Client.Core;
 using TMPro;
 using UnityEngine;
@@ -10,15 +12,23 @@ namespace Client.UI.Spectator
 
         [SerializeField] private GameObject _button;
         [SerializeField] private VerticalLayoutGroup _panel;
+        private List<CenterView> buttons;
 
         private void Start()
         {
+            buttons = new List<CenterView>();
             foreach (var ship in FindObjectsOfType<PlayerScript>())
             {
                  var button = Instantiate(_button, _panel.transform);
                  var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
                  buttonName.text = ship.NetworkUnitConfig.ShipId;
+                 buttons.Add(button.GetComponent<CenterView>());
             }
+        }
+
+        private void Update()
+        {
+            buttons.ForEach(x=>x.gameObject.SetActive(x.IsInRadarRange()));
         }
     }
 }

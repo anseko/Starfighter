@@ -1,1 +1,1 @@
-{"spaceUnitConfigs":[{"maxAngleSpeed":10.0,"maxSpeed":3.0,"maxHp":0.0,"currentHp":0.0,"isDockable":false,"isMovable":false,"position":{"x":61.62994384765625,"y":1.0,"z":4.675015449523926},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"prefabName":"BlueMeteorite","maxStress":100.0,"currentStress":0.0,"shipId":"","shipState":0,"baseColor":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"acceleration":0.0,"radarRange":0.0,"accelerationCoefficient":1.0,"physResistanceCoefficient":1.0,"radResistanceCoefficient":1.0,"radarRangeCoefficient":1.0}]}
+{"spaceUnitConfigs":[]}
