@@ -5,9 +5,7 @@ using Client;
 using Client.Core;
 using Client.UI;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components
@@ -18,7 +16,7 @@ namespace Net.Components
         private PlayerScript _unit;
         public bool isDockable = true;
         public UnitScript lastThingToDock;
-        public NetworkVariableBool readyToDock;
+        public NetworkVariable<bool> readyToDock;
         [SerializeField]
         private List<DockingTrigger> _dockingMarkers;
         [SerializeField]
@@ -27,7 +25,7 @@ namespace Net.Components
         
         private void Awake()
         {
-            readyToDock = new NetworkVariableBool(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly}, false);
+            readyToDock = new NetworkVariable<bool>(false);
             ClientEventStorage.GetInstance().DockIndicatorStateRequest.AddListener(IndicatorUpdate);
         }
 

@@ -2,42 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
-using MLAPI;
-using MLAPI.Serialization;
+using Core.Models;
 using Net.Components;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Client.UI
 {
     public class OrdersScript : NetworkBehaviour
     {
-        public class OrderUnit: INetworkSerializable
-        {
-            public string shipName;
-            public Vector3 position;
-            public Vector3 size;
-            public string text;
-            public OrderOperation operation;
-            public GameObject orderPlane;
-
-            public void NetworkSerialize(NetworkSerializer serializer)
-            {
-                serializer.Serialize(ref shipName);
-                serializer.Serialize(ref position);
-                serializer.Serialize(ref size);
-                serializer.Serialize(ref text);
-                serializer.Serialize(ref operation);
-            }
-        }
-
-        public enum OrderOperation
-        {
-            Add,
-            Edit,
-            Remove
-        }
-
         public enum EditorState
         {
             IsInactive,
@@ -48,6 +22,7 @@ namespace Client.UI
         public EditorState state;
         
         private Dictionary<string, OrderUnit> _ordersList;
+        private Dictionary<string, GameObject> _ordersObjectsList;
         private PlayerScript _ordersPS;
         private Vector3 _endPositionGlobal;
         private GameObject _orderPlaneCopy;
@@ -68,6 +43,7 @@ namespace Client.UI
         private void Awake()
         {
             _ordersList = new Dictionary<string, OrderUnit>();
+            _ordersObjectsList = new Dictionary<string, GameObject>();
         }
 
         private void Start()
@@ -113,16 +89,18 @@ namespace Client.UI
                 position = _orderPlaneCopy.GetComponent<OrderFrameInit>().position,
                 size = _orderPlaneCopy.GetComponent<OrderFrameInit>().size,
                 text = _textField.text,
-                orderPlane = _orderPlaneCopy
             };
             
-            var isSuccess = _ordersList.TryGetValue(unit.shipName, out var oldOrder);
+            
+            var isSuccess = _ordersList.TryGetValue(unit.shipName.ToString(), out var oldOrder);
             Debug.unityLogger.Log($"creating order {isSuccess}: {unit.shipName} : {_ordersList.Count}");
                         
             if (isSuccess)
             {
-                Destroy(oldOrder.orderPlane);
-                _ordersList.Remove(oldOrder.shipName);
+                var key = oldOrder.shipName.ToString();
+                Destroy(_ordersObjectsList[key]);
+                _ordersList.Remove(key);
+                _ordersObjectsList.Remove(key);
                 unit.operation = OrderOperation.Edit;
             }
             else
@@ -130,11 +108,12 @@ namespace Client.UI
                 unit.operation = OrderOperation.Add;
             }
                         
-            _ordersList.Add(unit.shipName, unit);
+            _ordersList.Add(unit.shipName.ToString(), unit);
+            _ordersObjectsList.Add(unit.shipName.ToString(), _orderPlaneCopy);
             if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
                 orderComponent.lastOrder.Value = unit;
                         
-            _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
+            _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text.ToString());
             
             _textField.text = "";
             _editPanel.SetActive(false);
@@ -172,6 +151,7 @@ namespace Client.UI
                 }
 
                 _ordersList.Remove(_ordersPS.NetworkUnitConfig.ShipId);
+                _ordersObjectsList.Remove(_ordersPS.NetworkUnitConfig.ShipId);
             }
 
             Destroy(_orderPlaneCopy);

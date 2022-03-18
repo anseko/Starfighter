@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using MLAPI;
-using MLAPI.NetworkVariable;
-using Net.Core;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Core.Models
@@ -18,11 +17,11 @@ namespace Core.Models
         public NetworkVariable<bool> _isMovable;
         public NetworkVariable<Vector3> _position;
         public NetworkVariable<Quaternion> _rotation;
-        public NetworkVariable<string> _prefabName;
-        public NetworkVariable<string> _id;
+        public NetworkVariable<FixedString128Bytes> _prefabName;
+        public NetworkVariable<FixedString128Bytes> _id;
         public NetworkVariable<float> _maxStress;
         public NetworkVariable<float> _currentStress;
-        public NetworkVariable<string> _shipId;
+        public NetworkVariable<FixedString128Bytes> _shipId;
         public NetworkVariable<UnitState> _shipState;
         public NetworkVariable<Color> _baseColor;
         public NetworkVariable<float> _acceleration;
@@ -74,13 +73,13 @@ namespace Core.Models
         }
         public string PrefabName
         {
-            get => _prefabName.Value;
-            set => _prefabName.Value = value;
+            get => _prefabName.Value.ToString();
+            set => _prefabName.Value = new FixedString128Bytes(value);
         }
         public Guid ID
         {
-            get => Guid.Parse(_id.Value);
-            set => _id.Value = value.ToString();
+            get => Guid.Parse(_id.Value.ToString());
+            set => _id.Value = new FixedString128Bytes(value.ToString());
         }
         public float MaxStress
         {
@@ -92,10 +91,8 @@ namespace Core.Models
             get => _currentStress.Value;
             set => _currentStress.Value = value;
         }
-        public string ShipId
-        {
-            get => _shipId.Value;
-        }
+        public string ShipId => _shipId.Value.ToString();
+
         public UnitState ShipState
         {
             get => _shipState.Value;
@@ -146,11 +143,11 @@ namespace Core.Models
             _isMovable.Value = config.isMovable;
             _position.Value = config.position;
             _rotation.Value = config.rotation;
-            _prefabName.Value = config.prefabName;
-            _id.Value = config.id.ToString();
+            _prefabName.Value = new FixedString128Bytes(config.prefabName);
+            _id.Value = new FixedString128Bytes(config.id.ToString());
             _maxStress.Value = config.maxStress;
             _currentStress.Value = config.currentStress;
-            _shipId.Value = config.shipId;
+            _shipId.Value = new FixedString128Bytes(config.shipId);
             _shipState.Value = config.shipState;
             _baseColor.Value = config.baseColor;
             _acceleration.Value = config.acceleration;
@@ -177,159 +174,54 @@ namespace Core.Models
         
         public void Awake()
         {
-            var permissionDelegate =
-                new NetworkVariablePermissionsDelegate(id =>
-                    IsOwner ||
-                    IsServer ||
-                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin ||
-                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Mechanic);
+            // var permissionDelegate =
+            //     new NetworkVariablePermissionsDelegate(id =>
+            //         IsOwner ||
+            //         IsServer ||
+            //         FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin ||
+            //         FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Mechanic);
 
-            _maxAngleSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _maxAngleSpeed = new NetworkVariable<float>();
             
-            _maxSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _maxSpeed = new NetworkVariable<float>();
             
-            _maxHp = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _maxHp = new NetworkVariable<float>();
             
-            _currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _currentHp = new NetworkVariable<float>();
             
-            _isDockable = new NetworkVariable<bool>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _isDockable = new NetworkVariable<bool>();
             
-            _isMovable = new NetworkVariable<bool>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _isMovable = new NetworkVariable<bool>();
             
-            _position = new NetworkVariable<Vector3>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _position = new NetworkVariable<Vector3>();
             
-            _rotation = new NetworkVariable<Quaternion>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _rotation = new NetworkVariable<Quaternion>();
             
-            _prefabName = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
+            _prefabName = new NetworkVariable<FixedString128Bytes>();
 
-            _maxStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _maxStress = new NetworkVariable<float>();
             
-            _currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _currentStress = new NetworkVariable<float>();
             
-            _shipId = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _shipId = new NetworkVariable<FixedString128Bytes>();
             
-            _shipState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _shipState = new NetworkVariable<UnitState>();
             
-            _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _baseColor = new NetworkVariable<Color>();
 
-            _id = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _id = new NetworkVariable<FixedString128Bytes>();
             
-            _acceleration = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _acceleration = new NetworkVariable<float>();
 
-            _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _radarRange = new NetworkVariable<float>();
             
-            _accelerationCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _accelerationCoefficient = new NetworkVariable<float>();
             
-            _physResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _physResistanceCoefficient = new NetworkVariable<float>();
             
-            _radResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _radResistanceCoefficient = new NetworkVariable<float>();
             
-            _radarRangeCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            _radarRangeCoefficient = new NetworkVariable<float>();
         }
     }
 }

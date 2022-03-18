@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Client.Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
 using Net.Core;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components
@@ -42,7 +40,7 @@ namespace Net.Components
         {
             _rigidbody = GetComponent<Rigidbody>();
             _unit = GetComponent<PlayerScript>();
-            _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
+            _lastMovement = new NetworkVariable<MovementData>();
             _lastMovement.OnValueChanged += (value, newValue) =>
             {
                 if (IsOwner) AnimateMovementServerRpc();
@@ -76,13 +74,13 @@ namespace Net.Components
                 _unit.shipRotation.Value = _unit.Rigidbody.angularVelocity;
             }
             
-            _lastMovement.Value = new MovementData()
-            {
-                rotationValue = 0,
-                sideManeurValue = 0,
-                straightManeurValue = 0,
-                thrustValue = 0
-            };
+            // _lastMovement.Value = new MovementData()
+            // {
+            //     rotationValue = 0,
+            //     sideManeurValue = 0,
+            //     straightManeurValue = 0,
+            //     thrustValue = 0
+            // };
         }
 
         private void Update()

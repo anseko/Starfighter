@@ -1,8 +1,6 @@
 ﻿using Client.Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
 using Net.Components;
+using Unity.Netcode;
 using UnityEngine;
 
 
@@ -35,16 +33,9 @@ namespace Core
     
         private void Awake()
         {
-            grappledObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings(){
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission =  NetworkVariablePermission.OwnerOnly
-            }, 0);
+            grappledObjectId = new NetworkVariable<ulong>((ulong)0);
             
-            ownerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission =  NetworkVariablePermission.OwnerOnly
-            });
+            ownerObjectId = new NetworkVariable<ulong>();
 
             grappledObjectId.OnValueChanged += (value, newValue) =>
             {

@@ -1,6 +1,5 @@
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components

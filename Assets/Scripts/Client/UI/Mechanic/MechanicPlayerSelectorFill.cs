@@ -3,7 +3,6 @@ using Core;
 using Net.Components;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Client.UI.Mechanic

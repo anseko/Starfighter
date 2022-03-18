@@ -53010,6 +53010,7 @@ GameObject:
   - component: {fileID: 7899070729933046561}
   - component: {fileID: -2989362028558285010}
   - component: {fileID: 1552051368172202933}
+  - component: {fileID: 3247071509625640455}
   m_Layer: 6
   m_Name: SunQueen
   m_TagString: Dynamic
@@ -53126,11 +53127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 11988425073059894513
-  PrefabHashGenerator: SunQueen
+  GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 1
   DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &2734152212456101977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53143,42 +53143,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 60
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 0.5
-  InterpolateServer: 1
-  MinMeters: 0.01
-  MinDegrees: 0.01
-  ExtrapolatePosition: 0
-  MaxSendsToExtrapolate: 5
-  Channel: 
-  EnableRange: 1
-  EnableNonProvokedResendChecks: 0
-  DistanceSendrate:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.12162018
-      value: 60.04656
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1997.9812
-      value: 19.988781
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+  CanCommitToTransform: 0
 --- !u!114 &7899070729933046561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53233,6 +53212,18 @@ CapsuleCollider:
   m_Height: 316.12
   m_Direction: 2
   m_Center: {x: -0.0669384, y: 2.0112782, z: 130.1}
+--- !u!114 &3247071509625640455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5599932586765455449
 GameObject:
   m_ObjectHideFlags: 0

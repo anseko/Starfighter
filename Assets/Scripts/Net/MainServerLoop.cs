@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
 using Net.Core;
 using ScriptableObjects;
 using TMPro;
+using Unity.Collections;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UNET;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -136,7 +137,7 @@ namespace Net
         
         private void Update()
         {
-            clientCounter.text = NetworkManager.Singleton.ConnectedClients.Count.ToString();
+            if (NetworkManager.Singleton.IsServer) clientCounter.text = NetworkManager.Singleton.ConnectedClients.Count.ToString();
         }
 
         public bool CheckForAccountId(ulong clientId, string shipId)
@@ -150,7 +151,7 @@ namespace Net
         private void OnApplicationQuit()
         {
             GetComponent<ServerInitializeHelper>().SaveServer();
-            NetworkManager.Singleton.StopServer();
+            NetworkManager.Singleton.Shutdown();
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
-using MLAPI;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components

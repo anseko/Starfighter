@@ -1,11 +1,9 @@
 using System;
 using Core;
 using Core.Models;
-using MLAPI;
-using MLAPI.NetworkVariable;
 using Net.Components;
-using Net.Core;
-using ScriptableObjects;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net
@@ -17,12 +15,12 @@ namespace Net
         public NetworkVariable<float> zoneHpDamage;
         public NetworkVariable<float> zoneRadius;
         public NetworkVariable<ZoneType> zoneType;
-        private NetworkVariable<string> _id;
+        private NetworkVariable<FixedString128Bytes> _id;
 
         public Guid Guid
         {
-            get { return Guid.Parse(_id.Value); }
-            set { _id.Value = value.ToString(); }
+            get => Guid.Parse(_id.Value.ToString());
+            set => _id.Value = new FixedString128Bytes(value.ToString());
         }
 
 
@@ -43,46 +41,16 @@ namespace Net
         
         private void Awake()
         {
-            var permissionDelegate =
-                new NetworkVariablePermissionsDelegate(id =>
-                    IsOwner || IsServer || FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin);
+            // var permissionDelegate =
+            //     new Write(id =>
+            //         IsOwner || IsServer || FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin);
             
-            zoneColor = new NetworkVariable<Color>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneRadius = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneStressDamage = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneHpDamage = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            _id = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneType = new NetworkVariable<ZoneType>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            zoneColor = new NetworkVariable<Color>();
+            zoneRadius = new NetworkVariable<float>();
+            zoneStressDamage = new NetworkVariable<float>();
+            zoneHpDamage = new NetworkVariable<float>();
+            _id = new NetworkVariable<FixedString128Bytes>();
+            zoneType = new NetworkVariable<ZoneType>();
 
             zoneRadius.OnValueChanged += (value, newValue) => { transform.localScale = Vector3.one * 10 * newValue; };
             zoneColor.OnValueChanged += (value, newValue) =>

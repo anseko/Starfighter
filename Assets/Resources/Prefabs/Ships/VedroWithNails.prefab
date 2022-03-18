@@ -24234,6 +24234,7 @@ GameObject:
   - component: {fileID: 5285690487644156740}
   - component: {fileID: 8410796737940202225}
   - component: {fileID: 8013764002677234549}
+  - component: {fileID: -2817639081835170797}
   m_Layer: 6
   m_Name: VedroWithNails
   m_TagString: Dynamic
@@ -24353,11 +24354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 3156561593852978055
-  PrefabHashGenerator: Vedro
+  GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 1
   DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!114 &5399150385129864837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24370,42 +24370,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 60
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 10
-  InterpolateServer: 1
-  MinMeters: 0.01
-  MinDegrees: 0.01
-  ExtrapolatePosition: 0
-  MaxSendsToExtrapolate: 5
-  Channel: 
-  EnableRange: 1
-  EnableNonProvokedResendChecks: 0
-  DistanceSendrate:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.12162018
-      value: 60.04656
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1997.9812
-      value: 19.988781
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+  CanCommitToTransform: 0
 --- !u!114 &181033088196224509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24543,6 +24522,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 8153837778612936839}
   numbers: {fileID: 0}
+--- !u!114 &-2817639081835170797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498517654465052340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3019609367889255255
 GameObject:
   m_ObjectHideFlags: 0
@@ -87412,6 +87403,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491a77f13b0733d48bddf71218b8b47c, type: 3}
+--- !u!4 &5274885540940921246 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5127419082764265911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6311378563502030021 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1206618491851150706, guid: 491a77f13b0733d48bddf71218b8b47c,
@@ -87424,12 +87421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0182d31fbbe4555a3be335c0fd9a2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &5274885540940921246 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1016802028977492009, guid: 491a77f13b0733d48bddf71218b8b47c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5127419082764265911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9072828639316237782
 PrefabInstance:
   m_ObjectHideFlags: 0

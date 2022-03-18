@@ -3,20 +3,14 @@ using System.Linq;
 using Client.Core;
 using Client.UI;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {
-        public NetworkVariable<UserType> userType = new NetworkVariable<UserType>(new NetworkVariableSettings()
-        {
-            ReadPermission = NetworkVariablePermission.Everyone,
-            WritePermission = NetworkVariablePermission.ServerOnly
-        });
+        public NetworkVariable<UserType> userType = new NetworkVariable<UserType>();
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
         public void SelectSceneClientRpc(UserType type, ulong networkId, ClientRpcParams clientRpcParams = default)

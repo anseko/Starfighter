@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components
@@ -15,20 +14,13 @@ namespace Net.Components
         private PlayerScript _playerScript;
         private List<Material> _bodymats;
         private Coroutine _dissolveCoroutine;
-        private NetworkVariableBool _isMasked;
+        private NetworkVariable<bool> _isMasked;
         private static readonly int Value = Shader.PropertyToID("Value");
 
         private void Awake()
         {
-            _isMasked = new NetworkVariableBool(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.OwnerOnly
-            })
-            {
-                Value = false
-            };
-            
+            _isMasked = new NetworkVariable<bool>(false);
+
             _bodymats = model.GetComponents<Renderer>().SelectMany(x=>x.materials).ToList();
             _bodymats.AddRange(model.GetComponentsInChildren<Renderer>().SelectMany(x=>x.materials).ToList());
             _playerScript = GetComponent<PlayerScript>();

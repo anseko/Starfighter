@@ -2,7 +2,6 @@ using System.Linq;
 using Client.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Client.UI.Spectator
 {

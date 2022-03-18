@@ -1,8 +1,7 @@
 using System;
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Net.Components
@@ -14,11 +13,7 @@ namespace Net.Components
 
         private void Awake()
         {
-            stressDelta = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            }, 0.0114f);
+            stressDelta = new NetworkVariable<float>(0.0114f);
             
             _playerScript.NetworkUnitConfig._currentStress.OnValueChanged += (value, newValue) =>
             {

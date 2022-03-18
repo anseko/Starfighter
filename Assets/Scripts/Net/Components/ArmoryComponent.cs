@@ -1,4 +1,4 @@
-using MLAPI;
+using Unity.Netcode;
 
 namespace Net.Components
 {

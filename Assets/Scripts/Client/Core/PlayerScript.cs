@@ -1,8 +1,7 @@
 using Core;
 using System.Linq;
-using MLAPI;
-using MLAPI.NetworkVariable;
 using ScriptableObjects;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -12,7 +11,7 @@ namespace Client.Core
     {
         public Volume volume;
         public KeyConfig keyConfig;
-        public NetworkVariableVector3 shipSpeed, shipRotation;
+        public NetworkVariable<Vector3> shipSpeed, shipRotation;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody Rigidbody;
@@ -22,16 +21,9 @@ namespace Client.Core
         {
             base.Awake();
             
-            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            }, Vector3.zero);
-            
-            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            }, Vector3.zero);
+            shipSpeed = new NetworkVariable<Vector3>(Vector3.zero);
+
+            shipRotation = new NetworkVariable<Vector3>(Vector3.zero);
         }
 
         private void Start()

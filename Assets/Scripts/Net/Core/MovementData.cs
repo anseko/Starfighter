@@ -1,5 +1,5 @@
 ﻿using System;
-using MLAPI.Serialization;
+using Unity.Netcode;
 
 namespace Net.Core
 {
@@ -11,12 +11,12 @@ namespace Net.Core
         public float sideManeurValue;
         public float straightManeurValue;
         
-        public void NetworkSerialize(NetworkSerializer serializer)
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
-            serializer.Serialize(ref thrustValue);
-            serializer.Serialize(ref rotationValue);
-            serializer.Serialize(ref sideManeurValue);
-            serializer.Serialize(ref straightManeurValue);
+            serializer.SerializeValue(ref thrustValue);
+            serializer.SerializeValue(ref rotationValue);
+            serializer.SerializeValue(ref sideManeurValue);
+            serializer.SerializeValue(ref straightManeurValue);
         }
     }
 }

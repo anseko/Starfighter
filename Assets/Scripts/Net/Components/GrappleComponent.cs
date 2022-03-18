@@ -1,8 +1,6 @@
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 
@@ -28,11 +26,7 @@ namespace Net.Components
             //     WritePermissionCallback = id => IsOwner || IsServer 
             // });
             
-            grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
+            grapplerObjectId = new NetworkVariable<ulong>();
 
             _unit ??= gameObject.GetComponent<PlayerScript>();
         }

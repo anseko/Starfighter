@@ -1,10 +1,8 @@
 using System.Linq;
 using Core;
 using Core.Models;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
 using Net;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Client.Core
@@ -14,11 +12,7 @@ namespace Client.Core
         public NetworkSpaceUnitDto NetworkUnitConfig;
         public SpaceUnitDto unitConfig;
 
-        public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
-        {
-            ReadPermission = NetworkVariablePermission.Everyone,
-            WritePermission =  NetworkVariablePermission.Everyone
-        });
+        public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>();
         
         public virtual UnitState GetState() => UnitState.InFlight;
 
