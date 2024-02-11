@@ -14,9 +14,14 @@ namespace Net.Components
         private PlayerScript _playerScript;
         private List<Material> _bodymats;
         private Coroutine _dissolveCoroutine;
-        [SyncVar] private bool _isMasked;
+        [SyncVar(hook = nameof(OnMaskingValueChange))] private bool _isMasked;
         private static readonly int Value = Shader.PropertyToID("Value");
 
+        private void OnMaskingValueChange(bool oldValue, bool newValue)
+        {
+            _dissolveCoroutine = StartCoroutine(Dissolve(300));
+        }
+        
         private void Awake()
         {
             _isMasked = false;
@@ -39,7 +44,6 @@ namespace Net.Components
         {
             _bodymats.ForEach(x => x.SetFloat(Value, _isMasked ? 1 : 0));
             if(_dissolveCoroutine != null) StopCoroutine(_dissolveCoroutine);
-            _isMasked.OnValueChanged += (value, newValue) => _dissolveCoroutine = StartCoroutine(Dissolve(300));
         }
 
         private void Update()

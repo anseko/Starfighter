@@ -13,6 +13,14 @@ namespace Client.Core
         public readonly CoreEvent NoOneToDock = new CoreEvent(); //clear
         public readonly CoreEvent DockIndicatorStateRequest = new CoreEvent();
 
+        public readonly Vector3Event OnShipSpeedChange = new Vector3Event();
+        public readonly FloatEvent OnCurrentHpChange = new FloatEvent();
+        public readonly UnitStateEvent OnShipStateChange = new UnitStateEvent();
+        public readonly FloatEvent OnRadarRangeChange = new FloatEvent();
+        public readonly FloatEvent OnRadarRangeCoefficientChange = new FloatEvent();
+        public readonly FloatEvent OnCurrentStressChange = new FloatEvent();
+        public readonly FloatEvent OnDangerZoneRadiusChange = new FloatEvent();
+
         public static ClientEventStorage GetInstance()
         {
             return _instance ??= new ClientEventStorage();
@@ -25,6 +33,14 @@ namespace Client.Core
             IsDocked.RemoveAllListeners();
             NoOneToDock.RemoveAllListeners();
             DockIndicatorStateRequest.RemoveAllListeners();
+            
+            OnShipSpeedChange.RemoveAllListeners();
+            OnCurrentHpChange.RemoveAllListeners();
+            OnShipStateChange.RemoveAllListeners();
+            OnRadarRangeChange.RemoveAllListeners();
+            OnRadarRangeCoefficientChange.RemoveAllListeners();
+            OnCurrentStressChange.RemoveAllListeners();
+            OnDangerZoneRadiusChange.RemoveAllListeners();
         }
     }
 }

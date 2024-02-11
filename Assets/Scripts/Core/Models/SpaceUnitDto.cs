@@ -1,4 +1,5 @@
 using System;
+using Mirror;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -71,31 +72,39 @@ namespace Core.Models
                 radarRangeCoefficient = 1;
             }
         }
-        
-        public void NetworkSerialize(NetworkSerializer serializer)
-        {
-            serializer.Serialize(ref maxAngleSpeed);
-            serializer.Serialize(ref maxSpeed);
-            serializer.Serialize(ref maxHp);
-            serializer.Serialize(ref currentHp);
-            serializer.Serialize(ref isDockable);
-            serializer.Serialize(ref isMovable);
-            serializer.Serialize(ref position);
-            serializer.Serialize(ref rotation);
-            serializer.Serialize(ref prefabName);
-            serializer.Serialize(ref maxStress);
-            serializer.Serialize(ref currentStress);
-            serializer.Serialize(ref shipId);
-            serializer.Serialize(ref shipState);
-            serializer.Serialize(ref baseColor);
-            serializer.Serialize(ref acceleration);
-            serializer.Serialize(ref radarRange);
-            serializer.Serialize(ref accelerationCoefficient);
-            serializer.Serialize(ref physResistanceCoefficient);
-            serializer.Serialize(ref radResistanceCoefficient);
-            serializer.Serialize(ref radarRangeCoefficient);
-        }
     }
     
 
+    //should be unnecessary
+    // public static class CustomSpaceUnitDtoReadWrite
+    // {
+    //     public static void WriteMovementData(this NetworkWriter writer, SpaceUnitDto value)
+    //     {
+    //     
+    //         public void NetworkSerialize(NetworkSerializer serializer)
+    //         {
+    //             serializer.Serialize(ref maxAngleSpeed);
+    //             serializer.Serialize(ref maxSpeed);
+    //             serializer.Serialize(ref maxHp);
+    //             serializer.Serialize(ref currentHp);
+    //             serializer.Serialize(ref isDockable);
+    //             serializer.Serialize(ref isMovable);
+    //             serializer.Serialize(ref position);
+    //             serializer.Serialize(ref rotation);
+    //             serializer.Serialize(ref prefabName);
+    //             serializer.Serialize(ref maxStress);
+    //             serializer.Serialize(ref currentStress);
+    //             serializer.Serialize(ref shipId);
+    //             serializer.Serialize(ref shipState);
+    //             serializer.Serialize(ref baseColor);
+    //             serializer.Serialize(ref acceleration);
+    //             serializer.Serialize(ref radarRange);
+    //             serializer.Serialize(ref accelerationCoefficient);
+    //             serializer.Serialize(ref physResistanceCoefficient);
+    //             serializer.Serialize(ref radResistanceCoefficient);
+    //             serializer.Serialize(ref radarRangeCoefficient);
+    //         }
+    //
+    //     }
+    // }
 }

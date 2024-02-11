@@ -6,6 +6,7 @@ using Client.UI.Mechanic;
 using Client.Utils;
 using Core;
 using Core.Models;
+using Mirror;
 using Net;
 using Net.Components;
 
@@ -47,6 +48,8 @@ namespace Client.Core
             {
                 dangerZone.gameObject.SetActive(false);
             }
+
+            NetworkClient.Ready();
         }
         
         public void InitNavigator(PlayerScript ps)
@@ -71,6 +74,8 @@ namespace Client.Core
             FindObjectOfType<Hpbar>(true)?.Init(ps);
 
             RescaleGrid();
+            
+            NetworkClient.Ready();
         }
         
         public void InitSpectator()
@@ -87,6 +92,8 @@ namespace Client.Core
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
 
             RescaleGrid();
+            
+            NetworkClient.Ready();
         }
         
         public void InitStation(PlayerScript ps)
@@ -106,6 +113,8 @@ namespace Client.Core
             ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
 
             RescaleGrid();
+            
+            NetworkClient.Ready();
         }
 
         public void InitAdmin()
@@ -127,6 +136,8 @@ namespace Client.Core
             zoomComp.enabled = true;
 
             RescaleGrid();
+            
+            NetworkClient.Ready();
         }
         
         public void InitMechanic()
@@ -141,6 +152,8 @@ namespace Client.Core
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.enabled = false;
             FindObjectOfType<MechanicPlayerSelectorFill>()?.Init();
+            
+            NetworkClient.Ready();
         }
 
         private void RescaleGrid()

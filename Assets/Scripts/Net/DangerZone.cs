@@ -1,4 +1,5 @@
 using System;
+using Client.Core;
 using Core;
 using Core.Models;
 using Mirror;
@@ -94,7 +95,11 @@ namespace Net
             renderer.color = newValue;
         }
 
-        private void ZoneRadiusChanged(float oldValue, float newValue) => transform.localScale = Vector3.one * 10 * newValue;
+        private void ZoneRadiusChanged(float oldValue, float newValue)
+        {
+            transform.localScale = Vector3.one * 10 * newValue;
+            ClientEventStorage.GetInstance().OnDangerZoneRadiusChange.Invoke(newValue);
+        } 
 
         private void Start()
         {

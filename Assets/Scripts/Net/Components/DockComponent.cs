@@ -94,7 +94,7 @@ namespace Net.Components
         }
 
         [Command]
-        public void EmergencyUndockServerRpc(ulong otherObjectId, bool changeSelfState = false)
+        public void EmergencyUndockServerRpc(ulong otherObjectId, bool changeSelfState)
         {
             var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null && otherObjectId != default) return;
@@ -103,19 +103,20 @@ namespace Net.Components
             
             if (changeSelfState) _unit.networkUnitConfig.shipState = UnitState.InFlight;
             
-            if (otherUnit != null && otherUnit.NetworkUnitConfig.ShipState != UnitState.IsDead) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
+            if (otherUnit != null && otherUnit.networkUnitConfig.shipState != UnitState.IsDead) otherUnit.networkUnitConfig.shipState = UnitState.InFlight;
             
             transform.SetParent(null);
         }
         
         [Command]
-        private void TryToDockServerRpc(ulong otherObjectId)
+        private void TryToDockServerRpc(uint otherObjectId)
         {
             var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null) return;
 
             var otherIsReady = false;
-            otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock;
+            //executes on Server so isOwned == isOwnedByServer
+            otherIsReady = otherObj.isOwned || otherObj.GetComponent<DockComponent>().readyToDock;
 
             if (!otherIsReady) return;
 
@@ -127,9 +128,9 @@ namespace Net.Components
                     _unit.networkUnitConfig.shipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
-                        if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;
+                        if (otherUnit.networkUnitConfig.shipState == UnitState.IsDead) break;
                         //если мы стыкуемся к объекту с PlayerScript
-                        otherUnit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
+                        otherUnit.networkUnitConfig.shipState = UnitState.IsDocked;
                     }
                     else
                     {
@@ -141,8 +142,8 @@ namespace Net.Components
                     _unit.networkUnitConfig.shipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
-                        if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;
-                        otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                        if (otherUnit.networkUnitConfig.shipState == UnitState.IsDead) break;
+                        otherUnit.networkUnitConfig.shipState = UnitState.InFlight;
                     }
                     //если мы отходим от объекта без PlayerScript
                     transform.SetParent(null);

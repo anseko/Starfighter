@@ -13,7 +13,7 @@ namespace Net.Components
             GetComponent<Renderer>().material.color = colorToPaint;
             
             if (!isServer) return;
-            GetComponent<NetworkIdentity>().Spawn();
+            NetworkServer.Spawn(gameObject);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -23,14 +23,14 @@ namespace Net.Components
             var material = collision.gameObject.GetComponent<Renderer>().material;
             material.color = colorToPaint;
 
-            PaintClientRpc(collision.gameObject.GetComponent<NetworkIdentity>().NetworkObjectId);
-            GetComponent<NetworkIdentity>().Despawn(true);
+            PaintClientRpc(collision.gameObject.GetComponent<NetworkIdentity>().netId);
+            NetworkServer.Destroy(collision.gameObject);
         }
 
         [ClientRpc]
-        private void PaintClientRpc(ulong objectId)
+        private void PaintClientRpc(uint objectId)
         {
-            var material = GetNetworkObject(objectId).GetComponent<Renderer>().material;
+            var material = NetworkServer.spawned[objectId].GetComponent<Renderer>().material;
             material.color = colorToPaint;
         }
     }

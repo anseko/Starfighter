@@ -11,7 +11,8 @@ namespace Client.UI
 {
     public class OrdersScript : NetworkBehaviour
     {
-        public class OrderUnit : INetworkSerializable
+        [Serializable]
+        public class OrderUnit
         {
             public string shipName;
             public Vector3 position;
@@ -20,14 +21,15 @@ namespace Client.UI
             public OrderOperation operation;
             public GameObject orderPlane;
 
-            public void NetworkSerialize(NetworkSerializer serializer)
-            {
-                serializer.Serialize(ref shipName);
-                serializer.Serialize(ref position);
-                serializer.Serialize(ref size);
-                serializer.Serialize(ref text);
-                serializer.Serialize(ref operation);
-            }
+            //should be unnecessary
+            // public void NetworkSerialize(NetworkSerializer serializer)
+            // {
+            //     serializer.Serialize(ref shipName);
+            //     serializer.Serialize(ref position);
+            //     serializer.Serialize(ref size);
+            //     serializer.Serialize(ref text);
+            //     serializer.Serialize(ref operation);
+            // }
         }
 
         public enum OrderOperation

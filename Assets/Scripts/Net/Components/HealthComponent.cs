@@ -20,7 +20,7 @@ namespace Net.Components
             //     WritePermission = NetworkVariablePermission.ServerOnly
             // }, 0);
 
-            _playerScript.networkUnitConfig.currentHp.OnValueChanged += (value, newValue) =>
+            ClientEventStorage.GetInstance().OnCurrentHpChange.AddListener((newValue) =>
             {
                 if (newValue <= 0)
                 {
@@ -34,20 +34,11 @@ namespace Net.Components
                 {
                     _playerScript.networkUnitConfig.shipState = UnitState.InFlight;
                 }
-            };
-            
-            NetworkManager.singleton.OnServerStarted += () =>
-            {
-                if(!isServer) return;
-                
-                if (_playerScript.networkUnitConfig.currentHp <= 0)
-                {
-                    _playerScript.networkUnitConfig.currentHp = 0;
-                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
-                }
-            };
+            });
         }
 
+        private void Start() => CheckForDeathCommand();
+        
         private void Update()
         {
             if (!isServer) return;
@@ -75,5 +66,15 @@ namespace Net.Components
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>
             Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed) * _playerScript.networkUnitConfig.physResistanceCoefficient;
+
+        [Command]
+        private void CheckForDeathCommand()
+        {
+            if (_playerScript.networkUnitConfig.currentHp <= 0)
+            {
+                _playerScript.networkUnitConfig.currentHp = 0;
+                _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
+            }
+        }
     }
 }

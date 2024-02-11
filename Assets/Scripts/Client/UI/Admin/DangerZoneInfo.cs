@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Linq;
+using Client.Core;
 using Net;
 using TMPro;
 using UnityEngine;
@@ -44,10 +45,10 @@ namespace Client.UI.Admin
 
             GetComponent<Image>().color = DangerZone.zoneColor;
 
-            DangerZone.zoneRadius.OnValueChanged += (value, newValue) =>
+            ClientEventStorage.GetInstance().OnDangerZoneRadiusChange.AddListener((float newValue) =>
             {
                 _radius.text = newValue.ToString(CultureInfo.InvariantCulture);
-            };
+            });
         }
 
         private void Apply()

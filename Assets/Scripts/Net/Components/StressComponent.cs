@@ -20,7 +20,7 @@ namespace Net.Components
             //     WritePermission = NetworkVariablePermission.ServerOnly
             // }, 0.0114f);
             
-            _playerScript.networkUnitConfig.currentStress.OnValueChanged += (value, newValue) =>
+            ClientEventStorage.GetInstance().OnCurrentStressChange.AddListener((newValue) =>
             {
                 if (newValue >=_playerScript.networkUnitConfig.maxStress)
                 {
@@ -34,20 +34,11 @@ namespace Net.Components
                 {
                     _playerScript.networkUnitConfig.shipState = UnitState.InFlight;
                 }
-            };
-            
-            NetworkManager.singleton.OnServerStarted += () =>
-            {
-                if(!isServer) return;
-                
-                if (_playerScript.networkUnitConfig.currentStress >= _playerScript.networkUnitConfig.maxStress)
-                {
-                    _playerScript.networkUnitConfig.currentStress = _playerScript.networkUnitConfig.maxStress;
-                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
-                }
-            };
+            });
         }
 
+        private void Start() => CheckForOverstressedStateCommand();
+        
         private void Update()
         {
             if (!isServer) return;
@@ -60,6 +51,16 @@ namespace Net.Components
                         ),
                     _playerScript.networkUnitConfig.maxStress
                     );
+        }
+
+        [Command]
+        private void CheckForOverstressedStateCommand()
+        {
+            if (_playerScript.networkUnitConfig.currentStress >= _playerScript.networkUnitConfig.maxStress)
+            {
+                _playerScript.networkUnitConfig.currentStress = _playerScript.networkUnitConfig.maxStress;
+                _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
+            }
         }
     }
 }

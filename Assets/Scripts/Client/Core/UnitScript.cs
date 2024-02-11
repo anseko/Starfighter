@@ -9,8 +9,7 @@ namespace Client.Core
     public class UnitScript : NetworkBehaviour
     {
         public NetworkSpaceUnitDto networkUnitConfig;
-        public SpaceUnitDto unitConfig;
-        private NetworkIdentity _networkIdentity;
+        // public SpaceUnitDto unitConfig;
 
         [SyncVar] public bool isGrappled;
         
@@ -19,14 +18,13 @@ namespace Client.Core
         public void Awake()
         {
            networkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
-           _networkIdentity = gameObject.GetComponent<NetworkIdentity>();
         }
         
         public void RequestShipOwnership()
         {
             if (isServer) return;
             
-            RequestShipOwnershipServerRpc(NetworkManager.singleton.LocalClientId);
+            RequestShipOwnershipServerRpc(connectionToServer.connectionId); // NetworkManager.singleton.LocalClientId
         }
         
         [Command(requiresAuthority = false)]
@@ -42,15 +40,14 @@ namespace Client.Core
                 }
             }
 
-            //BUG?? _networkIdentity.AssignClientAuthority(connectionToClient);
-            NetworkObject.ChangeOwnership(connectionId);
+            netIdentity.AssignClientAuthority(NetworkServer.connections[connectionId]);
         }
         
         [Command]
         public void GiveAwayShipOwnershipServerRpc()
         {
-            NetworkObject.RemoveOwnership();
-            var rigidbody = NetworkObject.gameObject.GetComponent<Rigidbody>();
+            netIdentity.RemoveClientAuthority();
+            var rigidbody = netIdentity.gameObject.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
             var force = rigidbody.gameObject.GetComponent<ConstantForce>();

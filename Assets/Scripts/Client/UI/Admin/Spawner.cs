@@ -31,7 +31,7 @@ namespace Client.UI.Admin
         {
             var position = new Vector3(_cam.transform.position.x, 1, _cam.transform.position.z);
 
-            SpawnServerRpc(pathToConfig, prefabName, newShipId, position, NetworkManager.singleton.LocalClientId);
+            SpawnServerRpc(pathToConfig, prefabName, newShipId, position);
         }
 
         public void Despawn()
@@ -42,8 +42,8 @@ namespace Client.UI.Admin
             }
         }
 
-        [Command(requiresAuthority = false)]
-        private void SpawnServerRpc(string pathToConfig, string prefabName, string newShipId, Vector3 position, ulong adminClientId)
+        [Command]
+        private void SpawnServerRpc(string pathToConfig, string prefabName, string newShipId, Vector3 position)
         {
             Debug.unityLogger.Log($"Server spawn: {pathToConfig}{prefabName}.");
             
@@ -89,32 +89,24 @@ namespace Client.UI.Admin
                 config.id = Guid.Empty;
             }
             
-            if (goToSpawn.TryGetComponent<NetworkIdentity>(out var netObj) && !netObj.IsSpawned)
+            if (goToSpawn.TryGetComponent<NetworkIdentity>(out var netObj) && !netObj.SpawnedFromInstantiate)
             {
-                netObj.Spawn();
+                NetworkServer.Spawn(goToSpawn);
                 netObj.gameObject.transform.position = position;
             }
             else
             {
-                Debug.unityLogger.Log($"Can't spawn. Is already spawned? {netObj.IsSpawned}");
+                Debug.unityLogger.Log($"Can't spawn. Is already spawned? {netObj.SpawnedFromInstantiate}");
                 return;
             }
 
-            var sendParams = new ClientRpcParams()
-            {
-                Send = new ClientRpcSendParams()
-                {
-                    TargetClientIds = new [] { adminClientId }
-                }
-            };
-            
-            PostSpawnClientRpc(netObj.NetworkObjectId, sendParams);
+            PostSpawnClientRpc(netObj.netId);
         }
 
-        [TargetRpc]
-        private void PostSpawnClientRpc(NetworkConnectionToClient connectionToClient, ulong objectId)
+        [ClientRpc]
+        private void PostSpawnClientRpc(uint objectId)
         {
-            selectedPrefab = GetNetworkObject(objectId).gameObject;
+            selectedPrefab = NetworkServer.spawned[objectId].gameObject;
                 
             if (selectedPrefab.TryGetComponent<PlayerScript>(out var ps))
             {
@@ -130,32 +122,28 @@ namespace Client.UI.Admin
             }
         }
         
-        [Command(requiresAuthority = false)]
-        public void SpawnServerRpc(ulong objectId, ulong clientId, Vector3 position)
-        {
-            var netObj = GetNetworkObject(objectId);
-            netObj.SpawnWithOwnership(clientId);
-            netObj.gameObject.transform.position = position;
-        }
-        
-        [Command(requiresAuthority = false)]
-        private void DespawnServerRpc(ulong objectId)
+        [Command]
+        private void DespawnServerRpc(uint objectId)
         {
             var server = FindObjectOfType<StarfighterNetworkManager>();
-            var objectToDespawn = GetNetworkObject(objectId).gameObject;
+            var objectToDespawn = NetworkServer.spawned[objectId].gameObject;
 
-            if (objectToDespawn.TryGetComponent<PlayerScript>(out var ps))
-            {
-                var accounts = server.accountObjects
-                    .Where(acc => acc.ship?.shipId == ps.NetworkUnitConfig.ShipId).ToList();
-                    accounts.Where(x=>x.connectionId != null).ToList().ForEach(acc=> NetworkManager.singleton.DisconnectClient(acc.connectionId.Value));
-                    server.accountObjects.RemoveAll(x => accounts.Contains(x));
-            }
+            //Если деспавним кораблик из игры, то отключаем все аккаунты, с ним связанные...
+            // if (objectToDespawn.TryGetComponent<PlayerScript>(out var ps))
+            // {
+            //     var accounts = server.accountObjects
+            //         .Where(acc => (acc.ship != null ? acc.ship.shipId : null) == ps.networkUnitConfig.shipId).ToList();
+            //         accounts.Where(x=>x.connectionId != null).ToList()
+            //             .ForEach(acc=> 
+            //                 DisconnectClient(acc.connectionId!)
+            //                 );
+            //         server.accountObjects.RemoveAll(x => accounts.Contains(x));
+            // }
             
-            GetNetworkObject(objectId).Despawn(true);
+            NetworkServer.Destroy(objectToDespawn);
         }
 
-        [Command(requiresAuthority = false)]
+        [Command]
         public void AddAccountServerRpc(string login, string password, string newShipId, string prefabName)
         {
             Debug.unityLogger.Log($"AddAcc {login}:{password} for {newShipId}");

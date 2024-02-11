@@ -18,24 +18,23 @@ namespace Client.Utils
         {
             _playerScript = ps;
 
-            _playerScript.networkUnitConfig.shipState.OnValueChanged += (value, newValue) =>
+            ClientEventStorage.GetInstance().OnShipStateChange.AddListener((value, newValue) =>
             {
-                
-                if (value == UnitState.IsDocked || value == newValue) return;
+                if (value == UnitState.IsDocked) return;
                 switch (newValue)
                 {
                     case UnitState.InFlight:
-                        GoResurrect(300);
+                        GoResurrect(300).Wait();
                         break;
                     case UnitState.IsDocked:
                         break;
                     case UnitState.IsDead:
-                        GoToDeath(300);
+                        GoToDeath(300).Wait();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(newValue), newValue, null);
                 }
-            };
+            });
         }
 
         private void Awake()

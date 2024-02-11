@@ -16,9 +16,9 @@ namespace Client.UI
 
         public void PlayGame()
         {
-            NetworkManager.singleton.authenticator.ConnectionData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
-            NetworkManager.singleton.GetComponent<KcpTransport>() = serverField.text;
+            NetworkManager.singleton.networkAddress = serverField.text;
             NetworkManager.singleton.StartClient();
+            NetworkClient.connection.authenticationData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
         }
 
         public void QuitGame()

@@ -11,12 +11,16 @@ namespace Client.Core
     {
         public Volume volume;
         public KeyConfig keyConfig;
-        [SyncVar] public Vector3 shipSpeed;
+        [SyncVar(hook = nameof(OnShipSpeedChange))] public Vector3 shipSpeed;
         [SyncVar] public Vector3 shipRotation;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody Rigidbody;
 
+        private void OnShipSpeedChange(Vector3 oldValue, Vector3 newValue)
+        {
+            ClientEventStorage.GetInstance().OnShipSpeedChange.Invoke(newValue);
+        }
 
         private new void Awake()
         {
@@ -39,7 +43,7 @@ namespace Client.Core
             #if UNITY_EDITOR
                 if (localUsage)
                 {
-                  NetworkManager.Singleton.StartHost();
+                  NetworkManager.singleton.StartHost();
                 }
             #endif
             
@@ -47,10 +51,11 @@ namespace Client.Core
             Rigidbody = GetComponent<Rigidbody>();
             
             unitStateMachine = new UnitStateMachine(gameObject, networkUnitConfig.shipState);
-            networkUnitConfig.shipState.OnValueChanged += (value, newValue) =>
+            
+            ClientEventStorage.GetInstance().OnShipStateChange.AddListener((oldState, newState) =>
             {
-                unitStateMachine.ChangeState(newValue);
-            };
+                unitStateMachine.ChangeState(newState);
+            });
 
             Debug.unityLogger.Log($"PS {networkUnitConfig.shipState}");
             

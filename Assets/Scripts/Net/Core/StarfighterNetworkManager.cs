@@ -12,45 +12,44 @@ using NetworkManager = Mirror.NetworkManager;
 
 namespace Core
 {
-    [RequireComponent(typeof(ServerInitializeHelper))]
     public class StarfighterNetworkManager : NetworkManager
     {
         public Image indicator;
-        public TextMeshProUGUI clientCounter;
         public List<ClientAccountObject> accountObjects;
-        [SerializeField] private ConnectionHelper _connector;
+        [SerializeField] private ClientConnectionHelper _connector;
+        
 
-        public override void Awake()
+        #region ClientSide
+
+        public override void OnClientConnect()
         {
-            NetEventStorage.GetInstance().WorldInit.AddListener(_ => StartServer());
-            base.Awake();
+            base.OnClientConnect();
         }
 
-        public override void Start()
+        public override void OnClientDisconnect()
         {
-            try
-            {
-                var spacefield = File.ReadAllText(Constants.PathToAsteroids);
-                var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
-                var fieldGO = Instantiate(field, Vector3.zero, new Quaternion(0, 180, 0, 1));
-                StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
-            }
-            catch (FileNotFoundException notFoundException)
-            {
-                var spacefield = File.ReadAllText(Constants.PathToAsteroids + "Spacefield_Test");
-                var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
-                var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
-                StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
-            }
-            finally
-            {
-                base.Start();
-            }
+            base.OnClientDisconnect();
         }
+
+        #endregion
         
-        
+        #region ServerSide
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+        }
+
         public override void OnServerConnect(NetworkConnectionToClient conn)
         {
+            AuthCheck(conn);
+
+            if (!conn.isAuthenticated)
+            {
+                conn.Disconnect();
+                return;
+            }
+
             Debug.Log($"Connection accepted: {conn.connectionId}");
             var account = accountObjects.FirstOrDefault(x => x.connectionId == conn.connectionId);
 
@@ -97,12 +96,6 @@ namespace Core
             base.OnServerDisconnect(conn);
         }
 
-        public override void Update()
-        {
-            clientCounter.text = singleton.numPlayers.ToString();
-            base.Update();
-        }
-
         public bool CheckForAccountId(int connectionId, string shipId)
         {
             return accountObjects.FirstOrDefault(x => x.connectionId == connectionId && x.type == UserType.Pilot)?.ship.shipId == shipId;
@@ -114,33 +107,33 @@ namespace Core
         public override void OnApplicationQuit()
         {
             GetComponent<ServerInitializeHelper>().SaveServer();
-            singleton.StopServer();
+            StopServer();
             base.OnApplicationQuit();
         }
         
         
-        private void ApprovalCheck(byte[] connectionData, int connectionId, NetworkManager.ConnectionApprovedDelegate callback)
+        private void AuthCheck(NetworkConnectionToClient connectionData)
         {
-            var connectionString = Encoding.ASCII.GetString(connectionData);
-            Debug.unityLogger.Log($"Connection approve: {connectionString}");
-            var account = accountObjects.FirstOrDefault(acc => (acc.login + acc.password).GetHashCode() == connectionString.GetHashCode());
+            var authToken = connectionData.authenticationData.ToString();
+            Debug.unityLogger.Log($"Connection approve: {authToken}");
+            var account = accountObjects.FirstOrDefault(acc => (acc.login + acc.password).GetHashCode() == authToken.GetHashCode());
             if (account == null)
             {
-                Debug.unityLogger.Log($"Wrong login\\password pair: {connectionString}");
-                callback(false, null, false, null, null);
+                Debug.unityLogger.Log($"Wrong login\\password pair: {authToken}");
+                connectionData.isAuthenticated = false;
                 return;
             }
             if(account.connectionId != null)
             {
-                Debug.unityLogger.Log($"Account already connected: {connectionString}");
-                callback(false, null, false, null, null);
+                Debug.unityLogger.Log($"Account already connected: {authToken}");
+                connectionData.isAuthenticated = false;
                 return;
             }
             if(account.type != UserType.Spectator)
-                account.connectionId = connectionId;
-            //If approve is true, the connection gets added. If it's false. The client gets disconnected
-            callback(false, null, account != null, null, null);
+                account.connectionId = connectionData.connectionId;
+            connectionData.isAuthenticated = true;
         }
         
+        #endregion
     }
 }

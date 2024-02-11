@@ -24224,8 +24224,6 @@ GameObject:
   - component: {fileID: 2498089717591807892}
   - component: {fileID: 2498089717591807898}
   - component: {fileID: 3450869907226133147}
-  - component: {fileID: 7060669719034845312}
-  - component: {fileID: 5399150385129864837}
   - component: {fileID: 181033088196224509}
   - component: {fileID: 8735447049535547862}
   - component: {fileID: 1904240670389789793}
@@ -24234,6 +24232,8 @@ GameObject:
   - component: {fileID: 5285690487644156740}
   - component: {fileID: 8410796737940202225}
   - component: {fileID: 8013764002677234549}
+  - component: {fileID: 1080080112647170567}
+  - component: {fileID: 9107913754790663640}
   m_Layer: 6
   m_Name: VedroWithNails
   m_TagString: Dynamic
@@ -24309,103 +24309,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd49e2c8c42e5045b7c072da832225e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkUnitConfig: {fileID: 0}
-  unitConfig:
-    maxAngleSpeed: 0
-    maxSpeed: 0
-    maxHp: 0
-    currentHp: 0
-    isDockable: 0
-    isMovable: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    prefabName: 
-    maxStress: 0
-    currentStress: 0
-    shipId: 
-    shipState: 0
-    baseColor: {r: 0, g: 0, b: 0, a: 0}
-    acceleration: 0
-    radarRange: 0
-    accelerationCoefficient: 0
-    physResistanceCoefficient: 0
-    radResistanceCoefficient: 0
-    radarRangeCoefficient: 0
-  isGrappled:
-    m_InternalValue: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  networkUnitConfig: {fileID: 0}
+  isGrappled: 0
   volume: {fileID: 0}
   keyConfig: {fileID: 11400000, guid: fca14635af08fe442a8970f56fa16013, type: 2}
-  shipSpeed:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  shipRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0}
+  shipSpeed: {x: 0, y: 0, z: 0}
+  shipRotation: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
---- !u!114 &7060669719034845312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2498517654465052340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 3156561593852978055
-  PrefabHashGenerator: Vedro
-  AlwaysReplicateAsRoot: 1
-  DontDestroyWithOwner: 1
---- !u!114 &5399150385129864837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2498517654465052340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 60
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 10
-  InterpolateServer: 1
-  MinMeters: 0.01
-  MinDegrees: 0.01
-  ExtrapolatePosition: 0
-  MaxSendsToExtrapolate: 5
-  Channel: 
-  EnableRange: 1
-  EnableNonProvokedResendChecks: 0
-  DistanceSendrate:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.12162018
-      value: 60.04656
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1997.9812
-      value: 19.988781
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &181033088196224509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24418,6 +24332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b0b62280944a42ab5ab4a96fb7d24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _front: {fileID: 2498089717829573889}
   _back: {fileID: 2498089716230731329}
   _right: {fileID: 2498089717079570053}
@@ -24444,11 +24361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9b63d14ed4ad28650957f7bf0573e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _unit: {fileID: 3450869907226133147}
   isDockable: 1
   lastThingToDock: {fileID: 0}
-  readyToDock:
-    m_InternalValue: 0
+  readyToDock: 0
   _dockingMarkers:
   - {fileID: 9006707566931935965}
   _dockCheckZone: {fileID: 6311378563502030021}
@@ -24464,6 +24383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38dbd6ef213847ff90f94a1f2789acbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _pointPrefab: {fileID: 8796398754777050499, guid: e038f844105cee24f9e6262803b6d298,
     type: 3}
   _isSetter: 0
@@ -24479,12 +24401,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22e84099bfb481e8099c9ae3013e57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _grapplerPrefab: {fileID: 5752616692047359496, guid: 23c349fdde5e2174db35d9385a268bac,
     type: 3}
   _unit: {fileID: 3450869907226133147}
   _launcher: {fileID: 3226707047139957160}
-  grapplerObjectId:
-    m_InternalValue: 0
+  grapplerObjectId: 0
 --- !u!114 &1088110529872804307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24497,9 +24421,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fed586dca747039ae23d003f0573e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _playerScript: {fileID: 3450869907226133147}
-  stressDelta:
-    m_InternalValue: 0
+  stressDelta: 0
 --- !u!114 &5285690487644156740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24512,9 +24438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e70e3723854f168ac70b732a134a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _playerScript: {fileID: 3450869907226133147}
-  hpDelta:
-    m_InternalValue: 0
+  hpDelta: 0
 --- !u!136 &8410796737940202225
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24541,8 +24469,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299bbed85edc400ba4ac71d70a102081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   model: {fileID: 8153837778612936839}
   numbers: {fileID: 0}
+--- !u!114 &1080080112647170567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498517654465052340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientStarted: 0
+  sceneId: 0
+  _assetId: 4284565702
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &9107913754790663640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498517654465052340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2496588304457933936}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  compressRotation: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!1 &3019609367889255255
 GameObject:
   m_ObjectHideFlags: 0

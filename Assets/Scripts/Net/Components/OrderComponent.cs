@@ -10,29 +10,18 @@ namespace Net.Components
         [SerializeField] private GameObject _orderFramePrefab;
         private PlayerScript _playerScript;
         private GameObject _myOrder;
-        [SyncVar]
+        
+        [SyncVar(hook = nameof(OnValueChanged))]
         public OrdersScript.OrderUnit lastOrder;
-
-        private void Awake()
-        {
-            //only can be writing on server
-            // lastOrder = new NetworkVariable<OrdersScript.OrderUnit>(new NetworkVariableSettings()
-            // {
-            //     ReadPermission = NetworkVariablePermission.Everyone,
-            //     WritePermission = NetworkVariablePermission.Everyone
-            // });
-        }
 
         public void Init()
         {
             _playerScript = GetComponent<PlayerScript>();
-            lastOrder.OnValueChanged += OnValueChanged;
         }
 
         private void OnValueChanged(OrdersScript.OrderUnit previousValue, OrdersScript.OrderUnit newValue)
         {
             if (isServer || newValue.shipName != _playerScript.networkUnitConfig.shipId) return;
-            
             switch (newValue.operation)
             {
                 case OrdersScript.OrderOperation.Add:

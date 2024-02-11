@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace Client.UI
 {
-    public class Editor : MonoBehaviour
+    public class Editor : NetworkBehaviour
     {
         private OrdersScript _ordersScript;
 
         private void Awake()
         {
-            if (NetworkManager.singleton.isServer)
+            //BUG possible
+            if (isServer)
             {
                 enabled = false;
             }

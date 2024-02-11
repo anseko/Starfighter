@@ -32,20 +32,20 @@ namespace Net.Components
         [SerializeField]
         private List<ParticleSystem> _trustSystems;
         private ConstantForce _thrustForce;
-        [SyncVar] private MovementData _lastMovement;
+        [SyncVar(hook = nameof(OnLastMovementChange))] private MovementData _lastMovement;
         private PlayerScript _unit;
         private Rigidbody _rigidbody;
 
+
+        private void OnLastMovementChange(MovementData oldValue, MovementData newValue)
+        {
+            if (isOwned) AnimateMovementServerRpc();
+        }
+        
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _unit = GetComponent<PlayerScript>();
-            // _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
-            _lastMovement.OnValueChanged += (value, newValue) =>
-            {
-                if (isOwned) AnimateMovementServerRpc();
-            };
-            
             _thrustForce = GetComponent<ConstantForce>();
             
             _frontLeftSystems.ForEach(x=>x.Stop());

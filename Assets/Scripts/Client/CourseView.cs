@@ -11,14 +11,14 @@ namespace Client
         public void Init(PlayerScript playerScript)
         {
             ship = playerScript;
-            ship.shipSpeed.OnValueChanged += CourseChange;
+            ClientEventStorage.GetInstance().OnShipSpeedChange.AddListener(CourseChange);
         }
 
-        private void CourseChange(Vector3 previousvalue, Vector3 newvalue)
+        private void CourseChange(Vector3 newValue)
         {
             var shipPosition = ship.transform.position;
             transform.position = shipPosition + Vector3.up * 70;
-            transform.LookAt(shipPosition + newvalue.normalized + Vector3.up * 70);
+            transform.LookAt(shipPosition + newValue.normalized + Vector3.up * 70);
         }
     }
 }

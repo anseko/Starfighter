@@ -97,7 +97,7 @@ namespace Client.Core
                 unit.TryGetComponent<DockComponent>(out var dockComp) &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
-                dockComp.EmergencyUndockServerRpc(dockComp.lastThingToDock.GetComponent<NetworkIdentity>().netId);
+                dockComp.EmergencyUndockServerRpc(dockComp.lastThingToDock.GetComponent<NetworkIdentity>().netId, false);
             }
 
             if (unit.TryGetComponent<GrappleComponent>(out var grappleComponent))

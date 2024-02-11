@@ -15,7 +15,7 @@ namespace Net.Components
         [SerializeField]
         private Transform _launcher;
         [SyncVar]
-        public ulong grapplerObjectId;
+        public uint grapplerObjectId;
         private bool _grappleOut;
 
         private void Awake()
@@ -43,7 +43,7 @@ namespace Net.Components
             {
                 if (grapplerObjectId != default)
                 {
-                    var grappler = GetNetworkObject(grapplerObjectId)?.GetComponent<Grappler>();
+                    var grappler = NetworkServer.spawned[grapplerObjectId]?.GetComponent<Grappler>();
                     grappler?.DestroyOnServer();
                 }
                 else
@@ -57,9 +57,8 @@ namespace Net.Components
         private void InitGrappleServerRpc()
         {
             var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
-            var netGrappler = grapplerGo.GetComponent<NetworkIdentity>();
-            netGrappler.Spawn(destroyWithScene: true);
-            grapplerObjectId = netGrappler.netId;
+            NetworkServer.Spawn(grapplerGo);
+            grapplerObjectId = grapplerGo.GetComponent<NetworkIdentity>().netId;
             grapplerGo.GetComponent<Grappler>().Init(_unit, 20);
         }
     }

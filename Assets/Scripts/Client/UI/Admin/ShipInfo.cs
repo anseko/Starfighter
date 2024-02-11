@@ -1,13 +1,14 @@
 using System.Globalization;
 using Client.Core;
 using Core;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Client.UI.Admin
 {
-    public class ShipInfo: MonoBehaviour
+    public class ShipInfo: NetworkBehaviour
     {
         public PlayerScript playerScript { get; private set; }
         [SerializeField] private Text _shipName;
@@ -31,8 +32,8 @@ namespace Client.UI.Admin
         
         private void Awake()
         {
-            _applyButton.onClick.AddListener(Apply);
-            _refreshButton.onClick.AddListener(UpdateCurrentValues);
+            _applyButton.onClick.AddListener(ApplyCommand);
+            _refreshButton.onClick.AddListener(UpdateCurrentValuesCommand);
             _focusButton.onClick.AddListener(() =>
             {
                 var camMotion = FindObjectOfType<Camera>().GetComponent<CameraMotion>();
@@ -67,8 +68,9 @@ namespace Client.UI.Admin
             //     (value, newValue) => _stress.value = newValue; 
 
             _state.value = (int)this.playerScript.networkUnitConfig.shipState;
-            this.playerScript.networkUnitConfig.shipState.OnValueChanged += (value, newValue) => _state.value = (int)newValue;
             
+            ClientEventStorage.GetInstance().OnShipStateChange.AddListener((oldState, newState) => _state.value = (int)newState);
+
             _maxSpeed.text = this.playerScript.networkUnitConfig.maxSpeed.ToString(CultureInfo.InvariantCulture);
             _maxAngleSpeed.text = this.playerScript.networkUnitConfig.maxAngleSpeed.ToString(CultureInfo.InvariantCulture);
             
@@ -78,7 +80,8 @@ namespace Client.UI.Admin
             _hitResist.text = playerScript.networkUnitConfig.physResistanceCoefficient.ToString();
         }
 
-        private void Apply()
+        [Command]
+        private void ApplyCommand()
         {
             playerScript.networkUnitConfig.currentHp = _hp.value;
             playerScript.networkUnitConfig.currentStress = _stress.value;
@@ -93,14 +96,15 @@ namespace Client.UI.Admin
             playerScript.networkUnitConfig.physResistanceCoefficient = float.Parse(_hitResist.text);
         }
 
-        private void UpdateCurrentValues()
+        [Command]
+        private void UpdateCurrentValuesCommand()
         {
             _stress.value = playerScript.networkUnitConfig.currentStress;
             _hp.value = playerScript.networkUnitConfig.currentHp;
-            _acceleration.text = playerScript.networkUnitConfig.accelerationCoefficient.ToString();
-            _radarRange.text = playerScript.networkUnitConfig.radarRange.ToString();
-            _radiationResist.text = playerScript.networkUnitConfig.radResistanceCoefficient.ToString();
-            _hitResist.text = playerScript.networkUnitConfig.physResistanceCoefficient.ToString();
+            _acceleration.text = playerScript.networkUnitConfig.accelerationCoefficient.ToString(CultureInfo.InvariantCulture);
+            _radarRange.text = playerScript.networkUnitConfig.radarRange.ToString(CultureInfo.InvariantCulture);
+            _radiationResist.text = playerScript.networkUnitConfig.radResistanceCoefficient.ToString(CultureInfo.InvariantCulture);
+            _hitResist.text = playerScript.networkUnitConfig.physResistanceCoefficient.ToString(CultureInfo.InvariantCulture);
         }
 
         private void Despawn()

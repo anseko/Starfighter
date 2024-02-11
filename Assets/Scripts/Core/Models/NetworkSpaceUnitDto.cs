@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Client.Core;
 using Mirror;
 using Net.Core;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Core.Models
         [SyncVar] public float maxAngleSpeed;
         [SyncVar] public float maxSpeed;
         [SyncVar] public float maxHp;
-        [SyncVar] public float currentHp;
+        [SyncVar(hook = nameof(OnCurrentHpChange))] public float currentHp;
         [SyncVar] public bool isDockable;
         [SyncVar] public bool isMovable;
         [SyncVar] public Vector3 position;
@@ -21,17 +22,42 @@ namespace Core.Models
         [SyncVar] public string prefabName;
         [SyncVar] public string id;
         [SyncVar] public float maxStress;
-        [SyncVar] public float currentStress;
+        [SyncVar(hook = nameof(OnCurrentStressChange))] public float currentStress;
         [SyncVar] public string shipId;
-        [SyncVar] public UnitState shipState;
+        [SyncVar(hook = nameof(OnShipStateChange))] public UnitState shipState;
         [SyncVar] public Color baseColor;
         [SyncVar] public float acceleration;
-        [SyncVar] public float radarRange;
+        [SyncVar(hook = nameof(OnRadarRangeChange))] public float radarRange;
         [SyncVar] public float accelerationCoefficient;
         [SyncVar] public float physResistanceCoefficient;
         [SyncVar] public float radResistanceCoefficient;
-        [SyncVar] public float radarRangeCoefficient;
+        [SyncVar(hook = nameof(OnRadarRangeCoefficientChange))] public float radarRangeCoefficient;
 
+        private void OnRadarRangeCoefficientChange(float oldValue, float newValue)
+        {
+            ClientEventStorage.GetInstance().OnRadarRangeCoefficientChange.Invoke(newValue);
+        }
+
+        private void OnRadarRangeChange(float oldValue, float newValue)
+        {
+            ClientEventStorage.GetInstance().OnRadarRangeChange.Invoke(newValue);
+        }
+        
+        private void OnShipStateChange(UnitState oldValue, UnitState newValue)
+        {
+            ClientEventStorage.GetInstance().OnShipStateChange.Invoke(oldValue, newValue);
+        }
+        
+        private void OnCurrentStressChange(float oldValue, float newValue)
+        {
+            ClientEventStorage.GetInstance().OnCurrentHpChange.Invoke(newValue);
+        }
+        
+        private void OnCurrentHpChange(float oldValue, float newValue)
+        {
+            ClientEventStorage.GetInstance().OnCurrentHpChange.Invoke(newValue);
+        }
+        
         public void Init(SpaceUnitDto config)
         {
             foreach (var dtoField in typeof(NetworkSpaceUnitDto).GetFields())

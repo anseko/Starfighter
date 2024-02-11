@@ -44,8 +44,8 @@ namespace Client.UI.Admin
             
             _hp.maxValue = this.unitScript.networkUnitConfig.maxHp;
             _hp.value = this.unitScript.networkUnitConfig.currentHp;
-            this.unitScript.networkUnitConfig.currentHp.OnValueChanged +=
-                (value, newValue) => _hp.value = newValue;
+            
+            ClientEventStorage.GetInstance().OnCurrentHpChange.AddListener((newValue) => _hp.value = newValue);
         }
 
         private void Apply()

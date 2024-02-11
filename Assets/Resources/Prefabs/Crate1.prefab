@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 8153557424671462930}
   - component: {fileID: 6624155619478797441}
   - component: {fileID: 7008127491974116222}
-  - component: {fileID: 7139596994876632822}
-  - component: {fileID: -5592934911697705804}
   - component: {fileID: -3819578603080637322}
+  - component: {fileID: 4718706959221606169}
+  - component: {fileID: 3852555607070318118}
   m_Layer: 7
   m_Name: Crate1
   m_TagString: Untagged
@@ -147,71 +147,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &7139596994876632822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8821586212305947816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 13300767449634433079
-  PrefabHashGenerator: Crate1
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
---- !u!114 &-5592934911697705804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8821586212305947816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 60
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 1
-  InterpolateServer: 1
-  MinMeters: 0.1
-  MinDegrees: 0.1
-  ExtrapolatePosition: 0
-  MaxSendsToExtrapolate: 5
-  Channel: 
-  EnableRange: 0
-  EnableNonProvokedResendChecks: 0
-  DistanceSendrate:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 500
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &-3819578603080637322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,27 +159,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21b31f5f07b4eb79cec4395abe5d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkUnitConfig: {fileID: 0}
-  unitConfig:
-    maxAngleSpeed: 0
-    maxSpeed: 0
-    maxHp: 0
-    currentHp: 0
-    isDockable: 0
-    isMovable: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    prefabName: 
-    maxStress: 0
-    currentStress: 0
-    shipId: 
-    shipState: 0
-    baseColor: {r: 0, g: 0, b: 0, a: 0}
-    acceleration: 0
-    radarRange: 0
-    accelerationCoefficient: 0
-    physResistanceCoefficient: 0
-    radResistanceCoefficient: 0
-    radarRangeCoefficient: 0
-  isGrappled:
-    m_InternalValue: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  networkUnitConfig: {fileID: 0}
+  isGrappled: 0
+--- !u!114 &4718706959221606169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821586212305947816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientStarted: 0
+  sceneId: 0
+  _assetId: 3670232515
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &3852555607070318118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821586212305947816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 8153557424671462930}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  compressRotation: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01

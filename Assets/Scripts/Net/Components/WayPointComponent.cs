@@ -26,9 +26,10 @@ namespace Net.Components
         {
             if (Input.GetMouseButtonUp(1) && _isSetter)
             {
-                var navigatorClientId = NetworkManager.singleton.LocalClientId;
-                var pilotClientId = GetComponent<NetworkIdentity>().OwnerClientId;
-                MovePointServerRpc(_camera.ScreenToWorldPoint(Input.mousePosition), navigatorClientId, pilotClientId);
+                //TOOD: redo with teams
+                // var navigatorClientId = NetworkManager.singleton.LocalClientId; connectionToServer.connectionId;
+                // var pilotClientId = GetComponent<NetworkIdentity>().OwnerClientId; 
+                // MovePointServerRpc(_camera.ScreenToWorldPoint(Input.mousePosition), navigatorClientId, pilotClientId);
             }
 
             if (Input.GetMouseButtonUp(2) && _isSetter)
@@ -46,18 +47,11 @@ namespace Net.Components
         }
 
         [Command(requiresAuthority = false)]
-        private void MovePointServerRpc(Vector3 position, ulong naviClientId, ulong pilotClientId)
+        private void MovePointServerRpc(Vector3 position, NetworkConnectionToClient naviClientConn, NetworkConnectionToClient pilotClientConn)
         {
-            var clientRpcParams = new ClientRpcParams()
-            {
-                Send = new ClientRpcSendParams()
-                {
-                    TargetClientIds = new[] {naviClientId, pilotClientId}
-                }
-            };
-
             //send to two clients; see Teams
-            MovePointClientRpc(position);
+            MovePointClientRpc(naviClientConn, position);
+            MovePointClientRpc(pilotClientConn, position);
         }
         
         [TargetRpc]

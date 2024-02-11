@@ -19,7 +19,7 @@ namespace Net.Components
         {
             _fovInstance = Instantiate(_fovCollider, gameObject.transform);
             _fovInstance.transform.localScale =
-               Vector3.one * ps.networkUnitConfig.radarRange * ps.networkUnitConfig.radarRangeCoefficient;
+               Vector3.one * (ps.networkUnitConfig.radarRange * ps.networkUnitConfig.radarRangeCoefficient);
             
             enabled = true;
             SceneManager.GetActiveScene()
@@ -28,15 +28,13 @@ namespace Net.Components
                 .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
             gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
 
-            ps.networkUnitConfig.radarRange.OnValueChanged += (value, newValue) =>
-            {
-                _fovInstance.transform.localScale = Vector3.one * newValue * ps.networkUnitConfig.radarRangeCoefficient;
-            };
+            ClientEventStorage.GetInstance().OnRadarRangeChange.AddListener(
+                (newValue) => _fovInstance.transform.localScale = Vector3.one * (newValue * ps.networkUnitConfig.radarRangeCoefficient)
+                );
             
-            ps.networkUnitConfig.radarRangeCoefficient.OnValueChanged += (value, newValue) =>
-            {
-                _fovInstance.transform.localScale = Vector3.one * newValue * ps.networkUnitConfig.radarRange;
-            };
+            ClientEventStorage.GetInstance().OnRadarRangeCoefficientChange.AddListener(
+                (newValue) => _fovInstance.transform.localScale = Vector3.one * (newValue * ps.networkUnitConfig.radarRange)
+            );
         }
 
         private void OnTriggerEnter(Collider other)
