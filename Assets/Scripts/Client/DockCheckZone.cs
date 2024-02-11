@@ -24,7 +24,7 @@ namespace Client
         {
             //This check is enough while physics collisions between Docking layer object only accounts
             if (other.gameObject.GetComponentInParent<UnitScript>() != _playerScript  &&
-                !_playerScript.GetComponent<DockComponent>().readyToDock.Value)
+                !_playerScript.GetComponent<DockComponent>().readyToDock)
             {
                 ClientEventStorage.GetInstance().DockableUnitsInRange.Invoke();
                 _objectsInDockZone.Add(other.gameObject);

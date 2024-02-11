@@ -59,18 +59,18 @@ namespace Client.UI.Mechanic
     
         public void AssignPoints()
         {
-            _shipData.AccelerationCoefficient = _accConvert[_speedSlider.value];
-            _shipData.PhysResistanceCoefficient = _physResConvert[_physResSlider.value];
-            _shipData.RadResistanceCoefficient = _radResConvert[_radResSlider.value];
-            _shipData.RadarRangeCoefficient = _radRangeConvert[_radarSlider.value];
+            _shipData.accelerationCoefficient = _accConvert[_speedSlider.value];
+            _shipData.physResistanceCoefficient = _physResConvert[_physResSlider.value];
+            _shipData.radResistanceCoefficient = _radResConvert[_radResSlider.value];
+            _shipData.radarRangeCoefficient = _radRangeConvert[_radarSlider.value];
             gameObject.SetActive(false);
         }
 
         public void Init()
         {
-            _shipData = ship.NetworkUnitConfig;
+            _shipData = ship.networkUnitConfig;
         
-            _speedSlider.value = ship.NetworkUnitConfig.AccelerationCoefficient switch
+            _speedSlider.value = ship.networkUnitConfig.accelerationCoefficient switch
             {
                 0.75f => 1,
                 1f => 2,
@@ -80,7 +80,7 @@ namespace Client.UI.Mechanic
                 _ => _speedSlider.value
             };
 
-            _physResSlider.value = ship.NetworkUnitConfig.PhysResistanceCoefficient switch
+            _physResSlider.value = ship.networkUnitConfig.physResistanceCoefficient switch
             {
                 1.25f => 1,
                 1f => 2,
@@ -89,7 +89,7 @@ namespace Client.UI.Mechanic
                 0.25f => 5,
                 _ => _physResSlider.value
             };
-            _radResSlider.value = ship.NetworkUnitConfig.RadResistanceCoefficient switch
+            _radResSlider.value = ship.networkUnitConfig.radResistanceCoefficient switch
             {
                 1.25f => 1,
                 1f => 2,
@@ -98,7 +98,7 @@ namespace Client.UI.Mechanic
                 0.25f => 5,
                 _ => _radResSlider.value
             };
-            _radarSlider.value = ship.NetworkUnitConfig.RadarRangeCoefficient switch
+            _radarSlider.value = ship.networkUnitConfig.radarRangeCoefficient switch
             {
                 0.75f => 1,
                 1f => 2,

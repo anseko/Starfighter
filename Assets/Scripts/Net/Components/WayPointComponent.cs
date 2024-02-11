@@ -1,8 +1,8 @@
 using Client;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
+using Mirror;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 namespace Net.Components
 {
@@ -26,8 +26,8 @@ namespace Net.Components
         {
             if (Input.GetMouseButtonUp(1) && _isSetter)
             {
-                var navigatorClientId = NetworkManager.Singleton.LocalClientId;
-                var pilotClientId = GetComponent<NetworkObject>().OwnerClientId;
+                var navigatorClientId = NetworkManager.singleton.LocalClientId;
+                var pilotClientId = GetComponent<NetworkIdentity>().OwnerClientId;
                 MovePointServerRpc(_camera.ScreenToWorldPoint(Input.mousePosition), navigatorClientId, pilotClientId);
             }
 
@@ -45,7 +45,7 @@ namespace Net.Components
             }
         }
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [Command(requiresAuthority = false)]
         private void MovePointServerRpc(Vector3 position, ulong naviClientId, ulong pilotClientId)
         {
             var clientRpcParams = new ClientRpcParams()
@@ -55,12 +55,13 @@ namespace Net.Components
                     TargetClientIds = new[] {naviClientId, pilotClientId}
                 }
             };
-            
-            MovePointClientRpc(position, clientRpcParams);
+
+            //send to two clients; see Teams
+            MovePointClientRpc(position);
         }
         
-        [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        private void MovePointClientRpc(Vector3 position, ClientRpcParams clientRpcParams = default)
+        [TargetRpc]
+        private void MovePointClientRpc(NetworkConnectionToClient connectionToClient, Vector3 position)
         {
             position.Set(position.x, 0,position.z);
             if (_point is null)

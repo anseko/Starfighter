@@ -2,7 +2,6 @@ using System.Linq;
 using Client.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Client.UI.Spectator
 {
@@ -15,7 +14,7 @@ namespace Client.UI.Spectator
         {
             _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
             _ship = FindObjectsOfType<PlayerScript>().FirstOrDefault(x =>
-                x.NetworkUnitConfig.ShipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
+                x.networkUnitConfig.shipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
         }
     
         public void Spectate()

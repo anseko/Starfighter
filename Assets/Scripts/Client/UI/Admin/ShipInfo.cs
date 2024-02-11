@@ -48,59 +48,59 @@ namespace Client.UI.Admin
             this.playerScript = playerScript;
             _submitMenu = submitMenu;
 
-            _shipName.text = this.playerScript.NetworkUnitConfig.ShipId;
+            _shipName.text = this.playerScript.networkUnitConfig.shipId;
             
-            _maxHp.text = this.playerScript.NetworkUnitConfig.MaxHp.ToString(CultureInfo.InvariantCulture);
+            _maxHp.text = this.playerScript.networkUnitConfig.maxHp.ToString(CultureInfo.InvariantCulture);
             _maxHp.onValueChanged.AddListener((arg0 => _hp.maxValue = float.Parse(arg0)));
             
-            _hp.maxValue = this.playerScript.NetworkUnitConfig.MaxHp;
-            _hp.value = this.playerScript.NetworkUnitConfig.CurrentHp;
+            _hp.maxValue = this.playerScript.networkUnitConfig.maxHp;
+            _hp.value = this.playerScript.networkUnitConfig.currentHp;
             // _playerScript.NetworkUnitConfig._currentHp.OnValueChanged +=
             //     (value, newValue) => _hp.value = newValue; 
             
-            _maxStress.text = this.playerScript.NetworkUnitConfig.MaxStress.ToString(CultureInfo.InvariantCulture);
+            _maxStress.text = this.playerScript.networkUnitConfig.maxStress.ToString(CultureInfo.InvariantCulture);
             _maxStress.onValueChanged.AddListener((arg0 => _stress.maxValue = float.Parse(arg0)));
             
-            _stress.maxValue = this.playerScript.NetworkUnitConfig.MaxStress;
-            _stress.value = this.playerScript.NetworkUnitConfig.CurrentStress;
+            _stress.maxValue = this.playerScript.networkUnitConfig.maxStress;
+            _stress.value = this.playerScript.networkUnitConfig.currentStress;
             // _playerScript.NetworkUnitConfig._currentStress.OnValueChanged +=
             //     (value, newValue) => _stress.value = newValue; 
 
-            _state.value = (int)this.playerScript.NetworkUnitConfig.ShipState;
-            this.playerScript.NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) => _state.value = (int)newValue;
+            _state.value = (int)this.playerScript.networkUnitConfig.shipState;
+            this.playerScript.networkUnitConfig.shipState.OnValueChanged += (value, newValue) => _state.value = (int)newValue;
             
-            _maxSpeed.text = this.playerScript.NetworkUnitConfig.MaxSpeed.ToString(CultureInfo.InvariantCulture);
-            _maxAngleSpeed.text = this.playerScript.NetworkUnitConfig.MaxAngleSpeed.ToString(CultureInfo.InvariantCulture);
+            _maxSpeed.text = this.playerScript.networkUnitConfig.maxSpeed.ToString(CultureInfo.InvariantCulture);
+            _maxAngleSpeed.text = this.playerScript.networkUnitConfig.maxAngleSpeed.ToString(CultureInfo.InvariantCulture);
             
-            _acceleration.text = playerScript.NetworkUnitConfig.AccelerationCoefficient.ToString();
-            _radarRange.text = playerScript.NetworkUnitConfig.RadarRange.ToString();
-            _radiationResist.text = playerScript.NetworkUnitConfig.RadResistanceCoefficient.ToString();
-            _hitResist.text = playerScript.NetworkUnitConfig.PhysResistanceCoefficient.ToString();
+            _acceleration.text = playerScript.networkUnitConfig.accelerationCoefficient.ToString();
+            _radarRange.text = playerScript.networkUnitConfig.radarRange.ToString();
+            _radiationResist.text = playerScript.networkUnitConfig.radResistanceCoefficient.ToString();
+            _hitResist.text = playerScript.networkUnitConfig.physResistanceCoefficient.ToString();
         }
 
         private void Apply()
         {
-            playerScript.NetworkUnitConfig.CurrentHp = _hp.value;
-            playerScript.NetworkUnitConfig.CurrentStress = _stress.value;
-            playerScript.NetworkUnitConfig.MaxSpeed = float.Parse(_maxSpeed.text);
-            playerScript.NetworkUnitConfig.MaxAngleSpeed = float.Parse(_maxAngleSpeed.text);
-            playerScript.NetworkUnitConfig.ShipState = (UnitState)_state.value;
-            playerScript.NetworkUnitConfig.MaxHp = float.Parse(_maxHp.text);
-            playerScript.NetworkUnitConfig.MaxStress = float.Parse(_maxStress.text);
-            playerScript.NetworkUnitConfig.AccelerationCoefficient = float.Parse(_acceleration.text);
-            playerScript.NetworkUnitConfig.RadarRange = float.Parse(_radarRange.text);
-            playerScript.NetworkUnitConfig.RadResistanceCoefficient = float.Parse(_radiationResist.text);
-            playerScript.NetworkUnitConfig.PhysResistanceCoefficient = float.Parse(_hitResist.text);
+            playerScript.networkUnitConfig.currentHp = _hp.value;
+            playerScript.networkUnitConfig.currentStress = _stress.value;
+            playerScript.networkUnitConfig.maxSpeed = float.Parse(_maxSpeed.text);
+            playerScript.networkUnitConfig.maxAngleSpeed = float.Parse(_maxAngleSpeed.text);
+            playerScript.networkUnitConfig.shipState = (UnitState)_state.value;
+            playerScript.networkUnitConfig.maxHp = float.Parse(_maxHp.text);
+            playerScript.networkUnitConfig.maxStress = float.Parse(_maxStress.text);
+            playerScript.networkUnitConfig.accelerationCoefficient = float.Parse(_acceleration.text);
+            playerScript.networkUnitConfig.radarRange = float.Parse(_radarRange.text);
+            playerScript.networkUnitConfig.radResistanceCoefficient = float.Parse(_radiationResist.text);
+            playerScript.networkUnitConfig.physResistanceCoefficient = float.Parse(_hitResist.text);
         }
 
         private void UpdateCurrentValues()
         {
-            _stress.value = playerScript.NetworkUnitConfig.CurrentStress;
-            _hp.value = playerScript.NetworkUnitConfig.CurrentHp;
-            _acceleration.text = playerScript.NetworkUnitConfig.AccelerationCoefficient.ToString();
-            _radarRange.text = playerScript.NetworkUnitConfig.RadarRange.ToString();
-            _radiationResist.text = playerScript.NetworkUnitConfig.RadResistanceCoefficient.ToString();
-            _hitResist.text = playerScript.NetworkUnitConfig.PhysResistanceCoefficient.ToString();
+            _stress.value = playerScript.networkUnitConfig.currentStress;
+            _hp.value = playerScript.networkUnitConfig.currentHp;
+            _acceleration.text = playerScript.networkUnitConfig.accelerationCoefficient.ToString();
+            _radarRange.text = playerScript.networkUnitConfig.radarRange.ToString();
+            _radiationResist.text = playerScript.networkUnitConfig.radResistanceCoefficient.ToString();
+            _hitResist.text = playerScript.networkUnitConfig.physResistanceCoefficient.ToString();
         }
 
         private void Despawn()

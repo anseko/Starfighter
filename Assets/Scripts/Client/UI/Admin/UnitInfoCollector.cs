@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
-using MLAPI;
+using Mirror;
 using UnityEngine;
 
 namespace Client.UI.Admin

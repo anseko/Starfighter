@@ -37,12 +37,12 @@ namespace Client.UI.Admin
             DangerZone = dangerZone;
             _submitMenu = submitMenu;
 
-            _hpDamage.text += DangerZone.zoneHpDamage.Value.ToString(CultureInfo.InvariantCulture);
-            _stressDamage.text += DangerZone.zoneStressDamage.Value.ToString(CultureInfo.InvariantCulture);
+            _hpDamage.text += DangerZone.zoneHpDamage.ToString(CultureInfo.InvariantCulture);
+            _stressDamage.text += DangerZone.zoneStressDamage.ToString(CultureInfo.InvariantCulture);
             _name.text = DangerZone.zoneType.ToString().Split('.').Last();
-            _radius.text = DangerZone.zoneRadius.Value.ToString(CultureInfo.InvariantCulture);
+            _radius.text = DangerZone.zoneRadius.ToString(CultureInfo.InvariantCulture);
 
-            GetComponent<Image>().color = DangerZone.zoneColor.Value;
+            GetComponent<Image>().color = DangerZone.zoneColor;
 
             DangerZone.zoneRadius.OnValueChanged += (value, newValue) =>
             {
@@ -52,7 +52,7 @@ namespace Client.UI.Admin
 
         private void Apply()
         {
-            DangerZone.zoneRadius.Value = float.Parse(_radius.text);
+            DangerZone.zoneRadius = float.Parse(_radius.text);
         }
         
         private void Despawn()

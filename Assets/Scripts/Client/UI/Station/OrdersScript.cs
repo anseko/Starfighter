@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Core;
-using MLAPI;
-using MLAPI.Serialization;
+using Mirror;
 using Net.Components;
 using TMPro;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace Client.UI
 {
     public class OrdersScript : NetworkBehaviour
     {
-        public class OrderUnit: INetworkSerializable
+        public class OrderUnit : INetworkSerializable
         {
             public string shipName;
             public Vector3 position;
@@ -44,9 +43,9 @@ namespace Client.UI
             IsActive,
             IsDrawing
         }
-        
+
         public EditorState state;
-        
+
         private Dictionary<string, OrderUnit> _ordersList;
         private PlayerScript _ordersPS;
         private Vector3 _endPositionGlobal;
@@ -79,10 +78,10 @@ namespace Client.UI
         public void SetOrder()
         {
             state = EditorState.IsActive;
-            Cursor.SetCursor(_cursor.cursorExclamation,new Vector2(0,0), CursorMode.Auto);
+            Cursor.SetCursor(_cursor.cursorExclamation, new Vector2(0, 0), CursorMode.Auto);
         }
 
-    
+
         public void GetShipList()
         {
             _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
@@ -90,7 +89,7 @@ namespace Client.UI
             var ps = FindObjectsOfType<PlayerScript>();
 
             _allShips = ps.ToList();
-            _allShips.ForEach(ship => _shipNamesList.Add(ship.NetworkUnitConfig.ShipId));
+            _allShips.ForEach(ship => _shipNamesList.Add(ship.networkUnitConfig.shipId));
             _shipListDropdown.AddOptions(_shipNamesList);
         }
 
@@ -98,27 +97,27 @@ namespace Client.UI
         {
             var name = _shipListDropdown.options[_shipListDropdown.value].text;
             var ship = FindObjectsOfType<PlayerScript>()
-                .FirstOrDefault(ps => ps.NetworkUnitConfig.ShipId == name);
+                .FirstOrDefault(ps => ps.networkUnitConfig.shipId == name);
             _ordersPS = ship;
         }
-    
+
         public void CreateOrder()
         {
             state = EditorState.IsInactive;
             if (_ordersPS is null) GetAssignedShip();
-            
+
             var unit = new OrderUnit
             {
-                shipName = _ordersPS?.NetworkUnitConfig.ShipId ?? "Unknown",
+                shipName = _ordersPS?.networkUnitConfig.shipId ?? "Unknown",
                 position = _orderPlaneCopy.GetComponent<OrderFrameInit>().position,
                 size = _orderPlaneCopy.GetComponent<OrderFrameInit>().size,
                 text = _textField.text,
                 orderPlane = _orderPlaneCopy
             };
-            
+
             var isSuccess = _ordersList.TryGetValue(unit.shipName, out var oldOrder);
             Debug.unityLogger.Log($"creating order {isSuccess}: {unit.shipName} : {_ordersList.Count}");
-                        
+
             if (isSuccess)
             {
                 Destroy(oldOrder.orderPlane);
@@ -129,13 +128,13 @@ namespace Client.UI
             {
                 unit.operation = OrderOperation.Add;
             }
-                        
+
             _ordersList.Add(unit.shipName, unit);
             if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
-                orderComponent.lastOrder.Value = unit;
-                        
+                orderComponent.lastOrder = unit;
+
             _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(_ordersPS, unit.position, unit.size, unit.text);
-            
+
             _textField.text = "";
             _editPanel.SetActive(false);
             _camera.GetComponent<CameraMotion>()._isDragable = true;
@@ -149,29 +148,29 @@ namespace Client.UI
             _orderPlaneCopy = Instantiate(_orderPlanePrefab);
 
             _orderPlaneCopy.GetComponent<OrderFrameInit>().FrameInit(
-                            _ordersPS,
-                            _camera.ScreenToWorldPoint(_startPosition), 
-                            _endPositionGlobal, 
-                            "");
-            
+                _ordersPS,
+                _camera.ScreenToWorldPoint(_startPosition),
+                _endPositionGlobal,
+                "");
+
             _editPanel.SetActive(true);
         }
-    
+
         public void CancelOrder()
         {
             if (_ordersPS is null) return;
-            
+
             state = EditorState.IsInactive;
-            
-            if (_ordersList.TryGetValue(_ordersPS.NetworkUnitConfig.ShipId, out var orderUnit))
+
+            if (_ordersList.TryGetValue(_ordersPS.networkUnitConfig.shipId, out var orderUnit))
             {
                 if (_ordersPS.TryGetComponent<OrderComponent>(out var orderComponent))
                 {
                     orderUnit.operation = OrderOperation.Remove;
-                    orderComponent.lastOrder.Value = orderUnit;
+                    orderComponent.lastOrder = orderUnit;
                 }
 
-                _ordersList.Remove(_ordersPS.NetworkUnitConfig.ShipId);
+                _ordersList.Remove(_ordersPS.networkUnitConfig.shipId);
             }
 
             Destroy(_orderPlaneCopy);
@@ -190,23 +189,24 @@ namespace Client.UI
         {
             GUI.skin = skin;
             GUI.depth = 99;
-            
+
             switch (state)
             {
                 case EditorState.IsInactive:
                     return;
 
                 case EditorState.IsActive:
-                    
+
                     if (Input.GetMouseButtonDown(0) && !_editPanel.activeInHierarchy)
                     {
                         _startPosition = Input.mousePosition;
                         state = EditorState.IsDrawing;
                     }
+
                     break;
-                
+
                 case EditorState.IsDrawing:
-                    
+
                     _camera.GetComponent<CameraMotion>()._isDragable = false;
                     _endPosition = Input.mousePosition;
                     _ordersFrame = new Rect(Mathf.Min(_endPosition.x, _startPosition.x),
@@ -216,10 +216,10 @@ namespace Client.UI
                     );
                     _endPositionGlobal = _camera.ScreenToWorldPoint(_endPosition);
                     GUI.Box(_ordersFrame, "");
-                    
+
                     if (Input.GetMouseButtonUp(0))
                     {
-                        Cursor.SetCursor(_cursor.cursor, new Vector2(0,0), CursorMode.Auto);
+                        Cursor.SetCursor(_cursor.cursor, new Vector2(0, 0), CursorMode.Auto);
                         if (_ordersFrame.size.magnitude >= 50)
                         {
                             EnterOrder();
@@ -229,13 +229,14 @@ namespace Client.UI
                             CancelOrder();
                         }
                     }
+
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            
+
         }
     }
 }

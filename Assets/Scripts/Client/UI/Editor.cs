@@ -1,4 +1,4 @@
-using MLAPI;
+using Mirror;
 using UnityEngine;
 
 namespace Client.UI
@@ -9,7 +9,7 @@ namespace Client.UI
 
         private void Awake()
         {
-            if (NetworkManager.Singleton.IsServer)
+            if (NetworkManager.singleton.isServer)
             {
                 enabled = false;
             }

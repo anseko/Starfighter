@@ -37,23 +37,23 @@ namespace Client.UI.Admin
             this.unitScript = unitScript;
             _submitMenu = submitMenu;
 
-            _unitName.text = this.unitScript.NetworkUnitConfig.PrefabName;
+            _unitName.text = this.unitScript.networkUnitConfig.prefabName;
             
-            _maxHp.text = this.unitScript.NetworkUnitConfig.MaxHp.ToString(CultureInfo.InvariantCulture);
+            _maxHp.text = this.unitScript.networkUnitConfig.maxHp.ToString(CultureInfo.InvariantCulture);
             _maxHp.onValueChanged.AddListener((arg0 => _hp.maxValue = float.Parse(arg0)));
             
-            _hp.maxValue = this.unitScript.NetworkUnitConfig.MaxHp;
-            _hp.value = this.unitScript.NetworkUnitConfig.CurrentHp;
-            this.unitScript.NetworkUnitConfig._currentHp.OnValueChanged +=
+            _hp.maxValue = this.unitScript.networkUnitConfig.maxHp;
+            _hp.value = this.unitScript.networkUnitConfig.currentHp;
+            this.unitScript.networkUnitConfig.currentHp.OnValueChanged +=
                 (value, newValue) => _hp.value = newValue;
         }
 
         private void Apply()
         {
-            unitScript.NetworkUnitConfig.MaxHp = float.Parse(_maxHp.text);
-            unitScript.NetworkUnitConfig.CurrentHp = _hp.value;
-            unitScript.NetworkUnitConfig.MaxSpeed = float.Parse(_maxSpeed.text);
-            unitScript.NetworkUnitConfig.MaxAngleSpeed = float.Parse(_maxAngleSpeed.text);
+            unitScript.networkUnitConfig.maxHp = float.Parse(_maxHp.text);
+            unitScript.networkUnitConfig.currentHp = _hp.value;
+            unitScript.networkUnitConfig.maxSpeed = float.Parse(_maxSpeed.text);
+            unitScript.networkUnitConfig.maxAngleSpeed = float.Parse(_maxAngleSpeed.text);
         }
         
         private void Despawn()

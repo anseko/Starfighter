@@ -1,7 +1,6 @@
 using Client.Core;
 using Client.UI;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -11,15 +10,17 @@ namespace Net.Components
         [SerializeField] private GameObject _orderFramePrefab;
         private PlayerScript _playerScript;
         private GameObject _myOrder;
-        public NetworkVariable<OrdersScript.OrderUnit> lastOrder;
+        [SyncVar]
+        public OrdersScript.OrderUnit lastOrder;
 
         private void Awake()
         {
-            lastOrder = new NetworkVariable<OrdersScript.OrderUnit>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Everyone
-            });
+            //only can be writing on server
+            // lastOrder = new NetworkVariable<OrdersScript.OrderUnit>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Everyone
+            // });
         }
 
         public void Init()
@@ -28,21 +29,21 @@ namespace Net.Components
             lastOrder.OnValueChanged += OnValueChanged;
         }
 
-        private void OnValueChanged(OrdersScript.OrderUnit previousvalue, OrdersScript.OrderUnit newvalue)
+        private void OnValueChanged(OrdersScript.OrderUnit previousValue, OrdersScript.OrderUnit newValue)
         {
-            if (IsServer || newvalue.shipName != _playerScript.NetworkUnitConfig.ShipId) return;
+            if (isServer || newValue.shipName != _playerScript.networkUnitConfig.shipId) return;
             
-            switch (newvalue.operation)
+            switch (newValue.operation)
             {
                 case OrdersScript.OrderOperation.Add:
                     _myOrder = GameObject.Find("OrderStaticFrame(Clone)") ?? Instantiate(_orderFramePrefab);
-                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
+                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newValue.position, newValue.size, newValue.text, true);
                     break;
                 case OrdersScript.OrderOperation.Remove:
                     Destroy(_myOrder);
                     break;
                 case OrdersScript.OrderOperation.Edit:
-                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newvalue.position, newvalue.size, newvalue.text, true);
+                    _myOrder.GetComponent<OrderFrameInit>().FrameInit(GetComponent<PlayerScript>(), newValue.position, newValue.size, newValue.text, true);
                     break;
             }
         }

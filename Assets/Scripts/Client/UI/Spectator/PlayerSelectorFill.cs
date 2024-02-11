@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Client.Core;
 using TMPro;
@@ -22,7 +21,7 @@ namespace Client.UI.Spectator
             {
                  var button = Instantiate(_button, _panel.transform);
                  var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-                 buttonName.text = ship.NetworkUnitConfig.ShipId;
+                 buttonName.text = ship.networkUnitConfig.shipId;
                  buttons.Add(button.GetComponent<CenterView>());
             }
         }

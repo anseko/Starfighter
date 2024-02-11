@@ -188,14 +188,14 @@ namespace Net.Core
                 yield return null;
             }
             
-            gameObject.GetComponent<MainServerLoop>().indicator.color = Color.green;
+            gameObject.GetComponent<StarfighterNetworkManager>().indicator.color = Color.green;
             NetEventStorage.GetInstance().WorldInit.Invoke(0);
         }
 
         public void SaveServer()
         {
             var shipsConfigs = FindObjectsOfType<PlayerScript>()
-                .Select(x=> x.NetworkUnitConfig.Export())
+                .Select(x=> x.networkUnitConfig.Export())
                 .ToList();
             
             foreach (var shipConfig in shipsConfigs)
@@ -215,7 +215,7 @@ namespace Net.Core
             
             var configs = FindObjectsOfType<UnitScript>()
                 .Where(x=> !(x is PlayerScript))
-                .Select(x=> x.NetworkUnitConfig.Export())
+                .Select(x=> x.networkUnitConfig.Export())
                 .ToList();
             
             foreach (var unitConfig in configs)

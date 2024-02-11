@@ -1,6 +1,5 @@
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -13,19 +12,19 @@ namespace Net.Components
         {
             GetComponent<Renderer>().material.color = colorToPaint;
             
-            if (!IsServer) return;
-            GetComponent<NetworkObject>().Spawn();
+            if (!isServer) return;
+            GetComponent<NetworkIdentity>().Spawn();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (!IsServer || collision.gameObject.TryGetComponent<Grappler>(out _)) return;
+            if (!isServer || collision.gameObject.TryGetComponent<Grappler>(out _)) return;
             
             var material = collision.gameObject.GetComponent<Renderer>().material;
             material.color = colorToPaint;
 
-            PaintClientRpc(collision.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
-            GetComponent<NetworkObject>().Despawn(true);
+            PaintClientRpc(collision.gameObject.GetComponent<NetworkIdentity>().NetworkObjectId);
+            GetComponent<NetworkIdentity>().Despawn(true);
         }
 
         [ClientRpc]

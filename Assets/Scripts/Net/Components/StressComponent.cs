@@ -1,8 +1,7 @@
 using System;
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -10,55 +9,56 @@ namespace Net.Components
     public class StressComponent: NetworkBehaviour
     {
         [SerializeField] private PlayerScript _playerScript;
-        public NetworkVariable<float> stressDelta;
+        [SyncVar] public float stressDelta;
 
         private void Awake()
         {
-            stressDelta = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            }, 0.0114f);
+            stressDelta = 0.0114f; 
+            // new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.ServerOnly
+            // }, 0.0114f);
             
-            _playerScript.NetworkUnitConfig._currentStress.OnValueChanged += (value, newValue) =>
+            _playerScript.networkUnitConfig.currentStress.OnValueChanged += (value, newValue) =>
             {
-                if (newValue >=_playerScript.NetworkUnitConfig.MaxStress)
+                if (newValue >=_playerScript.networkUnitConfig.maxStress)
                 {
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
                     return;
                 }
 
-                if (newValue < _playerScript.NetworkUnitConfig.MaxStress &&
-                    _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead &&
-                    _playerScript.NetworkUnitConfig.CurrentHp > 0)
+                if (newValue < _playerScript.networkUnitConfig.maxStress &&
+                    _playerScript.networkUnitConfig.shipState == UnitState.IsDead &&
+                    _playerScript.networkUnitConfig.currentHp > 0)
                 {
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                    _playerScript.networkUnitConfig.shipState = UnitState.InFlight;
                 }
             };
             
-            NetworkManager.Singleton.OnServerStarted += () =>
+            NetworkManager.singleton.OnServerStarted += () =>
             {
-                if(!IsServer) return;
+                if(!isServer) return;
                 
-                if (_playerScript.NetworkUnitConfig.CurrentStress >= _playerScript.NetworkUnitConfig.MaxStress)
+                if (_playerScript.networkUnitConfig.currentStress >= _playerScript.networkUnitConfig.maxStress)
                 {
-                    _playerScript.NetworkUnitConfig.CurrentStress = _playerScript.NetworkUnitConfig.MaxStress;
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    _playerScript.networkUnitConfig.currentStress = _playerScript.networkUnitConfig.maxStress;
+                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
                 }
             };
         }
 
         private void Update()
         {
-            if (!IsServer) return;
+            if (!isServer) return;
             
-            _playerScript.NetworkUnitConfig.CurrentStress = 
+            _playerScript.networkUnitConfig.currentStress = 
                 Math.Min(
                     Math.Max(
-                        _playerScript.NetworkUnitConfig.CurrentStress + stressDelta.Value * Time.deltaTime,
+                        _playerScript.networkUnitConfig.currentStress + stressDelta * Time.deltaTime,
                         0
                         ),
-                    _playerScript.NetworkUnitConfig.MaxStress
+                    _playerScript.networkUnitConfig.maxStress
                     );
         }
     }

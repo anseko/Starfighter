@@ -28,7 +28,7 @@ namespace Net.Core
             shipInstance.tag = Constants.DynamicTag;
             
             var playerScript = shipInstance.GetComponent<PlayerScript>() ?? shipInstance.AddComponent<PlayerScript>();
-            playerScript.NetworkUnitConfig.Init(new SpaceUnitDto(ship));
+            playerScript.networkUnitConfig.Init(new SpaceUnitDto(ship));
 
             shipInstance.SetActive(true);
             return playerScript;
@@ -45,7 +45,7 @@ namespace Net.Core
             instance.name = worldObject.prefabName + Constants.Separator + worldObject.id;
 
             var unitScript = instance.GetComponent<UnitScript>() ?? instance.AddComponent<UnitScript>();
-            unitScript.NetworkUnitConfig.Init(new SpaceUnitDto(worldObject));
+            unitScript.networkUnitConfig.Init(new SpaceUnitDto(worldObject));
             instance.SetActive(true);
             return unitScript;
         }
@@ -57,11 +57,11 @@ namespace Net.Core
             var instance = Object.Instantiate(goToInstantiate, dangerZoneConfig.center, Quaternion.Euler(90, 0, 0));
             var dangerZone = instance.GetComponent<DangerZone>();
             dangerZone.Guid = dangerZoneConfig.id;
-            dangerZone.zoneColor.Value = dangerZoneConfig.color;
-            dangerZone.zoneStressDamage.Value = dangerZoneConfig.stressDamage;
-            dangerZone.zoneHpDamage.Value = dangerZoneConfig.hpDamage;
-            dangerZone.zoneRadius.Value = dangerZoneConfig.radius;
-            dangerZone.zoneType.Value = dangerZoneConfig.type;
+            dangerZone.zoneColor = dangerZoneConfig.color;
+            dangerZone.zoneStressDamage = dangerZoneConfig.stressDamage;
+            dangerZone.zoneHpDamage = dangerZoneConfig.hpDamage;
+            dangerZone.zoneRadius = dangerZoneConfig.radius;
+            dangerZone.zoneType = dangerZoneConfig.type;
             instance.name = "DangerZone" + Constants.Separator + dangerZoneConfig.id;
             instance.SetActive(true);
             return dangerZone;

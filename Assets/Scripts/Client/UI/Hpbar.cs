@@ -12,7 +12,7 @@ namespace Client.UI
         public void Init(PlayerScript ps)
         {
             playerScript = ps;
-            _slider.maxValue = playerScript.NetworkUnitConfig.MaxHp;
+            _slider.maxValue = playerScript.networkUnitConfig.maxHp;
             gameObject.SetActive(true);
         }
         
@@ -23,7 +23,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _slider.value = playerScript.NetworkUnitConfig.CurrentHp;
+            _slider.value = playerScript.networkUnitConfig.currentHp;
         }
     }
 }

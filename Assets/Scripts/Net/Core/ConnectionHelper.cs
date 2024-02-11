@@ -3,27 +3,27 @@ using System.Linq;
 using Client.Core;
 using Client.UI;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Core
 {
     public class ConnectionHelper: NetworkBehaviour
     {
-        public NetworkVariable<UserType> userType = new NetworkVariable<UserType>(new NetworkVariableSettings()
-        {
-            ReadPermission = NetworkVariablePermission.Everyone,
-            WritePermission = NetworkVariablePermission.ServerOnly
-        });
+        [SyncVar] public UserType userType; 
+        //     = new NetworkVariable<UserType>(new NetworkVariableSettings()
+        // {
+        //     ReadPermission = NetworkVariablePermission.Everyone,
+        //     WritePermission = NetworkVariablePermission.ServerOnly
+        // });
 
-        [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        public void SelectSceneClientRpc(UserType type, ulong networkId, ClientRpcParams clientRpcParams = default)
+        [TargetRpc]
+        public void SelectSceneClientRpc(NetworkConnectionToClient target, UserType type, uint networkId)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
             FindObjectOfType<MainMenu>().gameObject.SetActive(false);
-            var ps = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.IsOwner || x.NetworkObjectId == networkId)?.GetComponent<PlayerScript>();
+            //BUG: почему при вызове в networkId передается 0?
+            var ps = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.isOwned || x.netId == networkId)?.GetComponent<PlayerScript>(); 
             switch (type)
             {
                 case UserType.Admin:

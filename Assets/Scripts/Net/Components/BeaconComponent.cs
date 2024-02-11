@@ -1,5 +1,4 @@
-using MLAPI;
-using MLAPI.Messaging;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -10,7 +9,7 @@ namespace Net.Components
         
         private void Awake()
         {
-            if (IsOwner)
+            if (isOwned)
             {
                 sprite.SetActive(false);
             }
@@ -20,16 +19,16 @@ namespace Net.Components
         {
             gameObject.SetActive(state);
             
-            if (IsServer)
+            if (isServer)
             {
                 ChangeStateClientRpc(state);
                 return;
             }
-            if (IsOwner) 
+            if (isOwned) 
                 ChangeStateServerRpc(state);
         }
         
-        [ServerRpc]
+        [Command]
         private void ChangeStateServerRpc(bool state)
         {
             gameObject.SetActive(state);

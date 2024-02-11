@@ -21,11 +21,11 @@ namespace Client
         {
             var shipPosition = _ship.transform.position;
             var size = Mathf.LerpUnclamped(0,
-                _ship.NetworkUnitConfig.MaxSpeed / _speedMarkerRatio,
-                Mathf.Log(_ship.shipSpeed.Value.magnitude / Mathf.PI + 1));
-            var radiusVector = _ship.shipSpeed.Value.normalized * Radius;
-            _renderer.SetPosition(0, shipPosition + _ship.shipSpeed.Value.normalized + radiusVector);
-            _renderer.SetPosition(1, shipPosition + _ship.shipSpeed.Value.normalized * _ship.shipSpeed.Value.magnitude + radiusVector);
+                _ship.networkUnitConfig.maxSpeed / _speedMarkerRatio,
+                Mathf.Log(_ship.shipSpeed.magnitude / Mathf.PI + 1));
+            var radiusVector = _ship.shipSpeed.normalized * Radius;
+            _renderer.SetPosition(0, shipPosition + _ship.shipSpeed.normalized + radiusVector);
+            _renderer.SetPosition(1, shipPosition + _ship.shipSpeed.normalized * _ship.shipSpeed.magnitude + radiusVector);
         }
     }
 }

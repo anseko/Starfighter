@@ -10,7 +10,7 @@ namespace Client.UI
 
         private void Update()
         {
-            _image.fillAmount = PlayerScript.shipRotation.Value.magnitude*Mathf.Rad2Deg / 90;
+            _image.fillAmount = PlayerScript.shipRotation.magnitude*Mathf.Rad2Deg / 90;
         }
     }
 }

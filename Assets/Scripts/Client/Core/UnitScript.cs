@@ -1,56 +1,52 @@
 using System.Linq;
 using Core;
 using Core.Models;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
-using Net;
+using Mirror;
 using UnityEngine;
 
 namespace Client.Core
 {
     public class UnitScript : NetworkBehaviour
     {
-        public NetworkSpaceUnitDto NetworkUnitConfig;
+        public NetworkSpaceUnitDto networkUnitConfig;
         public SpaceUnitDto unitConfig;
+        private NetworkIdentity _networkIdentity;
 
-        public NetworkVariable<bool> isGrappled = new NetworkVariable<bool>(new NetworkVariableSettings()
-        {
-            ReadPermission = NetworkVariablePermission.Everyone,
-            WritePermission =  NetworkVariablePermission.Everyone
-        });
+        [SyncVar] public bool isGrappled;
         
         public virtual UnitState GetState() => UnitState.InFlight;
 
         public void Awake()
         {
-           NetworkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
+           networkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
+           _networkIdentity = gameObject.GetComponent<NetworkIdentity>();
         }
         
         public void RequestShipOwnership()
         {
-            if (IsServer) return;
+            if (isServer) return;
             
-            RequestShipOwnershipServerRpc(NetworkManager.LocalClientId);
+            RequestShipOwnershipServerRpc(NetworkManager.singleton.LocalClientId);
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        private void RequestShipOwnershipServerRpc(ulong clientId)
+        [Command(requiresAuthority = false)]
+        private void RequestShipOwnershipServerRpc(int connectionId)
         {
-            Debug.unityLogger.Log($"Ownership requestig for {clientId}");
-            if (!FindObjectOfType<MainServerLoop>().CheckForAccountId(clientId, NetworkUnitConfig.ShipId)) return;
-            if (GetComponent<UnitScript>().isGrappled.Value) // если подключается к схваченному кораблю - отпустить
+            Debug.unityLogger.Log($"Ownership requestig for {connectionId}");
+            if (!FindObjectOfType<StarfighterNetworkManager>().CheckForAccountId(connectionId, networkUnitConfig.shipId)) return;
+            if (GetComponent<UnitScript>().isGrappled) // если подключается к схваченному кораблю - отпустить
             {
                 foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObject == gameObject))
                 {
                     Destroy(grappler); //передаст владение серверу
                 }
             }
-            
-            NetworkObject.ChangeOwnership(clientId);
+
+            //BUG?? _networkIdentity.AssignClientAuthority(connectionToClient);
+            NetworkObject.ChangeOwnership(connectionId);
         }
         
-        [ServerRpc(RequireOwnership = true)]
+        [Command]
         public void GiveAwayShipOwnershipServerRpc()
         {
             NetworkObject.RemoveOwnership();
@@ -60,7 +56,6 @@ namespace Client.Core
             var force = rigidbody.gameObject.GetComponent<ConstantForce>();
             force.force = Vector3.zero;
             force.torque = Vector3.zero;
-
         }
     }
 }

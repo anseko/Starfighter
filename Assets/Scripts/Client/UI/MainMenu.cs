@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using MLAPI;
-using MLAPI.Transports.UNET;
+using kcp2k;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +10,15 @@ namespace Client.UI
     {
         public InputField loginField;
         public InputField passwordField;
+        //IP address
         public InputField serverField;
 
 
         public void PlayGame()
         {
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
-            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = serverField.text;
-            NetworkManager.Singleton.StartClient();
+            NetworkManager.singleton.authenticator.ConnectionData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
+            NetworkManager.singleton.GetComponent<KcpTransport>() = serverField.text;
+            NetworkManager.singleton.StartClient();
         }
 
         public void QuitGame()

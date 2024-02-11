@@ -19,7 +19,7 @@ namespace Net.Components
         {
             _fovInstance = Instantiate(_fovCollider, gameObject.transform);
             _fovInstance.transform.localScale =
-               Vector3.one * ps.NetworkUnitConfig.RadarRange * ps.NetworkUnitConfig.RadarRangeCoefficient;
+               Vector3.one * ps.networkUnitConfig.radarRange * ps.networkUnitConfig.radarRangeCoefficient;
             
             enabled = true;
             SceneManager.GetActiveScene()
@@ -28,14 +28,14 @@ namespace Net.Components
                 .ToList().ForEach(x=>x.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = false));
             gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.enabled = true);
 
-            ps.NetworkUnitConfig._radarRange.OnValueChanged += (value, newValue) =>
+            ps.networkUnitConfig.radarRange.OnValueChanged += (value, newValue) =>
             {
-                _fovInstance.transform.localScale = Vector3.one * newValue * ps.NetworkUnitConfig.RadarRangeCoefficient;
+                _fovInstance.transform.localScale = Vector3.one * newValue * ps.networkUnitConfig.radarRangeCoefficient;
             };
             
-            ps.NetworkUnitConfig._radarRangeCoefficient.OnValueChanged += (value, newValue) =>
+            ps.networkUnitConfig.radarRangeCoefficient.OnValueChanged += (value, newValue) =>
             {
-                _fovInstance.transform.localScale = Vector3.one * newValue * ps.NetworkUnitConfig.RadarRange;
+                _fovInstance.transform.localScale = Vector3.one * newValue * ps.networkUnitConfig.radarRange;
             };
         }
 

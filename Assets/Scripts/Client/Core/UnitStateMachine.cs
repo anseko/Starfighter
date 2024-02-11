@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Core;
-using MLAPI;
+using Mirror;
 using Net.Components;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -29,9 +29,9 @@ namespace Client.Core
 
         public void Update(GameObject unit)
         {
-            if (!_playerScript.IsOwner) return;
-            _playerScript.shipSpeed.Value = _playerScript.Rigidbody.velocity;
-            _playerScript.shipRotation.Value = _playerScript.Rigidbody.angularVelocity;
+            if (!_playerScript.isOwned) return;
+            _playerScript.shipSpeed = _playerScript.Rigidbody.velocity;
+            _playerScript.shipRotation = _playerScript.Rigidbody.angularVelocity;
         }
 
         public void OnExit(GameObject unit)
@@ -97,13 +97,13 @@ namespace Client.Core
                 unit.TryGetComponent<DockComponent>(out var dockComp) &&
                 dockComp.lastThingToDock.TryGetComponent<PlayerScript>(out var ps))
             {
-                dockComp.EmergencyUndockServerRpc(dockComp.lastThingToDock.GetComponent<NetworkObject>().NetworkObjectId);
+                dockComp.EmergencyUndockServerRpc(dockComp.lastThingToDock.GetComponent<NetworkIdentity>().netId);
             }
 
             if (unit.TryGetComponent<GrappleComponent>(out var grappleComponent))
             {
                 var grappler = Object.FindObjectsOfType<Grappler>()
-                    .FirstOrDefault(x => x.IsOwner);
+                    .FirstOrDefault(x => x.isOwned);
                 grappler?.DestroyOnServer();
             }
             
@@ -111,7 +111,7 @@ namespace Client.Core
             if (beacon == null) return; 
             beacon.ChangeState(true);
             
-            if (unitPS.IsOwner) unitPS.GiveAwayShipOwnershipServerRpc();
+            if (unitPS.isOwned) unitPS.GiveAwayShipOwnershipServerRpc();
         }
 
         public void Update(GameObject unit)
@@ -125,11 +125,11 @@ namespace Client.Core
             beacon.ChangeState(false);
             
             var unitPS = unit.GetComponent<PlayerScript>();
-            if (unitPS.isGrappled.Value)
+            if (unitPS.isGrappled)
             {
-                var id = unit.GetComponent<NetworkObject>().NetworkObjectId;
+                var id = unit.GetComponent<NetworkIdentity>().netId;
                 var grappler = Object.FindObjectsOfType<Grappler>()
-                    .FirstOrDefault(x => x.grappledObjectId.Value == id);
+                    .FirstOrDefault(x => x.grappledObjectId == id);
                 grappler?.DestroyOnServer();
             }
             

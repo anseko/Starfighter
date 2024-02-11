@@ -1,164 +1,45 @@
 using System;
 using System.Linq;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Mirror;
 using Net.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core.Models
 {
     [Serializable]
     public class NetworkSpaceUnitDto: NetworkBehaviour
     {
-        public NetworkVariable<float> _maxAngleSpeed;
-        public NetworkVariable<float> _maxSpeed;
-        public NetworkVariable<float> _maxHp;
-        public NetworkVariable<float> _currentHp;
-        public NetworkVariable<bool> _isDockable;
-        public NetworkVariable<bool> _isMovable;
-        public NetworkVariable<Vector3> _position;
-        public NetworkVariable<Quaternion> _rotation;
-        public NetworkVariable<string> _prefabName;
-        public NetworkVariable<string> _id;
-        public NetworkVariable<float> _maxStress;
-        public NetworkVariable<float> _currentStress;
-        public NetworkVariable<string> _shipId;
-        public NetworkVariable<UnitState> _shipState;
-        public NetworkVariable<Color> _baseColor;
-        public NetworkVariable<float> _acceleration;
-        public NetworkVariable<float> _radarRange;
-        public NetworkVariable<float> _accelerationCoefficient;
-        public NetworkVariable<float> _physResistanceCoefficient;
-        public NetworkVariable<float> _radResistanceCoefficient;
-        public NetworkVariable<float> _radarRangeCoefficient;
+        [SyncVar] public float maxAngleSpeed;
+        [SyncVar] public float maxSpeed;
+        [SyncVar] public float maxHp;
+        [SyncVar] public float currentHp;
+        [SyncVar] public bool isDockable;
+        [SyncVar] public bool isMovable;
+        [SyncVar] public Vector3 position;
+        [SyncVar] public Quaternion rotation;
+        [SyncVar] public string prefabName;
+        [SyncVar] public string id;
+        [SyncVar] public float maxStress;
+        [SyncVar] public float currentStress;
+        [SyncVar] public string shipId;
+        [SyncVar] public UnitState shipState;
+        [SyncVar] public Color baseColor;
+        [SyncVar] public float acceleration;
+        [SyncVar] public float radarRange;
+        [SyncVar] public float accelerationCoefficient;
+        [SyncVar] public float physResistanceCoefficient;
+        [SyncVar] public float radResistanceCoefficient;
+        [SyncVar] public float radarRangeCoefficient;
 
-        public float MaxAngleSpeed
-        {
-            get => _maxAngleSpeed.Value;
-            set => _maxAngleSpeed.Value = value;
-        }
-        public float MaxSpeed
-        {
-            get => _maxSpeed.Value;
-            set => _maxSpeed.Value = value;
-        }
-        public float MaxHp
-        {
-            get => _maxHp.Value;
-            set => _maxHp.Value = value;
-        }
-        public float CurrentHp
-        {
-            get => _currentHp.Value;
-            set => _currentHp.Value = value;
-        }
-        public bool IsDockable
-        {
-            get => _isDockable.Value;
-            set => _isDockable.Value = value;
-        }
-        public bool IsMovable
-        {
-            get => _isMovable.Value;
-            set => _isMovable.Value = value;
-        }
-        public Vector3 Position
-        {
-            get => _position.Value;
-            set => _position.Value = value;
-        }
-        public Quaternion Rotation
-        {
-            get => _rotation.Value;
-            set => _rotation.Value = value;
-        }
-        public string PrefabName
-        {
-            get => _prefabName.Value;
-            set => _prefabName.Value = value;
-        }
-        public Guid ID
-        {
-            get => Guid.Parse(_id.Value);
-            set => _id.Value = value.ToString();
-        }
-        public float MaxStress
-        {
-            get => _maxStress.Value;
-            set => _maxStress.Value = value;
-        }
-        public float CurrentStress
-        {
-            get => _currentStress.Value;
-            set => _currentStress.Value = value;
-        }
-        public string ShipId
-        {
-            get => _shipId.Value;
-        }
-        public UnitState ShipState
-        {
-            get => _shipState.Value;
-            set => _shipState.Value = value;
-        }
-        public Color BaseColor
-        {
-            get => _baseColor.Value;
-            set => _baseColor.Value = value;
-        }
-        public float Acceleration
-        {
-            get => _acceleration.Value;
-            set => _acceleration.Value = value;
-        }
-        public float RadarRange
-        {
-            get => _radarRange.Value;
-            set => _radarRange.Value = value;
-        }
-        public float AccelerationCoefficient
-        {
-            get => _accelerationCoefficient.Value;
-            set => _accelerationCoefficient.Value = value;
-        }
-        public float PhysResistanceCoefficient
-        {
-            get => _physResistanceCoefficient.Value;
-            set => _physResistanceCoefficient.Value = value;
-        }
-        public float RadResistanceCoefficient
-        {
-            get => _radResistanceCoefficient.Value;
-            set => _radResistanceCoefficient.Value = value;
-        }
-        public float RadarRangeCoefficient
-        {
-            get => _radarRangeCoefficient.Value;
-            set => _radarRangeCoefficient.Value = value;
-        }
         public void Init(SpaceUnitDto config)
         {
-            _maxAngleSpeed.Value = config.maxAngleSpeed;
-            _maxSpeed.Value = config.maxSpeed;
-            _maxHp.Value = config.maxHp;
-            _currentHp.Value = config.currentHp;
-            _isDockable.Value = config.isDockable;
-            _isMovable.Value = config.isMovable;
-            _position.Value = config.position;
-            _rotation.Value = config.rotation;
-            _prefabName.Value = config.prefabName;
-            _id.Value = config.id.ToString();
-            _maxStress.Value = config.maxStress;
-            _currentStress.Value = config.currentStress;
-            _shipId.Value = config.shipId;
-            _shipState.Value = config.shipState;
-            _baseColor.Value = config.baseColor;
-            _acceleration.Value = config.acceleration;
-            _radarRange.Value = config.radarRange;
-            _accelerationCoefficient.Value = config.accelerationCoefficient;
-            _physResistanceCoefficient.Value = config.physResistanceCoefficient;
-            _radResistanceCoefficient.Value = config.radResistanceCoefficient;
-            _radarRangeCoefficient.Value = config.radarRangeCoefficient;
+            foreach (var dtoField in typeof(NetworkSpaceUnitDto).GetFields())
+            {
+                var value = typeof(SpaceUnitDto).GetProperties().FirstOrDefault(x =>
+                    string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
+                dtoField.SetValue(this, value?.GetValue(config));
+            }
         }
 
         public SpaceUnitDto Export()
@@ -177,159 +58,159 @@ namespace Core.Models
         
         public void Awake()
         {
-            var permissionDelegate =
-                new NetworkVariablePermissionsDelegate(id =>
-                    IsOwner ||
-                    IsServer ||
-                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin ||
-                    FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Mechanic);
-
-            _maxAngleSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _maxSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _maxHp = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _isDockable = new NetworkVariable<bool>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _isMovable = new NetworkVariable<bool>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _position = new NetworkVariable<Vector3>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _rotation = new NetworkVariable<Quaternion>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _prefabName = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermissionCallback = permissionDelegate
-            });
-
-            _maxStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _shipId = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _shipState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-
-            _id = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _acceleration = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-
-            _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _accelerationCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _physResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _radResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            
-            _radarRangeCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
+            // var permissionDelegate =
+            //     new NetworkVariablePermissionsDelegate(id =>
+            //         IsOwner ||
+            //         IsServer ||
+            //         FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin ||
+            //         FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Mechanic);
+            //
+            // _maxAngleSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _maxSpeed = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _maxHp = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _currentHp = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _isDockable = new NetworkVariable<bool>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _isMovable = new NetworkVariable<bool>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _position = new NetworkVariable<Vector3>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _rotation = new NetworkVariable<Quaternion>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _prefabName = new NetworkVariable<string>(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _maxStress = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _currentStress = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _shipId = new NetworkVariable<string>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _shipState = new NetworkVariable<UnitState>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _baseColor = new NetworkVariable<Color>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _id = new NetworkVariable<string>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _acceleration = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _radarRange = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _accelerationCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _physResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _radResistanceCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            //
+            // _radarRangeCoefficient = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
         }
     }
 }

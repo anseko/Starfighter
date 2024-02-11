@@ -1,28 +1,31 @@
 using System;
 using Core;
 using Core.Models;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Mirror;
 using Net.Components;
-using Net.Core;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Net
 {
     public class DangerZone: NetworkBehaviour
     {
-        public NetworkVariable<Color> zoneColor;
-        public NetworkVariable<float> zoneStressDamage;
-        public NetworkVariable<float> zoneHpDamage;
-        public NetworkVariable<float> zoneRadius;
-        public NetworkVariable<ZoneType> zoneType;
-        private NetworkVariable<string> _id;
+        [SyncVar(hook = nameof(ZoneColorChanged))]
+        public Color zoneColor;
+        [SyncVar]
+        public float zoneStressDamage;
+        [SyncVar]
+        public float zoneHpDamage;
+        [SyncVar(hook = nameof(ZoneRadiusChanged))]
+        public float zoneRadius;
+        [SyncVar]
+        public ZoneType zoneType;
+        [SyncVar]
+        private string _id;
 
         public Guid Guid
         {
-            get { return Guid.Parse(_id.Value); }
-            set { _id.Value = value.ToString(); }
+            get => Guid.Parse(_id);
+            set => _id = value.ToString();
         }
 
 
@@ -31,97 +34,98 @@ namespace Net
             var dto = new DangerZoneDto()
             {
                 center = transform.position,
-                radius = zoneRadius.Value,
-                color = zoneColor.Value,
-                hpDamage = zoneHpDamage.Value,
-                stressDamage = zoneStressDamage.Value,
+                radius = zoneRadius,
+                color = zoneColor,
+                hpDamage = zoneHpDamage,
+                stressDamage = zoneStressDamage,
                 id = Guid,
-                type = zoneType.Value
+                type = zoneType
             };
             return dto;
         }
         
         private void Awake()
         {
-            var permissionDelegate =
-                new NetworkVariablePermissionsDelegate(id =>
-                    IsOwner || IsServer || FindObjectOfType<ConnectionHelper>().userType.Value == UserType.Admin);
+            // var permissionDelegate =
+            //     new NetworkVariablePermissionsDelegate(id =>
+            //         isOwned || isServer || FindObjectOfType<ConnectionHelper>().userType == UserType.Admin);
             
-            zoneColor = new NetworkVariable<Color>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneRadius = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneStressDamage = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneHpDamage = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            _id = new NetworkVariable<string>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-            zoneType = new NetworkVariable<ZoneType>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = permissionDelegate
-            });
-
-            zoneRadius.OnValueChanged += (value, newValue) => { transform.localScale = Vector3.one * 10 * newValue; };
-            zoneColor.OnValueChanged += (value, newValue) =>
-            {
-                var renderer = GetComponent<SpriteRenderer>() ?? gameObject.AddComponent<SpriteRenderer>();
-                renderer.color = newValue;
-            };
+            // zoneColor = new NetworkVariable<Color>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            // zoneRadius = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            // zoneStressDamage = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            // zoneHpDamage = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            // _id = new NetworkVariable<string>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
+            // zoneType = new NetworkVariable<ZoneType>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = permissionDelegate
+            // });
         }
+
+        private void ZoneColorChanged(Color oldValue, Color newValue)
+        {
+            var renderer = GetComponent<SpriteRenderer>() ?? gameObject.AddComponent<SpriteRenderer>();
+            renderer.color = newValue;
+        }
+
+        private void ZoneRadiusChanged(float oldValue, float newValue) => transform.localScale = Vector3.one * 10 * newValue;
 
         private void Start()
         {
             var renderer = GetComponent<SpriteRenderer>() ?? gameObject.AddComponent<SpriteRenderer>();
-            renderer.color = zoneColor.Value;
-            transform.localScale = Vector3.one * 10 * zoneRadius.Value;
+            renderer.color = zoneColor;
+            transform.localScale = Vector3.one * 10 * zoneRadius;
         }
         
         private void OnTriggerEnter(Collider other)
         {
-            if (IsClient) return;
+            if (isClient) return;
             if (other.gameObject.TryGetComponent<StressComponent>(out var stressComponent))
             {
-                stressComponent.stressDelta.Value += zoneStressDamage.Value;
+                stressComponent.stressDelta += zoneStressDamage;
             }
             if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
             {
-                hpComponent.hpDelta.Value += zoneHpDamage.Value;
+                hpComponent.hpDelta += zoneHpDamage;
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!IsServer) return;
+            if (!isServer) return;
             if (other.gameObject.TryGetComponent<StressComponent>(out var stressComponent))
             {
-                stressComponent.stressDelta.Value -= zoneStressDamage.Value;
+                stressComponent.stressDelta -= zoneStressDamage;
             }
             if (other.gameObject.TryGetComponent<HealthComponent>(out var hpComponent))
             {
-                hpComponent.hpDelta.Value -= zoneHpDamage.Value;
+                hpComponent.hpDelta -= zoneHpDamage;
             }
         }
     }

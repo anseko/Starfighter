@@ -5,9 +5,7 @@ using Client;
 using Client.Core;
 using Client.UI;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -18,7 +16,8 @@ namespace Net.Components
         private PlayerScript _unit;
         public bool isDockable = true;
         public UnitScript lastThingToDock;
-        public NetworkVariableBool readyToDock;
+        [SyncVar]
+        public bool readyToDock;
         [SerializeField]
         private List<DockingTrigger> _dockingMarkers;
         [SerializeField]
@@ -27,7 +26,6 @@ namespace Net.Components
         
         private void Awake()
         {
-            readyToDock = new NetworkVariableBool(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly}, false);
             ClientEventStorage.GetInstance().DockIndicatorStateRequest.AddListener(IndicatorUpdate);
         }
 
@@ -46,28 +44,28 @@ namespace Net.Components
 
         private void Update()
         {
-            if (!IsOwner) return;
+            if (!isOwned) return;
             
-            readyToDock.Value = _dockingMarkers.Any(x => x.dockAvailable);
+            readyToDock = _dockingMarkers.Any(x => x.dockAvailable);
             
             if(_unit is null) return;
             
-            if (Input.GetKeyDown(_unit.keyConfig.dock) && (readyToDock.Value || _unit.NetworkUnitConfig.ShipState == UnitState.IsDocked))
+            if (Input.GetKeyDown(_unit.keyConfig.dock) && (readyToDock || _unit.networkUnitConfig.shipState == UnitState.IsDocked))
             {
-                if (_unit.NetworkUnitConfig.ShipState == UnitState.IsDocked)
+                if (_unit.networkUnitConfig.shipState == UnitState.IsDocked)
                 {
-                    EmergencyUndockServerRpc(lastThingToDock?.GetComponent<NetworkObject>()?.NetworkObjectId ?? default, true);
+                    EmergencyUndockServerRpc(lastThingToDock?.GetComponent<NetworkIdentity>()?.netId ?? default, true);
                 }
                 else
                 {
-                    TryToDockServerRpc(lastThingToDock?.GetComponent<NetworkObject>()?.NetworkObjectId ?? default);
+                    TryToDockServerRpc(lastThingToDock?.GetComponent<NetworkIdentity>()?.netId ?? default);
                 }
             }
         }
 
         private void IndicatorUpdate()
         {
-            if (!IsOwner) return;
+            if (!isOwned) return;
             
             if (GetState() == UnitState.IsDocked)
             {
@@ -75,7 +73,7 @@ namespace Net.Components
                 return;
             }
 
-            if (readyToDock.Value)
+            if (readyToDock)
             {
                 ClientEventStorage.GetInstance().DockingAvailable.Invoke();
                 return;
@@ -95,29 +93,29 @@ namespace Net.Components
             return _unit?.GetState() ?? UnitState.InFlight;
         }
 
-        [ServerRpc]
+        [Command]
         public void EmergencyUndockServerRpc(ulong otherObjectId, bool changeSelfState = false)
         {
-            var otherObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == otherObjectId);
+            var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null && otherObjectId != default) return;
 
             var otherUnit = otherObj?.GetComponent<PlayerScript>();
             
-            if (changeSelfState) _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
+            if (changeSelfState) _unit.networkUnitConfig.shipState = UnitState.InFlight;
             
             if (otherUnit != null && otherUnit.NetworkUnitConfig.ShipState != UnitState.IsDead) otherUnit.NetworkUnitConfig.ShipState = UnitState.InFlight;
             
             transform.SetParent(null);
         }
         
-        [ServerRpc]
+        [Command]
         private void TryToDockServerRpc(ulong otherObjectId)
         {
-            var otherObj = FindObjectsOfType<NetworkObject>().FirstOrDefault(x => x.NetworkObjectId == otherObjectId);
+            var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null) return;
 
             var otherIsReady = false;
-            otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock.Value;
+            otherIsReady = otherObj.IsOwnedByServer || otherObj.GetComponent<DockComponent>().readyToDock;
 
             if (!otherIsReady) return;
 
@@ -126,7 +124,7 @@ namespace Net.Components
             switch (_unit.GetState())
             {
                 case UnitState.InFlight:
-                    _unit.NetworkUnitConfig.ShipState = UnitState.IsDocked;
+                    _unit.networkUnitConfig.shipState = UnitState.IsDocked;
                     if (otherUnit != null)
                     {
                         if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;
@@ -140,7 +138,7 @@ namespace Net.Components
                     }
                     break;
                 case UnitState.IsDocked:
-                    _unit.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                    _unit.networkUnitConfig.shipState = UnitState.InFlight;
                     if (otherUnit != null)
                     {
                         if (otherUnit.NetworkUnitConfig.ShipState == UnitState.IsDead) break;

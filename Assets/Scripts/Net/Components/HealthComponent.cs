@@ -1,8 +1,7 @@
 using System;
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -10,70 +9,71 @@ namespace Net.Components
     public class HealthComponent: NetworkBehaviour
     {
         [SerializeField] private PlayerScript _playerScript;
-        public NetworkVariable<float> hpDelta;
+        [SyncVar]
+        public float hpDelta;
 
         private void Awake()
         {
-            hpDelta = new NetworkVariable<float>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            }, 0);
+            // hpDelta = new NetworkVariable<float>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.ServerOnly
+            // }, 0);
 
-            _playerScript.NetworkUnitConfig._currentHp.OnValueChanged += (value, newValue) =>
+            _playerScript.networkUnitConfig.currentHp.OnValueChanged += (value, newValue) =>
             {
                 if (newValue <= 0)
                 {
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
                     return;
                 }
 
                 if (newValue > 0 &&
-                    _playerScript.NetworkUnitConfig.ShipState == UnitState.IsDead &&
-                    _playerScript.NetworkUnitConfig.CurrentStress < _playerScript.NetworkUnitConfig.MaxStress)
+                    _playerScript.networkUnitConfig.shipState == UnitState.IsDead &&
+                    _playerScript.networkUnitConfig.currentStress < _playerScript.networkUnitConfig.maxStress)
                 {
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.InFlight;
+                    _playerScript.networkUnitConfig.shipState = UnitState.InFlight;
                 }
             };
             
-            NetworkManager.Singleton.OnServerStarted += () =>
+            NetworkManager.singleton.OnServerStarted += () =>
             {
-                if(!IsServer) return;
+                if(!isServer) return;
                 
-                if (_playerScript.NetworkUnitConfig.CurrentHp <= 0)
+                if (_playerScript.networkUnitConfig.currentHp <= 0)
                 {
-                    _playerScript.NetworkUnitConfig.CurrentHp = 0;
-                    _playerScript.NetworkUnitConfig.ShipState = UnitState.IsDead;
+                    _playerScript.networkUnitConfig.currentHp = 0;
+                    _playerScript.networkUnitConfig.shipState = UnitState.IsDead;
                 }
             };
         }
 
         private void Update()
         {
-            if (!IsServer) return;
+            if (!isServer) return;
             
-            _playerScript.NetworkUnitConfig.CurrentHp = 
+            _playerScript.networkUnitConfig.currentHp = 
                 Math.Min(
                     Math.Max(
-                        _playerScript.NetworkUnitConfig.CurrentHp + hpDelta.Value * Time.deltaTime * _playerScript.NetworkUnitConfig.RadResistanceCoefficient,
+                        _playerScript.networkUnitConfig.currentHp + hpDelta * Time.deltaTime * _playerScript.networkUnitConfig.radResistanceCoefficient,
                         0
                     ),
-                    _playerScript.NetworkUnitConfig.MaxHp
+                    _playerScript.networkUnitConfig.maxHp
                 );
         }
         
         private void OnCollisionEnter(Collision collision)
         {
             
-            if (!IsServer) return;
+            if (!isServer) return;
             
             var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
-            var percentageDamage = CalculateDamage((_playerScript.shipSpeed.Value - otherVelocity).magnitude, _playerScript.NetworkUnitConfig.MaxSpeed, Constants.MaxPossibleDamageHp);
+            var percentageDamage = CalculateDamage((_playerScript.shipSpeed - otherVelocity).magnitude, _playerScript.networkUnitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
-            _playerScript.NetworkUnitConfig.CurrentHp -= _playerScript.NetworkUnitConfig.MaxHp * (percentageDamage * 0.01f);
+            _playerScript.networkUnitConfig.currentHp -= _playerScript.networkUnitConfig.maxHp * (percentageDamage * 0.01f);
         }
 
         private float CalculateDamage(float speed, float maxSpeed, float maxPossibleDamageHp) =>
-            Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed) * _playerScript.NetworkUnitConfig.PhysResistanceCoefficient;
+            Mathf.Lerp(0, maxPossibleDamageHp, speed / maxSpeed) * _playerScript.networkUnitConfig.physResistanceCoefficient;
     }
 }

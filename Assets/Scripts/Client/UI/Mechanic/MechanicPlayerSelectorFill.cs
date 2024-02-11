@@ -3,7 +3,6 @@ using Core;
 using Net.Components;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Client.UI.Mechanic
@@ -30,7 +29,7 @@ namespace Client.UI.Mechanic
                 {
                     var button = Instantiate(_button, _panel.transform);
                     var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
-                    buttonName.text = ship.NetworkUnitConfig.ShipId;
+                    buttonName.text = ship.networkUnitConfig.shipId;
                     button.GetComponent<MechanicButtonScript>().ship = ship.GetComponent<PlayerScript>();
                     button.GetComponent<MechanicButtonScript>().panel = mechanicPanelComponent;
                 }

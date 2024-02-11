@@ -1,7 +1,6 @@
-using Core;
 using System.Linq;
-using MLAPI;
-using MLAPI.NetworkVariable;
+using Core;
+using Mirror;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,7 +11,8 @@ namespace Client.Core
     {
         public Volume volume;
         public KeyConfig keyConfig;
-        public NetworkVariableVector3 shipSpeed, shipRotation;
+        [SyncVar] public Vector3 shipSpeed;
+        [SyncVar] public Vector3 shipRotation;
         public UnitStateMachine unitStateMachine;
         public bool localUsage = false;
         public Rigidbody Rigidbody;
@@ -22,16 +22,16 @@ namespace Client.Core
         {
             base.Awake();
             
-            shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
-            {
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            }, Vector3.zero);
-            
-            shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
-                WritePermission = NetworkVariablePermission.Custom,
-                WritePermissionCallback = id => IsOwner || IsServer
-            }, Vector3.zero);
+            // shipSpeed = new NetworkVariableVector3(new NetworkVariableSettings()
+            // {
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = id => IsOwner || IsServer
+            // }, Vector3.zero);
+            //
+            // shipRotation = new NetworkVariableVector3(new NetworkVariableSettings(){ 
+            //     WritePermission = NetworkVariablePermission.Custom,
+            //     WritePermissionCallback = id => IsOwner || IsServer
+            // }, Vector3.zero);
         }
 
         private void Start()
@@ -46,28 +46,28 @@ namespace Client.Core
             volume = FindObjectOfType<Volume>(true);
             Rigidbody = GetComponent<Rigidbody>();
             
-            unitStateMachine = new UnitStateMachine(gameObject, NetworkUnitConfig.ShipState);
-            NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
+            unitStateMachine = new UnitStateMachine(gameObject, networkUnitConfig.shipState);
+            networkUnitConfig.shipState.OnValueChanged += (value, newValue) =>
             {
                 unitStateMachine.ChangeState(newValue);
             };
 
-            Debug.unityLogger.Log($"PS {NetworkUnitConfig.ShipState}");
+            Debug.unityLogger.Log($"PS {networkUnitConfig.shipState}");
             
-            if (IsClient) unitStateMachine.ChangeState(NetworkUnitConfig.ShipState);
+            if (isClient) unitStateMachine.ChangeState(networkUnitConfig.shipState);
             
             transform.GetComponentsInChildren<MeshRenderer>().ToList()
-                .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = NetworkUnitConfig.BaseColor);
+                .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = networkUnitConfig.baseColor);
             
             GetComponentsInChildren<TextMesh>().ToList().ForEach(t =>
             {
-                int.TryParse(NetworkUnitConfig.ShipId.Replace("ship", ""), out var num);
+                int.TryParse(networkUnitConfig.shipId.Replace("ship", ""), out var num);
                 var shipNumber = num == 10 ? "X" : num.ToString();
                 t.text = shipNumber;
             });
         }
 
-        public override UnitState GetState() => NetworkUnitConfig.ShipState;
+        public override UnitState GetState() => networkUnitConfig.shipState;
 
         private void Update()
         {

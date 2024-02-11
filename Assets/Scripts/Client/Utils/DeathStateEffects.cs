@@ -18,7 +18,7 @@ namespace Client.Utils
         {
             _playerScript = ps;
 
-            _playerScript.NetworkUnitConfig._shipState.OnValueChanged += (value, newValue) =>
+            _playerScript.networkUnitConfig.shipState.OnValueChanged += (value, newValue) =>
             {
                 
                 if (value == UnitState.IsDocked || value == newValue) return;

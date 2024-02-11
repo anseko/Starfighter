@@ -33,7 +33,7 @@ namespace Client.UI.Admin
         public void Remove(PlayerScript playerScript)
         {
             var toRemove = ShipInfos.FirstOrDefault(x =>
-                x.playerScript.NetworkUnitConfig.ShipId == playerScript.NetworkUnitConfig.ShipId);
+                x.playerScript.networkUnitConfig.shipId == playerScript.networkUnitConfig.shipId);
             ShipInfos.Remove(toRemove);
             Destroy(toRemove);
         }

@@ -2,8 +2,7 @@ using System;
 using System.Linq;
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
+using Mirror;
 using Net;
 using Net.Core;
 using ScriptableObjects;
@@ -32,18 +31,18 @@ namespace Client.UI.Admin
         {
             var position = new Vector3(_cam.transform.position.x, 1, _cam.transform.position.z);
 
-            SpawnServerRpc(pathToConfig, prefabName, newShipId, position, NetworkManager.Singleton.LocalClientId);
+            SpawnServerRpc(pathToConfig, prefabName, newShipId, position, NetworkManager.singleton.LocalClientId);
         }
 
         public void Despawn()
         {
-            if (selectedPrefab.TryGetComponent<NetworkObject>(out var netObj))
+            if (selectedPrefab.TryGetComponent<NetworkIdentity>(out var netObj))
             {
-                DespawnServerRpc(netObj.NetworkObjectId);
+                DespawnServerRpc(netObj.netId);
             }
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        [Command(requiresAuthority = false)]
         private void SpawnServerRpc(string pathToConfig, string prefabName, string newShipId, Vector3 position, ulong adminClientId)
         {
             Debug.unityLogger.Log($"Server spawn: {pathToConfig}{prefabName}.");
@@ -90,7 +89,7 @@ namespace Client.UI.Admin
                 config.id = Guid.Empty;
             }
             
-            if (goToSpawn.TryGetComponent<NetworkObject>(out var netObj) && !netObj.IsSpawned)
+            if (goToSpawn.TryGetComponent<NetworkIdentity>(out var netObj) && !netObj.IsSpawned)
             {
                 netObj.Spawn();
                 netObj.gameObject.transform.position = position;
@@ -112,8 +111,8 @@ namespace Client.UI.Admin
             PostSpawnClientRpc(netObj.NetworkObjectId, sendParams);
         }
 
-        [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        private void PostSpawnClientRpc(ulong objectId, ClientRpcParams sendParams = default)
+        [TargetRpc]
+        private void PostSpawnClientRpc(NetworkConnectionToClient connectionToClient, ulong objectId)
         {
             selectedPrefab = GetNetworkObject(objectId).gameObject;
                 
@@ -131,7 +130,7 @@ namespace Client.UI.Admin
             }
         }
         
-        [ServerRpc(RequireOwnership = false)]
+        [Command(requiresAuthority = false)]
         public void SpawnServerRpc(ulong objectId, ulong clientId, Vector3 position)
         {
             var netObj = GetNetworkObject(objectId);
@@ -139,38 +138,38 @@ namespace Client.UI.Admin
             netObj.gameObject.transform.position = position;
         }
         
-        [ServerRpc(RequireOwnership = false)]
+        [Command(requiresAuthority = false)]
         private void DespawnServerRpc(ulong objectId)
         {
-            var server = FindObjectOfType<MainServerLoop>();
+            var server = FindObjectOfType<StarfighterNetworkManager>();
             var objectToDespawn = GetNetworkObject(objectId).gameObject;
 
             if (objectToDespawn.TryGetComponent<PlayerScript>(out var ps))
             {
                 var accounts = server.accountObjects
                     .Where(acc => acc.ship?.shipId == ps.NetworkUnitConfig.ShipId).ToList();
-                    accounts.Where(x=>x.clientId != null).ToList().ForEach(acc=> NetworkManager.Singleton.DisconnectClient(acc.clientId.Value));
+                    accounts.Where(x=>x.connectionId != null).ToList().ForEach(acc=> NetworkManager.singleton.DisconnectClient(acc.connectionId.Value));
                     server.accountObjects.RemoveAll(x => accounts.Contains(x));
             }
             
             GetNetworkObject(objectId).Despawn(true);
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        [Command(requiresAuthority = false)]
         public void AddAccountServerRpc(string login, string password, string newShipId, string prefabName)
         {
             Debug.unityLogger.Log($"AddAcc {login}:{password} for {newShipId}");
             var acc = ScriptableObject.CreateInstance<ClientAccountObject>();
             acc.login = login;
             acc.password = password;
-            acc.clientId = null;
+            acc.connectionId = null;
             acc.type = UserType.Pilot;
             var configToInstance = Resources.LoadAll<SpaceShipConfig>(Constants.PathToShipsObjects).FirstOrDefault(x => x.prefabName == prefabName);
             var config = Instantiate(configToInstance);
             config.shipId = newShipId;
             acc.ship = config;
 
-            var server = FindObjectOfType<MainServerLoop>();
+            var server = FindObjectOfType<StarfighterNetworkManager>();
             if (server.accountObjects.Any(x => x.ship?.shipId == acc.ship.shipId && x.type == acc.type))
             {
                 Debug.unityLogger.Log($"There is such account in list already {acc.ship.shipId}:{acc.type}");

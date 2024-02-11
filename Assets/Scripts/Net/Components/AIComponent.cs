@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
-using MLAPI;
+using Mirror;
 using UnityEngine;
 
 namespace Net.Components
@@ -29,9 +29,10 @@ namespace Net.Components
             _wayPoints.Sort(((transform1, transform2) => comp(transform1,transform2)));
         }
 
+        [ServerCallback]
         private void Start()
         {
-            if (NetworkManager.Singleton.IsClient) return;
+            // if (NetworkManager.Singleton.IsClient) return;
 
             var minDist = _wayPoints.Min(x => Vector3.Distance(transform.position, x.position));
             _currentDestination = _wayPoints.First(x => Vector3.Distance(transform.position, x.position) <= minDist).position;
@@ -39,26 +40,29 @@ namespace Net.Components
             _currentTask = StartCoroutine(GoToPoint(_currentDestination));
         }
         
+        [ServerCallback]
         public void Pause()
         {
-            if (NetworkManager.Singleton.IsClient) return;
+            // if (NetworkManager.Singleton.IsClient) return;
             _isPaused = true;
             StopAllCoroutines();
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
 
+        [ServerCallback]
         public void Resume()
         {
-            if (NetworkManager.Singleton.IsClient) return;
+            // if (NetworkManager.Singleton.IsClient) return;
             _isPaused = false;
             _currentDestination = _wayPoints[++_counter % _wayPoints.Count].position;
             _currentTask = StartCoroutine(GoToPoint(_currentDestination));
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
         }
         
+        [ServerCallback]
         private void Update()
         {
-            if (NetworkManager.Singleton.IsClient) return;
+            // if (NetworkManager.Singleton.IsClient) return;
             
             if (_isPaused) return;
             if (Vector3.Distance(transform.position, _currentDestination) > _finishDistance) return;

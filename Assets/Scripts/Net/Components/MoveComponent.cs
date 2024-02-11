@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Client.Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Mirror;
 using Net.Core;
 using UnityEngine;
 
@@ -34,7 +32,7 @@ namespace Net.Components
         [SerializeField]
         private List<ParticleSystem> _trustSystems;
         private ConstantForce _thrustForce;
-        private NetworkVariable<MovementData> _lastMovement;
+        [SyncVar] private MovementData _lastMovement;
         private PlayerScript _unit;
         private Rigidbody _rigidbody;
 
@@ -42,10 +40,10 @@ namespace Net.Components
         {
             _rigidbody = GetComponent<Rigidbody>();
             _unit = GetComponent<PlayerScript>();
-            _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
+            // _lastMovement = new NetworkVariable<MovementData>(new NetworkVariableSettings {WritePermission = NetworkVariablePermission.OwnerOnly});
             _lastMovement.OnValueChanged += (value, newValue) =>
             {
-                if (IsOwner) AnimateMovementServerRpc();
+                if (isOwned) AnimateMovementServerRpc();
             };
             
             _thrustForce = GetComponent<ConstantForce>();
@@ -70,13 +68,13 @@ namespace Net.Components
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
 
-            if (_unit.IsOwner)
+            if (_unit.isOwned)
             {
-                _unit.shipSpeed.Value = _unit.Rigidbody.velocity;
-                _unit.shipRotation.Value = _unit.Rigidbody.angularVelocity;
+                _unit.shipSpeed = _unit.Rigidbody.velocity;
+                _unit.shipRotation = _unit.Rigidbody.angularVelocity;
             }
             
-            _lastMovement.Value = new MovementData()
+            _lastMovement = new MovementData()
             {
                 rotationValue = 0,
                 sideManeurValue = 0,
@@ -92,39 +90,38 @@ namespace Net.Components
         
         private void UpdateMovement()
         {
-            if (!IsOwner || (IsServer && !IsHost)) return; 
+            if (!isOwned || isServerOnly) return; 
             
-            
-            _lastMovement.Value = new MovementData()
+            _lastMovement = new MovementData()
             {
-                rotationValue = Input.GetAxis("Rotation") * _unit.NetworkUnitConfig.Acceleration * _unit.NetworkUnitConfig.AccelerationCoefficient,
-                sideManeurValue = Input.GetAxis("Horizontal") * _unit.NetworkUnitConfig.AccelerationCoefficient,
-                straightManeurValue = Input.GetAxis("Vertical") * _unit.NetworkUnitConfig.AccelerationCoefficient,
-                thrustValue = Input.GetAxis("Jump") * _unit.NetworkUnitConfig.Acceleration * _unit.NetworkUnitConfig.AccelerationCoefficient
+                rotationValue = Input.GetAxis("Rotation") * _unit.networkUnitConfig.acceleration * _unit.networkUnitConfig.accelerationCoefficient,
+                sideManeurValue = Input.GetAxis("Horizontal") * _unit.networkUnitConfig.accelerationCoefficient,
+                straightManeurValue = Input.GetAxis("Vertical") * _unit.networkUnitConfig.accelerationCoefficient,
+                thrustValue = Input.GetAxis("Jump") * _unit.networkUnitConfig.acceleration * _unit.networkUnitConfig.accelerationCoefficient
             };
             
             // расчет вектора тяги
             var thrustForceVector = _front.transform.position - _back.transform.position; //вектор фронтальной тяги
             var maneurForceVector = _right.transform.position - _left.transform.position; //вектор боковой тяги
             _thrustForce.force = 
-                (thrustForceVector.normalized) * (_lastMovement.Value.thrustValue + _lastMovement.Value.straightManeurValue) +
-                (maneurForceVector.normalized) * _lastMovement.Value.sideManeurValue;
-            _thrustForce.torque = new Vector3(0, _lastMovement.Value.rotationValue, 0);
+                (thrustForceVector.normalized) * (_lastMovement.thrustValue + _lastMovement.straightManeurValue) +
+                (maneurForceVector.normalized) * _lastMovement.sideManeurValue;
+            _thrustForce.torque = new Vector3(0, _lastMovement.rotationValue, 0);
             
-            if (Mathf.Abs(_rigidbody.angularVelocity.magnitude * Mathf.Rad2Deg) >= _unit.NetworkUnitConfig.MaxAngleSpeed)
+            if (Mathf.Abs(_rigidbody.angularVelocity.magnitude * Mathf.Rad2Deg) >= _unit.networkUnitConfig.maxAngleSpeed)
             {
                 var angularVelocity = _rigidbody.angularVelocity;
-                _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.NetworkUnitConfig.MaxAngleSpeed) * Mathf.Deg2Rad));
+                _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.networkUnitConfig.maxAngleSpeed) * Mathf.Deg2Rad));
             }
 
-            if (Mathf.Abs(_rigidbody.velocity.magnitude) >= _unit.NetworkUnitConfig.MaxSpeed)
+            if (Mathf.Abs(_rigidbody.velocity.magnitude) >= _unit.networkUnitConfig.maxSpeed)
             {
                 var velocity = _rigidbody.velocity;
-                _thrustForce.force = -(velocity.normalized * (Mathf.Abs(velocity.magnitude) - _unit.NetworkUnitConfig.MaxSpeed));
+                _thrustForce.force = -(velocity.normalized * (Mathf.Abs(velocity.magnitude) - _unit.networkUnitConfig.maxSpeed));
             }
         }
 
-        [ServerRpc]
+        [Command]
         private void AnimateMovementServerRpc()
         {
             #if !UNITY_SERVER
@@ -211,36 +208,36 @@ namespace Net.Components
         private EngineState GetEngines()
         {
             var state = new EngineState();
-            if(_lastMovement.Value.thrustValue != 0)
+            if(_lastMovement.thrustValue != 0)
             {
                 state.Thrust = true;
             }
-            if(_lastMovement.Value.rotationValue < 0)
+            if(_lastMovement.rotationValue < 0)
             {
                 state.TopRight = true;
                 state.BotLeft = true;
             }
-            if(_lastMovement.Value.rotationValue > 0)
+            if(_lastMovement.rotationValue > 0)
             {
                 state.TopLeft = true;
                 state.BotRight = true;
             }
-            if(_lastMovement.Value.straightManeurValue < 0)
+            if(_lastMovement.straightManeurValue < 0)
             {
                 state.TopLeft = true;
                 state.TopRight = true;
             }
-            if(_lastMovement.Value.straightManeurValue > 0)
+            if(_lastMovement.straightManeurValue > 0)
             {
                 state.BotLeft = true;
                 state.BotRight = true;
             }
-            if(_lastMovement.Value.sideManeurValue > 0)
+            if(_lastMovement.sideManeurValue > 0)
             {
                 state.TopLeft = true;
                 state.BotLeft = true;
             }
-            if(_lastMovement.Value.sideManeurValue < 0)
+            if(_lastMovement.sideManeurValue < 0)
             {
                 state.TopRight = true;
                 state.BotRight = true;

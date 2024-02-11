@@ -1,8 +1,6 @@
 using Client.Core;
 using Core;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Mirror;
 using UnityEngine;
 
 
@@ -16,7 +14,8 @@ namespace Net.Components
         private PlayerScript _unit;
         [SerializeField]
         private Transform _launcher;
-        public NetworkVariable<ulong> grapplerObjectId;
+        [SyncVar]
+        public ulong grapplerObjectId;
         private bool _grappleOut;
 
         private void Awake()
@@ -28,23 +27,23 @@ namespace Net.Components
             //     WritePermissionCallback = id => IsOwner || IsServer 
             // });
             
-            grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
-            {
-                ReadPermission = NetworkVariablePermission.Everyone,
-                WritePermission = NetworkVariablePermission.ServerOnly
-            });
+            // grapplerObjectId = new NetworkVariable<ulong>(new NetworkVariableSettings()
+            // {
+            //     ReadPermission = NetworkVariablePermission.Everyone,
+            //     WritePermission = NetworkVariablePermission.ServerOnly
+            // });
 
             _unit ??= gameObject.GetComponent<PlayerScript>();
         }
 
         private void Update()
         {
-            if (!IsOwner || _unit.isGrappled.Value) return;
+            if (!isOwned || _unit.isGrappled) return;
             if (Input.GetKeyDown(_unit.keyConfig.grapple))
             {
-                if (grapplerObjectId.Value != default)
+                if (grapplerObjectId != default)
                 {
-                    var grappler = GetNetworkObject(grapplerObjectId.Value)?.GetComponent<Grappler>();
+                    var grappler = GetNetworkObject(grapplerObjectId)?.GetComponent<Grappler>();
                     grappler?.DestroyOnServer();
                 }
                 else
@@ -54,13 +53,13 @@ namespace Net.Components
             }
         }
 
-        [ServerRpc(Delivery = RpcDelivery.Reliable)]
+        [Command]
         private void InitGrappleServerRpc()
         {
             var grapplerGo = Instantiate(_grapplerPrefab, _launcher.position, Quaternion.identity);
-            var netGrappler = grapplerGo.GetComponent<NetworkObject>();
+            var netGrappler = grapplerGo.GetComponent<NetworkIdentity>();
             netGrappler.Spawn(destroyWithScene: true);
-            grapplerObjectId.Value = netGrappler.NetworkObjectId;
+            grapplerObjectId = netGrappler.netId;
             grapplerGo.GetComponent<Grappler>().Init(_unit, 20);
         }
     }
