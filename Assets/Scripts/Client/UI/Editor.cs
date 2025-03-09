@@ -18,7 +18,7 @@ namespace Client.UI
 
         private void Start()
         {
-            _ordersScript = FindObjectOfType<OrdersScript>(true);
+            _ordersScript = FindFirstObjectByType<OrdersScript>(FindObjectsInactive.Include);
             _ordersScript.state = OrdersScript.EditorState.IsInactive;
         }
         

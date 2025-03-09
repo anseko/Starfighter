@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: e14587d0c3ca29841a0186c4c9ab3b4d
+guid: 639f3367202d9254bbe7d78c68eec7d8
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Tanks/Scenes/MirrorTanks.unity
+  uploadId: 736421

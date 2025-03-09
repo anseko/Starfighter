@@ -37,7 +37,10 @@ namespace Net.Components
             });
         }
 
-        private void Start() => CheckForOverstressedStateCommand();
+        public override void OnStartClient()
+        {
+            CheckForOverstressedStateCommand();
+        }
         
         private void Update()
         {

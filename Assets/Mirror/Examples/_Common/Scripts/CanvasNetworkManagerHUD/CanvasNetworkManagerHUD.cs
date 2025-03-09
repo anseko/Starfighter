@@ -1,8 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 namespace Mirror.Examples.Common
 {
+    // Note: EventSystem is needed in your scene for Unitys UI Canvas
     public class CanvasNetworkManagerHUD : MonoBehaviour
     {
         [SerializeField] private GameObject startButtonsGroup;
@@ -18,11 +22,13 @@ namespace Mirror.Examples.Common
         [SerializeField] private Text statusText;
 
         [SerializeField] private InputField inputNetworkAddress;
+        [SerializeField] private InputField inputPort;
 
         private void Start()
         {
             // Init the input field with Network Manager's network address.
             inputNetworkAddress.text = NetworkManager.singleton.networkAddress;
+            GetPort();
 
             RegisterListeners();
 
@@ -43,6 +49,7 @@ namespace Mirror.Examples.Common
             // Add input field listener to update NetworkManager's Network Address
             // when changed.
             inputNetworkAddress.onValueChanged.AddListener(delegate { OnNetworkAddressChange(); });
+            inputPort.onValueChanged.AddListener(delegate { OnPortChange(); });
         }
 
         // Not working at the moment. Can't register events.
@@ -167,6 +174,34 @@ namespace Mirror.Examples.Common
             NetworkManager.singleton.networkAddress = inputNetworkAddress.text;
         }
 
+        private void OnPortChange()
+        {
+            SetPort(inputPort.text);
+        }
+
+        private void SetPort(string _port)
+        {
+            // only show a port field if we have a port transport
+            // we can't have "IP:PORT" in the address field since this only
+            // works for IPV4:PORT.
+            // for IPV6:PORT it would be misleading since IPV6 contains ":":
+            // 2001:0db8:0000:0000:0000:ff00:0042:8329
+            if (Transport.active is PortTransport portTransport)
+            {
+                // use TryParse in case someone tries to enter non-numeric characters
+                if (ushort.TryParse(_port, out ushort port))
+                    portTransport.Port = port;
+            }
+        }
+
+        private void GetPort()
+        {
+            if (Transport.active is PortTransport portTransport)
+            {
+                inputPort.text = portTransport.Port.ToString();
+            }
+        }
+
         private void Update()
         {
             RefreshHUD();
@@ -185,13 +220,13 @@ namespace Mirror.Examples.Common
         // you first add this script to a gameobject.
         private void Reset()
         {
-#if UNITY_2021_3_OR_NEWER
+#if UNITY_2022_2_OR_NEWER
             if (!FindAnyObjectByType<NetworkManager>())
                 Debug.LogError("This component requires a NetworkManager component to be present in the scene. Please add!");
 #else
-        // Deprecated in Unity 2023.1
-        if (!FindObjectOfType<NetworkManager>())
-            Debug.LogError("This component requires a NetworkManager component to be present in the scene. Please add!");
+            // Deprecated in Unity 2023.1
+            if (!FindObjectOfType<NetworkManager>())
+                Debug.LogError("This component requires a NetworkManager component to be present in the scene. Please add!");
 #endif
         }
     }

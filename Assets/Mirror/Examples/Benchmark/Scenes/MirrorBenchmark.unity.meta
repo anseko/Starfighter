@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: 3596a733c9acf104e8bac83f7349d4bb
+guid: 44b3175b2f27eb546ad6d537850ec7d4
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Benchmark/Scenes/MirrorBenchmark.unity
+  uploadId: 736421

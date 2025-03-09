@@ -65,12 +65,12 @@ namespace Net.Components
             _trustSystems.ForEach(x=>x.Stop());
             _thrustForce.force = Vector3.zero;
             _thrustForce.torque = Vector3.zero;
-            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.linearVelocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
 
             if (_unit.isOwned)
             {
-                _unit.shipSpeed = _unit.Rigidbody.velocity;
+                _unit.shipSpeed = _unit.Rigidbody.linearVelocity;
                 _unit.shipRotation = _unit.Rigidbody.angularVelocity;
             }
             
@@ -114,9 +114,9 @@ namespace Net.Components
                 _thrustForce.torque = -(angularVelocity.normalized * ((Mathf.Abs(angularVelocity.magnitude * Mathf.Rad2Deg) - _unit.networkUnitConfig.maxAngleSpeed) * Mathf.Deg2Rad));
             }
 
-            if (Mathf.Abs(_rigidbody.velocity.magnitude) >= _unit.networkUnitConfig.maxSpeed)
+            if (Mathf.Abs(_rigidbody.linearVelocity.magnitude) >= _unit.networkUnitConfig.maxSpeed)
             {
-                var velocity = _rigidbody.velocity;
+                var velocity = _rigidbody.linearVelocity;
                 _thrustForce.force = -(velocity.normalized * (Mathf.Abs(velocity.magnitude) - _unit.networkUnitConfig.maxSpeed));
             }
         }

@@ -1,8 +1,15 @@
 fileFormatVersion: 2
-guid: b5e3a550a719d634280f45b93de1d635
+guid: d105e6197adbb70489d58cf50b859956
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/RigidbodyPhysics/Materials/Server.mat
+  uploadId: 736421

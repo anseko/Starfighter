@@ -4,7 +4,7 @@
 //
 // however, some of the old NetworkTime code remains for ping time (rtt).
 // some users may still be using that.
-
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 #if !UNITY_2020_3_OR_NEWER
@@ -141,17 +141,21 @@ namespace Mirror
         {
             // localTime (double) instead of Time.time for accuracy over days
             if (localTime >= lastPingTime + PingInterval)
-            {
-                // send raw predicted time without the offset applied yet.
-                // we then apply the offset to it after.
-                NetworkPingMessage pingMessage = new NetworkPingMessage
-                (
-                    localTime,
-                    predictedTime
-                );
-                NetworkClient.Send(pingMessage, Channels.Unreliable);
-                lastPingTime = localTime;
-            }
+                SendPing();
+        }
+
+        // Separate method so we can call it from NetworkClient directly.
+        internal static void SendPing()
+        {
+            // send raw predicted time without the offset applied yet.
+            // we then apply the offset to it after.
+            NetworkPingMessage pingMessage = new NetworkPingMessage
+            (
+                localTime,
+                predictedTime
+            );
+            NetworkClient.Send(pingMessage, Channels.Unreliable);
+            lastPingTime = localTime;
         }
 
         // client rtt calculation //////////////////////////////////////////////

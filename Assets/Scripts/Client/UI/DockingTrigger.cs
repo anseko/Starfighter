@@ -15,7 +15,7 @@ namespace Client.UI
         public void Init(DockComponent dockComponent)
         {
             _dockComponent = dockComponent;
-            _state = FindObjectOfType<DockingState>();
+            _state = FindFirstObjectByType<DockingState>();
         }
 
         private void OnTriggerEnter(Collider other)

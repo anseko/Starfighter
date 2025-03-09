@@ -36,7 +36,7 @@ namespace Client.UI.Admin
             _refreshButton.onClick.AddListener(UpdateCurrentValuesCommand);
             _focusButton.onClick.AddListener(() =>
             {
-                var camMotion = FindObjectOfType<Camera>().GetComponent<CameraMotion>();
+                var camMotion = FindFirstObjectByType<Camera>().GetComponent<CameraMotion>();
                 camMotion.Player = playerScript.gameObject;
                 camMotion.gameObject.transform.position = playerScript.gameObject.transform.position + Vector3.up * 90;;
                 // if (camMotion.GetFollowMode()) camMotion.SwitchFollowMode();
@@ -111,7 +111,7 @@ namespace Client.UI.Admin
         {
             _submitMenu.RaiseSubmit(() =>
             {
-                var spawner = FindObjectOfType<Spawner>();
+                var spawner = FindFirstObjectByType<Spawner>();
                 spawner.selectedPrefab = playerScript.gameObject;
                 spawner.Despawn();
                 Destroy(gameObject);

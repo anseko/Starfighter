@@ -1,8 +1,15 @@
 fileFormatVersion: 2
-guid: 8519e9b3aeeab0642ba01af7e6bed27f
+guid: afca17cfa280e1a4b8d7524803e9fc4c
 timeCreated: 1426587410
 licenseType: Store
 DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Pong/Scenes/MirrorPong.unity
+  uploadId: 736421

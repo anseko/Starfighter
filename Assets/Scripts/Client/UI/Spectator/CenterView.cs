@@ -13,7 +13,7 @@ namespace Client.UI.Spectator
         private void Start()
         {
             _camera = transform.root.gameObject.GetComponentInChildren<Camera>();
-            _ship = FindObjectsOfType<PlayerScript>().FirstOrDefault(x =>
+            _ship = FindObjectsByType<PlayerScript>(FindObjectsSortMode.None).FirstOrDefault(x =>
                 x.networkUnitConfig.shipId == GetComponentInChildren<TextMeshProUGUI>().text)?.gameObject;
         }
     

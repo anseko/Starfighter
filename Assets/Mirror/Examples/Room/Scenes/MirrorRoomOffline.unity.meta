@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: a1ef8da7e8914ad42b606429325b4de7
+guid: c8a5ec0112cbd3e4c84740efa2b27b9c
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Room/Scenes/MirrorRoomOffline.unity
+  uploadId: 736421

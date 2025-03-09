@@ -30,7 +30,7 @@ namespace Client.Core
         public void Update(GameObject unit)
         {
             if (!_playerScript.isOwned) return;
-            _playerScript.shipSpeed = _playerScript.Rigidbody.velocity;
+            _playerScript.shipSpeed = _playerScript.Rigidbody.linearVelocity;
             _playerScript.shipRotation = _playerScript.Rigidbody.angularVelocity;
         }
 
@@ -90,7 +90,7 @@ namespace Client.Core
         {
             //Если были пристыкованы - отстыковаться
             var unitPS = unit.GetComponent<PlayerScript>();
-            unitPS.Rigidbody.velocity = Vector3.zero;
+            unitPS.Rigidbody.linearVelocity = Vector3.zero;
             unitPS.Rigidbody.angularVelocity = Vector3.zero;
             
             if (unitPS.unitStateMachine?.previousState == UnitState.IsDocked &&
@@ -102,7 +102,7 @@ namespace Client.Core
 
             if (unit.TryGetComponent<GrappleComponent>(out var grappleComponent))
             {
-                var grappler = Object.FindObjectsOfType<Grappler>()
+                var grappler = Object.FindObjectsByType<Grappler>(FindObjectsSortMode.None)
                     .FirstOrDefault(x => x.isOwned);
                 grappler?.DestroyOnServer();
             }
@@ -128,7 +128,7 @@ namespace Client.Core
             if (unitPS.isGrappled)
             {
                 var id = unit.GetComponent<NetworkIdentity>().netId;
-                var grappler = Object.FindObjectsOfType<Grappler>()
+                var grappler = Object.FindObjectsByType<Grappler>(FindObjectsSortMode.None)
                     .FirstOrDefault(x => x.grappledObjectId == id);
                 grappler?.DestroyOnServer();
             }

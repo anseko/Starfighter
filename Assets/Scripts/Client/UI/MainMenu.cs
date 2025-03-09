@@ -17,8 +17,9 @@ namespace Client.UI
         public void PlayGame()
         {
             NetworkManager.singleton.networkAddress = serverField.text;
-            NetworkManager.singleton.StartClient();
+            
             NetworkClient.connection.authenticationData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
+            NetworkManager.singleton.StartClient();
         }
 
         public void QuitGame()

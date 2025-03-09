@@ -11,7 +11,7 @@ namespace Client.UI
         public override void Init(PlayerScript playerScript)
         {
             base.Init(playerScript);
-            _camera = FindObjectOfType<Camera>();
+            _camera = FindFirstObjectByType<Camera>();
             
             _camera.cullingMask |= (1 << 10);
         }
@@ -23,7 +23,7 @@ namespace Client.UI
 
         public void Start()
         {
-            _camera = FindObjectOfType<Camera>();
+            _camera = FindFirstObjectByType<Camera>();
             _camera.cullingMask |= (1 << 10);
         }
         

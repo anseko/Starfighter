@@ -20,7 +20,7 @@ namespace Client.UI.Mechanic
                 Destroy(go.gameObject);
             }
 
-            foreach (var ship in FindObjectsOfType<PlayerScript>())
+            foreach (var ship in FindObjectsByType<PlayerScript>(FindObjectsSortMode.None))
             {
                 if (ship.GetState() == UnitState.IsDocked && 
                     ship.TryGetComponent<DockComponent>(out var dockComponent) &&

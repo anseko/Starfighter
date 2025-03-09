@@ -88,7 +88,7 @@ namespace Client.UI
         {
             _shipListDropdown = _editPanel.transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
             _shipNamesList = new List<string>();
-            var ps = FindObjectsOfType<PlayerScript>();
+            var ps = FindObjectsByType<PlayerScript>(FindObjectsSortMode.None);
 
             _allShips = ps.ToList();
             _allShips.ForEach(ship => _shipNamesList.Add(ship.networkUnitConfig.shipId));
@@ -98,7 +98,7 @@ namespace Client.UI
         public void GetAssignedShip()
         {
             var name = _shipListDropdown.options[_shipListDropdown.value].text;
-            var ship = FindObjectsOfType<PlayerScript>()
+            var ship = FindObjectsByType<PlayerScript>(FindObjectsSortMode.None)
                 .FirstOrDefault(ps => ps.networkUnitConfig.shipId == name);
             _ordersPS = ship;
         }

@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: f9b14b6494026da429392380571548d3
+guid: 8865a65041c29b74db9fe4426d5c75e4
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/MultipleAdditiveScenes/Scenes/MirrorMultipleAdditiveScenesGame.unity
+  uploadId: 736421

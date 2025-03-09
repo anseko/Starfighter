@@ -23,18 +23,20 @@ namespace Client.Core
         public void RequestShipOwnership()
         {
             if (isServer) return;
-            
-            RequestShipOwnershipServerRpc(connectionToServer.connectionId); // NetworkManager.singleton.LocalClientId
+
+            //BUG: connectionId moved into NetworkConnectionToClient class
+            RequestShipOwnershipServerRpc((connectionToServer as NetworkConnectionToClient).connectionId); // NetworkManager.singleton.LocalClientId
         }
         
         [Command(requiresAuthority = false)]
         private void RequestShipOwnershipServerRpc(int connectionId)
         {
             Debug.unityLogger.Log($"Ownership requestig for {connectionId}");
-            if (!FindObjectOfType<StarfighterNetworkManager>().CheckForAccountId(connectionId, networkUnitConfig.shipId)) return;
+            if (!FindFirstObjectByType<StarfighterNetworkManager>().CheckForAccountId(connectionId, networkUnitConfig.shipId)) return;
             if (GetComponent<UnitScript>().isGrappled) // если подключается к схваченному кораблю - отпустить
             {
-                foreach (var grappler in FindObjectsOfType<Grappler>().Where(x=>x.grappledObject == gameObject))
+                foreach (var grappler in FindObjectsByType<Grappler>(FindObjectsSortMode.None)
+                             .Where(x=>x.grappledObject == gameObject))
                 {
                     Destroy(grappler); //передаст владение серверу
                 }
@@ -48,7 +50,7 @@ namespace Client.Core
         {
             netIdentity.RemoveClientAuthority();
             var rigidbody = netIdentity.gameObject.GetComponent<Rigidbody>();
-            rigidbody.velocity = Vector3.zero;
+            rigidbody.linearVelocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
             var force = rigidbody.gameObject.GetComponent<ConstantForce>();
             force.force = Vector3.zero;

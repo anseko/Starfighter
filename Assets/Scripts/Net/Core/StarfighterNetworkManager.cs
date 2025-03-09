@@ -17,7 +17,6 @@ namespace Core
         public Image indicator;
         public List<ClientAccountObject> accountObjects;
         [SerializeField] private ClientConnectionHelper _connector;
-        
 
         #region ClientSide
 
@@ -103,14 +102,6 @@ namespace Core
 
         public IEnumerable<int> GetClientsOfType(UserType type) => accountObjects
             .Where(x => x.type == type && x.connectionId.HasValue).Select(x => x.connectionId.Value);
-
-        public override void OnApplicationQuit()
-        {
-            GetComponent<ServerInitializeHelper>().SaveServer();
-            StopServer();
-            base.OnApplicationQuit();
-        }
-        
         
         private void AuthCheck(NetworkConnectionToClient connectionData)
         {

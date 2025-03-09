@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: 54b058f20630fd14f9e4e424f956bebf
+guid: 2425dc4e6779fa548a731c45cb16dd13
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/AdditiveLevels/Scenes/MirrorAdditiveLevelsSubLevel1.unity
+  uploadId: 736421

@@ -37,8 +37,11 @@ namespace Net.Components
             });
         }
 
-        private void Start() => CheckForDeathCommand();
-        
+        public override void OnStartClient()
+        {
+            CheckForDeathCommand();
+        }
+
         private void Update()
         {
             if (!isServer) return;
@@ -58,7 +61,7 @@ namespace Net.Components
             
             if (!isServer) return;
             
-            var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.velocity : Vector3.zero;
+            var otherVelocity = collision.gameObject.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody.linearVelocity : Vector3.zero;
             var percentageDamage = CalculateDamage((_playerScript.shipSpeed - otherVelocity).magnitude, _playerScript.networkUnitConfig.maxSpeed, Constants.MaxPossibleDamageHp);
 
             _playerScript.networkUnitConfig.currentHp -= _playerScript.networkUnitConfig.maxHp * (percentageDamage * 0.01f);

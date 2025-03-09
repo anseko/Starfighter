@@ -14,7 +14,7 @@ namespace Client
             if(navigatorCamera.orthographicSize > 800) navigatorCamera.orthographicSize = 800;
             if ((int)oldOrtho != (int)navigatorCamera.orthographicSize)
             {
-                foreach (var parallaxScript in FindObjectsOfType<ParallaxScript>())
+                foreach (var parallaxScript in FindObjectsByType<ParallaxScript>(FindObjectsSortMode.None))
                 {
                     parallaxScript.OnResize();
                 }

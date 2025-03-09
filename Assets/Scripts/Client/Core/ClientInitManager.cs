@@ -26,25 +26,25 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _pilotUi.gameObject.SetActive(true);
-            var cam = FindObjectOfType<Camera>();
+            var cam = FindFirstObjectByType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>() ?? cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 25;
             followComp.Player = ps.gameObject;
             followComp.enabled = true;
             ps.GetComponent<WayPointComponent>()?.Init(false);
-            FindObjectOfType<DataOutput>()?.Init(ps);
-            FindObjectOfType<RotationWheelScript>()?.Init(ps);
-            FindObjectOfType<RotationPanelScript>()?.Init(ps);
-            FindObjectOfType<SpeedPanelScript>()?.Init(ps);
-            FindObjectOfType<CoordinatesUI>()?.Init(ps);
-            FindObjectOfType<CourseView>()?.Init(ps);
-            FindObjectOfType<DockingState>()?.Init(ps);
-            FindObjectOfType<GPSView>(true)?.Init(ps);
-            FindObjectOfType<DeathStateEffects>()?.Init(ps);
-            FindObjectOfType<HpMarker>()?.Init(ps);
-            Destroy(FindObjectOfType<GridFiller>().gameObject);
+            FindFirstObjectByType<DataOutput>()?.Init(ps);
+            FindFirstObjectByType<RotationWheelScript>()?.Init(ps);
+            FindFirstObjectByType<RotationPanelScript>()?.Init(ps);
+            FindFirstObjectByType<SpeedPanelScript>()?.Init(ps);
+            FindFirstObjectByType<CoordinatesUI>()?.Init(ps);
+            FindFirstObjectByType<CourseView>()?.Init(ps);
+            FindFirstObjectByType<DockingState>()?.Init(ps);
+            FindFirstObjectByType<GPSView>(FindObjectsInactive.Include)?.Init(ps);
+            FindFirstObjectByType<DeathStateEffects>()?.Init(ps);
+            FindFirstObjectByType<HpMarker>()?.Init(ps);
+            Destroy(FindFirstObjectByType<GridFiller>().gameObject);
             //не отображать зоны опасности на пилоте
-            foreach (var dangerZone in FindObjectsOfType<DangerZone>())
+            foreach (var dangerZone in FindObjectsByType<DangerZone>(FindObjectsSortMode.None))
             {
                 dangerZone.gameObject.SetActive(false);
             }
@@ -57,7 +57,7 @@ namespace Client.Core
             _mainMenuUi.gameObject.SetActive(false);
             _navigatorUi.gameObject.SetActive(true);
             ps.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            var cam = FindObjectOfType<Camera>();
+            var cam = FindFirstObjectByType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
             followComp.Player = ps.gameObject;
@@ -69,9 +69,9 @@ namespace Client.Core
             ps.GetComponent<OrderComponent>()?.Init();
             ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
-            FindObjectOfType<NavigatorCourseView>()?.Init(ps);
-            FindObjectOfType<Stressbar>(true)?.Init(ps);
-            FindObjectOfType<Hpbar>(true)?.Init(ps);
+            FindFirstObjectByType<NavigatorCourseView>()?.Init(ps);
+            FindFirstObjectByType<Stressbar>(FindObjectsInactive.Include)?.Init(ps);
+            FindFirstObjectByType<Hpbar>(FindObjectsInactive.Include)?.Init(ps);
 
             RescaleGrid();
             
@@ -82,7 +82,7 @@ namespace Client.Core
         {
             _spectatorUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
-            var cam = FindObjectOfType<Camera>();
+            var cam = FindFirstObjectByType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
             followComp.enabled = true;
@@ -100,8 +100,8 @@ namespace Client.Core
         {
             _stationUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
-            FindObjectOfType<OrdersScript>(true).gameObject.SetActive(true);
-            var cam = FindObjectOfType<Camera>();
+            FindFirstObjectByType<OrdersScript>(FindObjectsInactive.Include).gameObject.SetActive(true);
+            var cam = FindFirstObjectByType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
             followComp.enabled = true;
@@ -109,7 +109,7 @@ namespace Client.Core
             zoomComp.navigatorCamera = cam;
             zoomComp.enabled = true;
             cam.cullingMask &= ~(1 << 10); //Disable docking marks render
-            FindObjectOfType<OrdersScript>().GetShipList();
+            FindFirstObjectByType<OrdersScript>().GetShipList();
             ps.GetComponent<FieldOfViewComponent>()?.Init(ps);
 
             RescaleGrid();
@@ -121,13 +121,13 @@ namespace Client.Core
         {
             _mainMenuUi.gameObject.SetActive(false);
             _adminUi.gameObject.SetActive(true);
-            FindObjectOfType<ShipInfoCollector>()?.Init();
-            FindObjectOfType<UnitInfoCollector>()?.Init();
-            FindObjectOfType<PrefabCollector>()?.Init();
-            FindObjectOfType<DangerZoneInfoCollector>()?.Init();
-            FindObjectOfType<Spawner>()?.Init();
+            FindFirstObjectByType<ShipInfoCollector>()?.Init();
+            FindFirstObjectByType<UnitInfoCollector>()?.Init();
+            FindFirstObjectByType<PrefabCollector>()?.Init();
+            FindFirstObjectByType<DangerZoneInfoCollector>()?.Init();
+            FindFirstObjectByType<Spawner>()?.Init();
             
-            var cam = FindObjectOfType<Camera>(false);
+            var cam = FindFirstObjectByType<Camera>(FindObjectsInactive.Exclude);
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
             cam.orthographicSize = 50;
             followComp.enabled = true;
@@ -144,31 +144,31 @@ namespace Client.Core
         {
             _mechanicUi.gameObject.SetActive(true);
             _mainMenuUi.gameObject.SetActive(false);
-            var cam = FindObjectOfType<Camera>();
+            var cam = FindFirstObjectByType<Camera>();
             var followComp = cam.gameObject.GetComponent<CameraMotion>()??cam.gameObject.AddComponent<CameraMotion>();
-            Destroy(FindObjectOfType<GridFiller>().gameObject);
+            Destroy(FindFirstObjectByType<GridFiller>().gameObject);
             cam.orthographicSize = 100;
             followComp.enabled = false;
             var zoomComp = cam.gameObject.GetComponent<Zoom>()??cam.gameObject.AddComponent<Zoom>();
             zoomComp.enabled = false;
-            FindObjectOfType<MechanicPlayerSelectorFill>()?.Init();
+            FindFirstObjectByType<MechanicPlayerSelectorFill>()?.Init();
             
             NetworkClient.Ready();
         }
 
         private void RescaleGrid()
         {
-            var spacefield = FindObjectOfType<SpaceFieldTypeDto>()?.Type;
+            var spacefield = FindFirstObjectByType<SpaceFieldTypeDto>()?.Type;
             switch (spacefield)
             {
                 case SpaceFieldType.SpaceField_Test:
                     break;
                 case SpaceFieldType.SpaceField_1:
                 case SpaceFieldType.SpaceField_2:
-                    FindObjectOfType<GridFiller>().transform.root.localScale *= 3;
+                    FindFirstObjectByType<GridFiller>().transform.root.localScale *= 3;
                     break;
                 case SpaceFieldType.SpaceField_3:
-                    FindObjectOfType<GridFiller>().transform.root.localScale *= 1.3f;
+                    FindFirstObjectByType<GridFiller>().transform.root.localScale *= 1.3f;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

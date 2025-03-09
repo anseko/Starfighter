@@ -17,7 +17,7 @@ namespace Client.UI.Spectator
         private void Start()
         {
             buttons = new List<CenterView>();
-            foreach (var ship in FindObjectsOfType<PlayerScript>())
+            foreach (var ship in FindObjectsByType<PlayerScript>(FindObjectsSortMode.None))
             {
                  var button = Instantiate(_button, _panel.transform);
                  var buttonName = button.GetComponentInChildren<TextMeshProUGUI>();

@@ -20,7 +20,7 @@ namespace Core.Models
         [SyncVar] public Vector3 position;
         [SyncVar] public Quaternion rotation;
         [SyncVar] public string prefabName;
-        [SyncVar] public string id;
+        [SyncVar] public Guid id;
         [SyncVar] public float maxStress;
         [SyncVar(hook = nameof(OnCurrentStressChange))] public float currentStress;
         [SyncVar] public string shipId;
@@ -62,7 +62,7 @@ namespace Core.Models
         {
             foreach (var dtoField in typeof(NetworkSpaceUnitDto).GetFields())
             {
-                var value = typeof(SpaceUnitDto).GetProperties().FirstOrDefault(x =>
+                var value = typeof(SpaceUnitDto).GetFields().FirstOrDefault(x =>
                     string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
                 dtoField.SetValue(this, value?.GetValue(config));
             }
@@ -74,7 +74,7 @@ namespace Core.Models
 
             foreach (var dtoField in typeof(SpaceUnitDto).GetFields())
             {
-                var value = typeof(NetworkSpaceUnitDto).GetProperties().FirstOrDefault(x =>
+                var value = typeof(NetworkSpaceUnitDto).GetFields().FirstOrDefault(x =>
                     string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
                 dtoField.SetValue(dto, value?.GetValue(this));
             }

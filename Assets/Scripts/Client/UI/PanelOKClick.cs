@@ -8,7 +8,7 @@ namespace Client.UI
         
         private void Start()
         {
-            _os = FindObjectOfType<OrdersScript>();
+            _os = FindFirstObjectByType<OrdersScript>();
         }
         
         public void Create()

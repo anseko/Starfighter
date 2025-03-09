@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: f6d9b5ff09925e947b26e1b8ee1022d6
+guid: 8505c24487f56424fa8626726fe625a9
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Snapshot Interpolation/MirrorSnapshotInterpolation.unity
+  uploadId: 736421

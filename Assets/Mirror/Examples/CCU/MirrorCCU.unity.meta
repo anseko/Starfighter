@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: 1f10512c292c1a44abb39560480142ca
+guid: b0cbe102fe130e149b678214f62779c4
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/CCU/MirrorCCU.unity
+  uploadId: 736421

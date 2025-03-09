@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: adba081ee3016f447ab8a440080e44d1
+guid: 0ad3408b21702354daefc306655645dd
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Chat/Scenes/MirrorChat.unity
+  uploadId: 736421

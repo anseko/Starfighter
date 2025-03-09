@@ -21,9 +21,9 @@ namespace Net.Core
         public void SelectSceneClientRpc(NetworkConnectionToClient target, UserType type, uint networkId)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
-            FindObjectOfType<MainMenu>().gameObject.SetActive(false);
+            FindFirstObjectByType<MainMenu>().gameObject.SetActive(false);
             //BUG: почему при вызове в networkId передается 0?
-            var ps = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.isOwned || x.netId == networkId)?.GetComponent<PlayerScript>(); 
+            var ps = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None).FirstOrDefault(x => x.isOwned || x.netId == networkId)?.GetComponent<PlayerScript>(); 
             switch (type)
             {
                 case UserType.Admin:

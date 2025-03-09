@@ -10,7 +10,7 @@ public class SearchPlayers : MonoBehaviour
     // Start is called before the first frame update
     public void ShowPlayers()
     {
-        var players = FindObjectsOfType<PlayerScript>();
+        var players = FindObjectsByType<PlayerScript>(FindObjectsSortMode.None);
         _ships = new Queue<PlayerScript>();
         foreach (var x in players)
         {

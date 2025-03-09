@@ -194,7 +194,7 @@ namespace Net.Core
 
         public void SaveServer()
         {
-            var shipsConfigs = FindObjectsOfType<PlayerScript>()
+            var shipsConfigs = FindObjectsByType<PlayerScript>(FindObjectsSortMode.None)
                 .Select(x=> x.networkUnitConfig.Export())
                 .ToList();
             
@@ -213,7 +213,7 @@ namespace Net.Core
                 spaceShipConfigs = shipsConfigs.ToArray()//_shipConfigs.Select(x=> new SpaceUnitDto(x)).ToArray()
             }));
             
-            var configs = FindObjectsOfType<UnitScript>()
+            var configs = FindObjectsByType<UnitScript>(FindObjectsSortMode.None)
                 .Where(x=> !(x is PlayerScript))
                 .Select(x=> x.networkUnitConfig.Export())
                 .ToList();
@@ -232,7 +232,7 @@ namespace Net.Core
                 spaceUnitConfigs = configs.ToArray()
             }));
 
-            var zones = FindObjectsOfType<DangerZone>()
+            var zones = FindObjectsByType<DangerZone>(FindObjectsSortMode.None)
                 .Select(x => x.Export())
                 .ToList();
             

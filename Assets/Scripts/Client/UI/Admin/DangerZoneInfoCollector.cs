@@ -14,7 +14,7 @@ namespace Client.UI.Admin
 
         public void Init()
         {
-            var zones = FindObjectsOfType<DangerZone>();
+            var zones = FindObjectsByType<DangerZone>(FindObjectsSortMode.None);
             foreach (var zone in zones)
             {
                 var instance = Instantiate(_zoneInfoPrefab, _view.transform);

@@ -96,7 +96,8 @@ namespace Net.Components
         [Command]
         public void EmergencyUndockServerRpc(ulong otherObjectId, bool changeSelfState)
         {
-            var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
+            var otherObj = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None)
+                .FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null && otherObjectId != default) return;
 
             var otherUnit = otherObj?.GetComponent<PlayerScript>();
@@ -111,7 +112,8 @@ namespace Net.Components
         [Command]
         private void TryToDockServerRpc(uint otherObjectId)
         {
-            var otherObj = FindObjectsOfType<NetworkIdentity>().FirstOrDefault(x => x.netId == otherObjectId);
+            var otherObj = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None)
+                .FirstOrDefault(x => x.netId == otherObjectId);
             if (otherObj is null) return;
 
             var otherIsReady = false;

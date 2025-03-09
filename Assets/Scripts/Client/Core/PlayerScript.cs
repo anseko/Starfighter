@@ -47,7 +47,7 @@ namespace Client.Core
                 }
             #endif
             
-            volume = FindObjectOfType<Volume>(true);
+            volume = FindFirstObjectByType<Volume>(FindObjectsInactive.Include);
             Rigidbody = GetComponent<Rigidbody>();
             
             unitStateMachine = new UnitStateMachine(gameObject, networkUnitConfig.shipState);

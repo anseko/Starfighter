@@ -9,7 +9,7 @@ namespace Client
         
         private void Start()
         {
-            _cam = FindObjectOfType<Camera>();
+            _cam = FindFirstObjectByType<Camera>();
         }
         
         // Update is called once per frame

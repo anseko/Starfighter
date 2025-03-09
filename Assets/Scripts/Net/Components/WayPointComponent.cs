@@ -19,7 +19,7 @@ namespace Net.Components
         public void Init(bool isSetter)
         {
             _isSetter = isSetter;
-            _camera = FindObjectOfType<Camera>(includeInactive: false);
+            _camera = FindFirstObjectByType<Camera>(FindObjectsInactive.Exclude);
         }
         
         private void Update()
@@ -62,7 +62,7 @@ namespace Net.Components
             {
                 _point = Instantiate(_pointPrefab, position, _pointPrefab.transform.rotation);
                 _point.tag = Constants.WayPointTag;
-                var gpsView = FindObjectOfType<GPSView>(true);
+                var gpsView = FindFirstObjectByType<GPSView>(FindObjectsInactive.Include);
                 if (gpsView != null && !gpsView.isActiveAndEnabled)
                 {
                     gpsView.SetTarget(_point);

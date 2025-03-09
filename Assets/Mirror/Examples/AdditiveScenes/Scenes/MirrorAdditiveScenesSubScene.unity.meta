@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: 842755c56873a7e46bd05d94e37ef5b7
+guid: c7fcd61969dd64043a70b3028686a32e
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/AdditiveScenes/Scenes/MirrorAdditiveScenesSubScene.unity
+  uploadId: 736421

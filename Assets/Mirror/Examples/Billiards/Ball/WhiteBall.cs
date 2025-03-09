@@ -1,3 +1,5 @@
+using System;
+using Mirror;
 using UnityEngine;
 
 namespace Mirror.Examples.Billiards

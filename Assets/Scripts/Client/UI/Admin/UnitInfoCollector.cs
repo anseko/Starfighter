@@ -15,7 +15,7 @@ namespace Client.UI.Admin
 
         public void Init()
         {
-            var ships = FindObjectsOfType<UnitScript>().Where(x => !(x is PlayerScript));
+            var ships = FindObjectsByType<UnitScript>(FindObjectsSortMode.None).Where(x => !(x is PlayerScript));
             foreach (var playerScript in ships)
             {
                 var instance = Instantiate(_unitInfoPrefab, _view.transform);

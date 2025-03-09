@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 312c5ddd14b5bf446b99280bef97ea90
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 96.0.1
+  assetPath: Assets/Mirror/Examples/Room/Prefabs/GamePlayerReliable.prefab
+  uploadId: 736421

@@ -26,7 +26,7 @@ namespace Client.UI.Admin
         private void Awake()
         {
             _spawnButton.onClick.AddListener(Spawn);
-            _spawner = FindObjectOfType<Spawner>();
+            _spawner = FindFirstObjectByType<Spawner>();
         }
 
         public void Init(DangerZoneConfig zoneConfig)

@@ -21,10 +21,10 @@ namespace Client.UI.Admin
 
         public void Init()
         {
-            _cam = FindObjectOfType<Camera>(false);
-            _shipInfoCollector = FindObjectOfType<ShipInfoCollector>();
-            _unitInfoCollector = FindObjectOfType<UnitInfoCollector>();
-            _zoneInfoCollector = FindObjectOfType<DangerZoneInfoCollector>();
+            _cam = FindFirstObjectByType<Camera>(FindObjectsInactive.Exclude);
+            _shipInfoCollector = FindFirstObjectByType<ShipInfoCollector>();
+            _unitInfoCollector = FindFirstObjectByType<UnitInfoCollector>();
+            _zoneInfoCollector = FindFirstObjectByType<DangerZoneInfoCollector>();
         }
         
         public void Spawn(string pathToConfig, string prefabName, string newShipId)
@@ -125,7 +125,7 @@ namespace Client.UI.Admin
         [Command]
         private void DespawnServerRpc(uint objectId)
         {
-            var server = FindObjectOfType<StarfighterNetworkManager>();
+            var server = FindFirstObjectByType<StarfighterNetworkManager>();
             var objectToDespawn = NetworkServer.spawned[objectId].gameObject;
 
             //Если деспавним кораблик из игры, то отключаем все аккаунты, с ним связанные...
@@ -157,7 +157,7 @@ namespace Client.UI.Admin
             config.shipId = newShipId;
             acc.ship = config;
 
-            var server = FindObjectOfType<StarfighterNetworkManager>();
+            var server = FindFirstObjectByType<StarfighterNetworkManager>();
             if (server.accountObjects.Any(x => x.ship?.shipId == acc.ship.shipId && x.type == acc.type))
             {
                 Debug.unityLogger.Log($"There is such account in list already {acc.ship.shipId}:{acc.type}");
