@@ -2,7 +2,6 @@ using Client;
 using Core;
 using Mirror;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 namespace Net.Components
 {

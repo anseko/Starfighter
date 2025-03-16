@@ -12,3 +12,4 @@ EditorBuildSettings:
     path: Assets/Scenes/ServerScene.unity
     guid: 138ff64b9950265448568f39952a75c9
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

@@ -2,9 +2,7 @@ using System;
 using System.Linq;
 using Client.Core;
 using Mirror;
-using Net.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core.Models
 {

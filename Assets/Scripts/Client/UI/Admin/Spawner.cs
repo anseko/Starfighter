@@ -157,14 +157,14 @@ namespace Client.UI.Admin
             config.shipId = newShipId;
             acc.ship = config;
 
-            var server = FindFirstObjectByType<StarfighterNetworkManager>();
-            if (server.accountObjects.Any(x => x.ship?.shipId == acc.ship.shipId && x.type == acc.type))
+            var authenticator = FindFirstObjectByType<StarfighterAuthenticator>();
+            if (authenticator.accountObjects.Any(x => x.ship?.shipId == acc.ship.shipId && x.type == acc.type))
             {
                 Debug.unityLogger.Log($"There is such account in list already {acc.ship.shipId}:{acc.type}");
                 return;
             }
             
-            server.accountObjects.Add(acc);
+            authenticator.accountObjects.Add(acc);
         }
     }
 }

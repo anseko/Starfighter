@@ -8,41 +8,39 @@ using UnityEngine;
 
 namespace Net.Core
 {
-    public class ClientConnectionHelper: NetworkBehaviour
+    public class ClientConnectionHelper: MonoBehaviour
     {
-        [SyncVar] public UserType userType; 
-        //     = new NetworkVariable<UserType>(new NetworkVariableSettings()
-        // {
-        //     ReadPermission = NetworkVariablePermission.Everyone,
-        //     WritePermission = NetworkVariablePermission.ServerOnly
-        // });
-
-        [TargetRpc]
-        public void SelectSceneClientRpc(NetworkConnectionToClient target, UserType type, uint networkId)
+        public void SelectScene(UserType type, uint networkId)
         {
             Debug.unityLogger.Log($"I pick scene type: {type}");
             FindFirstObjectByType<MainMenu>().gameObject.SetActive(false);
+            var initManager = FindFirstObjectByType<ClientInitManager>();
             //BUG: почему при вызове в networkId передается 0?
-            var ps = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None).FirstOrDefault(x => x.isOwned || x.netId == networkId)?.GetComponent<PlayerScript>(); 
+            var ps = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None).FirstOrDefault(x => x.isOwned || x.netId == networkId)?.GetComponent<PlayerScript>();
             switch (type)
             {
                 case UserType.Admin:
-                    GetComponent<ClientInitManager>().InitAdmin();
+                    initManager.InitAdmin();
                     break;
                 case UserType.Pilot:
-                    GetComponent<ClientInitManager>().InitPilot(ps);
+                    initManager.InitPilot(ps);
+                    // GetComponent<ClientInitManager>().InitPilot(ps);
                     break;
                 case UserType.Navigator:
-                    GetComponent<ClientInitManager>().InitNavigator(ps);
+                    initManager.InitNavigator(ps);
+                    // GetComponent<ClientInitManager>().InitNavigator(ps);
                     break;
                 case UserType.Spectator:
-                    GetComponent<ClientInitManager>().InitSpectator();
+                    initManager.InitSpectator();
+                    // GetComponent<ClientInitManager>().InitSpectator();
                     break;
                 case UserType.SpaceStation:
-                    GetComponent<ClientInitManager>().InitStation(ps);
+                    initManager.InitStation(ps);
+                    // GetComponent<ClientInitManager>().InitStation(ps);
                     break;
                 case UserType.Mechanic:
-                    GetComponent<ClientInitManager>().InitMechanic();
+                    initManager.InitMechanic();
+                    // GetComponent<ClientInitManager>().InitMechanic();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

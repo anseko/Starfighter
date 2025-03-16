@@ -27,10 +27,7 @@ namespace Net.Components
         private void Awake()
         {
             ClientEventStorage.GetInstance().DockIndicatorStateRequest.AddListener(IndicatorUpdate);
-        }
-
-        private void Start()
-        {
+            
             // _dockCheckZone = GetComponentInChildren<DockCheckZone>();
             if (_dockingMarkers != null)
             {

@@ -39,7 +39,8 @@ namespace Net.Components
 
         public override void OnStartClient()
         {
-            CheckForDeathCommand();
+            if(GetComponent<NetworkIdentity>().isOwned)
+                CheckForDeathCommand();
         }
 
         private void Update()

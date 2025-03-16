@@ -64,12 +64,12 @@ namespace Client.Core
             transform.GetComponentsInChildren<MeshRenderer>().ToList()
                 .Where(x => x.gameObject.name == "ShipModel").ToList().ForEach(x => x.sharedMaterial.color = networkUnitConfig.baseColor);
             
-            GetComponentsInChildren<TextMesh>().ToList().ForEach(t =>
-            {
-                int.TryParse(networkUnitConfig.shipId.Replace("ship", ""), out var num);
-                var shipNumber = num == 10 ? "X" : num.ToString();
-                t.text = shipNumber;
-            });
+            // GetComponentsInChildren<TextMesh>().ToList().ForEach(t =>
+            // {
+            //     int.TryParse(networkUnitConfig.shipId.Replace("ship", ""), out var num);
+            //     var shipNumber = num == 10 ? "X" : num.ToString();
+            //     t.text = shipNumber;
+            // });
         }
 
         public override UnitState GetState() => networkUnitConfig.shipState;

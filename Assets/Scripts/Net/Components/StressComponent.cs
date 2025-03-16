@@ -39,7 +39,8 @@ namespace Net.Components
 
         public override void OnStartClient()
         {
-            CheckForOverstressedStateCommand();
+            if(GetComponent<NetworkIdentity>().isOwned)
+                CheckForOverstressedStateCommand();
         }
         
         private void Update()

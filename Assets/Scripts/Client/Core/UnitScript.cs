@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Core;
 using Core.Models;
@@ -17,7 +18,7 @@ namespace Client.Core
 
         public void Awake()
         {
-           networkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
+           networkUnitConfig = GetComponent<NetworkSpaceUnitDto>() ?? gameObject.AddComponent<NetworkSpaceUnitDto>();
         }
         
         public void RequestShipOwnership()

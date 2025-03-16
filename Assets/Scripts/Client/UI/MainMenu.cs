@@ -1,6 +1,5 @@
-﻿using System.Text;
-using kcp2k;
-using Mirror;
+﻿using Mirror;
+using Net.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +15,15 @@ namespace Client.UI
 
         public void PlayGame()
         {
+            serverField.text = "192.168.0.145";
+            loginField.text = "ShipPilot1";
+            passwordField.text = "1pilot9975";
+            
             NetworkManager.singleton.networkAddress = serverField.text;
             
-            NetworkClient.connection.authenticationData = Encoding.ASCII.GetBytes(loginField.text + passwordField.text);
+            ((StarfighterAuthenticator)NetworkManager.singleton.authenticator).username = loginField.text;
+            ((StarfighterAuthenticator)NetworkManager.singleton.authenticator).password = passwordField.text;
+
             NetworkManager.singleton.StartClient();
         }
 
