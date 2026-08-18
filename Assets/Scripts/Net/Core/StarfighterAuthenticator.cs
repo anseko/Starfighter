@@ -33,6 +33,7 @@ namespace Net.Core
             public byte code;
             public string message;
             public ClientAccountObject accountDetails;
+            public uint shipNetId; // 0 для ролей без корабля
         }
 
         public struct SceneSwitchMessage : NetworkMessage
@@ -196,6 +197,7 @@ namespace Net.Core
                 StarfighterNetworkManager.singleton.AccountObject = msg.accountDetails;
                 // Authentication has been accepted
                 ClientAccept();
+                NetworkClient.Ready();
             }
             else
             {
@@ -208,6 +210,34 @@ namespace Net.Core
 
         public void OnSceneSwitchMessage(SceneSwitchMessage msg)
         {
+            StartCoroutine(SelectSceneWhenReady(msg));
+        }
+        
+        private IEnumerator SelectSceneWhenReady(SceneSwitchMessage msg)
+        {
+            if (msg.shipNetId != 0)
+            {
+                float timeout = 30f;
+                float elapsed = 0f;
+                bool found = false;
+                
+                while (elapsed < timeout)
+                {
+                    if (NetworkClient.spawned.TryGetValue(msg.shipNetId, out _))
+                    {
+                        found = true;
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.1f);
+                    elapsed += 0.1f;
+                }
+                
+                if (!found)
+                {
+                    Debug.LogError($"[SelectSceneWhenReady] Ship netId={msg.shipNetId} not found within {timeout}s!");
+                }
+            }
+            
             var helper = FindFirstObjectByType<ClientConnectionHelper>();
             helper.SelectScene(msg.type, msg.shipNetId);
         }

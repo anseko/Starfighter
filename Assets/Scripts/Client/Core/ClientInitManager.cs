@@ -49,7 +49,7 @@ namespace Client.Core
                 dangerZone.gameObject.SetActive(false);
             }
 
-            NetworkClient.Ready();
+
         }
         
         public void InitNavigator(PlayerScript ps)
@@ -75,7 +75,7 @@ namespace Client.Core
 
             RescaleGrid();
             
-            NetworkClient.Ready();
+
         }
         
         public void InitSpectator()
@@ -93,7 +93,7 @@ namespace Client.Core
 
             RescaleGrid();
             
-            NetworkClient.Ready();
+
         }
         
         public void InitStation(PlayerScript ps)
@@ -114,7 +114,7 @@ namespace Client.Core
 
             RescaleGrid();
             
-            NetworkClient.Ready();
+
         }
 
         public void InitAdmin()
@@ -137,7 +137,7 @@ namespace Client.Core
 
             RescaleGrid();
             
-            NetworkClient.Ready();
+
         }
         
         public void InitMechanic()
@@ -153,7 +153,7 @@ namespace Client.Core
             zoomComp.enabled = false;
             FindFirstObjectByType<MechanicPlayerSelectorFill>()?.Init();
             
-            NetworkClient.Ready();
+
         }
 
         private void RescaleGrid()
