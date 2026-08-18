@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using Client.Core;
 using Core;
 using Core.Models;
+using Mirror;
 using ScriptableObjects;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -31,6 +32,7 @@ namespace Net.Core
             playerScript.networkUnitConfig.Init(new SpaceUnitDto(ship));
 
             shipInstance.SetActive(true);
+            NetworkServer.Spawn(shipInstance);
             return playerScript;
         }
 
@@ -47,6 +49,7 @@ namespace Net.Core
             var unitScript = instance.GetComponent<UnitScript>() ?? instance.AddComponent<UnitScript>();
             unitScript.networkUnitConfig.Init(new SpaceUnitDto(worldObject));
             instance.SetActive(true);
+            NetworkServer.Spawn(instance);
             return unitScript;
         }
 
@@ -64,6 +67,7 @@ namespace Net.Core
             dangerZone.zoneType = dangerZoneConfig.type;
             instance.name = "DangerZone" + Constants.Separator + dangerZoneConfig.id;
             instance.SetActive(true);
+            NetworkServer.Spawn(instance);
             return dangerZone;
         }
     }

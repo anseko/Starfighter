@@ -22,33 +22,7 @@ namespace Core
         
         public override void OnClientConnect()
         {
-            var connector = FindFirstObjectByType<ClientConnectionHelper>();
-            
             base.OnClientConnect();
-
-            return;
-            
-            if (AccountObject == null || AccountObject.type == UserType.Spectator)
-            {
-                connector.SelectScene(AccountObject?.type ?? UserType.Spectator, 0);
-                return;
-            }
-
-            if (AccountObject.type == UserType.Admin || AccountObject.type == UserType.Mechanic)
-            {
-                connector.SelectScene(AccountObject.type, 0);
-                return;
-            }
-
-            var goNetIdentity = GameObject.Find($"{AccountObject.ship.prefabName}|{AccountObject.ship.shipId}").GetComponent<NetworkIdentity>();
-            var netId = goNetIdentity.netId;//NetworkObjectId;
-
-            connector.SelectScene(AccountObject.type, netId);
-            //OtherConnectionStuff
-            //Передача владения объектом корабля
-            if (AccountObject.type < UserType.Pilot) return;
-
-            // goNetIdentity.AssignClientAuthority(conn); //ChangeOwnership(clientId);
         }
 
         public override void OnClientDisconnect()
@@ -62,14 +36,76 @@ namespace Core
 
         public override void OnStartServer()
         {
+            base.OnStartServer();
+            Debug.LogWarning("=== OnStartServer ENTER ===");
             StarfighterSceneSpawnObjects();
+            
+            if (authenticator != null)
+            {
+                authenticator.OnServerAuthenticated.AddListener(OnPlayerAuthenticated);
+                Debug.LogWarning($"=== Subscribed to OnServerAuthenticated. Authenticator: {authenticator.name} ===");
+            }
+            else
+            {
+                Debug.LogError("=== authenticator is NULL ===");
+            }
         }
 
         public override void OnServerConnect(NetworkConnectionToClient conn)
         {
-            Debug.Log($"Connection accepted: {conn.connectionId}");
-            var player = GameObject.Find($"{AccountObject.ship.prefabName}|{AccountObject.ship.shipId}");
-            NetworkServer.AddPlayerForConnection(conn, player);
+            Debug.LogWarning($"=== OnServerConnect ENTER. connId: {conn.connectionId} ===");
+        }
+
+        public override void OnStopServer()
+        {
+            if (authenticator != null)
+                authenticator.OnServerAuthenticated.RemoveListener(OnPlayerAuthenticated);
+            
+            base.OnStopServer();
+            FindFirstObjectByType<ServerInitializeHelper>().SaveServer();
+        }
+
+        private void OnPlayerAuthenticated(NetworkConnectionToClient conn)
+        {
+            Debug.LogWarning($"=== OnPlayerAuthenticated ENTER. connId: {conn.connectionId} ===");
+            
+            var auth = (StarfighterAuthenticator)authenticator;
+            var account = auth.accountObjects.FirstOrDefault(x => x.connectionId == conn.connectionId);
+
+            if (account == null)
+            {
+                Debug.LogError($"[OnPlayerAuthenticated] Account not found for connection {conn.connectionId}");
+                return;
+            }
+
+            if (account.type == UserType.Spectator)
+            {
+                Debug.Log($"[OnPlayerAuthenticated] Connection {conn.connectionId} is Spectator — no player object.");
+                conn.Send(new StarfighterAuthenticator.SceneSwitchMessage { type = UserType.Spectator, shipNetId = 0 });
+                return;
+            }
+
+            uint shipNetId = 0;
+            var ship = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+            if (ship != null)
+                shipNetId = ship.GetComponent<NetworkIdentity>().netId;
+            else
+                Debug.LogError($"[OnPlayerAuthenticated] Ship {account.ship.prefabName}|{account.ship.shipId} not found for account '{account.login}'!");
+
+            if (account.type == UserType.Pilot)
+            {
+                if (ship != null)
+                {
+                    NetworkServer.AddPlayerForConnection(conn, ship);
+                    Debug.Log($"[OnPlayerAuthenticated] Pilot '{account.login}' assigned to ship {account.ship.prefabName}|{account.ship.shipId}");
+                }
+            }
+            else
+            {
+                Debug.Log($"[OnPlayerAuthenticated] Role {account.type} for connection {conn.connectionId} — no authority assigned at start.");
+            }
+
+            conn.Send(new StarfighterAuthenticator.SceneSwitchMessage { type = account.type, shipNetId = shipNetId });
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -86,12 +122,6 @@ namespace Core
             // }
 
             NetworkServer.RemovePlayerForConnection(conn, RemovePlayerOptions.KeepActive);
-        }
-
-        public override void OnStopServer()
-        {
-            base.OnStopServer();
-            FindFirstObjectByType<ServerInitializeHelper>().SaveServer();
         }
 
         public bool CheckForAccountId(int connectionId, string shipId)

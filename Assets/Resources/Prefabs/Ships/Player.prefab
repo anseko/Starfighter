@@ -53336,6 +53336,7 @@ GameObject:
   - component: {fileID: 5599932588400767302}
   - component: {fileID: 5148220391481028104}
   - component: {fileID: 4683736729940911175}
+  - component: {fileID: 8063628713698776129}
   - component: {fileID: 7899070729933046561}
   - component: {fileID: 1596104504079781642}
   - component: {fileID: 8462600789644280509}
@@ -53471,6 +53472,42 @@ MonoBehaviour:
   shipRotation: {x: 0, y: 0, z: 0}
   localUsage: 0
   Rigidbody: {fileID: 0}
+--- !u!114 &8063628713698776129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598131333054404712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06fdedd4b1d43b590024a648ef939ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  maxAngleSpeed: 0
+  maxSpeed: 0
+  maxHp: 0
+  currentHp: 0
+  isDockable: 0
+  isMovable: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  prefabName: 
+  idString: 
+  maxStress: 0
+  currentStress: 0
+  shipId: 
+  shipState: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  acceleration: 0
+  radarRange: 0
+  accelerationCoefficient: 0
+  physResistanceCoefficient: 0
+  radResistanceCoefficient: 0
+  radarRangeCoefficient: 0
 --- !u!114 &7899070729933046561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53654,7 +53691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0
   target: {fileID: 5600687441863459500}

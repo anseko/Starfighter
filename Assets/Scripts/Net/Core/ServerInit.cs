@@ -11,14 +11,10 @@ namespace Net
     public class ServerInit: MonoBehaviour
     {
         public TextMeshProUGUI clientCounter;
-        public void Awake()
-        {
-            NetEventStorage.GetInstance().WorldInit.AddListener(_ => 
-                StarfighterNetworkManager.singleton.StartServer());
-        }
-
         public  void Start()
         {
+            StarfighterNetworkManager.singleton.StartServer();
+            
             try
             {
                 var spacefield = File.ReadAllText(Constants.PathToAsteroids);

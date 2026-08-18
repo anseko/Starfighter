@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -189,7 +189,6 @@ namespace Net.Core
             }
             
             gameObject.GetComponent<StarfighterNetworkManager>().indicator.color = Color.green;
-            NetEventStorage.GetInstance().WorldInit.Invoke(0);
         }
 
         public void SaveServer()

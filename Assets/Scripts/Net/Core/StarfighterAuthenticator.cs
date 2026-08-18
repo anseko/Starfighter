@@ -35,6 +35,12 @@ namespace Net.Core
             public ClientAccountObject accountDetails;
         }
 
+        public struct SceneSwitchMessage : NetworkMessage
+        {
+            public UserType type;
+            public uint shipNetId; // 0 для ролей без корабля
+        }
+
         #endregion
         
         #region Server
@@ -113,8 +119,7 @@ namespace Net.Core
                 return;
             }
 
-            if (account.type != UserType.Spectator)
-                account.connectionId = conn.connectionId;
+            account.connectionId = conn.connectionId;
             
             responseMessage = new AuthResponseMessage()
             {
@@ -124,7 +129,8 @@ namespace Net.Core
             };
 
             conn.Send(responseMessage);
-            StarfighterNetworkManager.singleton.AccountObject = account;
+            // Note: Server no longer sets the global NetworkManager AccountObject.
+            // Each client's account is resolved by connectionId in OnServerAuthenticated.
             ServerAccept(conn);
         }
         
@@ -149,6 +155,7 @@ namespace Net.Core
         {
             // register a handler for the authentication response we expect from server
             NetworkClient.RegisterHandler<AuthResponseMessage>(OnAuthResponseMessage, false);
+            NetworkClient.RegisterHandler<SceneSwitchMessage>(OnSceneSwitchMessage, false);
         }
 
         /// <summary>
@@ -159,6 +166,7 @@ namespace Net.Core
         {
             // unregister the handler for the authentication response
             NetworkClient.UnregisterHandler<AuthResponseMessage>();
+            NetworkClient.UnregisterHandler<SceneSwitchMessage>();
         }
 
         /// <summary>
@@ -196,6 +204,12 @@ namespace Net.Core
                 // Authentication has been rejected
                 ClientReject();
             }
+        }
+
+        public void OnSceneSwitchMessage(SceneSwitchMessage msg)
+        {
+            var helper = FindFirstObjectByType<ClientConnectionHelper>();
+            helper.SelectScene(msg.type, msg.shipNetId);
         }
 
         #endregion

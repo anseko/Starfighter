@@ -18,7 +18,12 @@ namespace Core.Models
         [SyncVar] public Vector3 position;
         [SyncVar] public Quaternion rotation;
         [SyncVar] public string prefabName;
-        [SyncVar] public Guid id;
+        [SyncVar] public string idString;
+        public Guid Id
+        {
+            get => string.IsNullOrEmpty(idString) ? Guid.Empty : Guid.Parse(idString);
+            set => idString = value.ToString();
+        }
         [SyncVar] public float maxStress;
         [SyncVar(hook = nameof(OnCurrentStressChange))] public float currentStress;
         [SyncVar] public string shipId;
@@ -64,6 +69,8 @@ namespace Core.Models
                     string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
                 dtoField.SetValue(this, value?.GetValue(config));
             }
+            
+            idString = config.id == Guid.Empty ? string.Empty : config.id.ToString();
         }
 
         public SpaceUnitDto Export()
@@ -76,6 +83,8 @@ namespace Core.Models
                     string.Equals(x.Name, dtoField.Name, StringComparison.CurrentCultureIgnoreCase));
                 dtoField.SetValue(dto, value?.GetValue(this));
             }
+            
+            dto.id = string.IsNullOrEmpty(idString) ? Guid.Empty : Guid.Parse(idString);
 
             return dto;
         }

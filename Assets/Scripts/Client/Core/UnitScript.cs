@@ -18,7 +18,10 @@ namespace Client.Core
 
         public void Awake()
         {
-           networkUnitConfig = GetComponent<NetworkSpaceUnitDto>() ?? gameObject.AddComponent<NetworkSpaceUnitDto>();
+           networkUnitConfig = GetComponent<NetworkSpaceUnitDto>();
+           if (networkUnitConfig is not null) return;
+           Debug.LogWarning($"{nameof(UnitScript)} didn't have a NetworkSpaceUnitDto. Adding new one");
+           networkUnitConfig = gameObject.AddComponent<NetworkSpaceUnitDto>();
         }
         
         public void RequestShipOwnership()
