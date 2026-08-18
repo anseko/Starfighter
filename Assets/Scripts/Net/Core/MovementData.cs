@@ -4,6 +4,16 @@ using Mirror;
 namespace Net.Core
 {
     [Serializable]
+    public struct EngineState
+    {
+        public bool Thrust;
+        public bool TopRight;
+        public bool TopLeft;
+        public bool BotLeft;
+        public bool BotRight;
+    }
+
+    [Serializable]
     public struct MovementData
     {
         public float thrustValue;
@@ -12,9 +22,29 @@ namespace Net.Core
         public float straightManeurValue;
     }
 
-    //should be unnecessary
-    public static class CustomMovementDataReadWrite
+    public static class MovementDataReadWrite
     {
+        public static void WriteEngineState(this NetworkWriter writer, EngineState value)
+        {
+            writer.WriteBool(value.Thrust);
+            writer.WriteBool(value.TopRight);
+            writer.WriteBool(value.TopLeft);
+            writer.WriteBool(value.BotLeft);
+            writer.WriteBool(value.BotRight);
+        }
+        
+        public static EngineState ReadEngineState(this NetworkReader reader)
+        {
+            return new EngineState()
+            {
+                Thrust = reader.ReadBool(),
+                TopRight = reader.ReadBool(),
+                TopLeft = reader.ReadBool(),
+                BotLeft = reader.ReadBool(),
+                BotRight = reader.ReadBool()
+            };
+        }
+
         public static void WriteMovementData(this NetworkWriter writer, MovementData value)
         {
             writer.WriteFloat(value.thrustValue);

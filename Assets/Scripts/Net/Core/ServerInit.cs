@@ -20,6 +20,7 @@ namespace Net
                 var spacefield = File.ReadAllText(Constants.PathToAsteroids);
                 var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
                 var fieldGO = Instantiate(field, Vector3.zero, new Quaternion(0, 180, 0, 1));
+                NetworkServer.Spawn(fieldGO);
                 StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
             }
             catch (FileNotFoundException notFoundException)
@@ -27,6 +28,7 @@ namespace Net
                 var spacefield = File.ReadAllText(Constants.PathToAsteroids + "Spacefield_Test");
                 var field = Resources.Load<GameObject>(Constants.PathToPrefabs + spacefield);
                 var fieldGO = Instantiate(field, Vector3.zero, Quaternion.identity);
+                NetworkServer.Spawn(fieldGO);
                 StartCoroutine(GetComponent<ServerInitializeHelper>().InitServer());
             }
         }

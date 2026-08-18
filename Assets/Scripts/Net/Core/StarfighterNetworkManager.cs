@@ -96,6 +96,8 @@ namespace Core
             {
                 if (ship != null)
                 {
+                    ship.GetComponent<NetworkTransformReliable>()?.ResetState();
+                    ship.GetComponent<NetworkRigidbodyReliable>()?.ResetState();
                     NetworkServer.AddPlayerForConnection(conn, ship);
                     Debug.Log($"[OnPlayerAuthenticated] Pilot '{account.login}' assigned to ship {account.ship.prefabName}|{account.ship.shipId}");
                 }
@@ -115,11 +117,12 @@ namespace Core
             if (account != null) account.connectionId = null;
 
             Debug.unityLogger.Log($"Disconnection: {conn.connectionId}");
-            //TODO:
-            // foreach (var grappler in FindObjectsOfType<Grappler>().Where(x => x.OwnerClientId == clientId))
-            // {
-            //     grappler.DestroyOnServer(); //передаст владение серверу
-            // }
+            
+            if (conn.identity != null)
+            {
+                conn.identity.GetComponent<NetworkTransformReliable>()?.ResetState();
+                conn.identity.GetComponent<NetworkRigidbodyReliable>()?.ResetState();
+            }
 
             NetworkServer.RemovePlayerForConnection(conn, RemovePlayerOptions.KeepActive);
         }

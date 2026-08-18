@@ -6,15 +6,6 @@ using UnityEngine;
 
 namespace Net.Components
 {
-    public struct EngineState
-    {
-        public bool Thrust;
-        public bool TopRight;
-        public bool TopLeft;
-        public bool BotLeft;
-        public bool BotRight;
-    }
-    
     [RequireComponent(typeof(ConstantForce))]
     [RequireComponent(typeof(Rigidbody))]
     public class MoveComponent: NetworkBehaviour
@@ -32,15 +23,12 @@ namespace Net.Components
         [SerializeField]
         private List<ParticleSystem> _trustSystems;
         private ConstantForce _thrustForce;
-        [SyncVar(hook = nameof(OnLastMovementChange))] private MovementData _lastMovement;
+        private MovementData _lastMovement;
         private PlayerScript _unit;
         private Rigidbody _rigidbody;
 
-
-        private void OnLastMovementChange(MovementData oldValue, MovementData newValue)
-        {
-            if (isOwned) AnimateMovementServerRpc();
-        }
+        private bool _enginesChanged;
+        private EngineState _previousEngines;
         
         private void Awake()
         {
@@ -100,6 +88,13 @@ namespace Net.Components
                 thrustValue = Input.GetAxis("Jump") * _unit.networkUnitConfig.acceleration * _unit.networkUnitConfig.accelerationCoefficient
             };
             
+            var currentEngines = GetEngines();
+            if (!Equals(currentEngines, _previousEngines))
+            {
+                _previousEngines = currentEngines;
+                SyncEnginesServerRpc(currentEngines);
+            }
+            
             // расчет вектора тяги
             var thrustForceVector = _front.transform.position - _back.transform.position; //вектор фронтальной тяги
             var maneurForceVector = _right.transform.position - _left.transform.position; //вектор боковой тяги
@@ -122,51 +117,13 @@ namespace Net.Components
         }
 
         [Command]
-        private void AnimateMovementServerRpc()
+        private void SyncEnginesServerRpc(EngineState engines)
         {
-            #if !UNITY_SERVER
-            #region Reset movement animation
-            
-            _trustSystems.ForEach(x=>x.Stop());
-            _frontLeftSystems.ForEach(x=>x.Stop());
-            _frontRightSystems.ForEach(x=>x.Stop());
-            _backRightSystems.ForEach(x=>x.Stop());
-            _backLeftSystems.ForEach(x=>x.Stop());
-            
-            #endregion
-            
-            var engines = GetEngines();
-            if (engines.Thrust)
-            {
-                _trustSystems.ForEach(x=>x.Play(true));
-            }
-
-            if (engines.TopRight)
-            {
-                _frontRightSystems.ForEach(x=>x.Play(true));
-            }
-
-            if (engines.TopLeft)
-            {
-                _frontLeftSystems.ForEach(x=>x.Play(true));
-            }
-
-            if (engines.BotLeft)
-            {
-                _backLeftSystems.ForEach(x=>x.Play(true));
-            }
-
-            if (engines.BotRight)
-            {
-                _backRightSystems.ForEach(x=>x.Play(true));
-            }
-            #endif
-            
-            AnimateMovementClientRpc();
+            AnimateMovementClientRpc(engines);
         }
         
         [ClientRpc]
-        private void AnimateMovementClientRpc()
+        private void AnimateMovementClientRpc(EngineState engines)
         {
             #region Reset movement animation
             
@@ -178,7 +135,6 @@ namespace Net.Components
             
             #endregion
             
-            var engines = GetEngines();
             if (engines.Thrust)
             {
                 _trustSystems.ForEach(x=>x.Play(true));

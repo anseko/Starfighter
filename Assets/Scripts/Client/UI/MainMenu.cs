@@ -15,10 +15,6 @@ namespace Client.UI
 
         public void PlayGame()
         {
-            serverField.text = "192.168.0.145";
-            loginField.text = "ShipPilot1";
-            passwordField.text = "1pilot9975";
-            
             NetworkManager.singleton.networkAddress = serverField.text;
             
             ((StarfighterAuthenticator)NetworkManager.singleton.authenticator).username = loginField.text;

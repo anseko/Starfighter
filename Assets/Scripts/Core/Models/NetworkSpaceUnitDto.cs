@@ -15,8 +15,8 @@ namespace Core.Models
         [SyncVar(hook = nameof(OnCurrentHpChange))] public float currentHp;
         [SyncVar] public bool isDockable;
         [SyncVar] public bool isMovable;
-        [SyncVar] public Vector3 position;
-        [SyncVar] public Quaternion rotation;
+        public Vector3 position;
+        public Quaternion rotation;
         [SyncVar] public string prefabName;
         [SyncVar] public string idString;
         public Guid Id
