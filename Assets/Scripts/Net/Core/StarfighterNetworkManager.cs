@@ -81,7 +81,6 @@ namespace Core
             if (account.type == UserType.Spectator)
             {
                 Debug.Log($"[OnPlayerAuthenticated] Connection {conn.connectionId} is Spectator — no player object.");
-                conn.Send(new StarfighterAuthenticator.SceneSwitchMessage { type = UserType.Spectator, shipNetId = 0 });
                 return;
             }
 
@@ -102,12 +101,18 @@ namespace Core
                     Debug.Log($"[OnPlayerAuthenticated] Pilot '{account.login}' assigned to ship {account.ship.prefabName}|{account.ship.shipId}");
                 }
             }
+            else if (account.type != UserType.Spectator)
+            {
+                var emptyPlayer = Instantiate(Resources.Load<GameObject>(Constants.PathToPrefabs + "EmptyPlayer"));
+                emptyPlayer.name = $"Player_{conn.connectionId}";
+                NetworkServer.AddPlayerForConnection(conn, emptyPlayer);
+                emptyPlayer.SetActive(false);
+                Debug.Log($"[OnPlayerAuthenticated] Created empty player object for {account.type} '{account.login}'");
+            }
             else
             {
                 Debug.Log($"[OnPlayerAuthenticated] Role {account.type} for connection {conn.connectionId} — no authority assigned at start.");
             }
-
-            conn.Send(new StarfighterAuthenticator.SceneSwitchMessage { type = account.type, shipNetId = shipNetId });
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -118,10 +123,9 @@ namespace Core
 
             Debug.unityLogger.Log($"Disconnection: {conn.connectionId}");
             
-            if (conn.identity != null)
+            if (conn.identity != null && conn.identity.name.StartsWith("Player_"))
             {
-                conn.identity.GetComponent<NetworkTransformReliable>()?.ResetState();
-                conn.identity.GetComponent<NetworkRigidbodyReliable>()?.ResetState();
+                NetworkServer.Destroy(conn.identity.gameObject);
             }
 
             NetworkServer.RemovePlayerForConnection(conn, RemovePlayerOptions.KeepActive);

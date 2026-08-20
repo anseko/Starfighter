@@ -106,7 +106,8 @@ namespace Client.UI.Admin
         [ClientRpc]
         private void PostSpawnClientRpc(uint objectId)
         {
-            selectedPrefab = NetworkServer.spawned[objectId].gameObject;
+            if (!NetworkClient.spawned.TryGetValue(objectId, out var identity)) return;
+            selectedPrefab = identity.gameObject;
                 
             if (selectedPrefab.TryGetComponent<PlayerScript>(out var ps))
             {

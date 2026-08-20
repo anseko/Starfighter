@@ -30,7 +30,8 @@ namespace Net.Components
         [ClientRpc]
         private void PaintClientRpc(uint objectId)
         {
-            var material = NetworkServer.spawned[objectId].GetComponent<Renderer>().material;
+            if (!NetworkClient.spawned.TryGetValue(objectId, out var identity)) return;
+            var material = identity.GetComponent<Renderer>().material;
             material.color = colorToPaint;
         }
     }

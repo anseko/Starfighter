@@ -36,12 +36,6 @@ namespace Net.Core
             public uint shipNetId; // 0 для ролей без корабля
         }
 
-        public struct SceneSwitchMessage : NetworkMessage
-        {
-            public UserType type;
-            public uint shipNetId; // 0 для ролей без корабля
-        }
-
         #endregion
         
         #region Server
@@ -94,7 +88,8 @@ namespace Net.Core
                 {
                     code = 200,
                     message = "Wrong login\\password pair",
-                    accountDetails = null
+                    accountDetails = null,
+                    shipNetId = 0
                 };
                 conn.Send(responseMessage);
                 conn.isAuthenticated = false;
@@ -111,7 +106,8 @@ namespace Net.Core
                 {
                     code = 201,
                     message = "Already connected",
-                    accountDetails = null
+                    accountDetails = null,
+                    shipNetId = 0
                 };
                 
                 conn.Send(responseMessage);
@@ -122,11 +118,20 @@ namespace Net.Core
 
             account.connectionId = conn.connectionId;
             
+            uint shipNetId = 0;
+            if (account.type != UserType.Spectator)
+            {
+                var ship = GameObject.Find($"{account.ship.prefabName}|{account.ship.shipId}");
+                if (ship != null)
+                    shipNetId = ship.GetComponent<NetworkIdentity>().netId;
+            }
+            
             responseMessage = new AuthResponseMessage()
             {
                 code = 100,
                 message = "Success",
-                accountDetails = account
+                accountDetails = account,
+                shipNetId = shipNetId
             };
 
             conn.Send(responseMessage);
@@ -156,7 +161,6 @@ namespace Net.Core
         {
             // register a handler for the authentication response we expect from server
             NetworkClient.RegisterHandler<AuthResponseMessage>(OnAuthResponseMessage, false);
-            NetworkClient.RegisterHandler<SceneSwitchMessage>(OnSceneSwitchMessage, false);
         }
 
         /// <summary>
@@ -167,7 +171,6 @@ namespace Net.Core
         {
             // unregister the handler for the authentication response
             NetworkClient.UnregisterHandler<AuthResponseMessage>();
-            NetworkClient.UnregisterHandler<SceneSwitchMessage>();
         }
 
         /// <summary>
@@ -198,6 +201,8 @@ namespace Net.Core
                 // Authentication has been accepted
                 ClientAccept();
                 NetworkClient.Ready();
+                
+                StartCoroutine(SelectSceneWhenReady(msg.accountDetails.type, msg.shipNetId));
             }
             else
             {
@@ -207,15 +212,10 @@ namespace Net.Core
                 ClientReject();
             }
         }
-
-        public void OnSceneSwitchMessage(SceneSwitchMessage msg)
-        {
-            StartCoroutine(SelectSceneWhenReady(msg));
-        }
         
-        private IEnumerator SelectSceneWhenReady(SceneSwitchMessage msg)
+        private IEnumerator SelectSceneWhenReady(UserType type, uint shipNetId)
         {
-            if (msg.shipNetId != 0)
+            if (shipNetId != 0)
             {
                 float timeout = 30f;
                 float elapsed = 0f;
@@ -223,7 +223,7 @@ namespace Net.Core
                 
                 while (elapsed < timeout)
                 {
-                    if (NetworkClient.spawned.TryGetValue(msg.shipNetId, out _))
+                    if (NetworkClient.spawned.TryGetValue(shipNetId, out _))
                     {
                         found = true;
                         break;
@@ -234,12 +234,12 @@ namespace Net.Core
                 
                 if (!found)
                 {
-                    Debug.LogError($"[SelectSceneWhenReady] Ship netId={msg.shipNetId} not found within {timeout}s!");
+                    Debug.LogError($"[SelectSceneWhenReady] Ship netId={shipNetId} not found within {timeout}s!");
                 }
             }
             
             var helper = FindFirstObjectByType<ClientConnectionHelper>();
-            helper.SelectScene(msg.type, msg.shipNetId);
+            helper.SelectScene(type, shipNetId);
         }
 
         #endregion
